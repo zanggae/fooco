@@ -6,16 +6,8 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
+	<a href="testAdmin.do">admin dashboard page test </a>
 
-<P>  The time on the server is ${serverTime}. </P>
-<p> 첫빠 김경남 <p>
-
-<p> 이빠 박지민</p>
-
-<h1>my name is jungwan</h1>
 
 </body>
 </html>
