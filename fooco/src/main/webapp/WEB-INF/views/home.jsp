@@ -6,8 +6,7 @@
 	<title>Home</title>
 </head>
 <body>
-	<a href="testAdmin.do">admin dashboard page test </a>
-
-
+	<a href="testAdmin.do">admin dashboard page test </a><br>
+	<a href="testMember.do">MemberPage</a>
 </body>
 </html>
