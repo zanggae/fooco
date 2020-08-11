@@ -4,10 +4,11 @@
 <html>
 <head>
 	<title>Home</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 	<a href="testAdmin.do">admin dashboard page test </a>
-
+	
 
 </body>
 </html>

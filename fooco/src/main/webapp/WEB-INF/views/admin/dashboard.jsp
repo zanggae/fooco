@@ -38,7 +38,7 @@
 
 <body>
   <div style="height: 100%; width:13%; position: fixed; background-color: rgb(253, 215, 129);">
-    <div align="center"><img src="img/logo.png" width="80%" height="10%"></div>
+    <div align="center"><img src="resources/logo/logo.png" width="80%" height="10%"></div>
 
     <h4 class="ml-4" style="color: rgb(204, 51, 98);"><b>관리자</b></h4>
     <ul id="sideMenubar">
