@@ -9,18 +9,18 @@ public class Member implements Serializable{
 	 */
 	private static final long serialVersionUID = -4207381835304159463L;
 	
-	private int memberNo;
-	private String memberName;
-	private String memberPwd;
-	private String email;
-	private String nickName;
-	private String gender;
-	private String phone;
-	private String address;
-	private Date memberEnrolldate;
-	private Date memberModifydate;
-	private Date memberAccessdate;
-	private String memberStatus;
+	private int memberNo;				// 회원번호
+	private String memberName;			// 이름
+	private String memberPwd;			// 비밀번호
+	private String email;				// 이메일
+	private String nickName;			// 별명
+	private String gender;				// 성별
+	private String phone;				// 전화번호
+	private String address;				// 주소
+	private Date memberEnrolldate;		// 등록날짜
+	private Date memberModifydate;		// 수정날짜
+	private Date memberAccessdate;		// 최근접속일
+	private String memberStatus;		// 상태
 	
 	public Member() {
 	}

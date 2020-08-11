@@ -5,8 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PageTestController {
-	@RequestMapping("testAdmin.do")
+	@RequestMapping("dashboard.do")
 	public String dashboardTest() {
 		return "admin/dashboard";
+	}
+	
+	@RequestMapping("memberManagement.do")
+	public String dashboardTest1() {
+		return "admin/memberManagement";
 	}
 }
