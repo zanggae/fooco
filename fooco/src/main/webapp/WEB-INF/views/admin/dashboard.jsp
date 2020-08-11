@@ -9,8 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+  	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
   <title>Hello, world!</title>
   <style>
@@ -37,38 +37,8 @@
 </head>
 
 <body>
-  <div style="height: 100%; width:13%; position: fixed; background-color: rgb(253, 215, 129);">
-    <div align="center"><img src="resources/logo/logo.png" width="80%" height="10%"></div>
-
-    <h4 class="ml-4" style="color: rgb(204, 51, 98);"><b>관리자</b></h4>
-    <ul id="sideMenubar">
-      <li>
-        <a href="#">대시보드</a>
-      </li>
-      <li>
-        <a href="#">음식점관리</a>
-      </li>
-      <li>
-        <a href="#">테마관리</a>
-      </li>
-      <li>
-        <a href="#">회원관리</a>
-      </li>
-      <li>
-        <a href="#">리뷰관리</a>
-      </li>
-      <li>
-        <a href="#">문의관리</a>
-      </li>
-      <li>
-        <a href="#">게시판관리</a>
-      </li>
-      <li>
-        <a href="#">통계</a>
-      </li>
-
-    </ul>
-  </div>
+  <jsp:include page="../common/adminSideMenubar.jsp"></jsp:include>
+  
   <div style="margin-left: 13%; padding:5%; padding-top: 3%;">
     <div class="container">
       <div class="row">
@@ -487,15 +457,8 @@
   </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
+  script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 
 </html>
