@@ -14,6 +14,12 @@
     <title>Hello, world!</title>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <style>
+    	 @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
+        @font-face {font-family: 'medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff'); font-weight: normal; font-style: normal;}
+        @font-face {font-family: 'heavy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff'); font-weight: bold; font-style: normal;}
+        @font-face {font-family: 'light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: normal; font-style: normal;}
+        * {font-family:'light';}
+    	
       #sideMenubar li a {
       color: white;
       font-size: 130%;
@@ -26,9 +32,13 @@
     #sideMenubar li {
       list-style: none;
     }
+    body {
+      background-color: #fbfbfb;
+    }
     </style>
   </head>
   <body>
+  	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
     <div style="height: 100%; width:13%; position: fixed; background-color: rgb(253, 215, 129);">
       <div align="center"><img src="resources/logo/logo.png" width="80%" height="10%"></div>
   
@@ -38,7 +48,7 @@
           <a href="dashboard.do">대시보드</a>
         </li>
         <li>
-          <a href="#">음식점관리</a>
+          <a href="restaurantEdit.do">음식점관리</a>
         </li>
         <li>
           <a href="#">테마관리</a>
@@ -47,13 +57,10 @@
           <a href="memberManagement.do">회원관리</a>
         </li>
         <li>
-          <a href="#">리뷰관리</a>
+          <a href="inquiryEdit.do">문의관리</a>
         </li>
         <li>
-          <a href="#">문의관리</a>
-        </li>
-        <li>
-          <a href="#">게시판관리</a>
+          <a href="boardEdit.do">게시판관리</a>
         </li>
         <li>
           <a href="#">통계</a>
