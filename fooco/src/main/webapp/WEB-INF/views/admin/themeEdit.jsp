@@ -49,7 +49,7 @@
                 <button class="btn btn-primary mr-0"
                   style="background-color: rgb(204, 51, 98); color: white; border-color: rgb(204, 51, 98);"
                   type="button" id="jin">
-                  <i class="fas fa-search"></i></i></button>
+                  <i class="fas fa-search"></i></button>
               </div>
             </form>
           </div>
@@ -61,11 +61,9 @@
                 <thead>
                   <tr>
                     <th></th>
-                    <th>제먹</th>
+                    <th>제목</th>
                     <th>등록날짜</th>
                     <th>조회수</th>
-                    <th>평점</th>
-                    <th>등록접속일</th>
                     <th>관리</th>
                   </tr>
                 </thead>
@@ -80,8 +78,6 @@
                     </td>
                     <td>12-458264</td>
                     <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
                     <td>
                       <button type="button" class="btn btn-primary" onclick="restaurantDelete()"
                         style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
@@ -98,8 +94,6 @@
                     </td>
                     <td>12-458264</td>
                     <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
                     <td>
                       <button type="button" class="btn btn-primary"
                         style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i

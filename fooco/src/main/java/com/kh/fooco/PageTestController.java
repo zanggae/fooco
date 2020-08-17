@@ -40,4 +40,9 @@ public class PageTestController {
 		return "admin/boardRegistration";
 	}
 	
+	@RequestMapping("themeEdit.do")
+	public String themeEdit() {
+		return "admin/themeEdit";
+	}
+	
 }

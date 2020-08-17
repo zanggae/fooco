@@ -51,7 +51,7 @@
           <a href="restaurantEdit.do">음식점관리</a>
         </li>
         <li>
-          <a href="#">테마관리</a>
+          <a href="themeEdit.do">테마관리</a>
         </li>
         <li>
           <a href="memberManagement.do">회원관리</a>
