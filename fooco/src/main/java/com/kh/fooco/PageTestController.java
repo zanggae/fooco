@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PageTestController {
-	@RequestMapping("dashboard.do")
-	public String dashboard() {
-		return "admin/dashboard";
-	}
+	
 	
 	@RequestMapping("memberManagement.do")
 	public String memberManagement() {

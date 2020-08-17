@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
+<resultMap type="VisitorCount" id="VisitorCountResultSet">
+	<id property="vcId" column="STATIC_ID"/>
+    <result property="day" column="STATIC_DATE"/>
+    <result property="count" column="STATIC_COUNT"/>
+    <result property="totalCount" column="STATIC_T_COUNT"/>    
+</resultMap>
+
+<resultMap type="MembershipStatus" id="MembershipStatusResultSet">	
+    <result property="totalCount" column="TOTAL_COUNT"/>
+    <result property="yCount" column="Y_COUNT"/>
+    <result property="nCount" column="N_COUNT"/>    
+</resultMap>
+
+<select id="selectOneVisitorCount" resultMap="VisitorCountResultSet">
+	SELECT * FROM STATIC WHERE TO_CHAR(STATIC_DATE,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
+</select>
+
+<select id="selectOneMembershipStatus" resultMap="MembershipStatusResultSet">
+	SELECT (SELECT COUNT(*) FROM MEMBER) TOTAL_COUNT
+	,(SELECT COUNT(*) FROM MEMBER WHERE MEMBER_STATUS = 'Y') Y_COUNT
+	, (SELECT COUNT(*) FROM MEMBER WHERE MEMBER_STATUS = 'N') N_COUNT
+	FROM MEMBER
+	WHERE ROWNUM = 1
+</select>
 </mapper>

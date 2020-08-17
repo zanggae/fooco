@@ -9,4 +9,6 @@ import com.kh.fooco.member.model.dao.MemberDao;
 public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDao memberDao;
+
+	
 }
