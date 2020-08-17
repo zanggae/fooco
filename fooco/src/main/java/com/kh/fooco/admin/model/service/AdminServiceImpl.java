@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.fooco.admin.model.dao.AdminDao;
+import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 
@@ -20,6 +21,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public MembershipStatus selectOneMembershipStatus() {
 		return adminDao.selectOneMembershipStatus();
+	}
+
+	@Override
+	public MembershipCount selectOneMembershipCount() {
+		return adminDao.selectOneMembershipCount();
 	}
 
 }

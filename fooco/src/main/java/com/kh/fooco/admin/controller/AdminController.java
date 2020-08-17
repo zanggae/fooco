@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.fooco.admin.model.service.AdminService;
+import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 
@@ -28,7 +29,8 @@ public class AdminController {
 //		System.out.println(membershipStatus);
 		
 		// 맴버십 정보를 조회해온 결과를 담아주자
-		
+		MembershipCount membershipCount = adminService.selectOneMembershipCount();
+		System.out.println(membershipCount);
 		
 		return "admin/dashboard";
 	}
