@@ -4,13 +4,12 @@
 <html>
 <head>
 	<title>Home</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
 
-<P>  The time on the server is ${serverTime}. </P>
-<p> 첫빠 김경남 <p>
+	<a href="dashboard.do">admin dashboard page test </a><br>
+	<a href="testMember.do">MemberPage</a><br>
+
 </body>
 </html>
