@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
 import com.kh.fooco.member.model.vo.Member;
 
@@ -36,10 +38,29 @@ public class MemberController {
 	}
 	
 	//08.10  회원가입 후 등록 버튼 클릭하여 insert - 지민
-	@RequestMapping("memberInsert.do")
-	public String memberInsert(Member m) {
-		System.out.println(m);
-		return null;
+	@RequestMapping("insertMember.do")
+	public String memberInsert(Member m,
+			@RequestParam("emailfront") String emailfront,	//주소 세개로 끊어서 가지고옴 
+//			@RequestParam("emailself") String emailself,
+			@RequestParam("emailback") String emailback) {
+		System.out.println("jsp에서 값 잘 넘어오는 지 "+m);
+		
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());	//암호화된 비밀번호
+		
+		m.setMemberPwd(encPwd);
+		
+		m.setEmail(emailfront + "@" + emailback);	//추후 조건절 걸어서 선택 이메일 추가 해주기
+		
+		//insert작업 시작
+		int result = memberService.insertMember(m);
+		
+		if(result >0) {
+			System.out.println("회원가입성공");
+			return "home";
+		}else{
+			System.out.println("회원가입 실패");
+			throw new MemberException("회원 가입 실패");
+		}
 	}
 	
 	//08.18 로그인 - 지민

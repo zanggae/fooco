@@ -71,4 +71,23 @@
 	AND MEMBER_PWD=#{memberPwd}
 	AND MEMBER_STATUS='Y'
 </select>
+
+<!-- 회원가입 -->
+<!-- <insert id="insertMember" parameterType="Member">
+	INSERT ALL
+	INTO MEMBER VALUES((SELECT MAX(MEMBER_ID)+1 FROM MEMBER),#{memberName},#{memberPwd},#{email},#{nickName},#{gender},#{phone},#{address},SYSDATE,SYSDATE,SYSDATE,DEFAULT,#{memberJoinType})
+	INTO PROFILE_IMG VALUES((SELECT MAX(PROFILE_ID)+1 FROM PROFILE_IMG),#{memberId},#{originalName},#{renameName},SYSDATE,#{file_path})
+    SELECT *
+    FROM DUAL
+</insert> -->
+
+<insert id="insertMember" parameterType="Member">
+		INSERT ALL
+    	INTO MEMBER VALUES(SEQ_MEMBERID.NEXTVAL,#{memberName},#{memberPwd},#{email},#{nickName},#{gender},#{phone},#{address},SYSDATE,SYSDATE,SYSDATE,DEFAULT,#{memberJoinType})
+    	INTO PROFILE_IMG VALUES(SEQ_PROFILEID.NEXTVAL,#{memberId},#{originalName},#{renameName},SYSDATE,#{file_path})
+    	SELECT *
+    	FROM DUAL
+</insert>
+
+
 </mapper>
