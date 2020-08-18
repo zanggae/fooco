@@ -141,6 +141,8 @@
     /* 이메일 입력창 */
     #selfSiteName{
       width: 100px;
+      border: 1px solid gray;
+      border-radius: 3px;
     }
     #selectEmail{
       height: 29px;
@@ -182,38 +184,42 @@
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">LOGIN</button>
 
     <!-- 1.로그인 모달 영역 -->
-    <form action="mlogin.do" method="post">
+    <form action="mlogin.do" method="post" id="loginform">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content" id="for_first_modal">
-            <div class="container">
-              <div class="row">
-                <div class="col">
-                  <h4 class="modal-title" id="myModalLabel">LOGIN</h4><br><br><br><br>
-                </div>
-                <div class="col">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-                </div>
-                <div class="w-100"></div>
-                <div class="col">
-                  <input type="text" name="email" placeholder="이메일"><span style="line-height: 30px;"></span>
-                  <input type="password" name="memberPwd" placeholder="비밀번호"><span style="line-height: 50px;"></span>
-                  <button id="login_btn">LOGIN</button>
-                  <hr>
-                  <button id="google_btn">Google로 계속</button><br><br><br>
-                </div>
-                 <div id="forLine"></div>
-                <div class="col">
-                  <img src="image/PlateCoupon.png">
-                  <button id="JoinMember_btn" onclick="location.href='joinMemberView.do'">회원가입</button><br><br>
-                  <button type="button" id="toPwdSearch" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">비밀번호 찾기</button>
-                </div>
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <h4 class="modal-title" id="myModalLabel">LOGIN</h4><br><br><br><br>
+              </div>
+              <div class="col">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">x</span></button>
+              </div>
+              <div class="w-100"></div>
+              <div class="col">
+                <input type="text" name="email" placeholder="이메일" id="email_input" required><span style="line-height: 30px;"></span>
+                <input type="password" name="memberPwd" placeholder="비밀번호" id="pwd_input" required><span style="line-height: 50px;"></span>
+                <button id="login_btn">LOGIN</button>
+                <hr>
+                <button id="google_btn">Google로 계속</button><br><br><br>
+              </div>
+              <div id="forLine"></div>
+              <div class="col">
+                <img src="image/PlateCoupon.png">
+                <button id="JoinMember_btn" onclick="joinMemberView();">회원가입</button><br><br>
+                <!-- <a href="#" id="searchPwd">비밀번호 찾기</a> -->
+                <button type="button" id="toPwdSearch" class="btn btn-primary" data-toggle="modal"
+                  data-target="#staticBackdrop">비밀번호 찾기</button>
               </div>
             </div>
+          </div>
+        </div>
       </div>
     </div>
-    </div>
-    </form>
+  </form>
+   
     <!--2.비밀번호 찾기 모달-->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -230,21 +236,21 @@
             <h5>패스워드를 잊으셨나요?</h5>
             <p>아래에 이메일 주소를 입력하시면 임시비밀번호를 보내드립니다.</p><br>
             <form>
-            <h5>이메일주소</h5>
-            <input type="text" required id="email" placeholder="가입메일주소">
-            <span style="font-size: 17px;">@</span>
-                <input type="text" id="selfSiteName" required disabled>
-                <select class="" id="selectEmail">
-                  <option selected>선택하세요</option>
-                  <option value="naver.com">naver.com</option>
-                  <option value="daum.net">daum.net</option>
-                  <option value="google.com">google.com</option>
-                  <option value="hanmail.net">hanmail.net</option>
-                  <option value="selfEmail" id="selfEmail">직접 입력</option>
-                </select><br><br><br>
-                <button type="button" onclick="validate()" id="SearchPwd_btn">비밀번호 찾기</button><br>
-                <input type="reset" value="취소" id="SearchPwd_reset_btn">
-              </form><br>
+              <h5>이메일주소</h5>
+              <input type="text" required id="email" placeholder="가입메일주소">
+              <span style="font-size: 17px;">@</span>
+              <input type="text" id="selfSiteName" required disabled>
+              <select class="" id="selectEmail">
+                <option value="e_option" selected>선택하세요</option>
+                <option value="naver.com">naver.com</option>
+                <option value="daum.net">daum.net</option>
+                <option value="google.com">google.com</option>
+                <option value="hanmail.net">hanmail.net</option>
+                <option value="selfEmail" id="selfEmail">직접 입력</option>
+              </select><br><br><br>
+              <button type="button" id="SearchPwd_btn">비밀번호 찾기</button><br>
+              <input type="reset" value="취소" id="SearchPwd_reset_btn">
+            </form><br>
           </div>
         </div>
       </div>
@@ -253,14 +259,72 @@
 
   <!--footer시작-->
   <footer></footer>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <!----------------------로그인 모달 영역-------------------------------->
   <script>
-   //비밀번호 찾기 시 로그인 모달 꺼지도록 함
-  $("#toPwdSearch").click(function(){
-          $("#myModal").modal("hide");
-      })
+    //로그인 버튼 클릭 시 빈값이면 입력하도록
+   /*  $("#login_btn").on("click",function(){
+      if($("#email_input").val()=="" || ($("#pwd_input").val()=="")){
+        alert("이메일과 비밀번호를 입력해주세요");
+        return;
+      } 
+      //+바로 로그인 실패 말고 다시 입력하도록 함
+      //+추가할 것 : 존재하지않는 아이디나 비밀번호일 경우 alert창 띄워주기
+    })*/
   </script>
+  <!--------------------비밀번호 찾기 모달 영역------------------------------>
+  <script>
+    //비밀번호 찾기 시 로그인 모달 꺼지도록 함
+    $("#toPwdSearch").click(function () {
+      $("#myModal").modal("hide");
+    })
+
+    $("#SearchPwd_btn").on("click",function(){
+      if($("#email").val()==""){
+        alert("이메일을 입력해주세요");
+        return;
+      }
+      if($("#selfSiteName").val()=="" &&($("#selectEmail").val()==""||$("#selectEmail").val()=="e_option")){
+        alert("이메일주소를 선택해주세요");
+        return;
+      }
+      if($("#selectEmail").val()=="selfEmail" && ($("#selfSiteName").val()=="")){
+        alert("이메일 주소를 입력해주세요");
+        $("#selfSiteName").focus();
+        return;
+      }
+    })
+    //이메일 선택 시 직접 입력창 활성화
+    $("#selectEmail").change(function(){
+            var selectedValue = $("#selectEmail").children("option:selected").html();
+                
+            if(selectedValue==$("#selfEmail").html()){
+                $("#selfSiteName").prop("disabled", false).focus().prop("value", "");
+            }else if(!$("#selfSiteName").prop("disabled")){
+                $("#selfSiteName").prop("disabled", true).prop("value", "");
+            }
+            if($("#selfSiteName").prop("disabled")){
+                $("#selfSiteName").css("background", "lightgray");
+            }else if($("#selfSiteName").prop("disabled")==false){
+                $("#selfSiteName").css("background", "white");
+            }
+        });
+        if($("#selfSiteName").prop("disabled")){
+                $("#selfSiteName").css("background", "lightgray");
+        }
+
+
+  </script>
+  
+  <!-- 페이지 이동 script -->
+  <script>
+  	function joinMemberView(){
+  		$("#loginform").attr("action","joinMemberView.do");
+    	$("#loginform").submit();
+  	}
+  </script>
+
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -276,3 +340,8 @@
 </body>
 
 </html>
+
+<!--해야할 것-->
+<!--
+  1. 로그인 - 존재하지않는 아이디나 비밀번호일 경우 alert창 띄워주기
+-->

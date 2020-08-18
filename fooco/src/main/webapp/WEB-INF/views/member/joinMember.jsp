@@ -38,7 +38,7 @@
       hr{
         margin-left: 18%;
         width: 67%;
-       /*  background: rgb(253, 215, 129); */
+        background: rgb(253, 215, 129);
       }
       span{
         font-size: 11px;
@@ -129,39 +129,41 @@
           <p>진짜 맛집을 찾아서! FOOCO와 함께 하세요!</p><hr>
         </div>
         <br><br>
-        <form id="joinForm" action="memberInsert.do" method="post" >
+        <form id="" action="#" >
           <table align="center" id="Join_InputT">
             <tr>
               <td><label><li type="square">이름</li></label></td>
-              <td><input type="text" id="userName" name="memberName" required></td>
+              <td><input type="text" id="userName" required></td>
               <td><label id="resultName"></label></td>
             </tr>
             <tr>
               <td><label><li type="square">이메일</li></label></td>
-              <td><input type="text" id="email" name="email" required></td>
+              <td><input type="text" id="email" required></td>
               <td>
                 <span style="font-size: 17px;">@</span>&nbsp;
                 <input type="text" id="selfSiteName" required disabled>
                 <select class="" id="selectEmail">
-                  <option selected>선택하세요</option>
+                  <option value="e_option" selected>선택하세요</option>
                   <option value="naver.com">naver.com</option>
                   <option value="daum.net">daum.net</option>
                   <option value="google.com">google.com</option>
                   <option value="hanmail.net">hanmail.net</option>
                   <option value="selfEmail" id="selfEmail">직접 입력</option>
                 </select>&nbsp;
-                <input type="button" value="본인 인증" id="identity_confirm_btn">
+                <input type="button" value="본인 인증" id="identity_confirm_btn" onclick="identity_confirm();">
                 <label id="resultEmail"></label>
               </td>
             </tr>
             <tr>
               <td><li type="square"><label>인증번호 입력</label></li></td>
-              <td><input type="text"></td>
-              <td><input type="button" value="확인" id="comfirm_btn"></td>
+              <td><input type="text" id="checkEmailnum"></td>  <!--인증번호 입력하는 input태그-->
+              <td><input type="button" value="확인" id="comfirm_btn" onclick="comfirm_check();">
+                  &nbsp;<label id="resultEamilCheck" style="font-size: 12px;"></label>
+              </td>
             </tr>
             <tr>
               <td><label><li type="square">닉네임</li></label></td>
-              <td><input type="text" id="nickName" name="nickName" required></td>
+              <td><input type="text" id="nickName" required></td>
               <td>
                 <span>3-7자의 한글만 사용 가능</span>
                 <label id="resultNickName"></label>
@@ -170,7 +172,7 @@
             </tr>
             <tr>
               <td><label><li type="square">비밀번호</li></label></td>
-              <td><input type="password" id="userPwd1" name="memberPwd" required></td>
+              <td><input type="password" id="userPwd1"required></td>
               <td>
               <span>8~16자의 영문자,숫자 사용하여 입력</span>
               <label id="resultPwd1"></label>
@@ -191,11 +193,11 @@
             </tr>
             <tr>
               <td><label><li type="square">약관동의</li></label></td>
-              <td><input type="checkbox"><label>약관에 동의 합니다</label></td>
-              <td><a href="#">약관 보기</a></td>
+              <td><input type="checkbox" id="terms_box"><label>약관에 동의 합니다</label></td>
+              <td><a href="member/terms">약관 보기</a></td>
             </tr>
           </table><br><br><br><br>
-              <button type="button" onclick="joinMember()" id="Join_btn">회원가입</button>&nbsp;
+              <button type="button" onclick="validate()" id="Join_btn">회원가입</button>&nbsp;
               <input type="reset" value="취소" id="join_reset_btn">
         </form><br><br><br><br>
 
@@ -309,12 +311,6 @@
 
       </script>
 
-      <!--이메일 본인인증 기능-->
-      <script>
-        checkSuccess="";
-        completeCheck=-1;
-      </script>
-
       <!--회원 가입 중 새로고침 막기-->
       <script>
         $(function(){
@@ -330,16 +326,137 @@
         })
       </script>
       
+      <!--0810 깃 이후 추가한 것-->
+      <!--각 항목 입력했는 지 체크-->
       <script>
-      	function joinMember(){
-      		$("#joinForm").submit();
-      		alert("test");
-      	}
+        function validate(){
+          if($("#userName").val()==""){
+               alert("이름을 입력하세요");
+               $("#userName").focus();
+               return;
+          }
+          if($("#email").val()==""){
+            alert("이메일을 입력하세요");
+            $("#email").focus();
+            return;
+          }
+          if($("#nickName").val()==""){
+            alert("닉네임을 입력하세요");
+            $("#nickName").focus();
+            return;
+          }
+          if($("#userPwd1").val()==""){
+            alert("비밀번호를 입력하세요");
+            $("#userPwd1").focus();
+            return;
+          }
+          if ( ! jQuery('input[name="gender"]:checked').val() ) {
+            alert('성별을 선택해주세요.');
+            jQuery('input[name="gender"]').focus();
+            return false;
+          }
+          if($("#terms_box").prop("checked")==false){
+            alert("필수 약관에 동의 하셔야 합니다");
+            return;
+          }
+        }
+      </script>
+
+      <!--이메일 본인인증-->
+      <script>
+        checkSuccess="";
+        completeCheck=-1;
+
+        //인증메일 전송 함수
+        //이메일 입력했는 지 확인
+        function identity_confirm(){
+          if($("#email").val()==""){
+            alert("이메일을 입력해주세요");
+            $("#email").focus();
+            return;
+          }
+          if($("#selfSiteName").val()=="" &&($("#selectEmail").val()==""||$("#selectEmail").val()=="e_option")){
+            alert("이메일주소를 선택해주세요");
+            return;
+          }
+          if($("#selectEmail").val()=="selfEmail" && ($("#selfSiteName").val()=="")){
+            alert("이메일 주소를 입력해주세요");
+            $("#selfSiteName").focus();
+            return;
+          }
+
+          if(completeCheck==1){
+            alert("이미 인증받은 이메일입니다");
+            return;
+          }
+
+          //이메일 데이터 통합
+          var email1 = $("#email");
+          var email2 = "";
+
+          if($("#selfSiteName").prop("disabled")==true){
+            email2 = $("#selectEmail");     //선택이메일
+          }else{
+            email2 = $("#selfSiteName");    //직접입력 이메일
+          }
+          $.ajax({
+            url:"sendEmail.do",
+            type:"post",
+            data:{email:email1.val()+"@"+email2.val()},
+            success:function(data){
+              console.log("성공");
+              checkSuccess=data;
+              $("#identity_confirm_btn").prop("disable",true);
+              $("#comfirm_btn").prop("disabled",false);
+              alert("입력한 이메일로 인증번호가 전송되었습니다.");
+            },
+            error:function(request, status, error){
+              lert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+            
+          })
+        }
+
+          //인증번호 확인 버튼 함수
+          function comfirm_check(){
+            //이메일 인증 후 진행하는지
+            if(checkSuccess==""){
+              alert("인증메일을 받고 진행해주세요");
+              return;
+            }
+            //빈 값인지 
+            if($("#").val()==""){
+              alert("인증번호를 입력해주세요");
+              return;
+            }
+            var compare = document.getElementById("#checkEmailnum").valueB;
+
+            if(checkSuccess==compare){
+              alert("인증에 성공하셨습니다.");
+              checkSuccess=="success";
+              completeCheck=1;
+
+              $("#identity_confirm_btn").prop("disabled",false);
+              $("#resultEmailCheck").text("인증 성공");
+            }else if(checkSuccess==""){
+              alert("본인 인증 버튼을 눌러주세요");
+            }else{
+              alert("맞지 않는 번호입니다");
+              $("#checkEmailnum").val();
+            }
+          }
+          
+     
+          
+			
+        
+
+        
       </script>
       
 
       <!--추가할 것-->
-      <!--이메일 관련(인증), 중복 확인 AJAX, Submit-->
+      <!--이메일 관련(인증), 닉네임 중복 확인 AJAX, Submit-->
       
       
 
