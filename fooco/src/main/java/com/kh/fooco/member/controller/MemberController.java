@@ -3,6 +3,7 @@ package com.kh.fooco.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,11 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	// 암호화를 위한 빈 객체 등록
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+
 	//08.10 loginTest - 지민 (로그인모달창으로 이동하는 mapping)
 	@RequestMapping("testMember.do")
 	public String MemberLoginTest() {
