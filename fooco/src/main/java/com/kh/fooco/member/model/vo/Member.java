@@ -9,7 +9,7 @@ public class Member implements Serializable{
 	 */
 	private static final long serialVersionUID = -4207381835304159463L;
 	
-	private int memberNo;				// 회원번호
+	private int memberId;				// 회원번호
 	private String memberName;			// 이름
 	private String memberPwd;			// 비밀번호
 	private String email;				// 이메일
@@ -21,14 +21,25 @@ public class Member implements Serializable{
 	private Date memberModifydate;		// 수정날짜
 	private Date memberAccessdate;		// 최근접속일
 	private String memberStatus;		// 상태
+	private String memberJoinType;		// 회원가입유형
+	
+//	+ 프로필 파일 속성(한번 더 체크해야함)	
+	private int profileId;				//파일번호
+	private String originalName;		//원본이름
+	private String renameName;			//변경이름
+	private Date uploadDate;			//업로드일
+	private String file_path;			//파일경로
+	
 	
 	public Member() {
 	}
 
-	public Member(int memberNo, String memberName, String memberPwd, String email, String nickName, String gender,
+
+	public Member(int memberId, String memberName, String memberPwd, String email, String nickName, String gender,
 			String phone, String address, Date memberEnrolldate, Date memberModifydate, Date memberAccessdate,
-			String memberStatus) {
-		this.memberNo = memberNo;
+			String memberStatus, String memberJoinType, int profileId, String originalName, String renameName,
+			Date uploadDate, String file_path) {
+		this.memberId = memberId;
 		this.memberName = memberName;
 		this.memberPwd = memberPwd;
 		this.email = email;
@@ -40,111 +51,206 @@ public class Member implements Serializable{
 		this.memberModifydate = memberModifydate;
 		this.memberAccessdate = memberAccessdate;
 		this.memberStatus = memberStatus;
+		this.memberJoinType = memberJoinType;
+		this.profileId = profileId;
+		this.originalName = originalName;
+		this.renameName = renameName;
+		this.uploadDate = uploadDate;
+		this.file_path = file_path;
 	}
 
-	public int getMemberNo() {
-		return memberNo;
+
+	public int getMemberId() {
+		return memberId;
 	}
 
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
+
 
 	public String getMemberName() {
 		return memberName;
 	}
 
+
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
+
 
 	public String getMemberPwd() {
 		return memberPwd;
 	}
 
+
 	public void setMemberPwd(String memberPwd) {
 		this.memberPwd = memberPwd;
 	}
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 
 	public String getNickName() {
 		return nickName;
 	}
 
+
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+
 
 	public String getGender() {
 		return gender;
 	}
 
+
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
 
 	public String getPhone() {
 		return phone;
 	}
 
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 
 	public Date getMemberEnrolldate() {
 		return memberEnrolldate;
 	}
 
+
 	public void setMemberEnrolldate(Date memberEnrolldate) {
 		this.memberEnrolldate = memberEnrolldate;
 	}
+
 
 	public Date getMemberModifydate() {
 		return memberModifydate;
 	}
 
+
 	public void setMemberModifydate(Date memberModifydate) {
 		this.memberModifydate = memberModifydate;
 	}
+
 
 	public Date getMemberAccessdate() {
 		return memberAccessdate;
 	}
 
+
 	public void setMemberAccessdate(Date memberAccessdate) {
 		this.memberAccessdate = memberAccessdate;
 	}
+
 
 	public String getMemberStatus() {
 		return memberStatus;
 	}
 
+
 	public void setMemberStatus(String memberStatus) {
 		this.memberStatus = memberStatus;
 	}
 
+
+	public String getMemberJoinType() {
+		return memberJoinType;
+	}
+
+
+	public void setMemberJoinType(String memberJoinType) {
+		this.memberJoinType = memberJoinType;
+	}
+
+
+	public int getProfileId() {
+		return profileId;
+	}
+
+
+	public void setProfileId(int profileId) {
+		this.profileId = profileId;
+	}
+
+
+	public String getOriginalName() {
+		return originalName;
+	}
+
+
+	public void setOriginalName(String originalName) {
+		this.originalName = originalName;
+	}
+
+
+	public String getRenameName() {
+		return renameName;
+	}
+
+
+	public void setRenameName(String renameName) {
+		this.renameName = renameName;
+	}
+
+
+	public Date getUploadDate() {
+		return uploadDate;
+	}
+
+
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+
+	public String getFile_path() {
+		return file_path;
+	}
+
+
+	public void setFile_path(String file_path) {
+		this.file_path = file_path;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Member [memberNo=" + memberNo + ", memberName=" + memberName + ", memberPwd=" + memberPwd + ", email="
+		return "Member [memberId=" + memberId + ", memberName=" + memberName + ", memberPwd=" + memberPwd + ", email="
 				+ email + ", nickName=" + nickName + ", gender=" + gender + ", phone=" + phone + ", address=" + address
 				+ ", memberEnrolldate=" + memberEnrolldate + ", memberModifydate=" + memberModifydate
-				+ ", memberAccessdate=" + memberAccessdate + ", memberStatus=" + memberStatus + "]";
+				+ ", memberAccessdate=" + memberAccessdate + ", memberStatus=" + memberStatus + ", memberJoinType="
+				+ memberJoinType + ", profileId=" + profileId + ", originalName=" + originalName + ", renameName="
+				+ renameName + ", uploadDate=" + uploadDate + ", file_path=" + file_path + "]";
 	}
+	
+	
 	
 	
 	
