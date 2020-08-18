@@ -9,9 +9,9 @@ public class MembershipStatus implements Serializable{
 	 */
 	private static final long serialVersionUID = -2203981215671269664L;
 	
-	private int totalCount;
-	private int yCount;
-	private int nCount;
+	private int totalCount;		// 전체 회원수
+	private int yCount;			// 현제 가입 회원수
+	private int nCount;			// 탈퇴 회원수
 	public MembershipStatus() {
 		super();
 	}

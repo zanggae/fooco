@@ -39,9 +39,9 @@
 
 <select id="selectOneMembershipCount" resultMap="MembershipCountResultSet">
 	SELECT SYSDATE DAY 
-	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=1) GOLD
-	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=2) SILVER
-	, (SELECT COUNT(*) FROM membership_list) TOTAL
+	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=1 AND MS_STATUS = 'Y') GOLD
+	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=2 AND MS_STATUS = 'Y') SILVER
+	, (SELECT COUNT(*) FROM membership_list WHERE MS_STATUS = 'Y') TOTAL
 	FROM membership_list WHERE ROWNUM = 1
 </select>
 </mapper>
