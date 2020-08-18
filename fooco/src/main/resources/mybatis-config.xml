@@ -6,7 +6,9 @@
 	</settings>
 	
 	<typeAliases>	
-		
+		<typeAlias type="com.kh.fooco.admin.model.vo.VisitorCount" alias="VisitorCount"/>
+		<typeAlias type="com.kh.fooco.admin.model.vo.MembershipStatus" alias="MembershipStatus"/>
+		<typeAlias type="com.kh.fooco.admin.model.vo.MembershipCount" alias="MembershipCount"/>
 	</typeAliases>
 	
 	<mappers>

@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PageTestController {
-	@RequestMapping("dashboard.do")
-	public String dashboard() {
-		return "admin/dashboard";
-	}
+	
 	
 	@RequestMapping("memberManagement.do")
 	public String memberManagement() {
@@ -38,6 +35,11 @@ public class PageTestController {
 	@RequestMapping("boardRegistration.do")
 	public String boardRegistration() {
 		return "admin/boardRegistration";
+	}
+	
+	@RequestMapping("themeEdit.do")
+	public String themeEdit() {
+		return "admin/themeEdit";
 	}
 	
 }

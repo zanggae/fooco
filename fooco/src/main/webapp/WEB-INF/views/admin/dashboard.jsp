@@ -37,8 +37,9 @@
                   <div class="card-body">
 
                     <h5 class="card-title"><b>조회수</b></h5>
-                    <p class="card-text"><b>total 조회수 : </b>200</p>
-                    <p class="card-text"><b>today 조회수 : </b>20</p><br>
+                    <p class="card-text"><b>today : </b>${vc.day }</p>
+                    <p class="card-text"><b>total 조회수 : </b>${vc.totalCount }</p>
+                    <p class="card-text"><b>today 조회수 : </b>${vc.count }</p>
                   </div>
                 </div>
               </div>
@@ -46,9 +47,9 @@
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title"><b>회원현황</b></h5>
-                    <p class="card-text"><b>총 회원가입 수 : </b>200</p>
-                    <p class="card-text"><b>현 회원 수 : </b>180</p>
-                    <p class="card-text"><b>탈퇴수 : </b>20</p>
+                    <p class="card-text"><b>총 회원가입 수 : </b>${membershipStatus.totalCount }</p>
+                    <p class="card-text"><b>현재 회원 수 : </b>${membershipStatus.yCount }</p>
+                    <p class="card-text"><b>탈퇴 회원 수 : </b>${membershipStatus.nCount }</p>
                   </div>
                 </div>
               </div>
@@ -56,8 +57,9 @@
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title"><b>맴버십</b></h5>
-                    <p class="card-text"><b>total 가입자수 : </b>200</p>
-                    <p class="card-text"><b>today 가입자수 : </b>20</p><br>
+                    <p class="card-text"><b>total 가입자수 : </b>${membershipCount.total }</p>
+                    <p class="card-text"><b>gold 가입자수 : </b>${membershipCount.gold }</p>
+                    <p class="card-text"><b>silver 가입자수 : </b>${membershipCount.silver }</p>
                   </div>
                 </div>
               </div>
