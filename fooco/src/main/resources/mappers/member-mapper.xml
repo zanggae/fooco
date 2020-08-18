@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+<!-- 방문자수 조회 -->
+<resultMap type="VisitorCount" id="VisitorCountResultSet">
+	<id property="vcId" column="STATIC_ID"/>
+    <result property="day" column="STATIC_DATE"/>
+    <result property="count" column="STATIC_COUNT"/>
+    <result property="totalCount" column="STATIC_T_COUNT"/>    
+</resultMap>
+
+<!-- 회원현황 조회 -->
+<resultMap type="MembershipStatus" id="MembershipStatusResultSet">	
+    <result property="totalCount" column="TOTAL_COUNT"/>
+    <result property="yCount" column="Y_COUNT"/>
+    <result property="nCount" column="N_COUNT"/>    
+</resultMap>
+
+<!-- 맴버십 회원 조회 -->
+<resultMap type="MembershipCount" id="MembershipCountResultSet">
+	<result property="day" column="DAY"/>
+    <result property="gold" column="GOLD"/>
+    <result property="silver" column="SILVER"/>
+    <result property="total" column="TOTAL"/> 
+</resultMap>
+
+<!-- 멤버 -->
+<resultMap type="Member" id="MemberResultSet">
+	<id property="memberId" column="MEMBER_ID"></id>
+	<result property="memberName" column="MEMBER_NAME"></result>
+	<result property="memberPwd" column="MEMBER_PWD"></result>
+	<result property="email" column="EMAIL"></result>
+	<result property="nickName" column="NICKNAME"></result>
+	<result property="gender" column="GENDER"></result>
+	<result property="phone" column="PHONE"></result>
+	<result property="address" column="ADDRESS"></result>
+	<result property="memberEnrolldate" column="MEMBER_ENROLLDATE"></result>
+	<result property="memberModifydate" column="MEMBER_MODIFYDATE"></result>
+	<result property="memberAccessdate" column="MEMBER_ACCESSDATE"></result>
+	<result property="memberStatus" column="MEMBER_STATUS"></result>
+	<result property="memberJoinType" column="MEMBERJOIN_TYPE"></result>
+</resultMap>
+
+
+<select id="selectOneVisitorCount" resultMap="VisitorCountResultSet">
+	SELECT * FROM STATIC WHERE TO_CHAR(STATIC_DATE,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
+</select>
+
+<select id="selectOneMembershipStatus" resultMap="MembershipStatusResultSet">
+	SELECT (SELECT COUNT(*) FROM MEMBER) TOTAL_COUNT
+	,(SELECT COUNT(*) FROM MEMBER WHERE MEMBER_STATUS = 'Y') Y_COUNT
+	, (SELECT COUNT(*) FROM MEMBER WHERE MEMBER_STATUS = 'N') N_COUNT
+	FROM MEMBER
+	WHERE ROWNUM = 1
+</select>
+
+<select id="selectOneMembershipCount" resultMap="MembershipCountResultSet">
+	SELECT SYSDATE DAY 
+	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=1 AND MS_STATUS = 'Y') GOLD
+	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=2 AND MS_STATUS = 'Y') SILVER
+	, (SELECT COUNT(*) FROM membership_list WHERE MS_STATUS = 'Y') TOTAL
+	FROM membership_list WHERE ROWNUM = 1
+</select>
+
+<!-- 로그인(회원 불러오기) -->
+<select id="selectOneMember" resultMap="MemberResultSet">
+	SELECT *
+	FROM MEMBER
+	WHERE EMAIL=#{email}
+	AND MEMBER_PWD=#{memberPwd}
+	AND MEMBER_STATUS='Y'
+</select>
+</mapper>

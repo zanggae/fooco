@@ -4,20 +4,17 @@
 <html>
 <head>
 	<title>Home</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
 
-<P>  The time on the server is ${serverTime}. </P>
-<p> 첫빠 김경남 <p>
+	<a href="dashboard.do">admin dashboard page test </a><br>
+	<a href="testMember.do">MemberPage</a><br>
+	<c:if test="${!empty sessionScope.loginUser }">
+	 		<h3 align="right">
+	 			<c:out value="${loginUser.name }님 환영합니다"></c:out>
+	 		</h3>
+	 	</c:if>
 
-<p> 이빠 박지민</p>
-
-<p> 3빠 동원</p>
-<h1>my name is jungwan</h1>
-
-<h5>0803 git test</h5>
 </body>
 </html>
