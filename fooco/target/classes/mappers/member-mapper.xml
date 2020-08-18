@@ -25,6 +25,24 @@
     <result property="total" column="TOTAL"/> 
 </resultMap>
 
+<!-- 멤버 -->
+<resultMap type="Member" id="MemberResultSet">
+	<id property="memberId" column="MEMBER_ID"></id>
+	<result property="memberName" column="MEMBER_NAME"></result>
+	<result property="memberPwd" column="MEMBER_PWD"></result>
+	<result property="email" column="EMAIL"></result>
+	<result property="nickName" column="NICKNAME"></result>
+	<result property="gender" column="GENDER"></result>
+	<result property="phone" column="PHONE"></result>
+	<result property="address" column="ADDRESS"></result>
+	<result property="memberEnrolldate" column="MEMBER_ENROLLDATE"></result>
+	<result property="memberModifydate" column="MEMBER_MODIFYDATE"></result>
+	<result property="memberAccessdate" column="MEMBER_ACCESSDATE"></result>
+	<result property="memberStatus" column="MEMBER_STATUS"></result>
+	<result property="memberJoinType" column="MEMBERJOIN_TYPE"></result>
+</resultMap>
+
+
 <select id="selectOneVisitorCount" resultMap="VisitorCountResultSet">
 	SELECT * FROM STATIC WHERE TO_CHAR(STATIC_DATE,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
 </select>
@@ -43,5 +61,14 @@
 	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=2 AND MS_STATUS = 'Y') SILVER
 	, (SELECT COUNT(*) FROM membership_list WHERE MS_STATUS = 'Y') TOTAL
 	FROM membership_list WHERE ROWNUM = 1
+</select>
+
+<!-- 로그인(회원 불러오기) -->
+<select id="selectOneMember" resultMap="MemberResultSet">
+	SELECT *
+	FROM MEMBER
+	WHERE EMAIL=#{email}
+	AND MEMBER_PWD=#{memberPwd}
+	AND MEMBER_STATUS='Y'
 </select>
 </mapper>

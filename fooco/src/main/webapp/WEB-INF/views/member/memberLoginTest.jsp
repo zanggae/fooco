@@ -182,6 +182,7 @@
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">LOGIN</button>
 
     <!-- 1.로그인 모달 영역 -->
+    <form action="mlogin.do" method="post">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content" id="for_first_modal">
@@ -195,8 +196,8 @@
                 </div>
                 <div class="w-100"></div>
                 <div class="col">
-                  <input type="text" placeholder="이메일"><span style="line-height: 30px;"></span>
-                  <input type="password" placeholder="비밀번호"><span style="line-height: 50px;"></span>
+                  <input type="text" name="email" placeholder="이메일"><span style="line-height: 30px;"></span>
+                  <input type="password" name="memberPwd" placeholder="비밀번호"><span style="line-height: 50px;"></span>
                   <button id="login_btn">LOGIN</button>
                   <hr>
                   <button id="google_btn">Google로 계속</button><br><br><br>
@@ -212,6 +213,7 @@
       </div>
     </div>
     </div>
+    </form>
     <!--2.비밀번호 찾기 모달-->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdropLabel" aria-hidden="true">
