@@ -39,6 +39,7 @@
                                     <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">고객센터</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item mh-dropdown-item" href="#">로그아웃</a>
                                 </div>

@@ -28,4 +28,9 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectOneMembershipCount();
 	}
 
+	@Override
+	public int insertVisitorCount() {
+		return adminDao.insertVisitorCount();
+	}
+
 }

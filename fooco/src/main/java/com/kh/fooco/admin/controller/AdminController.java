@@ -1,5 +1,7 @@
 package com.kh.fooco.admin.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +26,11 @@ public class AdminController {
 		
 		// 방문자수 조회 해온 결과를 담아주자
 		VisitorCount vc = adminService.selectOneVisitorCount();
-//		System.out.println(vc);
+		System.out.println(vc);
 		
 		// 회원현황을 조회해온 결과를 담아주자
 		MembershipStatus membershipStatus = adminService.selectOneMembershipStatus();
-//		System.out.println(membershipStatus);
+		System.out.println(membershipStatus);
 		
 		// 맴버십 정보를 조회해온 결과를 담아주자
 		MembershipCount membershipCount = adminService.selectOneMembershipCount();
@@ -43,5 +45,16 @@ public class AdminController {
 			throw new AdminException("대쉬보드 조회 실패!");
 		}
 		return mv;
+	}
+	
+	@RequestMapping("visitCount.do")
+	public void visitCount(HttpServletResponse response) {
+		response.setContentType("application/json;charset=utf-8");
+		
+		VisitorCount vc = adminService.selectOneVisitorCount();
+		
+		if(vc == null) {
+			int result = adminService.insertVisitorCount();
+		}
 	}
 }

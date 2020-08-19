@@ -11,4 +11,6 @@ public interface AdminService {
 	MembershipStatus selectOneMembershipStatus();
 
 	MembershipCount selectOneMembershipCount();
+
+	int insertVisitorCount();
 }

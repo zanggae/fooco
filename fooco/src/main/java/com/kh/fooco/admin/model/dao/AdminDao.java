@@ -28,4 +28,8 @@ public class AdminDao {
 		return sqlSessionTemplate.selectOne("memberMapper.selectOneMembershipCount");
 	}
 
+	public int insertVisitorCount() {
+		return sqlSessionTemplate.selectOne("memberMapper.selectOneMembershipCount");
+	}
+
 }
