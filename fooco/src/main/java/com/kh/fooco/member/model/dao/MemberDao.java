@@ -12,10 +12,16 @@ public class MemberDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-
+	//로그인 메소드
 	public Member selectoneMember(Member m) {
 		
 		return sqlSessionTemplate.selectOne("memberMapper.selectOneMember",m);
+	}
+
+	//회원가입 메소드
+	public int insertMember(Member m) {
+		
+		return sqlSessionTemplate.insert("memberMapper.insertMember",m);
 	}
 
 	

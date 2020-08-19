@@ -129,20 +129,20 @@
           <p>진짜 맛집을 찾아서! FOOCO와 함께 하세요!</p><hr>
         </div>
         <br><br>
-        <form id="" action="#" >
+        <form id="joinForm" action="insertMember.do" method="post">
           <table align="center" id="Join_InputT">
             <tr>
               <td><label><li type="square">이름</li></label></td>
-              <td><input type="text" id="userName" required></td>
+              <td><input type="text" id="userName" name="memberName" required></td>
               <td><label id="resultName"></label></td>
             </tr>
             <tr>
               <td><label><li type="square">이메일</li></label></td>
-              <td><input type="text" id="email" required></td>
+              <td><input type="text" id="email" name="emailfront" required></td>
               <td>
                 <span style="font-size: 17px;">@</span>&nbsp;
-                <input type="text" id="selfSiteName" required disabled>
-                <select class="" id="selectEmail">
+                <input type="text" id="selfSiteName" name="emailself" required disabled>
+                <select class="" id="selectEmail" name="emailback">
                   <option value="e_option" selected>선택하세요</option>
                   <option value="naver.com">naver.com</option>
                   <option value="daum.net">daum.net</option>
@@ -163,7 +163,7 @@
             </tr>
             <tr>
               <td><label><li type="square">닉네임</li></label></td>
-              <td><input type="text" id="nickName" required></td>
+              <td><input type="text" id="nickName" name="nickName" required></td>
               <td>
                 <span>3-7자의 한글만 사용 가능</span>
                 <label id="resultNickName"></label>
@@ -172,7 +172,7 @@
             </tr>
             <tr>
               <td><label><li type="square">비밀번호</li></label></td>
-              <td><input type="password" id="userPwd1"required></td>
+              <td><input type="password" id="userPwd1" name="memberPwd" required></td>
               <td>
               <span>8~16자의 영문자,숫자 사용하여 입력</span>
               <label id="resultPwd1"></label>
@@ -199,6 +199,8 @@
           </table><br><br><br><br>
               <button type="button" onclick="validate()" id="Join_btn">회원가입</button>&nbsp;
               <input type="reset" value="취소" id="join_reset_btn">
+              
+              
         </form><br><br><br><br>
 
       </section>
@@ -359,6 +361,7 @@
             alert("필수 약관에 동의 하셔야 합니다");
             return;
           }
+          $("#joinForm").submit();
         }
       </script>
 
