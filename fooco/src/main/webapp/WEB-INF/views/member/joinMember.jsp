@@ -13,6 +13,12 @@
     <title>JOIN US</title>
 
     <style>
+            /* 폰트 */
+        @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
+        @font-face {font-family: 'medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff'); font-weight: normal; font-style: normal;}
+        @font-face {font-family: 'heavy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff'); font-weight: bold; font-style: normal;}
+        @font-face {font-family: 'light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: normal; font-style: normal;}
+        * {font-family:'light';}
       /* 공통사항 */
       html{
         margin: 0 auto;
@@ -118,14 +124,18 @@
   <body>
       <!--header시작-->
       <!--상단 menubar include할 것-->
-      <header></header>
+      <header>
+        <jsp:include page="../common/menubar.jsp"></jsp:include>
+      
+      	
+      </header>
 
 
 
       <!--section시작-->
       <section>
         <div>
-          <h1>JOIN US</h1>
+          <h1 style="font-family:'heavy';">JOIN US</h1>
           <p>진짜 맛집을 찾아서! FOOCO와 함께 하세요!</p><hr>
         </div>
         <br><br>
@@ -467,5 +477,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- fontawesome -->
+        <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
   </body>
 </html>

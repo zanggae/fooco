@@ -15,6 +15,7 @@
 	 			<c:out value="${loginUser.name }님 환영합니다"></c:out>
 	 		</h3>
 	 	</c:if>
+	<a href="main.do">Go Main</a>
 
 </body>
 </html>
