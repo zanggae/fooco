@@ -43,10 +43,12 @@
 </resultMap>
 
 
+<!-- 방문자수 조회 -->
 <select id="selectOneVisitorCount" resultMap="VisitorCountResultSet">
 	SELECT * FROM STATIC WHERE TO_CHAR(STATIC_DATE,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
 </select>
 
+<!-- 회원현황 조회 -->
 <select id="selectOneMembershipStatus" resultMap="MembershipStatusResultSet">
 	SELECT (SELECT COUNT(*) FROM MEMBER) TOTAL_COUNT
 	,(SELECT COUNT(*) FROM MEMBER WHERE MEMBER_STATUS = 'Y') Y_COUNT
@@ -55,6 +57,7 @@
 	WHERE ROWNUM = 1
 </select>
 
+<!-- 맴버십 현황 조회 -->
 <select id="selectOneMembershipCount" resultMap="MembershipCountResultSet">
 	SELECT SYSDATE DAY 
 	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=1 AND MS_STATUS = 'Y') GOLD
@@ -80,5 +83,15 @@
     	FROM DUAL
 </insert>
 
+<!-- 방문자  -->
+<insert id="insertVisitorCount">
+	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC))
+</insert>
 
+<!-- 방문자2 -->
+<update id="updateVisitorCount">
+	UPDATE STATIC SET STATIC_COUNT  = STATIC_COUNT+1 
+					, STATIC_T_COUNT = STATIC_T_COUNT+1 
+	WHERE TO_CHAR(STATIC_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+</update>
 </mapper>

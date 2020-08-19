@@ -27,9 +27,15 @@ public class AdminDao {
 	public MembershipCount selectOneMembershipCount() {
 		return sqlSessionTemplate.selectOne("memberMapper.selectOneMembershipCount");
 	}
-
+	
+	// 첫 방문시 생성
 	public int insertVisitorCount() {
-		return sqlSessionTemplate.selectOne("memberMapper.selectOneMembershipCount");
+		return sqlSessionTemplate.insert("memberMapper.insertVisitorCount");
+	}
+	
+	// 방문시 업데이트
+	public int updateVisitorCount() {
+		return sqlSessionTemplate.update("memberMapper.updateVisitorCount");
 	}
 
 }

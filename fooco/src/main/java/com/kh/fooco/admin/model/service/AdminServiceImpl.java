@@ -33,4 +33,9 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.insertVisitorCount();
 	}
 
+	@Override
+	public int updateVisitorCount() {
+		return adminDao.updateVisitorCount();
+	}
+
 }
