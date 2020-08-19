@@ -65,17 +65,16 @@ public class MemberController {
 	
 	//08.18 로그인 - 지민
 	@RequestMapping(value="mlogin.do",method=RequestMethod.POST)
-	public String loginMember(Member m,HttpSession session,Model model) {
+	public String loginMember(Member m,Model model) {
 		Member loginUser = memberService.loginMember(m);
 		
-		if(loginUser!=null) {
-			session.setAttribute("loginUser", loginUser);
+		if(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
+			model.addAttribute("loginUser", loginUser);
 			System.out.println("로그인성공");
 			return "home";
 		}else {
-			model.addAttribute("msg","로그인실패!");
 			System.out.println("로그인 실패");
-			return "home";
+			throw new MemberException("로그인 실패");
 		}
 		
 	}
