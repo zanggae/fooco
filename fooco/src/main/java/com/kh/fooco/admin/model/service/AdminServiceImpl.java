@@ -1,5 +1,7 @@
 package com.kh.fooco.admin.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,8 @@ import com.kh.fooco.admin.model.dao.AdminDao;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.common.model.vo.PageInfo;
+import com.kh.fooco.member.model.vo.Member;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService{
@@ -36,6 +40,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int updateVisitorCount() {
 		return adminDao.updateVisitorCount();
+	}
+
+	@Override
+	public ArrayList<Member> selectlistMember(PageInfo pi) {
+		return adminDao.selectlistMember(pi);
 	}
 
 }
