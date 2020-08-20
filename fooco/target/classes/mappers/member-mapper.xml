@@ -133,8 +133,29 @@
 	SELECT * FROM SELECT_MEMBER WHERE MEMBER_NAME LIKE '%'||#{searchMemberTextbox}||'%' ORDER BY MEMBER_NAME
 </select>
 
-<!-- 회원권한 박탈 -->
+<!-- 회원 status y -> n -->
 <update id="updateMembershipSuspension" parameterType="string">
 	UPDATE MEMBER SET MEMBER_STATUS = 'N' WHERE MEMBER_ID = #{memberId}
 </update>
+
+<!-- 회원 status n -> y -->
+<update id="updateMembershipSuspension2" parameterType="string">
+	UPDATE MEMBER SET MEMBER_STATUS = 'Y' WHERE MEMBER_ID = #{memberId}
+</update>
+
+<!-- 회원 정보 조회 -->
+<select id="selectOneMember2" parameterType="string" resultMap="memberListResultSet">
+	SELECT * FROM MEMBER WHERE MEMBER_ID = #{memberId}
+</select>
+
+<!-- 회원 review status y -> n -->
+<update id="updateMemberReviewStatus" parameterType="string">
+	UPDATE MEMBER SET REVIEW_STATUS = 'N' WHERE MEMBER_ID = #{memberId}
+</update>
+
+<!-- 회원 review status y -> n -->
+<update id="updateMemberReviewStatus2" parameterType="string">
+	UPDATE MEMBER SET REVIEW_STATUS = 'Y' WHERE MEMBER_ID = #{memberId}
+</update>
+
 </mapper>

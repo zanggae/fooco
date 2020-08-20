@@ -62,7 +62,26 @@ public class AdminDao {
 	}
 
 	public int updateMembershipSuspension(String memberId) {
-		return sqlSessionTemplate.update("memberMapper.updateMembershipSuspension",memberId);
+		
+		return sqlSessionTemplate.update("memberMapper.updateMembershipSuspension",memberId);		
 	}
+
+	public int updateMembershipSuspension2(String memberId) {
+		return sqlSessionTemplate.update("memberMapper.updateMembershipSuspension2",memberId);
+	}
+	
+	public Member selectOneMember(String memberId) {
+		
+		return sqlSessionTemplate.selectOne("memberMapper.selectOneMember2", memberId);		
+	}
+
+	public int updateMemberReviewStatus(String memberId) {
+		return sqlSessionTemplate.update("memberMapper.updateMemberReviewStatus", memberId);	
+	}
+
+	public int updateMemberReviewStatus2(String memberId) {
+		return sqlSessionTemplate.update("memberMapper.updateMemberReviewStatus2", memberId);	
+	}
+
 
 }

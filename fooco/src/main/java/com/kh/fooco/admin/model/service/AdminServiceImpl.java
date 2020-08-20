@@ -62,4 +62,24 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.updateMembershipSuspension(memberId);
 	}
 
+	@Override
+	public Member selectOneMember(String memberId) {
+		return adminDao.selectOneMember(memberId);
+	}
+
+	@Override
+	public int updateMembershipSuspension2(String memberId) {
+		return  adminDao.updateMembershipSuspension2(memberId);
+	}
+
+	@Override
+	public int updateMemberReviewStatus(String memberId) {
+		return  adminDao.updateMemberReviewStatus(memberId);
+	}
+
+	@Override
+	public int updateMemberReviewStatus2(String memberId) {
+		return  adminDao.updateMemberReviewStatus2(memberId);
+	}
+
 }

@@ -28,5 +28,13 @@ public interface AdminService {
 
 	int updateMembershipSuspension(String memberId);
 
+	Member selectOneMember(String memberId);
+
+	int updateMembershipSuspension2(String memberId);
+
+	int updateMemberReviewStatus(String memberId);
+
+	int updateMemberReviewStatus2(String memberId);
+
 	
 }

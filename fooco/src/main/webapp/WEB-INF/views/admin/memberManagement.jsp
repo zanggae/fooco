@@ -80,7 +80,12 @@
                       ${m.memberName }(${m.nickName })<br>
                       ${m.email }
                     </td>
-                    <td>${m.membershipName }</td>
+                    <c:if test="${empty m.membershipName }">
+                    	<td>미가입</td>
+                    </c:if>
+                    <c:if test="${!empty m.membershipName }">
+                    	<td>${m.membershipName }</td>                    	
+                    </c:if>
                     <td>${m.memberEnrolldate }</td>
                     <td>${m.memberAccessdate }</td>
                     <td>회원 ${m.memberStatus }<br>리뷰 ${m.reviewStatus }</td>
@@ -156,9 +161,9 @@
             <input type="hidden" class="form-control" id="recipient-name">
           </div>
           <div align="center">
-          <button type="button" class="btn" style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:95px;" data-toggle="modal" data-target="#exampleModal1" data-whatever="사용자 이메일">이메일</button></td>
-          <button type="button" class="btn" onclick="membershipSuspension()" style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:95px;">회원정지</button></td>
-          <button type="button" class="btn" onclick="reviewProhibition()"style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:95px;">리뷰정지</button></td>
+          <button type="button" class="btn" style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;" data-toggle="modal" data-target="#exampleModal1" data-whatever="사용자 이메일">이메일</button></td>
+          <button type="button" class="btn" onclick="membershipSuspension()" style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;">회원상태변경</button></td>
+          <button type="button" class="btn" onclick="reviewProhibition()"style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;">리뷰상태변경</button></td>
         </div>
         </form>
       </div>
@@ -177,7 +182,8 @@
   }
   function reviewProhibition(){
 	  var memberId = $("#recipient-name").val();
-    alert("나는 어때?");
+	  
+	  location.href="reviewProhibition.do?memberId="+memberId;
   }
 </script>
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

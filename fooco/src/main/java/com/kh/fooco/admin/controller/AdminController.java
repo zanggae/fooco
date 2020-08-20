@@ -118,12 +118,21 @@ public class AdminController {
 		return mv;
 	}
 	
-	// 회원권한 박탈
+	// 회원권한
 	@RequestMapping("membershipSuspension.do")
 	public ModelAndView membershipSuspension(ModelAndView mv, String memberId) {
-		System.out.println(memberId);
+//		System.out.println(memberId);
+		// 회원 상태를 조회해 오기위한 작업
+		Member m = adminService.selectOneMember(memberId);
+		int result = 0;
 		
-		int result = adminService.updateMembershipSuspension(memberId);
+		if(m.getMemberStatus().equals("Y")) {
+			// 회원 상태가 Y이면 N으로 변경
+			result = adminService.updateMembershipSuspension(memberId);
+		}else {
+			// 회원 상태가 N이면 Y로 변경
+			result = adminService.updateMembershipSuspension2(memberId);
+		}
 		
 		if(result >0) {
 			mv.setViewName("redirect:memberManagement.do");
@@ -133,6 +142,33 @@ public class AdminController {
 		
 		return mv;
 	}
+	
+	// 리뷰권한
+	@RequestMapping("reviewProhibition.do")
+		public ModelAndView reviewProhibition(ModelAndView mv, String memberId) {
+		System.out.println(memberId);
+		// 회원번호로 맴버 조회
+		Member m = adminService.selectOneMember(memberId);
+		int result = 0;
+					
+		if(m.getReviewStatus().equals("Y")) {
+			// 회원 리뷰 상태가 Y이면 N으로 변경
+			result = adminService.updateMemberReviewStatus(memberId);
+		}else {
+			// 회원 리뷰 상태가 N이면 Y로 변경
+			result = adminService.updateMemberReviewStatus2(memberId);
+		}
+		
+		if(result >0) {
+			mv.setViewName("redirect:memberManagement.do");
+		}else {
+			throw new AdminException("리뷰 권한 박탈 실패!");
+		}
+		
+		return mv;
+	}
+		
+		
 	@RequestMapping("restaurantEdit.do")
 	public String restaurantEdit() {
 		return "admin/restaurantEdit";
