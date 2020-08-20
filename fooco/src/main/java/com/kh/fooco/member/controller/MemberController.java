@@ -1,21 +1,31 @@
 package com.kh.fooco.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.kh.fooco.member.model.exception.MemberException;
@@ -25,7 +35,7 @@ import com.kh.fooco.member.naver.NaverLoginBO;
 
 @Controller
 public class MemberController {
-//	네이버 로그인을 위한 설정
+	//	네이버 로그인을 위한 설정
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
@@ -34,13 +44,17 @@ public class MemberController {
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
 	}
-
-	@Autowired
-	private MemberService memberService;
 	
+	//메일전송을 위한 Autowired
+	@Autowired
+	private JavaMailSender mailSender;
+
 	// 암호화를 위한 빈 객체 등록
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Autowired
+	private MemberService memberService;
 	
 
 	//08.10 회원가입 폼으로 이동 - 지민
@@ -93,7 +107,7 @@ public class MemberController {
 	
 	//0819 로그아웃 - 지민
 	@RequestMapping(value="mlogout.do",method=RequestMethod.GET)
-	public String logout(SessionStatus status) {
+	public String logoutMember(SessionStatus status) {
 		status.setComplete();
 		System.out.println("로그아웃");
 		return "common/main";
@@ -153,6 +167,57 @@ public class MemberController {
 			session.invalidate();
 			return "redirect:index.jsp";
 		}
+	
+		//이메일전송
+		@RequestMapping(value="sendEmailforMemerJoin.do",method=RequestMethod.POST)
+		public ModelAndView mailSending(HttpServletRequest request,String email, HttpServletResponse response_email) throws IOException {
+			
+			Random r = new Random();
+			int dice = r.nextInt(4589362) + 49311;	//이메일로 받는 인증코드 부분(난수)
+			
+			String setfrom = "ekfzma1004@gmail.com";
+			String tomail = request.getParameter("email"); 
+			String title = "Fooco 인증 메일입니다";
+			String content = 
+					System.getProperty("line.separator")+
+					System.getProperty("line.separaotr")+
+					"안녕하세요! Fooco입니다."+
+					System.getProperty("line.separator")+
+					System.getProperty("line.separator")+
+					"인증번호는 " + dice+"입니다"+
+					System.getProperty("line.separator")+
+					System.getProperty("line.separator")+
+					"위의 인증번호를 잘 입력해 주세요";
+			
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
+				
+				 messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+	             messageHelper.setTo(tomail); // 받는사람 이메일
+	             messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+	             messageHelper.setText(content); // 메일 내용
+	             
+	             mailSender.send(message);
+				
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				System.out.println(e);
+			}
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("member/memberJoin");
+			mv.addObject("dice",dice);
+			
+			System.out.println("mv: " + mv);
+
+			PrintWriter out_email = response_email.getWriter();
+			out_email.println("<script>alert('이베일이 발송되었습니다.인증번호를 입력해주세요.');<script>");
+			out_email.flush();
+			
+			return mv;
+			
+		}
+		
 	
 	
 }

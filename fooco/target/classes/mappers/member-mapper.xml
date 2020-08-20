@@ -25,7 +25,7 @@
     <result property="total" column="TOTAL"/> 
 </resultMap>
 
-<!-- 멤버 -->
+<!-- 멤버(멤버테이블) -->
 <resultMap type="Member" id="MemberResultSet">
 	<id property="memberId" column="MEMBER_ID"></id>
 	<result property="memberName" column="MEMBER_NAME"></result>
@@ -40,6 +40,7 @@
 	<result property="memberAccessdate" column="MEMBER_ACCESSDATE"></result>
 	<result property="memberStatus" column="MEMBER_STATUS"></result>
 	<result property="memberJoinType" column="MEMBERJOIN_TYPE"></result>
+	<result property="reviewStatus" column="REVIEW_STATUS"></result>
 </resultMap>
 
 <!-- 맴버 (맴버 테이블 + 맴버십이름 + 프로필 사진) -->
@@ -100,7 +101,7 @@
 <!-- 회원가입 -->
 <insert id="insertMember" parameterType="Member">
 		INSERT ALL
-    	INTO MEMBER VALUES(SEQ_MEMBERID.NEXTVAL,#{memberName},#{memberPwd},#{email},#{nickName},#{gender},#{phone},#{address},SYSDATE,SYSDATE,SYSDATE,DEFAULT,#{memberJoinType})
+    	INTO MEMBER VALUES(SEQ_MEMBERID.NEXTVAL,#{memberName},#{memberPwd},#{email},#{nickName},#{gender},#{phone},#{address},SYSDATE,SYSDATE,SYSDATE,DEFAULT,#{memberJoinType},DEFAULT)
     	INTO PROFILE_IMG VALUES(SEQ_PROFILEID.NEXTVAL,SEQ_MEMBERID.CURRVAL,'noimage.png','noimage.png',SYSDATE,'0')
     	SELECT *
     	FROM DUAL
