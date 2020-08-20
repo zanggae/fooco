@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="ko">
 
@@ -37,7 +38,7 @@
       <div class="container">
         <div class="row">
           <div class="col-8">
-            <h4>전체 회원(200)</h4>
+            <h4>회원수 (200)</h4>
             <p>&nbsp;관리 매뉴에서는 <span style="color: red;">이메일보내기, 회원정지/해제, 리뷰정지/해제</span> 처리를 할 수 있습니다.</p>
 
           </div>
@@ -63,46 +64,33 @@
                   <tr>
                     <th></th>
                     <th>이름</th>
-                    <th>주문일</th>
                     <th>맴버십 <i class="fas fa-arrows-alt-v" style="color: gray;"></i></th>
                     <th>가입일</th>
                     <th>최근접속일</th>
+                    <th>상태</th>
                     <th>관리</th>
                   </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="m" items="${memberList }">
                   <tr>
                     <td align="center">
-                      <img src="img/logo.png" width="60" height="60" style="border-radius: 50%;">
+                      <img src="img/${m.renameName }" width="60" height="60" style="border-radius: 50%;">
                     </td>
                     <td>
-                      서정완(와니비)<br>
-                      wjddhkswoddl@naver.com
+                      ${m.memberName }(${m.nickName })<br>
+                      ${m.email }
                     </td>
-                    <td>12-458264</td>
-                    <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
+                    <td>${m.membershipName }</td>
+                    <td>${m.memberEnrolldate }</td>
+                    <td>${m.memberAccessdate }</td>
+                    <td>회원 ${m.memberStatus }<br>리뷰 ${m.reviewStatus }</td>
+                    
                     <td>
-                      <button type="button" class="btn btn-primary" style="background-color: white; color: rgb(204, 51, 98); border-color: rgb(204, 51, 98);" data-toggle="modal" data-target="#exampleModal" data-whatever="내 아이디"><i class="fas fa-cog"></i></button>
+                      <button type="button" class="btn btn-primary" style="background-color: white; color: rgb(204, 51, 98); border-color: rgb(204, 51, 98);" data-toggle="modal" data-target="#exampleModal" data-whatever=${m.memberId }><i class="fas fa-cog"></i></button>
                     </td>
                   </tr>
-                  <tr>
-                    <td align="center">
-                      <img src="img/logo.png" width="60" height="60" style="border-radius: 50%;">
-                    </td>
-                    <td>
-                      김동원(워니비)<br>
-                      wjddhkswoddl@naver.com
-                    </td>
-                    <td>12-458264</td>
-                    <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
-                    <td>
-                      <button type="button" class="btn btn-primary" style="background-color: white; color: rgb(204, 51, 98); border-color: rgb(204, 51, 98);" data-toggle="modal" data-target="#exampleModal" data-whatever="내 아이디"><i class="fas fa-cog"></i></button>
-                    </td>
-                  </tr>
+                  </c:forEach>                  
                 </tbody>
               </table>          
               </script>
