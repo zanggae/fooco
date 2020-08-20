@@ -35,11 +35,11 @@ public class AdminController {
 		
 		// 방문자수 조회 해온 결과를 담아주자
 		VisitorCount vc = adminService.selectOneVisitorCount();
-//		System.out.println(vc);
+		System.out.println(vc);
 		
 		// 회원현황을 조회해온 결과를 담아주자
 		MembershipStatus membershipStatus = adminService.selectOneMembershipStatus();
-//		System.out.println(membershipStatus);
+		System.out.println(membershipStatus);
 		
 		// 맴버십 정보를 조회해온 결과를 담아주자
 		MembershipCount membershipCount = adminService.selectOneMembershipCount();
