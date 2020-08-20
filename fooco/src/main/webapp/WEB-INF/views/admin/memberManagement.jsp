@@ -74,7 +74,7 @@
                 <c:forEach var="m" items="${memberList }">
                   <tr>
                     <td align="center">
-                      <img src="img/${m.renameName }" width="60" height="60" style="border-radius: 50%;">
+                      <img src="${contextPath}/resources/noimage/${m.renameName }" width="60" height="60" style="border-radius: 50%;">
                     </td>
                     <td>
                       ${m.memberName }(${m.nickName })<br>
