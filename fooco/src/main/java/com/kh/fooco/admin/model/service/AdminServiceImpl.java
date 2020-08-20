@@ -47,4 +47,39 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectlistMember(pi);
 	}
 
+	@Override
+	public int memberNameCount(String searchMemberTextbox) {
+		return adminDao.memberNameCount(searchMemberTextbox);
+	}
+
+	@Override
+	public ArrayList<Member> searchlistMember(PageInfo pi, String searchMemberTextbox) {
+		return adminDao.searchlistMember(pi, searchMemberTextbox);
+	}
+
+	@Override
+	public int updateMembershipSuspension(String memberId) {
+		return adminDao.updateMembershipSuspension(memberId);
+	}
+
+	@Override
+	public Member selectOneMember(String memberId) {
+		return adminDao.selectOneMember(memberId);
+	}
+
+	@Override
+	public int updateMembershipSuspension2(String memberId) {
+		return  adminDao.updateMembershipSuspension2(memberId);
+	}
+
+	@Override
+	public int updateMemberReviewStatus(String memberId) {
+		return  adminDao.updateMemberReviewStatus(memberId);
+	}
+
+	@Override
+	public int updateMemberReviewStatus2(String memberId) {
+		return  adminDao.updateMemberReviewStatus2(memberId);
+	}
+
 }

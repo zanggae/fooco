@@ -21,4 +21,20 @@ public interface AdminService {
 	int updateVisitorCount();
 
 	ArrayList<Member> selectlistMember(PageInfo pi);
+
+	int memberNameCount(String searchMemberTextbox);
+
+	ArrayList<Member> searchlistMember(PageInfo pi, String searchMemberTextbox);
+
+	int updateMembershipSuspension(String memberId);
+
+	Member selectOneMember(String memberId);
+
+	int updateMembershipSuspension2(String memberId);
+
+	int updateMemberReviewStatus(String memberId);
+
+	int updateMemberReviewStatus2(String memberId);
+
+	
 }
