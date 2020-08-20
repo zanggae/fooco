@@ -16,9 +16,7 @@
   <title>Hello, world!</title>
   <style>    
     .table td {vertical-align:middle;}
-    body{
-      background-color: #fbfbfb;
-    }
+    #searchBtn {background-color: rgb(204, 51, 98); color: white; border-color: rgb(204, 51, 98);}
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
@@ -38,19 +36,20 @@
       <div class="container">
         <div class="row">
           <div class="col-8">
-            <h4>회원수 (200)</h4>
+            <h4>회원수 (${memberCount })</h4>
             <p>&nbsp;관리 매뉴에서는 <span style="color: red;">이메일보내기, 회원정지/해제, 리뷰정지/해제</span> 처리를 할 수 있습니다.</p>
 
           </div>
           <div class="col-4">
-            <br>
-            <form class="d-none d-md-inline-block form-inline float-right ml-auto mr-0 mr-md-3 my-2 my-md-0" style="padding-bottom: 10px;">
+            <br>            
+            <form class="d-none d-md-inline-block form-inline float-right ml-auto mr-0 mr-md-3 my-2 my-md-0" 
+            	style="padding-bottom: 10px;" action="memberManagement.do" method="get">
               <div class="input-group">
-                  <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
-                      aria-describedby="basic-addon2" />
+                  <input class="form-control" type="text" placeholder="이름으로 검색..." aria-label="Search"
+                      aria-describedby="basic-addon2" id="searchMemberTextbox" name="searchMemberTextbox"/>
                   <div class="input-group-append"></div>
-                  <button class="btn btn-primary mr-0" style="background-color: rgb(204, 51, 98); color: white; border-color: rgb(204, 51, 98);" type="button" id="jin">
-                      <i class="fas fa-search"></i></button>
+                  <button class="btn btn-primary mr-0" type="submit" id="searchBtn">
+                      <i class="fas fa-search"></i></button>                      
               </div>
           </form>
           </div>
@@ -101,6 +100,7 @@
 							<c:if test="${pi.currentPage gt 1 }">
 								<c:url var="mlistBack" value="memberManagement.do">
 									<c:param name="page" value="${pi.currentPage - 1 }"/>
+									<c:param name="searchMemberTextbox" value="${searchName }"/>
 								</c:url>
 								<a href="${mlistBack }">[이전]</a>
 							</c:if>
@@ -112,6 +112,7 @@
 								<c:if test="${p ne pi.currentPage }">
 									<c:url var="mlistCheck" value="memberManagement.do">
 										<c:param name="page" value="${p}"/>
+										<c:param name="searchMemberTextbox" value="${searchName }"/>
 									</c:url>
 									<a href="${mlistCheck }">${p}</a>
 								</c:if>
@@ -123,6 +124,7 @@
 							<c:if test="${pi.currentPage lt pi.maxPage }">
 								<c:url var="mlistAfter" value="memberManagement.do">
 									<c:param name="page" value="${pi.currentPage + 1 }"/>
+									<c:param name="searchMemberTextbox" value="${searchName }"/>
 								</c:url>
 								<a href="${mlistAfter }">[이후]</a>
 							</c:if>				
@@ -169,9 +171,12 @@
 
 <script>
   function membershipSuspension(){
-    alert("나 나와?");
+	  var memberId = $("#recipient-name").val();
+	  	
+	  location.href="membershipSuspension.do?memberId="+memberId;
   }
   function reviewProhibition(){
+	  var memberId = $("#recipient-name").val();
     alert("나는 어때?");
   }
 </script>

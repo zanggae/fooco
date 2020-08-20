@@ -62,7 +62,7 @@ public class AdminController {
 		response.setContentType("application/json;charset=utf-8");
 		
 		VisitorCount vc = adminService.selectOneVisitorCount();
-		System.out.println(vc);
+//		System.out.println(vc);
 		if(vc == null) {
 			int result = adminService.insertVisitorCount();
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -76,24 +76,41 @@ public class AdminController {
 	
 	// 회원관리 페이지로 이동
 	@RequestMapping("memberManagement.do")
-	public ModelAndView memberManagement(ModelAndView mv,@RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView memberManagement(ModelAndView mv,
+			@RequestParam(value="page", required=false) Integer page,
+			@RequestParam(value="searchMemberTextbox", required=false) String searchMemberTextbox) {		
 		// 페이징 관련 처리
 				int currentPage = 1;
 				if(page != null) {
 					currentPage = page;
 				}
-		// 회원수를 조회
-		MembershipStatus membershipStatus = adminService.selectOneMembershipStatus();
-		int memberCount = membershipStatus.getTotalCount();
-		
-		PageInfo pi = getPageInfo(currentPage, memberCount);
-		
-		// 회원 리스트 조회
-		ArrayList<Member> m = adminService.selectlistMember(pi);
-		System.out.println(m);
+				ArrayList<Member> m = new ArrayList<Member>();
+				PageInfo pi = new PageInfo();
+				int memberCount = 0;
+			if(searchMemberTextbox == null) {
+				// 회원수를 조회
+				MembershipStatus membershipStatus = adminService.selectOneMembershipStatus();
+				memberCount = membershipStatus.getTotalCount();
+				
+				pi = getPageInfo(currentPage, memberCount);
+				
+				// 회원 리스트 조회
+				m = adminService.selectlistMember(pi);
+//				System.out.println(m);				
+			}else {
+				// 검색 된 회원 수 조회
+				memberCount = adminService.memberNameCount(searchMemberTextbox);
+//				System.out.println(memberCount);
+				pi = getPageInfo(currentPage, memberCount);
+				
+				// 회원 리스트 조회
+				m = adminService.searchlistMember(pi, searchMemberTextbox);
+			}
 		if(m != null) {
 			mv.addObject("memberList", m);
 			mv.addObject("pi", pi);
+			mv.addObject("memberCount", memberCount);
+			mv.addObject("searchName", searchMemberTextbox);
 			mv.setViewName("admin/memberManagement");
 		}else {
 			throw new AdminException("맴버 리스트 조회 실패!");
@@ -101,6 +118,21 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 회원권한 박탈
+	@RequestMapping("membershipSuspension.do")
+	public ModelAndView membershipSuspension(ModelAndView mv, String memberId) {
+		System.out.println(memberId);
+		
+		int result = adminService.updateMembershipSuspension(memberId);
+		
+		if(result >0) {
+			mv.setViewName("redirect:memberManagement.do");
+		}else {
+			throw new AdminException("권한 박탈 실패!");
+		}
+		
+		return mv;
+	}
 	@RequestMapping("restaurantEdit.do")
 	public String restaurantEdit() {
 		return "admin/restaurantEdit";

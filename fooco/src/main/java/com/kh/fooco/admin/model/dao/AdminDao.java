@@ -50,4 +50,19 @@ public class AdminDao {
 		return (ArrayList)sqlSessionTemplate.selectList("memberMapper.selectlistMember", null, rowBounds);
 	}
 
+	public int memberNameCount(String searchMemberTextbox) {
+		return sqlSessionTemplate.selectOne("memberMapper.memberNameSearchCount", searchMemberTextbox);
+	}
+
+	public ArrayList<Member> searchlistMember(PageInfo pi, String searchMemberTextbox) {
+		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSessionTemplate.selectList("memberMapper.searchListMember", searchMemberTextbox, rowBounds);
+	}
+
+	public int updateMembershipSuspension(String memberId) {
+		return sqlSessionTemplate.update("memberMapper.updateMembershipSuspension",memberId);
+	}
+
 }
