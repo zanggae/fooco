@@ -59,7 +59,7 @@
         <div class="card mb-4">
           <div class="card-body">
             <div class="table-responsive mt-3">              
-              <table class="table table-hover">
+              <table class="table">
                 <thead>
                   <tr>
                     <th></th>
@@ -90,7 +90,44 @@
                       <button type="button" class="btn btn-primary" style="background-color: white; color: rgb(204, 51, 98); border-color: rgb(204, 51, 98);" data-toggle="modal" data-target="#exampleModal" data-whatever=${m.memberId }><i class="fas fa-cog"></i></button>
                     </td>
                   </tr>
-                  </c:forEach>                  
+                  </c:forEach>
+                  <!-- 페이징 처리부분 -->
+					<tr align="center" height="20">
+						<td colspan="7">
+					<!-- [이전] -->
+							<c:if test="${pi.currentPage eq 1 }">
+								[이전]&nbsp;
+							</c:if>
+							<c:if test="${pi.currentPage gt 1 }">
+								<c:url var="mlistBack" value="memberManagement.do">
+									<c:param name="page" value="${pi.currentPage - 1 }"/>
+								</c:url>
+								<a href="${mlistBack }">[이전]</a>
+							</c:if>
+					<!-- [번호들] -->
+							<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+								<c:if test="${p eq pi.currentPage }">
+									<font color="red" size="4"><b>[${p}]</b></font>
+								</c:if>
+								<c:if test="${p ne pi.currentPage }">
+									<c:url var="mlistCheck" value="memberManagement.do">
+										<c:param name="page" value="${p}"/>
+									</c:url>
+									<a href="${mlistCheck }">${p}</a>
+								</c:if>
+							</c:forEach>
+					<!-- [이후] -->
+							<c:if test="${pi.currentPage eq pi.maxPage }">
+								&nbsp;[이후]
+							</c:if>
+							<c:if test="${pi.currentPage lt pi.maxPage }">
+								<c:url var="mlistAfter" value="memberManagement.do">
+									<c:param name="page" value="${pi.currentPage + 1 }"/>
+								</c:url>
+								<a href="${mlistAfter }">[이후]</a>
+							</c:if>				
+						</td>		
+					</tr>                 
                 </tbody>
               </table>          
               </script>
