@@ -167,8 +167,8 @@
             <tr>
               <td><li type="square"><label>인증번호 입력</label></li></td>
               <td><input type="text" id="checkEmailnum"></td>  <!--인증번호 입력하는 input태그-->
-              <td><input type="button" value="확인" id="comfirm_btn" onclick="comfirm_check();">
-                  &nbsp;<label id="resultEamilCheck" style="font-size: 12px;"></label>
+              <td><input type="button" value="확인" id="comfirm_btn" onclick="checkEmailJ();">
+                  &nbsp;<label id="resultEmailCheck" style="font-size: 12px;"></label>
               </td>
             </tr>
             <tr>
@@ -352,6 +352,11 @@
             $("#email").focus();
             return;
           }
+          if($("#checkEmailnum").val()==""){
+              alert("이메일 인증을 완료해주세요");
+              $("#checkEmailnum").focus();
+              return;
+            }
           if($("#nickName").val()==""){
             alert("닉네임을 입력하세요");
             $("#nickName").focus();
@@ -377,9 +382,9 @@
 
       <!--이메일 본인인증-->
       <script>
-        checkSuccess="";
-        completeCheck=-1;
-
+      	checkSuccess='';
+		completeCheck=-1;
+		
         //인증메일 전송 함수
         //이메일 입력했는 지 확인
         function identity_confirm(){
@@ -397,13 +402,13 @@
             $("#selfSiteName").focus();
             return;
           }
-
+		//우선 이거 안먹음
           if(completeCheck==1){
-            alert("이미 인증받은 이메일입니다");
-            return;
-          }
+				alert("이미 인증받은 메일입니다");
+				return;
+			}
 
-          //이메일 데이터 통합
+          //이메일 데이터 하나로 합치기
           var email1 = $("#email");
           var email2 = "";
 
@@ -413,52 +418,84 @@
             email2 = $("#selfSiteName");    //직접입력 이메일
           }
           $.ajax({
-            url:"sendEmail.do",
-            type:"post",
-            data:{email:email1.val()+"@"+email2.val()},
-            success:function(data){
-              console.log("성공");
-              checkSuccess=data;
-              $("#identity_confirm_btn").prop("disable",true);
-              $("#comfirm_btn").prop("disabled",false);
-              alert("입력한 이메일로 인증번호가 전송되었습니다.");
-            },
-            error:function(request, status, error){
-              lert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-            
-          })
+				url:"sendEmailforMemerJoin.do"
+				, type:"post"
+				, data:{email:email1.val()+'@'+email2.val()}
+				, success:function(data){
+					console.log("성공");
+					$("#identity_confirm_btn").prop("disabled", true);
+					$("#comfirm_btn").prop("disabled", false);
+					alert("입력한 이메일로 인증번호가 전송되었습니다.");
+				}
+				, error:function(request, status, error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+			})
         }
 
           //인증번호 확인 버튼 함수
           function comfirm_check(){
+        	//이메일 인증을 누르고 진행하였는가
+  			if(checkSuccess=='success'){
+  				alert(checkSuccess);
+  				alert('이미 완료되었습니다');
+  				return;
+  			}
+  		//이메일이 입력되었는가
+			if($('#email').val()==''){
+				alert('먼저 이메일을 입력해주세요');
+				return;
+			}
+			//이메일을 변경한 경우
+			if(checkSuccess=="reset"){
+				alert('다시 인증하셔야 합니다');
+				return;
+			}
+			//인증 안받고 누른 경우
+			if(checkSuccess==''){
+				alert('인증메일을 받고 진행해주세요')
+				return;
+			}
+			//인증번호 입력란에 값을 넣고 버튼을 눌렀는가
+			if($('#checkEmailnum').val().length==0){
+				alert('인증번호를 입력해주세요');
+				return;
+			}
             //이메일 인증 후 진행하는지
-            if(checkSuccess==""){
+            /* if(checkSuccess==""){
               alert("인증메일을 받고 진행해주세요");
               return;
-            }
+            } */
             //빈 값인지 
-            if($("#").val()==""){
+           /*  if($("#").val()==""){
               alert("인증번호를 입력해주세요");
               return;
-            }
-            var compare = document.getElementById("#checkEmailnum").valueB;
-
+            } */
+            
+            //인증번호가 일치하는 지 확인
+            var compare = document.getElementById('#checkEmailnum').value;
+            
             if(checkSuccess==compare){
-              alert("인증에 성공하셨습니다.");
-              checkSuccess=="success";
-              completeCheck=1;
+				alert('인증에 성공하셨습니다');
+				checkSuccess='success';
+				completeCheck=1;
+				
+				$('#identity_confirm_btn').prop('disabled', false);
+				$('#comfirm_btn').prop('disabled', true);
+				
+				$('#resultEmailCheck').text('인증 성공');
+			}else if(checkSuccess==''){
+				alert('본인 인증 버튼을 눌러주세요');
+			}else if(checkSuccess=='reset'){
+				alert('다시 인증해주세요');
+			}else{
+				alert('맞지 않는 번호입니다.')
+				$('#checkEmailnum').val('');
+			}
 
-              $("#identity_confirm_btn").prop("disabled",false);
-              $("#resultEmailCheck").text("인증 성공");
-            }else if(checkSuccess==""){
-              alert("본인 인증 버튼을 눌러주세요");
-            }else{
-              alert("맞지 않는 번호입니다");
-              $("#checkEmailnum").val();
-            }
+           
+
           }
-          
      
           
 			
@@ -474,7 +511,11 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+   <!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+   <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <!-- fontawesome -->

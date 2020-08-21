@@ -22,13 +22,17 @@ public class Member implements Serializable{
 	private Date memberAccessdate;		// 최근접속일
 	private String memberStatus;		// 상태
 	private String memberJoinType;		// 회원가입유형
+	private String reviewStatus;		// 리뷰권한여부
+	
+//	+ 맴버십 속성
+	private String membershipName;		// 맴버십등급이름
 	
 //	+ 프로필 파일 속성(한번 더 체크해야함)	
-	private int profileId;				//파일번호
-	private String originalName;		//원본이름
-	private String renameName;			//변경이름
-	private Date uploadDate;			//업로드일
-	private String file_path;			//파일경로
+	private int profileId;				// 파일번호
+	private String originalName;		// 원본이름
+	private String renameName;			// 변경이름
+	private Date uploadDate;			// 업로드일
+	private String file_path;			// 파일경로
 	
 	
 	public Member() {
@@ -37,8 +41,9 @@ public class Member implements Serializable{
 
 	public Member(int memberId, String memberName, String memberPwd, String email, String nickName, String gender,
 			String phone, String address, Date memberEnrolldate, Date memberModifydate, Date memberAccessdate,
-			String memberStatus, String memberJoinType, int profileId, String originalName, String renameName,
-			Date uploadDate, String file_path) {
+			String memberStatus, String memberJoinType, String reviewStatus, String membershipName, int profileId,
+			String originalName, String renameName, Date uploadDate, String file_path) {
+		super();
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.memberPwd = memberPwd;
@@ -52,6 +57,8 @@ public class Member implements Serializable{
 		this.memberAccessdate = memberAccessdate;
 		this.memberStatus = memberStatus;
 		this.memberJoinType = memberJoinType;
+		this.reviewStatus = reviewStatus;
+		this.membershipName = membershipName;
 		this.profileId = profileId;
 		this.originalName = originalName;
 		this.renameName = renameName;
@@ -190,6 +197,26 @@ public class Member implements Serializable{
 	}
 
 
+	public String getReviewStatus() {
+		return reviewStatus;
+	}
+
+
+	public void setReviewStatus(String reviewStatus) {
+		this.reviewStatus = reviewStatus;
+	}
+
+
+	public String getMembershipName() {
+		return membershipName;
+	}
+
+
+	public void setMembershipName(String membershipName) {
+		this.membershipName = membershipName;
+	}
+
+
 	public int getProfileId() {
 		return profileId;
 	}
@@ -240,15 +267,25 @@ public class Member implements Serializable{
 	}
 
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberName=" + memberName + ", memberPwd=" + memberPwd + ", email="
 				+ email + ", nickName=" + nickName + ", gender=" + gender + ", phone=" + phone + ", address=" + address
 				+ ", memberEnrolldate=" + memberEnrolldate + ", memberModifydate=" + memberModifydate
 				+ ", memberAccessdate=" + memberAccessdate + ", memberStatus=" + memberStatus + ", memberJoinType="
-				+ memberJoinType + ", profileId=" + profileId + ", originalName=" + originalName + ", renameName="
-				+ renameName + ", uploadDate=" + uploadDate + ", file_path=" + file_path + "]";
+				+ memberJoinType + ", reviewStatus=" + reviewStatus + ", membershipName=" + membershipName
+				+ ", profileId=" + profileId + ", originalName=" + originalName + ", renameName=" + renameName
+				+ ", uploadDate=" + uploadDate + ", file_path=" + file_path + "]";
 	}
+
+
+	
+
 	
 	
 	
