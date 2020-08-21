@@ -1,7 +1,11 @@
 package com.kh.fooco.admin.controller;
 
+import static com.kh.fooco.common.Pagination.getPageInfo;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,8 +26,6 @@ import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
-
-import static com.kh.fooco.common.Pagination.getPageInfo;
 
 @Controller
 public class AdminController {
@@ -148,7 +150,7 @@ public class AdminController {
 	
 	// 리뷰권한
 	@RequestMapping("reviewProhibition.do")
-		public ModelAndView reviewProhibition(ModelAndView mv, String memberId) {
+	public ModelAndView reviewProhibition(ModelAndView mv, String memberId) {
 		System.out.println(memberId);
 		// 회원번호로 맴버 조회
 		Member m = adminService.selectOneMember(memberId);
@@ -171,6 +173,34 @@ public class AdminController {
 		return mv;
 	}
 		
+	// 1:1문의 관리 페이지
+	@RequestMapping("inquiryEdit.do")
+	public ModelAndView inquiryEdit(ModelAndView mv, Board board) {
+		ArrayList<Board> inquiry = adminService.selectListInquiry(board);
+//		System.out.println(inquiry);
+		
+		mv.addObject("inquiry", inquiry);
+		mv.setViewName("admin/inquiryEdit");
+		
+		return mv;
+	}
+	
+	// 1:1문의 관리 페이지 ajax
+	@RequestMapping("inquiryEdit2.do")
+	public void inquiryEdit2(HttpServletResponse response, Board board) throws JsonIOException, IOException {
+		response.setContentType("application/json;charset=utf-8");
+		
+		ArrayList<Board> inquiry = adminService.selectListInquiry(board);
+//		System.out.println(inquiry);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("first", inquiry);		
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(result , response.getWriter());
+		
+	}
+	
 		
 	@RequestMapping("restaurantEdit.do")
 	public String restaurantEdit() {
@@ -182,13 +212,6 @@ public class AdminController {
 		return "admin/restaurantRegistration";
 	}
 	
-	// 1:1문의 관리 페이지ㄴ
-	@RequestMapping("inquiryEdit.do")
-	public String inquiryEdit() {
-		
-		
-		return "admin/inquiryEdit";
-	}
 	
 	@RequestMapping("boardEdit.do")
 	public String boardEdit() {

@@ -39,5 +39,7 @@ public interface AdminService {
 
 	ArrayList<Board> selectListInquiryD();
 
+	ArrayList<Board> selectListInquiry(Board board);
+
 	
 }

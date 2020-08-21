@@ -88,4 +88,9 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectListInquiryD();
 	}
 
+	@Override
+	public ArrayList<Board> selectListInquiry(Board board) {
+		return adminDao.selectListInquiry(board);
+	}
+
 }

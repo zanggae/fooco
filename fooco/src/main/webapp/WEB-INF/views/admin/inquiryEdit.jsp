@@ -54,16 +54,17 @@
       </ol>
       <br>
       <div class="container">
+          <form action="inquiryEdit.do" method="get" id="iSubmit">
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col-6" style="margin:auto;">
             <p style="margin:auto;">카테고리에서 <span style="color: red;">문의</span>를 선택 조회 하실 수 있습니다.</p>
           </div>
           <div class="col-3" style="margin:auto;" align="center">
-            <input type="radio" name="inquiryYN" value="N">&nbsp;<label>미답변</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="inquiryYN" value="Y">&nbsp;<label>답변완료</label>
+            <input type="radio" name="inquiryYN" value="N" onclick="inquirySubmit()">&nbsp;<label>미답변</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="inquiryYN" value="Y" onclick="inquirySubmit()">&nbsp;<label>답변완료</label>
           </div>
           <div class="col-3" style="vertical-align: middle;">            
 
-            <select class="float-right" name="inquiryCode">
+            <select class="float-right" name="inquiryCode" id="inquiryCode"onchange="inquirySubmit()">
               <option selected value="0">선택</option>
               <option value="1">음식점 문의</option>
               <option value="2">테마 문의</option>
@@ -72,10 +73,69 @@
             </select>
           </div>
         </div>
+          </form>
+        <script>
+        	function inquirySubmit(){        		
+        		var inquiryCode = $("#inquiryCode").val();
+        		var inquiryYN = $(":input:radio[name=inquiryYN]:checked").val();
+
+        		 $.ajax({
+        				url:"inquiryEdit2.do",
+        				/* data:{inquiryCode:inquiryCode, inquiryYN:inquiryYN}, */
+        				data:$("#iSubmit").serialize(),
+        				success:function(data){
+        					
+        					$tableBody = $("#inquiryTable tbody");
+        					$tableBody.html("");
+        					
+        					var $tr;
+        					var $boardTitle;
+        					var $boardWriter;
+        					var $inquiryName;
+        					var $boardUpdateDate;
+        					var $inquiryYN;
+        					
+        					
+        					if(data.first.length > 0){	// 조회된 문의가 존재하면
+        						for(var i in data.first){
+        							$tr = $("<tr>");
+        							$boardTitle = $("<td>").text(data.first[i].boardTitle);
+        							$boardWriter = $("<td>").text(data.first[i].boardWriter);
+        							$inquiryName = $("<td>").text(data.first[i].inquiryName);
+        							$boardUpdateDate = $("<td>").text(data.first[i].boardUpdateDate);
+        							$inquiryYN = $("<td>").text(data.first[i].inquiryYN);
+        							
+        							$tr.append($boardTitle);
+        							$tr.append($boardWriter);
+        							$tr.append($inquiryName);
+        							$tr.append($boardUpdateDate);
+        							$tr.append($inquiryYN);
+        							
+        							$tableBody.append($tr);        							
+        						}
+        					}else{					// 조회된 문의가 없으면
+        						$tr = $("<tr>");
+        						$boardTitle = $("<td colspan='5'>").text("등록 된 댓글이 없습니다.");
+        						
+        						$tr.append($boardTitle);
+        						$tableBody.append($tr);
+        						
+        					}
+        					
+        				},
+        				error:function(request, status, errorData){
+        					alert("error code: " + request.status + "\n"
+        							+"message: " + request.responseText
+        							+"error: " + errorData);
+        				}				
+        			 })
+        	}
+        	
+        </script>
         <div class="card mb-4">
           <div class="card-body">
             <div class="table-responsive mt-3" align="center">
-              <table class="table table-hover" >
+              <table class="table table-hover" id="inquiryTable">
                 <thead align="center">
                   <tr>
                     <th style="width: 20rem;">문의제목</th>
@@ -86,24 +146,22 @@
                   </tr>
                 </thead>
                 <tbody align="center">
+                <c:if test="${empty inquiry }">
+                	<tr>                   
+                    	<td colspan="5">조회된 문의가 없습니다.</td>                    
+                  	</tr>
+                </c:if>                
+                <c:if test="${!empty inquiry }">
+                <c:forEach var="i" items="${inquiry }">
                   <tr>                   
-                    <td>기본은</td>
-                    <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
-                    <td>
-                      에에에
-                    </td>
+                    <td>${i.boardTitle }</td>
+                    <td>${i.boardWriter }</td>
+                    <td>${i.inquiryName }</td>
+                    <td>${i.boardUpdateDate }</td>
+                    <td>${i.inquiryYN }</td>
                   </tr>
-                  <tr>                    
-                    <td>12-458264</td>
-                    <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
-                    <td>
-                      에에에
-                    </td>
-                  </tr>
+                  </c:forEach>
+                  </c:if>                  
                 </tbody>
               </table>
             </div>

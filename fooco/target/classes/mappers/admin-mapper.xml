@@ -172,5 +172,14 @@
 ]]>
 </select>
 
+<select id="selectListInquiry" resultMap="BoardResultSet">
+	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3
+	<if test="inquiryYN != null">
+		AND INQUIRY_YN = #{inquiryYN}
+	</if>
+	<if test="inquiryCode != 0">
+		AND INQUIRY_CODE = #{inquiryCode}
+	</if>
+</select>
 
 </mapper>
