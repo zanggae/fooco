@@ -43,7 +43,7 @@
                                 <div class="dropdown-menu dropdown-menu-right mh-dropdown-menu" aria-labelledby="dropdown07">
                                     <a class="dropdown-item mh-dropdown-item" href="#">마이페이지</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">지역 맛집</a>
-                                    <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="theme.do">테마 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">고객센터</a>
                                     <div class="dropdown-divider"></div>
@@ -58,7 +58,7 @@
                 <div class="container msh-container">
                     <div class="nav nav-underline d-flex justify-content-around">
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">지역 맛집</a>
-                        <a class="nav-link msh-items" style="font-family:'medium'" href="#">테마 맛집</a>
+                        <a class="nav-link msh-items" style="font-family:'medium'" href="theme.do">테마 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">멤버십</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">고객센터</a>
                     </div>

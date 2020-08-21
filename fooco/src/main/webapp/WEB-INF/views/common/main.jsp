@@ -81,7 +81,7 @@
     </head>
     <body>
         <header>
-            <jsp:include page="../common/subMenubar.jsp"></jsp:include>
+             <jsp:include page="../common/subMenubar.jsp"></jsp:include> 
             
         </header>
         <section>
