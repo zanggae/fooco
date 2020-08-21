@@ -10,9 +10,11 @@
 		<typeAlias type="com.kh.fooco.admin.model.vo.MembershipStatus" alias="MembershipStatus"/>
 		<typeAlias type="com.kh.fooco.admin.model.vo.MembershipCount" alias="MembershipCount"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.fooco.board.model.vo.Board" alias="Board"/>		
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="/mappers/member-mapper.xml"/>		
+		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/board-mapper.xml"/>	
 	</mappers>
 </configuration>

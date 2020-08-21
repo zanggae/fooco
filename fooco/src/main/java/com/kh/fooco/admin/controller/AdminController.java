@@ -45,6 +45,9 @@ public class AdminController {
 		MembershipCount membershipCount = adminService.selectOneMembershipCount();
 //		System.out.println(membershipCount);
 		
+		// 미답변 문의 조회
+		
+		
 		if(vc != null && membershipStatus != null) {
 			mv.addObject("vc", vc);
 			mv.addObject("membershipStatus", membershipStatus);
