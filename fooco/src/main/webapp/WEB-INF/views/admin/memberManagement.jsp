@@ -71,30 +71,38 @@
                   </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="m" items="${memberList }">
-                  <tr>
-                    <td align="center">
-                      <img src="${contextPath}/resources/noimage/${m.renameName }" width="60" height="60" style="border-radius: 50%;">
-                    </td>
-                    <td>
-                      ${m.memberName }(${m.nickName })<br>
-                      ${m.email }
-                    </td>
-                    <c:if test="${empty m.membershipName }">
-                    	<td>미가입</td>
-                    </c:if>
-                    <c:if test="${!empty m.membershipName }">
-                    	<td>${m.membershipName }</td>                    	
-                    </c:if>
-                    <td>${m.memberEnrolldate }</td>
-                    <td>${m.memberAccessdate }</td>
-                    <td>회원 ${m.memberStatus }<br>리뷰 ${m.reviewStatus }</td>
-                    
-                    <td>
-                      <button type="button" class="btn btn-primary" style="background-color: white; color: rgb(204, 51, 98); border-color: rgb(204, 51, 98);" data-toggle="modal" data-target="#exampleModal" data-whatever=${m.memberId }><i class="fas fa-cog"></i></button>
-                    </td>
-                  </tr>
-                  </c:forEach>
+                <c:if test="${empty memberList }">
+                	<tr align="center">
+                		<td colspan="7">조회된 회원이 없습니다.</td>
+                	</tr>
+                </c:if>
+                <c:if test="${!empty memberList }">
+	                <c:forEach var="m" items="${memberList }">
+		       			<tr>
+		                    <td align="center">
+		                      <img src="${contextPath}/resources/noimage/${m.renameName }" width="60" height="60" style="border-radius: 50%;">
+		                    </td>
+		                    <td>
+		                      ${m.memberName }(${m.nickName })<br>
+		                      ${m.email }
+		                    </td>
+		                    <c:if test="${empty m.membershipName }">
+		                    	<td>미가입</td>
+		                    </c:if>
+		                    <c:if test="${!empty m.membershipName }">
+		                    	<td>${m.membershipName }</td>                    	
+		                    </c:if>
+		                    <td>${m.memberEnrolldate }</td>
+		                    <td>${m.memberAccessdate }</td>
+		                    <td>회원 ${m.memberStatus }<br>리뷰 ${m.reviewStatus }</td>
+		                    
+		                    <td>
+		                      <button type="button" class="btn btn-primary" style="background-color: white; color: rgb(204, 51, 98); border-color: rgb(204, 51, 98);" data-toggle="modal" data-target="#exampleModal" data-whatever=${m.memberId }><i class="fas fa-cog"></i></button>
+		                    </td>
+		               	</tr>
+	                </c:forEach>
+                </c:if>
+                
                   <!-- 페이징 처리부분 -->
 					<tr align="center" height="20">
 						<td colspan="7">

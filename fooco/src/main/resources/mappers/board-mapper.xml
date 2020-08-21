@@ -26,5 +26,5 @@
    	<result property="imageStatus" column="IMAGE_STATUS"/>
    	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>    	  
 </resultMap>
-  
+
 </mapper>

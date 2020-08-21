@@ -19,6 +19,7 @@ import com.kh.fooco.admin.model.service.AdminService;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 
@@ -35,27 +36,26 @@ public class AdminController {
 		
 		// 방문자수 조회 해온 결과를 담아주자
 		VisitorCount vc = adminService.selectOneVisitorCount();
-		System.out.println(vc);
+//		System.out.println(vc);
 		
 		// 회원현황을 조회해온 결과를 담아주자
 		MembershipStatus membershipStatus = adminService.selectOneMembershipStatus();
-		System.out.println(membershipStatus);
+//		System.out.println(membershipStatus);
 		
 		// 맴버십 정보를 조회해온 결과를 담아주자
 		MembershipCount membershipCount = adminService.selectOneMembershipCount();
 //		System.out.println(membershipCount);
 		
 		// 미답변 문의 조회
+		ArrayList<Board> inquiry = adminService.selectListInquiryD();
+//		System.out.println(inquiry);
 		
-		
-		if(vc != null && membershipStatus != null) {
+			mv.addObject("inquiry", inquiry);
 			mv.addObject("vc", vc);
 			mv.addObject("membershipStatus", membershipStatus);
 			mv.addObject("membershipCount",membershipCount);
 			mv.setViewName("admin/dashboard");
-		}else {
-			throw new AdminException("대쉬보드 조회 실패!");
-		}
+		
 		return mv;
 	}
 	
@@ -182,8 +182,11 @@ public class AdminController {
 		return "admin/restaurantRegistration";
 	}
 	
+	// 1:1문의 관리 페이지ㄴ
 	@RequestMapping("inquiryEdit.do")
 	public String inquiryEdit() {
+		
+		
 		return "admin/inquiryEdit";
 	}
 	

@@ -9,6 +9,7 @@ import com.kh.fooco.admin.model.dao.AdminDao;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 
@@ -80,6 +81,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int updateMemberReviewStatus2(String memberId) {
 		return  adminDao.updateMemberReviewStatus2(memberId);
+	}
+
+	@Override
+	public ArrayList<Board> selectListInquiryD() {
+		return adminDao.selectListInquiryD();
 	}
 
 }

@@ -59,19 +59,17 @@
             <p style="margin:auto;">카테고리에서 <span style="color: red;">문의</span>를 선택 조회 하실 수 있습니다.</p>
           </div>
           <div class="col-3" style="margin:auto;" align="center">
-            <input type="radio" name="reply">&nbsp;<label>미답변</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="reply">&nbsp;<label>답변완료</label>
+            <input type="radio" name="inquiryYN" value="N">&nbsp;<label>미답변</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="inquiryYN" value="Y">&nbsp;<label>답변완료</label>
           </div>
-          <div class="col-3" style="vertical-align: middle;">
-            
+          <div class="col-3" style="vertical-align: middle;">            
 
-            <select class="float-right">
-              <option selected>선택</option>
-              <option>음식점 문의</option>
-              <option>테마 문의</option>
-              <option>리뷰 문의</option>
-              <option>기타 문의</option>
+            <select class="float-right" name="inquiryCode">
+              <option selected value="0">선택</option>
+              <option value="1">음식점 문의</option>
+              <option value="2">테마 문의</option>
+              <option value="3">리뷰 문의</option>
+              <option value="4">기타 문의</option>
             </select>
-
           </div>
         </div>
         <div class="card mb-4">
