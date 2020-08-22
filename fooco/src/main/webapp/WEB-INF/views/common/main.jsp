@@ -16,7 +16,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+	<script src="https://code.jquery.com/jquery.min.js"></script>
+	
     <title>Hello, world!</title>
     <style>
         /* 폰트 */
@@ -77,7 +78,46 @@
         
         /* 메인 푸터 */
         .mainFooter {height:10rem; background-color:rgb(253,215,129);}
-    </style>
+    </style>  
+     <!-- 방문자수 count를 위한 쿠키 생성 및 ajax 구문 -->
+	 <script>  
+	 $(function(){
+	  /* visit이라는 키의 쿠키가 없으면 쿠키 생성 후 방문자수 증가  */
+	  if(getCookie("visit")!=undefined){		  
+	     	alert(getCookie("visit"));
+	     	/* document.cookie = "visit=John; max-age=0"; */
+	     	
+	  }else{
+		  /* 쿠키 유지시간을 1시간으로 설정 해 준다. */
+		 document.cookie = "visit=John; max-age=3600";
+		 /* ajax로 방문자수 count 하기 */
+		 countAjax();		 
+	  }
+	   })
+	   
+	  /* 쿠키 값 가져오는 함수 */
+	 function getCookie(name) {
+	     var matches = document.cookie.match(new RegExp(
+	       "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	       ));
+	       return matches ? decodeURIComponent(matches[1]) : undefined;
+	     }
+	 /* 방문자수  count를 위한 AJax 실행 함수 */
+	 function countAjax(){	  
+	  $.ajax({
+			url:"visitCount.do",
+			success:function(data){
+				alert(data)
+			},
+			error:function(request, status, errorData){
+				alert("error code: " + request.status + "\n"
+						+"message: " + request.responseText
+						+"error: " + errorData);
+			}				
+		 })
+	 }
+	 </script>
+    
     </head>
     <body>
         <header>
@@ -238,15 +278,14 @@
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>   
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         <!-- fontawesome -->
         <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
-    </body>
+    </body>   
 </html>
 
-
-
-</body>
-</html>

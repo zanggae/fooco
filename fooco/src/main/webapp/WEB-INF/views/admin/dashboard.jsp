@@ -20,44 +20,6 @@
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   
-  <!-- 방문자수 count를 위한 쿠키 생성 및 ajax 구문 -->
-  <script>  
-  $(function(){
-	  /* visit이라는 키의 쿠키가 없으면 쿠키 생성 후 방문자수 증가  */
-	  if(getCookie("visit")!=undefined){		  
-      	alert(getCookie("visit"));
-      	/*  document.cookie = "visit=John; max-age=0"; */
-      	
-	  }else{
-		  /* 쿠키 유지시간을 1시간으로 설정 해 준다. */
-		 document.cookie = "visit=John; max-age=3600";
-		 /* ajax로 방문자수 count 하기 */
-		 countAjax();		 
-	  }
-    })
-    
-   /* 쿠키 값 가져오는 함수 */
-  function getCookie(name) {
-      var matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-        ));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-      }
-  /* 방문자수  count를 위한 AJax 실행 함수 */
-  function countAjax(){	  
-	  $.ajax({
-			url:"visitCount.do",
-			success:function(data){
-				alert(data)
-			},
-			error:function(request, status, errorData){
-				alert("error code: " + request.status + "\n"
-						+"message: " + request.responseText
-						+"error: " + errorData);
-			}				
-		 })
-  }
-  </script>
 </head>
 
 <body>
