@@ -7,9 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +36,11 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	//메일전송을 위한 Autowired
+    @Autowired
+    private JavaMailSender mailSender;
+    
+    
 	// 08.17 dashboard.jsp로 이동시 정보 불러와서 이동하기
 	@RequestMapping("dashboard.do")
 	public ModelAndView dashboard(ModelAndView mv) {
@@ -201,7 +210,38 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping("sendEmailAdmin.do")
+	public ModelAndView sendEmailAdmin(ModelAndView mv, String memberId, String emailContent) {
 		
+		System.out.println("아이디 :" + memberId+ "내용" + emailContent);
+		
+		String toEmail = "";			// 받는사람의 email 주소
+		String title = ""; 				// 메일 제목
+		String content = emailContent; 	// 보낼 내용
+		
+//		System.getProperty("line.separator")+		// 줄바꿈 필요시 사용하기
+		
+        try {
+        	MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
+			
+			messageHelper.setTo(toEmail);       // 받는사람 이메일
+            messageHelper.setSubject(title);    // 메일제목은 생략가능
+            messageHelper.setText(content);    // 메일 내용
+            
+            mailSender.send(message);
+            
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		mv.setViewName("admin/inquiryEdit");
+		return mv;
+		
+	}
+	
 	@RequestMapping("restaurantEdit.do")
 	public String restaurantEdit() {
 		return "admin/restaurantEdit";
