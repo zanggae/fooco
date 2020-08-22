@@ -88,5 +88,9 @@ public class AdminDao {
 		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListInquiryD");
 	}
 
+	public ArrayList<Board> selectListInquiry(Board board) {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListInquiry", board);
+	}
+
 
 }

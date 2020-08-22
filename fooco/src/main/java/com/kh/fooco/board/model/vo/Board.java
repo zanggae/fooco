@@ -19,6 +19,7 @@ public class Board implements Serializable{
 	private Date boardCreateDate;		// 게시물 생성날짜
 	private Date boardUpdateDate;		// 게시물 수정날짜
 	private String boardStatus;			// 게시물 상태
+	private String answerContent;		// FAQ 질문에 대한 답변
 	
 	// 문의 테이블에 관한 속성
 	private int inquiryCode;			// 문의 코드
@@ -41,10 +42,10 @@ public class Board implements Serializable{
 		super();
 	}
 	public Board(int boardId, int boardWriter, int categoryNo, String boardTitle, String boardContent, int boardCount,
-			Date boardCreateDate, Date boardUpdateDate, String boardStatus, int inquiryCode, String inquiryContent,
-			Date inquiryDate, String inquiryYN, String inquiryName, int imageId, String imageOriginName,
-			String imageNewName, String imageFilepath, Date imageCreateDate, int imageLevel, String imageStatus,
-			int imageDownloadCount) {
+			Date boardCreateDate, Date boardUpdateDate, String boardStatus, String answerContent, int inquiryCode,
+			String inquiryContent, Date inquiryDate, String inquiryYN, String inquiryName, int imageId,
+			String imageOriginName, String imageNewName, String imageFilepath, Date imageCreateDate, int imageLevel,
+			String imageStatus, int imageDownloadCount) {
 		super();
 		this.boardId = boardId;
 		this.boardWriter = boardWriter;
@@ -55,6 +56,7 @@ public class Board implements Serializable{
 		this.boardCreateDate = boardCreateDate;
 		this.boardUpdateDate = boardUpdateDate;
 		this.boardStatus = boardStatus;
+		this.answerContent = answerContent;
 		this.inquiryCode = inquiryCode;
 		this.inquiryContent = inquiryContent;
 		this.inquiryDate = inquiryDate;
@@ -122,6 +124,12 @@ public class Board implements Serializable{
 	}
 	public void setBoardStatus(String boardStatus) {
 		this.boardStatus = boardStatus;
+	}
+	public String getAnswerContent() {
+		return answerContent;
+	}
+	public void setAnswerContent(String answerContent) {
+		this.answerContent = answerContent;
 	}
 	public int getInquiryCode() {
 		return inquiryCode;
@@ -209,12 +217,13 @@ public class Board implements Serializable{
 		return "Board [boardId=" + boardId + ", boardWriter=" + boardWriter + ", categoryNo=" + categoryNo
 				+ ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", boardCount=" + boardCount
 				+ ", boardCreateDate=" + boardCreateDate + ", boardUpdateDate=" + boardUpdateDate + ", boardStatus="
-				+ boardStatus + ", inquiryCode=" + inquiryCode + ", inquiryContent=" + inquiryContent + ", inquiryDate="
-				+ inquiryDate + ", inquiryYN=" + inquiryYN + ", inquiryName=" + inquiryName + ", imageId=" + imageId
-				+ ", imageOriginName=" + imageOriginName + ", imageNewName=" + imageNewName + ", imageFilepath="
-				+ imageFilepath + ", imageCreateDate=" + imageCreateDate + ", imageLevel=" + imageLevel
-				+ ", imageStatus=" + imageStatus + ", imageDownloadCount=" + imageDownloadCount + "]";
+				+ boardStatus + ", answerContent=" + answerContent + ", inquiryCode=" + inquiryCode
+				+ ", inquiryContent=" + inquiryContent + ", inquiryDate=" + inquiryDate + ", inquiryYN=" + inquiryYN
+				+ ", inquiryName=" + inquiryName + ", imageId=" + imageId + ", imageOriginName=" + imageOriginName
+				+ ", imageNewName=" + imageNewName + ", imageFilepath=" + imageFilepath + ", imageCreateDate="
+				+ imageCreateDate + ", imageLevel=" + imageLevel + ", imageStatus=" + imageStatus
+				+ ", imageDownloadCount=" + imageDownloadCount + "]";
 	}
-
+	
 	
 }

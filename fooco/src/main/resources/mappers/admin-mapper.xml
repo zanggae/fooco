@@ -66,6 +66,7 @@
    	<result property="boardCreateDate" column="BOARD_CREATE_DATE"/> 
    	<result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
    	<result property="boardStatus" column="BOARD_STATUS"/>
+   	<result property="answerContent" column="ANSWER_CONTENT"/> 
    	<result property="inquiryCode" column="INQUIRY_CODE"/> 
    	<result property="inquiryContent" column="INQUIRY_CONTENT"/>
    	<result property="inquiryDate" column="INQUIRY_DATE"/>
@@ -166,11 +167,22 @@
 <!-- ============================ 게시판 관련 쿼리문 작성 ============================ -->
  
  <!-- dashboard에서 사용되는 미답변 문의글 5개 조회 -->
-<!-- <select id="selectListInquiryD" resultMap="BoardResultSet">
+ <select id="selectListInquiryD" resultMap="BoardResultSet">
 <![CDATA[
 	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3 AND INQUIRY_YN = 'N' AND ROWNUM <=5
 ]]>
 </select>
- -->
+
+
+<select id="selectListInquiry" resultMap="BoardResultSet">
+	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3
+	<if test="inquiryYN != null">
+		AND INQUIRY_YN = #{inquiryYN}
+	</if>
+	<if test="inquiryCode != 0">
+		AND INQUIRY_CODE = #{inquiryCode}
+	</if>
+</select>
+
 
 </mapper>

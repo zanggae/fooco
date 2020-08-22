@@ -1,11 +1,19 @@
 package com.kh.fooco.admin.controller;
 
+import static com.kh.fooco.common.Pagination.getPageInfo;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,13 +31,16 @@ import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 
-import static com.kh.fooco.common.Pagination.getPageInfo;
-
 @Controller
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	//메일전송을 위한 Autowired
+    @Autowired
+    private JavaMailSender mailSender;
+    
+    
 	// 08.17 dashboard.jsp로 이동시 정보 불러와서 이동하기
 	@RequestMapping("dashboard.do")
 	public ModelAndView dashboard(ModelAndView mv) {
@@ -148,7 +159,7 @@ public class AdminController {
 	
 	// 리뷰권한
 	@RequestMapping("reviewProhibition.do")
-		public ModelAndView reviewProhibition(ModelAndView mv, String memberId) {
+	public ModelAndView reviewProhibition(ModelAndView mv, String memberId) {
 		System.out.println(memberId);
 		// 회원번호로 맴버 조회
 		Member m = adminService.selectOneMember(memberId);
@@ -171,7 +182,66 @@ public class AdminController {
 		return mv;
 	}
 		
+	// 1:1문의 관리 페이지
+	@RequestMapping("inquiryEdit.do")
+	public ModelAndView inquiryEdit(ModelAndView mv, Board board) {
+		ArrayList<Board> inquiry = adminService.selectListInquiry(board);
+//		System.out.println(inquiry);
 		
+		mv.addObject("inquiry", inquiry);
+		mv.setViewName("admin/inquiryEdit");
+		
+		return mv;
+	}
+	
+	// 1:1문의 관리 페이지 ajax
+	@RequestMapping("inquiryEdit2.do")
+	public void inquiryEdit2(HttpServletResponse response, Board board) throws JsonIOException, IOException {
+		response.setContentType("application/json;charset=utf-8");
+		
+		ArrayList<Board> inquiry = adminService.selectListInquiry(board);
+//		System.out.println(inquiry);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("first", inquiry);		
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(result , response.getWriter());
+		
+	}
+	
+	@RequestMapping("sendEmailAdmin.do")
+	public ModelAndView sendEmailAdmin(ModelAndView mv, String memberId, String emailContent) {
+		
+		System.out.println("아이디 :" + memberId+ "내용" + emailContent);
+		
+		String toEmail = "";			// 받는사람의 email 주소
+		String title = ""; 				// 메일 제목
+		String content = emailContent; 	// 보낼 내용
+		
+//		System.getProperty("line.separator")+		// 줄바꿈 필요시 사용하기
+		
+        try {
+        	MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
+			
+			messageHelper.setTo(toEmail);       // 받는사람 이메일
+            messageHelper.setSubject(title);    // 메일제목은 생략가능
+            messageHelper.setText(content);    // 메일 내용
+            
+            mailSender.send(message);
+            
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		mv.setViewName("admin/inquiryEdit");
+		return mv;
+		
+	}
+	
 	@RequestMapping("restaurantEdit.do")
 	public String restaurantEdit() {
 		return "admin/restaurantEdit";
@@ -182,13 +252,6 @@ public class AdminController {
 		return "admin/restaurantRegistration";
 	}
 	
-	// 1:1문의 관리 페이지ㄴ
-	@RequestMapping("inquiryEdit.do")
-	public String inquiryEdit() {
-		
-		
-		return "admin/inquiryEdit";
-	}
 	
 	@RequestMapping("boardEdit.do")
 	public String boardEdit() {

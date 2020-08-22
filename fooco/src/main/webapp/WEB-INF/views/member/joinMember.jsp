@@ -123,13 +123,9 @@
   </head>
   <body>
       <!--header시작-->
-      <!--상단 menubar include할 것-->
       <header>
         <jsp:include page="../common/menubar.jsp"></jsp:include>
-      
-      	
-      </header>
-
+      </header><br><br><br><br>
 
 
       <!--section시작-->
@@ -166,10 +162,12 @@
             </tr>
             <tr>
               <td><li type="square"><label>인증번호 입력</label></li></td>
-              <td><input type="text" id="checkEmailnum"></td>  <!--인증번호 입력하는 input태그-->
-              <td><input type="button" value="확인" id="comfirm_btn" onclick="checkEmailJ();">
+              <td><input type="text" name="checkEmail" id="checkEmailnum"></td>  <!--인증번호 입력하는 input태그-->
+              <td><input type="button" value="확인" id="comfirm_btn" onclick="checkEmailbtn();">
                   &nbsp;<label id="resultEmailCheck" style="font-size: 12px;"></label>
+              <input type="hidden"  id="dice" value="${dice}" />
               </td>
+
             </tr>
             <tr>
               <td><label><li type="square">닉네임</li></label></td>
@@ -382,8 +380,8 @@
 
       <!--이메일 본인인증-->
       <script>
-      	checkSuccess='';
-		completeCheck=-1;
+      	checkSuccess=""; 	//이메일 인증 상태
+		completeCheck=-1;	//인증한 이메일인지 아닌지
 		
         //인증메일 전송 함수
         //이메일 입력했는 지 확인
@@ -402,7 +400,7 @@
             $("#selfSiteName").focus();
             return;
           }
-		//우선 이거 안먹음
+		//안먹고
           if(completeCheck==1){
 				alert("이미 인증받은 메일입니다");
 				return;
@@ -423,6 +421,10 @@
 				, data:{email:email1.val()+'@'+email2.val()}
 				, success:function(data){
 					console.log("성공");
+					alert(data);
+					checkSuccess = data;
+					console.log("checkSuccess"+checkSuccess);
+									
 					$("#identity_confirm_btn").prop("disabled", true);
 					$("#comfirm_btn").prop("disabled", false);
 					alert("입력한 이메일로 인증번호가 전송되었습니다.");
@@ -434,71 +436,53 @@
         }
 
           //인증번호 확인 버튼 함수
-          function comfirm_check(){
-        	//이메일 인증을 누르고 진행하였는가
-  			if(checkSuccess=='success'){
+          function checkEmailbtn(){
+        	//이메일 인증을 받았는지
+  			if(checkSuccess=="success"){
   				alert(checkSuccess);
-  				alert('이미 완료되었습니다');
+  				alert("이미 완료되었습니다");
   				return;
   			}
-  		//이메일이 입력되었는가
-			if($('#email').val()==''){
-				alert('먼저 이메일을 입력해주세요');
-				return;
-			}
-			//이메일을 변경한 경우
-			if(checkSuccess=="reset"){
-				alert('다시 인증하셔야 합니다');
+  			//이메일이 입력되었는가 -> 잘먹고
+			if($("#email").val()==""){
+				alert("먼저 이메일을 입력해주세요");
 				return;
 			}
 			//인증 안받고 누른 경우
-			if(checkSuccess==''){
-				alert('인증메일을 받고 진행해주세요')
+			if(checkSuccess==""){
+				alert("인증메일을 받고 진행해주세요")
 				return;
 			}
-			//인증번호 입력란에 값을 넣고 버튼을 눌렀는가
-			if($('#checkEmailnum').val().length==0){
-				alert('인증번호를 입력해주세요');
+			//인증번호 입력했는지
+			if($("#checkEmailnum").val().length==0){
+				alert("인증번호를 입력해주세요");
 				return;
 			}
-            //이메일 인증 후 진행하는지
-            /* if(checkSuccess==""){
-              alert("인증메일을 받고 진행해주세요");
-              return;
-            } */
-            //빈 값인지 
-           /*  if($("#").val()==""){
-              alert("인증번호를 입력해주세요");
-              return;
-            } */
-            
-            //인증번호가 일치하는 지 확인
-            var compare = document.getElementById('#checkEmailnum').value;
-            
-            if(checkSuccess==compare){
-				alert('인증에 성공하셨습니다');
-				checkSuccess='success';
+            //인증번호 일치하는 지 확인
+            var compareNum = document.getElementById('checkEmailnum').value;
+            console.log("compareNum:" + compareNum);
+            console.log("checkSuccess:" + checkSuccess);
+          
+            if(checkSuccess==compareNum){
+				alert("인증성공");
+				checkSuccess="success";
 				completeCheck=1;
 				
-				$('#identity_confirm_btn').prop('disabled', false);
-				$('#comfirm_btn').prop('disabled', true);
+				$("#identity_confirm_btn").prop("disabled", false);
+				$("#comfirm_btn").prop("disabled", true);
 				
-				$('#resultEmailCheck').text('인증 성공');
-			}else if(checkSuccess==''){
-				alert('본인 인증 버튼을 눌러주세요');
-			}else if(checkSuccess=='reset'){
-				alert('다시 인증해주세요');
+				$("#resultEmailCheck").text("인증 성공");
+			}else if(checkSuccess==""){
+				alert("본인 인증 버튼을 눌러주세요");
 			}else{
-				alert('맞지 않는 번호입니다.')
-				$('#checkEmailnum').val('');
+				alert("맞지 않는 번호입니다.")
+				$('#checkEmailnum').val("");
 			}
 
            
-
           }
-     
           
-			
+
 
         
       </script>
@@ -506,6 +490,7 @@
 
       <!--추가할 것-->
       <!--이메일 관련(인증), 닉네임 중복 확인 AJAX, Submit-->
+      <!-- 0822 닉네임 중복 확인 AJAX만 처리 하면 끝 -->
       
       
 
