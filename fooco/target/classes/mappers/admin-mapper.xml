@@ -66,6 +66,7 @@
    	<result property="boardCreateDate" column="BOARD_CREATE_DATE"/> 
    	<result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
    	<result property="boardStatus" column="BOARD_STATUS"/>
+   	<result property="answerContent" column="ANSWER_CONTENT"/> 
    	<result property="inquiryCode" column="INQUIRY_CODE"/> 
    	<result property="inquiryContent" column="INQUIRY_CONTENT"/>
    	<result property="inquiryDate" column="INQUIRY_DATE"/>
