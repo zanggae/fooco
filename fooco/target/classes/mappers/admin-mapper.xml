@@ -56,7 +56,7 @@
 <!-- ============================ 게시판 관련 resultMap 작성 ============================ -->
 
 <!-- board 조회 resultMap -->
- <resultMap type="Board" id="BoardResultSet">
+<!--  <resultMap type="Board" id="BoardResultSet">
 	<id property="boardId" column="BOARD_ID"/>
    	<result property="boardWriter" column="BOARD_WRITER"/>
    	<result property="categoryNo" column="CATEGORY_NO"/>
@@ -80,7 +80,7 @@
    	<result property="imageStatus" column="IMAGE_STATUS"/>
    	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>    	  
 </resultMap>
-
+ -->
 
 
 <!-- ============================ 회원 관련 쿼리문 작성 ============================  -->
@@ -166,11 +166,11 @@
 <!-- ============================ 게시판 관련 쿼리문 작성 ============================ -->
  
  <!-- dashboard에서 사용되는 미답변 문의글 5개 조회 -->
-<select id="selectListInquiryD" resultMap="BoardResultSet">
+<!-- <select id="selectListInquiryD" resultMap="BoardResultSet">
 <![CDATA[
 	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3 AND INQUIRY_YN = 'N' AND ROWNUM <=5
 ]]>
 </select>
-
+ -->
 
 </mapper>
