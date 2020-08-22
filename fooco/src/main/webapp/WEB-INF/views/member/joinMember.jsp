@@ -152,7 +152,7 @@
                   <option value="e_option" selected>선택하세요</option>
                   <option value="naver.com">naver.com</option>
                   <option value="daum.net">daum.net</option>
-                  <option value="google.com">google.com</option>
+                  <option value="google.com">gmail.com</option>
                   <option value="hanmail.net">hanmail.net</option>
                   <option value="selfEmail" id="selfEmail">직접 입력</option>
                 </select>&nbsp;
@@ -311,11 +311,20 @@
       <!-- 닉네임 정규표현식, 중복체크-->
       <script>
         //2. 닉네임 중복체크 -> spring ajax 배운 후 작성
-        $("#nickName").blur(function(){
-          var nickName = $("#nickName").val();
+        $("#nickName").on("keyup",function(){
+          var nickName = $("#nickName").val().trim();
 
           $.ajax({
-
+				url:"checkNickName.do"
+				,type:"post"
+				,data: {nickName:nickName}
+				,success:function(data){
+					if(data==true){
+						alert("중복된 닉네임입니다.");
+					}else if(data==false){
+						
+					}
+				}
           })
         })
 

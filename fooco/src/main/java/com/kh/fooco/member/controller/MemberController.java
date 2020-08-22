@@ -217,10 +217,15 @@ public class MemberController {
 	         
 	         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 	         gson.toJson(dice, response.getWriter());
+
+		}
+		
+		//이메일 중복 체크
+		@RequestMapping(value="checkNickName.do")
+		public ModelAndView checkNickName(String nickName){
+			System.out.println("닉네임 넘어오는 지 :" +nickName);
 			
-			 
-			
-			
+			return null;
 		}
 		
 	
