@@ -28,6 +28,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
 import com.kh.fooco.member.model.vo.Member;
@@ -67,7 +69,7 @@ public class MemberController {
 	@RequestMapping("insertMember.do")
 	public String memberInsert(Member m,
 			@RequestParam("emailfront") String emailfront,	//주소 세개로 끊어서 가지고옴 
-//			@RequestParam("emailself") String emailself,
+			@RequestParam(value="emailself",required=false) String emailself,
 			@RequestParam("emailback") String emailback) {
 		System.out.println("jsp에서 값 잘 넘어오는 지 "+m);
 		
@@ -75,7 +77,11 @@ public class MemberController {
 		
 		m.setMemberPwd(encPwd);
 		
-		m.setEmail(emailfront + "@" + emailback);	//추후 조건절 걸어서 선택 이메일 추가 해주기
+		if(emailself==null) {	//직접입력 이메일 안했으면
+			m.setEmail(emailfront + "@" + emailback);
+		}else if(emailself!=null) {
+			m.setEmail(emailfront + "@" + emailself);
+		}
 		
 		//insert작업 시작
 		int result = memberService.insertMember(m);
@@ -170,21 +176,21 @@ public class MemberController {
 	
 		//이메일전송
 		@RequestMapping(value="sendEmailforMemerJoin.do",method=RequestMethod.POST)
-		public ModelAndView mailSending(HttpServletRequest request,String email, HttpServletResponse response_email) throws IOException {
+		public void mailSending(HttpServletRequest request,String email, HttpServletResponse response) throws IOException {
 			
 			Random r = new Random();
 			int dice = r.nextInt(4589362) + 49311;	//이메일로 받는 인증코드 부분(난수)
 			
-			String setfrom = "ekfzma1004@gmail.com";
-			String tomail = request.getParameter("email"); 
-			String title = "Fooco 인증 메일입니다";
+//			String setfrom = "ekfzma1004@gmail.com";		//보내는 사람
+			String tomail = request.getParameter("email"); //받는 사람
+			String title = "Fooco 인증 메일입니다";				//메일제목
 			String content = 
 					System.getProperty("line.separator")+
 					System.getProperty("line.separaotr")+
 					"안녕하세요! Fooco입니다."+
 					System.getProperty("line.separator")+
 					System.getProperty("line.separator")+
-					"인증번호는 " + dice+"입니다"+
+					"인증번호는 " + dice+ "입니다"+
 					System.getProperty("line.separator")+
 					System.getProperty("line.separator")+
 					"위의 인증번호를 잘 입력해 주세요";
@@ -193,28 +199,27 @@ public class MemberController {
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
 				
-				 messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
-	             messageHelper.setTo(tomail); // 받는사람 이메일
-	             messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-	             messageHelper.setText(content); // 메일 내용
+//				 messageHelper.setFrom(setfrom); 	// 보내는사람 생략하면 정상작동을 안함
+	             messageHelper.setTo(tomail); 		// 받는사람 이메일
+	             messageHelper.setSubject(title); 	// 메일제목은 생략가능
+	             messageHelper.setText(content); 	// 메일 내용
 	             
 	             mailSender.send(message);
+	             System.out.println("이메일 전송됨!_!");
 				
 			} catch (MessagingException e) {
 				e.printStackTrace();
 				System.out.println(e);
 			}
-			ModelAndView mv = new ModelAndView();
-			mv.setViewName("member/memberJoin");
-			mv.addObject("dice",dice);
 			
-			System.out.println("mv: " + mv);
-
-			PrintWriter out_email = response_email.getWriter();
-			out_email.println("<script>alert('이베일이 발송되었습니다.인증번호를 입력해주세요.');<script>");
-			out_email.flush();
+			//난수 화면단으로 보내기
+			response.setContentType("application/json;charset=utf-8");
+	         
+	         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+	         gson.toJson(dice, response.getWriter());
 			
-			return mv;
+			 
+			
 			
 		}
 		
