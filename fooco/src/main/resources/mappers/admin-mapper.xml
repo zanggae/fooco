@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+
+<!-- ============================회원 관련 resultMap 작성 ===================== -->
+
+<!-- 방문자수 조회 -->
+<resultMap type="VisitorCount" id="VisitorCountResultSet">
+	<id property="vcId" column="STATIC_ID"/>
+    <result property="day" column="STATIC_DATE"/>
+    <result property="count" column="STATIC_COUNT"/>
+    <result property="totalCount" column="STATIC_T_COUNT"/>    
+</resultMap>
+
+<!-- 회원현황 조회 -->
+<resultMap type="MembershipStatus" id="MembershipStatusResultSet">	
+    <result property="totalCount" column="TOTAL_COUNT"/>
+    <result property="yCount" column="Y_COUNT"/>
+    <result property="nCount" column="N_COUNT"/>    
+</resultMap>
+
+<!-- 맴버십 회원 조회 -->
+<resultMap type="MembershipCount" id="MembershipCountResultSet">
+	<result property="day" column="DAY"/>
+    <result property="gold" column="GOLD"/>
+    <result property="silver" column="SILVER"/>
+    <result property="total" column="TOTAL"/> 
+</resultMap>
+
+<!-- 맴버 (맴버 테이블 + 맴버십이름 + 프로필 사진) -->
+<resultMap type="Member" id="memberListResultSet">
+	<id property="memberId" column="MEMBER_ID"></id>
+	<result property="memberName" column="MEMBER_NAME"></result>
+	<result property="memberPwd" column="MEMBER_PWD"></result>
+	<result property="email" column="EMAIL"></result>
+	<result property="nickName" column="NICKNAME"></result>
+	<result property="gender" column="GENDER"></result>
+	<result property="phone" column="PHONE"></result>
+	<result property="address" column="ADDRESS"></result>
+	<result property="memberEnrolldate" column="MEMBER_ENROLLDATE"></result>
+	<result property="memberModifydate" column="MEMBER_MODIFYDATE"></result>
+	<result property="memberAccessdate" column="MEMBER_ACCESSDATE"></result>
+	<result property="memberStatus" column="MEMBER_STATUS"></result>
+	<result property="memberJoinType" column="MEMBERJOIN_TYPE"></result>
+	<result property="reviewStatus" column="REVIEW_STATUS"></result>
+	<result property="membershipName" column="MEMBERSHIP_NAME"></result>
+	<result property="profileId" column="PROFILE_ID"></result>
+	<result property="originalName" column="ORIGINAL_NAME"></result>
+	<result property="renameName" column="RENAME_NAME"></result>
+	<result property="uploadDate" column="UPLOAD_DATE"></result>
+	<result property="file_path" column="FILE_PATH"></result>	
+</resultMap>
+
+
+
+<!-- ============================ 게시판 관련 resultMap 작성 ============================ -->
+
+<!-- board 조회 resultMap -->
+ <resultMap type="Board" id="BoardResultSet">
+	<id property="boardId" column="BOARD_ID"/>
+   	<result property="boardWriter" column="BOARD_WRITER"/>
+   	<result property="categoryNo" column="CATEGORY_NO"/>
+   	<result property="boardTitle" column="BOARD_TITLE"/>
+   	<result property="boardContent" column="BOARD_CONTENT"/>
+   	<result property="boardCount" column="BOARD_COUNT"/>
+   	<result property="boardCreateDate" column="BOARD_CREATE_DATE"/> 
+   	<result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
+   	<result property="boardStatus" column="BOARD_STATUS"/>
+   	<result property="inquiryCode" column="INQUIRY_CODE"/> 
+   	<result property="inquiryContent" column="INQUIRY_CONTENT"/>
+   	<result property="inquiryDate" column="INQUIRY_DATE"/>
+   	<result property="inquiryYN" column="INQUIRY_YN"/> 
+   	<result property="inquiryName" column="INQUIRY_NAME"/>
+   	<result property="imageId" column="IMAGE_ID"/>
+   	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/> 
+   	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+   	<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+   	<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/> 
+   	<result property="imageLevel" column="IMAGE_LEVEL"/>
+   	<result property="imageStatus" column="IMAGE_STATUS"/>
+   	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>    	  
+</resultMap>
+
+
+
+<!-- ============================ 회원 관련 쿼리문 작성 ============================  -->
+
+<!-- 방문자수 조회 -->
+<select id="selectOneVisitorCount" resultMap="VisitorCountResultSet">
+	SELECT * FROM STATIC WHERE TO_CHAR(STATIC_DATE,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
+</select>
+
+<!-- 회원현황 조회 -->
+<select id="selectOneMembershipStatus" resultMap="MembershipStatusResultSet">
+	SELECT (SELECT COUNT(*) FROM MEMBER) TOTAL_COUNT
+	,(SELECT COUNT(*) FROM MEMBER WHERE MEMBER_STATUS = 'Y') Y_COUNT
+	, (SELECT COUNT(*) FROM MEMBER WHERE MEMBER_STATUS = 'N') N_COUNT
+	FROM MEMBER
+	WHERE ROWNUM = 1
+</select>
+
+<!-- 맴버십 현황 조회 -->
+<select id="selectOneMembershipCount" resultMap="MembershipCountResultSet">
+	SELECT SYSDATE DAY 
+	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=1 AND MS_STATUS = 'Y') GOLD
+	, (SELECT COUNT(*) FROM membership_list WHERE membership_id=2 AND MS_STATUS = 'Y') SILVER
+	, (SELECT COUNT(*) FROM membership_list WHERE MS_STATUS = 'Y') TOTAL
+	FROM membership_list WHERE ROWNUM = 1
+</select>
+
+<!-- 첫 방문시 튜플 생성  -->
+<insert id="insertVisitorCount">
+	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC))
+</insert>
+
+<!-- 2번째 이후 업데이트 -->
+<update id="updateVisitorCount">
+	UPDATE STATIC SET STATIC_COUNT  = STATIC_COUNT+1 
+					, STATIC_T_COUNT = STATIC_T_COUNT+1 
+	WHERE TO_CHAR(STATIC_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+</update>
+
+<!-- 회원 전체 조회 -->
+<select id="selectlistMember" resultMap="memberListResultSet">
+	SELECT * FROM SELECT_MEMBER ORDER BY MEMBER_NAME
+</select>
+
+<!-- 회원검색을 했을 때 검색된 회원의 수를 구해오는것 -->
+<select id="memberNameSearchCount" parameterType="string" resultType="_int">
+	SELECT COUNT(*) FROM SELECT_MEMBER WHERE MEMBER_NAME LIKE '%'||#{searchMemberTextbox}||'%'
+</select>
+
+<!-- 검색한 회원을 조회하는 것 -->
+<select id="searchListMember" parameterType="string" resultMap="memberListResultSet">
+	SELECT * FROM SELECT_MEMBER WHERE MEMBER_NAME LIKE '%'||#{searchMemberTextbox}||'%' ORDER BY MEMBER_NAME
+</select>
+
+<!-- 회원 status y -> n -->
+<update id="updateMembershipSuspension" parameterType="string">
+	UPDATE MEMBER SET MEMBER_STATUS = 'N' WHERE MEMBER_ID = #{memberId}
+</update>
+
+<!-- 회원 status n -> y -->
+<update id="updateMembershipSuspension2" parameterType="string">
+	UPDATE MEMBER SET MEMBER_STATUS = 'Y' WHERE MEMBER_ID = #{memberId}
+</update>
+
+<!-- 회원 정보 조회 -->
+<select id="selectOneMember2" parameterType="string" resultMap="memberListResultSet">
+	SELECT * FROM MEMBER WHERE MEMBER_ID = #{memberId}
+</select>
+
+<!-- 회원 review status y -> n -->
+<update id="updateMemberReviewStatus" parameterType="string">
+	UPDATE MEMBER SET REVIEW_STATUS = 'N' WHERE MEMBER_ID = #{memberId}
+</update>
+
+<!-- 회원 review status y -> n -->
+<update id="updateMemberReviewStatus2" parameterType="string">
+	UPDATE MEMBER SET REVIEW_STATUS = 'Y' WHERE MEMBER_ID = #{memberId}
+</update>
+
+
+
+
+<!-- ============================ 게시판 관련 쿼리문 작성 ============================ -->
+ 
+ <!-- dashboard에서 사용되는 미답변 문의글 5개 조회 -->
+<select id="selectListInquiryD" resultMap="BoardResultSet">
+<![CDATA[
+	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3 AND INQUIRY_YN = 'N' AND ROWNUM <=5
+]]>
+</select>
+
+<select id="selectListInquiry" resultMap="BoardResultSet">
+	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3
+	<if test="inquiryYN != null">
+		AND INQUIRY_YN = #{inquiryYN}
+	</if>
+	<if test="inquiryCode != 0">
+		AND INQUIRY_CODE = #{inquiryCode}
+	</if>
+</select>
+
+</mapper>

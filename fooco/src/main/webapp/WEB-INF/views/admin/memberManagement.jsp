@@ -71,30 +71,38 @@
                   </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="m" items="${memberList }">
-                  <tr>
-                    <td align="center">
-                      <img src="${contextPath}/resources/noimage/${m.renameName }" width="60" height="60" style="border-radius: 50%;">
-                    </td>
-                    <td>
-                      ${m.memberName }(${m.nickName })<br>
-                      ${m.email }
-                    </td>
-                    <c:if test="${empty m.membershipName }">
-                    	<td>미가입</td>
-                    </c:if>
-                    <c:if test="${!empty m.membershipName }">
-                    	<td>${m.membershipName }</td>                    	
-                    </c:if>
-                    <td>${m.memberEnrolldate }</td>
-                    <td>${m.memberAccessdate }</td>
-                    <td>회원 ${m.memberStatus }<br>리뷰 ${m.reviewStatus }</td>
-                    
-                    <td>
-                      <button type="button" class="btn btn-primary" style="background-color: white; color: rgb(204, 51, 98); border-color: rgb(204, 51, 98);" data-toggle="modal" data-target="#exampleModal" data-whatever=${m.memberId }><i class="fas fa-cog"></i></button>
-                    </td>
-                  </tr>
-                  </c:forEach>
+                <c:if test="${empty memberList }">
+                	<tr align="center">
+                		<td colspan="7">조회된 회원이 없습니다.</td>
+                	</tr>
+                </c:if>
+                <c:if test="${!empty memberList }">
+	                <c:forEach var="m" items="${memberList }">
+		       			<tr>
+		                    <td align="center">
+		                      <img src="${contextPath}/resources/noimage/${m.renameName }" width="60" height="60" style="border-radius: 50%;">
+		                    </td>
+		                    <td>
+		                      ${m.memberName }(${m.nickName })<br>
+		                      ${m.email }
+		                    </td>
+		                    <c:if test="${empty m.membershipName }">
+		                    	<td>미가입</td>
+		                    </c:if>
+		                    <c:if test="${!empty m.membershipName }">
+		                    	<td>${m.membershipName }</td>                    	
+		                    </c:if>
+		                    <td>${m.memberEnrolldate }</td>
+		                    <td>${m.memberAccessdate }</td>
+		                    <td>회원 ${m.memberStatus }<br>리뷰 ${m.reviewStatus }</td>
+		                    
+		                    <td>
+		                      <button type="button" class="btn btn-primary" style="background-color: white; color: rgb(204, 51, 98); border-color: rgb(204, 51, 98);" data-toggle="modal" data-target="#exampleModal" data-whatever=${m.memberId }><i class="fas fa-cog"></i></button>
+		                    </td>
+		               	</tr>
+	                </c:forEach>
+                </c:if>
+                
                   <!-- 페이징 처리부분 -->
 					<tr align="center" height="20">
 						<td colspan="7">
@@ -161,7 +169,7 @@
             <input type="hidden" class="form-control" id="recipient-name">
           </div>
           <div align="center">
-          <button type="button" class="btn" style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;" data-toggle="modal" data-target="#exampleModal1" data-whatever="사용자 이메일">이메일</button></td>
+          <button type="button" class="btn" style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;" data-toggle="modal" data-target="#exampleModal1" data-whatever="">이메일</button></td>
           <button type="button" class="btn" onclick="membershipSuspension()" style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;">회원상태변경</button></td>
           <button type="button" class="btn" onclick="reviewProhibition()"style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;">리뷰상태변경</button></td>
         </div>
@@ -185,6 +193,13 @@
 	  
 	  location.href="reviewProhibition.do?memberId="+memberId;
   }
+  function sendEmail(){
+	  var memberId = $("#recipient-name1").val();
+	  var emailContent = $("#message-text1").html();
+	  
+	  location.href="sendEmailAdmin.do?memberId="+memberId+"&emailContent"+emailContent;
+  }
+  
 </script>
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -196,20 +211,17 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form>          
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
+            <input type="hidden" class="form-control" id="recipient-name1">
             <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <textarea class="form-control" id="message-text1"></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button type="button" class="btn btn-primary" onclick="sendEmail()">Send message</button>
       </div>
     </div>
   </div>

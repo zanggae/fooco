@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 
@@ -35,6 +36,10 @@ public interface AdminService {
 	int updateMemberReviewStatus(String memberId);
 
 	int updateMemberReviewStatus2(String memberId);
+
+	ArrayList<Board> selectListInquiryD();
+
+	ArrayList<Board> selectListInquiry(Board board);
 
 	
 }
