@@ -19,6 +19,8 @@
   </style>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  
+  
 </head>
 
 <body>
@@ -95,9 +97,12 @@
                     미답변 문의
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
+                  	<c:forEach var="iq" items="${inquiry }">
+                    <h5 class="card-title">${iq.boardTitle }</h5>
+                    <hr>
+                    </c:forEach>
                     <p class="card-text"></p>
-                    <a href="#" class="btn btn-primary">더보러 가기</a>
+                    <a href="inquiryEdit.do" class="btn btn-primary">더보러 가기</a>
                   </div>
                 </div>
               </div>

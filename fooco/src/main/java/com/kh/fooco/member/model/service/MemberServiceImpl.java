@@ -11,10 +11,18 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDao memberDao;
 
+	//로그인메소드
 	@Override
 	public Member loginMember(Member m) {
 		
 		return memberDao.selectoneMember(m);
+	}
+
+	//회원가입메소드
+	@Override
+	public int insertMember(Member m) {
+		
+		return memberDao.insertMember(m);
 	}
 
 	

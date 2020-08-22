@@ -13,6 +13,12 @@
     <title>JOIN US</title>
 
     <style>
+            /* 폰트 */
+        @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
+        @font-face {font-family: 'medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff'); font-weight: normal; font-style: normal;}
+        @font-face {font-family: 'heavy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff'); font-weight: bold; font-style: normal;}
+        @font-face {font-family: 'light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: normal; font-style: normal;}
+        * {font-family:'light';}
       /* 공통사항 */
       html{
         margin: 0 auto;
@@ -117,32 +123,32 @@
   </head>
   <body>
       <!--header시작-->
-      <!--상단 menubar include할 것-->
-      <header></header>
-
+      <header>
+        <jsp:include page="../common/menubar.jsp"></jsp:include>
+      </header><br><br><br><br>
 
 
       <!--section시작-->
       <section>
         <div>
-          <h1>JOIN US</h1>
+          <h1 style="font-family:'heavy';">JOIN US</h1>
           <p>진짜 맛집을 찾아서! FOOCO와 함께 하세요!</p><hr>
         </div>
         <br><br>
-        <form id="" action="#" >
+        <form id="joinForm" action="insertMember.do" method="post">
           <table align="center" id="Join_InputT">
             <tr>
               <td><label><li type="square">이름</li></label></td>
-              <td><input type="text" id="userName" required></td>
+              <td><input type="text" id="userName" name="memberName" required></td>
               <td><label id="resultName"></label></td>
             </tr>
             <tr>
               <td><label><li type="square">이메일</li></label></td>
-              <td><input type="text" id="email" required></td>
+              <td><input type="text" id="email" name="emailfront" required></td>
               <td>
                 <span style="font-size: 17px;">@</span>&nbsp;
-                <input type="text" id="selfSiteName" required disabled>
-                <select class="" id="selectEmail">
+                <input type="text" id="selfSiteName" name="emailself" required disabled>
+                <select class="" id="selectEmail" name="emailback">
                   <option value="e_option" selected>선택하세요</option>
                   <option value="naver.com">naver.com</option>
                   <option value="daum.net">daum.net</option>
@@ -156,14 +162,16 @@
             </tr>
             <tr>
               <td><li type="square"><label>인증번호 입력</label></li></td>
-              <td><input type="text" id="checkEmailnum"></td>  <!--인증번호 입력하는 input태그-->
-              <td><input type="button" value="확인" id="comfirm_btn" onclick="comfirm_check();">
-                  &nbsp;<label id="resultEamilCheck" style="font-size: 12px;"></label>
+              <td><input type="text" name="checkEmail" id="checkEmailnum"></td>  <!--인증번호 입력하는 input태그-->
+              <td><input type="button" value="확인" id="comfirm_btn" onclick="checkEmailbtn();">
+                  &nbsp;<label id="resultEmailCheck" style="font-size: 12px;"></label>
+              <input type="hidden"  id="dice" value="${dice}" />
               </td>
+
             </tr>
             <tr>
               <td><label><li type="square">닉네임</li></label></td>
-              <td><input type="text" id="nickName" required></td>
+              <td><input type="text" id="nickName" name="nickName" required></td>
               <td>
                 <span>3-7자의 한글만 사용 가능</span>
                 <label id="resultNickName"></label>
@@ -172,7 +180,7 @@
             </tr>
             <tr>
               <td><label><li type="square">비밀번호</li></label></td>
-              <td><input type="password" id="userPwd1"required></td>
+              <td><input type="password" id="userPwd1" name="memberPwd" required></td>
               <td>
               <span>8~16자의 영문자,숫자 사용하여 입력</span>
               <label id="resultPwd1"></label>
@@ -199,6 +207,8 @@
           </table><br><br><br><br>
               <button type="button" onclick="validate()" id="Join_btn">회원가입</button>&nbsp;
               <input type="reset" value="취소" id="join_reset_btn">
+              
+              
         </form><br><br><br><br>
 
       </section>
@@ -340,6 +350,11 @@
             $("#email").focus();
             return;
           }
+          if($("#checkEmailnum").val()==""){
+              alert("이메일 인증을 완료해주세요");
+              $("#checkEmailnum").focus();
+              return;
+            }
           if($("#nickName").val()==""){
             alert("닉네임을 입력하세요");
             $("#nickName").focus();
@@ -359,14 +374,15 @@
             alert("필수 약관에 동의 하셔야 합니다");
             return;
           }
+          $("#joinForm").submit();
         }
       </script>
 
       <!--이메일 본인인증-->
       <script>
-        checkSuccess="";
-        completeCheck=-1;
-
+      	checkSuccess=""; 	//이메일 인증 상태
+		completeCheck=-1;	//인증한 이메일인지 아닌지
+		
         //인증메일 전송 함수
         //이메일 입력했는 지 확인
         function identity_confirm(){
@@ -384,13 +400,13 @@
             $("#selfSiteName").focus();
             return;
           }
-
+		//안먹고
           if(completeCheck==1){
-            alert("이미 인증받은 이메일입니다");
-            return;
-          }
+				alert("이미 인증받은 메일입니다");
+				return;
+			}
 
-          //이메일 데이터 통합
+          //이메일 데이터 하나로 합치기
           var email1 = $("#email");
           var email2 = "";
 
@@ -400,55 +416,73 @@
             email2 = $("#selfSiteName");    //직접입력 이메일
           }
           $.ajax({
-            url:"sendEmail.do",
-            type:"post",
-            data:{email:email1.val()+"@"+email2.val()},
-            success:function(data){
-              console.log("성공");
-              checkSuccess=data;
-              $("#identity_confirm_btn").prop("disable",true);
-              $("#comfirm_btn").prop("disabled",false);
-              alert("입력한 이메일로 인증번호가 전송되었습니다.");
-            },
-            error:function(request, status, error){
-              lert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-            
-          })
+				url:"sendEmailforMemerJoin.do"
+				, type:"post"
+				, data:{email:email1.val()+'@'+email2.val()}
+				, success:function(data){
+					console.log("성공");
+					alert(data);
+					checkSuccess = data;
+					console.log("checkSuccess"+checkSuccess);
+									
+					$("#identity_confirm_btn").prop("disabled", true);
+					$("#comfirm_btn").prop("disabled", false);
+					alert("입력한 이메일로 인증번호가 전송되었습니다.");
+				}
+				, error:function(request, status, error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+			})
         }
 
           //인증번호 확인 버튼 함수
-          function comfirm_check(){
-            //이메일 인증 후 진행하는지
-            if(checkSuccess==""){
-              alert("인증메일을 받고 진행해주세요");
-              return;
-            }
-            //빈 값인지 
-            if($("#").val()==""){
-              alert("인증번호를 입력해주세요");
-              return;
-            }
-            var compare = document.getElementById("#checkEmailnum").valueB;
+          function checkEmailbtn(){
+        	//이메일 인증을 받았는지
+  			if(checkSuccess=="success"){
+  				alert(checkSuccess);
+  				alert("이미 완료되었습니다");
+  				return;
+  			}
+  			//이메일이 입력되었는가 -> 잘먹고
+			if($("#email").val()==""){
+				alert("먼저 이메일을 입력해주세요");
+				return;
+			}
+			//인증 안받고 누른 경우
+			if(checkSuccess==""){
+				alert("인증메일을 받고 진행해주세요")
+				return;
+			}
+			//인증번호 입력했는지
+			if($("#checkEmailnum").val().length==0){
+				alert("인증번호를 입력해주세요");
+				return;
+			}
+            //인증번호 일치하는 지 확인
+            var compareNum = document.getElementById('checkEmailnum').value;
+            console.log("compareNum:" + compareNum);
+            console.log("checkSuccess:" + checkSuccess);
+          
+            if(checkSuccess==compareNum){
+				alert("인증성공");
+				checkSuccess="success";
+				completeCheck=1;
+				
+				$("#identity_confirm_btn").prop("disabled", false);
+				$("#comfirm_btn").prop("disabled", true);
+				
+				$("#resultEmailCheck").text("인증 성공");
+			}else if(checkSuccess==""){
+				alert("본인 인증 버튼을 눌러주세요");
+			}else{
+				alert("맞지 않는 번호입니다.")
+				$('#checkEmailnum').val("");
+			}
 
-            if(checkSuccess==compare){
-              alert("인증에 성공하셨습니다.");
-              checkSuccess=="success";
-              completeCheck=1;
-
-              $("#identity_confirm_btn").prop("disabled",false);
-              $("#resultEmailCheck").text("인증 성공");
-            }else if(checkSuccess==""){
-              alert("본인 인증 버튼을 눌러주세요");
-            }else{
-              alert("맞지 않는 번호입니다");
-              $("#checkEmailnum").val();
-            }
+           
           }
           
-     
-          
-			
+
 
         
       </script>
@@ -456,13 +490,20 @@
 
       <!--추가할 것-->
       <!--이메일 관련(인증), 닉네임 중복 확인 AJAX, Submit-->
+      <!-- 0822 닉네임 중복 확인 AJAX만 처리 하면 끝 -->
       
       
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+   <!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+   <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- fontawesome -->
+        <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
   </body>
 </html>
