@@ -29,7 +29,7 @@
 
 
 <!-- ==================================지민(로그인/회원가입)============================== -->
-<!-- 로그인(회원 불러오기)/지민 -->
+<!-- 로그인(회원 불러오기) -->
 <select id="selectOneMember" resultMap="memberListResultSet">
 	SELECT *
 	FROM SELECT_MEMBER
@@ -37,14 +37,25 @@
 	AND MEMBER_STATUS='Y'
 </select>
 
-<!-- 회원가입/지민-->
-<insert id="insertMember" parameterType="Member">
+<!-- 회원가입-->
+<insert id="loginMember" parameterType="Member">
 		INSERT ALL
     	INTO MEMBER VALUES(SEQ_MEMBERID.NEXTVAL,#{memberName},#{memberPwd},#{email},#{nickName},#{gender},#{phone},#{address},SYSDATE,SYSDATE,SYSDATE,DEFAULT,#{memberJoinType},DEFAULT)
     	INTO PROFILE_IMG VALUES(SEQ_PROFILEID.NEXTVAL,SEQ_MEMBERID.CURRVAL,'noimage.png','noimage.png',SYSDATE,'0')
     	SELECT *
     	FROM DUAL
 </insert>
+
+<!-- 닉네임 중복체크 -->
+<select id="checkNickName" parameterType="string" resultType="_int">
+	SELECT COUNT(*)
+	FROM SELECT_MEMBER
+	WHERE NICKNAME=#{nickName}
+</select>
+
+
+
+
 <!-- ==================================지민(로그인/회원가입) 끝 ============================== -->
 
 </mapper>

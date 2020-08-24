@@ -81,6 +81,7 @@
       }
       /* 2.본인인증 버튼 */
       #identity_confirm_btn{
+      	display:none;
         border: 1px solid rgb(204, 51, 98);
         color:rgb(204, 51, 98);
         border-radius: 3px;
@@ -90,6 +91,18 @@
       #identity_confirm_btn:hover{
         background: rgb(253, 215, 129);
       }
+      /* 이메일 중복체크 버튼 */
+      #emaildouble_btn{
+      	display:inline-block;
+      	border: 1px solid rgb(204, 51, 98);
+        color:rgb(204, 51, 98);
+        border-radius: 3px;
+        font-weight: bold;
+        background: white;
+      }
+       #emaildouble_btn:hover{
+       	background: rgb(253, 215, 129);
+       }
       /* 3.가입하기 버튼 */
       #Join_btn{
         margin-left: 45%;
@@ -156,7 +169,8 @@
                   <option value="hanmail.net">hanmail.net</option>
                   <option value="selfEmail" id="selfEmail">직접 입력</option>
                 </select>&nbsp;
-                <input type="button" value="본인 인증" id="identity_confirm_btn" onclick="identity_confirm();">
+                <input type="button" id="emaildouble_btn" value="이메일 중복 체크" onclick="emaildouble_check();">	<!-- 이메일 중복 체크 -->
+                <span><input type="button" value="본인 인증" id="identity_confirm_btn" onclick="identity_confirm();"></span>
                 <label id="resultEmail"></label>
               </td>
             </tr>
@@ -165,7 +179,6 @@
               <td><input type="text" name="checkEmail" id="checkEmailnum"></td>  <!--인증번호 입력하는 input태그-->
               <td><input type="button" value="확인" id="comfirm_btn" onclick="checkEmailbtn();">
                   &nbsp;<label id="resultEmailCheck" style="font-size: 12px;"></label>
-              <input type="hidden"  id="dice" value="${dice}" />
               </td>
 
             </tr>
@@ -308,10 +321,10 @@
 
       </script>
 
-      <!-- 닉네임 정규표현식, 중복체크-->
+      <!-- 중복체크 영역-->
       <script>
-        //2. 닉네임 중복체크 -> spring ajax 배운 후 작성
-        $("#nickName").on("keyup",function(){
+      	/* 닉네임 중복체크 */
+        $("#nickName").on("change",function(){
           var nickName = $("#nickName").val().trim();
 
           $.ajax({
@@ -319,16 +332,22 @@
 				,type:"post"
 				,data: {nickName:nickName}
 				,success:function(data){
-					if(data==true){
+					console.log("data값:"+data);
+					if(data==0){	//true=0					
+						alert("사용하실 수 있는 닉네임입니다.");
+					}else{ //flase=1
 						alert("중복된 닉네임입니다.");
-					}else if(data==false){
-						
+						$("#nickName").val("");
 					}
+				},error:function(request,status,errorData){
+					alert("error code:" + request.status + "\n"
+							+"message: " +request.responseText
+							+"error: " + errorData);
 				}
           })
-        })
-
+        }) 
       </script>
+      
 
       <!--회원 가입 중 새로고침 막기-->
       <script>
@@ -344,8 +363,7 @@
           }
         })
       </script>
-      
-      <!--0810 깃 이후 추가한 것-->
+       
       <!--각 항목 입력했는 지 체크-->
       <script>
         function validate(){
@@ -391,30 +409,40 @@
       <script>
       	checkSuccess=""; 	//이메일 인증 상태
 		completeCheck=-1;	//인증한 이메일인지 아닌지
+		emailCheck=0;		//이메일 함수 사용 
 		
-        //인증메일 전송 함수
+		function emailTrimCheck(){
+			if($("#email").val()==""){
+	            alert("이메일을 입력해주세요");
+	            $("#email").focus();
+	            emailCheck=1;
+	            return;
+	          }
+	          if($("#selfSiteName").val()=="" &&($("#selectEmail").val()==""||$("#selectEmail").val()=="e_option")){
+	            alert("이메일주소를 선택해주세요");
+	            emailCheck=1;
+	            return;
+	          }
+	          if($("#selectEmail").val()=="selfEmail" && ($("#selfSiteName").val()=="")){
+	            alert("이메일 주소를 입력해주세요");
+	            $("#selfSiteName").focus();
+	            emailCheck=1;
+	            return;
+	          }
+	          if(completeCheck==1){
+					alert("이미 인증받은 메일입니다");
+					emailCheck=1;
+					return;
+				}
+		}
+        //인증메일 전송 버튼 함수
         //이메일 입력했는 지 확인
         function identity_confirm(){
-          if($("#email").val()==""){
-            alert("이메일을 입력해주세요");
-            $("#email").focus();
-            return;
-          }
-          if($("#selfSiteName").val()=="" &&($("#selectEmail").val()==""||$("#selectEmail").val()=="e_option")){
-            alert("이메일주소를 선택해주세요");
-            return;
-          }
-          if($("#selectEmail").val()=="selfEmail" && ($("#selfSiteName").val()=="")){
-            alert("이메일 주소를 입력해주세요");
-            $("#selfSiteName").focus();
-            return;
-          }
-		//안먹고
-          if(completeCheck==1){
-				alert("이미 인증받은 메일입니다");
-				return;
-			}
-
+          emailTrimCheck();
+        	if(emailCheck==1){
+        		emailCheck=0;
+        		return;
+        	}
           //이메일 데이터 하나로 합치기
           var email1 = $("#email");
           var email2 = "";
