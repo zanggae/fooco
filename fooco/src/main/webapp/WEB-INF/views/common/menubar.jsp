@@ -36,19 +36,26 @@
                     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarsExample07">
                         <div class="navbar-nav">
                             <div class="nav-item dropdown">
+                            <c:if test="${empty loginUser }">
                                 <a class="nav-link dropdown-toggle mh-dropdown-toggle d-flex align-items-center" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-user-circle"></i>
                                     <span class="dropdown-title mh-dropdown-title" style="font-family:'bold'">로그인</span>
                                 </a>
+                                </c:if>
+                               
                                 <div class="dropdown-menu dropdown-menu-right mh-dropdown-menu" aria-labelledby="dropdown07">
+                                	<c:if test="${!empty loginUser }">
                                     <a class="dropdown-item mh-dropdown-item" href="#">마이페이지</a>
+                                    </c:if>
                                     <a class="dropdown-item mh-dropdown-item" href="#">지역 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="notice.do">고객센터</a>
                                     <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
                                     <div class="dropdown-divider"></div>
+                                    <c:if test="${!empty loginUser }">
                                     <a class="dropdown-item mh-dropdown-item" href="#">로그아웃</a>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

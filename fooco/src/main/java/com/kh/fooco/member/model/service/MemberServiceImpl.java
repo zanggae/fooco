@@ -25,5 +25,12 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.insertMember(m);
 	}
 
+	//닉네임 중복 체크 메소드
+	@Override
+	public int checkNickName(String nickName) {
+		
+		return memberDao.checkNickName(nickName);
+	}
+
 	
 }
