@@ -9,4 +9,10 @@ public interface BoardService {
 
 	ArrayList<Board> selectListNotice();
 
+	ArrayList<Board> selectListFAQ();
+
+	Board selectNoticeDetail(int boardId);
+
+	
+	
 }

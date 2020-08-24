@@ -29,11 +29,24 @@
 </resultMap>
 
 	<select id="selectListNotice" resultMap="BoardResultSet">
-		SELECT BOARD_TITLE, BOARD_CONTENT
+		SELECT BOARD_TITLE, BOARD_CREATE_DATE, BOARD_ID
 		FROM SELECT_BOARD
 		WHERE CATEGORY_NO = 1
 		ORDER BY BOARD_ID DESC
 	</select>
 
+	<select id="selectListFAQ" resultMap="BoardResultSet">
+		SELECT BOARD_TITLE, BOARD_CONTENT, ANSWER_CONTENT
+		FROM SELECT_BOARD
+		WHERE CATEGORY_NO = 2
+		ORDER BY BOARD_ID DESC 
+	
+	</select>
+	
+	<select id="selectNoticeDetail" parameterType="_int" resultMap="BoardResultSet">
+		SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_CREATE_DATE
+		FROM SELECT_BOARD
+		WHERE CATEGORY_NO = 1 AND BOARD_ID=#{boardId}
+	</select>
 </mapper>
 

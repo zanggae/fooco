@@ -19,4 +19,20 @@ public class BoardServiceImpl implements BoardService{
 		
 		return boardDao.selectListNotice();
 	}
+
+	@Override
+	public ArrayList<Board> selectListFAQ() {
+
+		return boardDao.selectListFAQ();
+	}
+
+	@Override
+	public Board selectNoticeDetail(int boardId) {
+
+		return boardDao.selectNoticeDetail(boardId);
+	}
+
+	
+
+	
 }
