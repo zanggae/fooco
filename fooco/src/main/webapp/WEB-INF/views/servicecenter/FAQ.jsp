@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
-<html lang="ko">
+<html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -19,32 +20,54 @@
       @font-face {font-family: 'light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: normal; font-style: normal;}
       * {font-family:'light';}
       
-    
+     /*좌측 메뉴바*/
+
+    .left_menu {border: rgb(253, 215, 129); width: 9.5rem; height: 10rem; background-color: rgb(253, 215, 129);}
+
+    .li_1 {color: black; font-weight: bolder; margin-left: 0.4rem;}
+
+    .leftMenubar li {list-style: none;}
+
+    .li_2 {color: black; margin-left: 0.4rem;}
+       
       /*FAQ*/
-      .center{border: rgb(253, 215, 129); width: 50rem; height: 40rem; background-color: rgb(253, 215, 129); position: absolute;}
-      .header_font{ margin-left: 3rem; margin-top: 1.5rem; font-size: 1.8rem; font-weight: bold;}
-      .title_font{margin-left: 3rem; margin-top: 1.5rem; font-size: 1.4rem; font-weight: bold;}
-      .content_font{margin-left: 3rem; margin-top: 1rem; font-size: 1.1rem;}
-      
-       /*좌측 메뉴바*/
-    .left_menu{border: rgb(253, 215, 129); width:9.5rem; height: 10rem;background-color: rgb(253, 215, 129);}
-    .li_1{color:black; font-weight: bolder;margin-left: 0.4rem;}
-    .leftMenubar li{list-style: none;}
-    .li_2{color:black;margin-left: 0.4rem;}
+    .center{border: rgb(253, 215, 129); width: 45rem; background-color: rgb(253, 215, 129); position: auto;}
+    .header_font{ margin-left: 3rem; margin-top: 1.5rem; font-size: 1.8rem; font-weight: bold;}
+    .title_font{margin-left: 3rem; margin-top: 1.5rem; font-size: 1.4rem; font-weight: bold;}
+    .content_font{margin-left: 3rem; margin-top: 1rem; font-size: 1.1rem;}
     
     </style>
-  </head>
-  <body>
+    </head>
+    <body>
     <header>
-    	<jsp:include page="../common/menubar.jsp"></jsp:include>  
-    	
-              <div class="row">
-                <div class="col-2">
-              </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;<h6>HOME ></h6><h6 style="color: rgb(204, 51, 98)">고객센터</h6>
-              </div>
-      </header>
-              <br>
+	  <jsp:include page="../common/subMenubar.jsp"></jsp:include> 
+
+    </header>
+      <!--왼쪽 메뉴바-->
+
+    <section>
+    <div class="row">
+      <div class="col-2">
+      </div>
+      &nbsp;&nbsp;&nbsp;&nbsp;<h6>HOME></h6>
+      <h6 style="color: rgb(204, 51, 98)">고객센터</h6>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-2">
+      </div>
+      <div class="col-2">
+        <div class="left_menu">
+          <ul class="leftMenubar">
+            <br>
+            <li><a href="#" class="li_1">고객센터</a></li>
+            <li style="margin-top: 0.6rem;"><a href="#" class="li_2">공지사항</a></li>
+            <li style="margin-top: 0.2rem;"><a href="#" class="li_2">&nbsp;&nbsp;FAQ</a></li>
+            <li style="margin-top: 0.1rem;"><a href="#" class="li_2">1:1문의</a></li>
+          </ul>
+        </div>
+      </div>
+    
     <!--FAQ -->        
   <section>
         <div class="row">
@@ -56,17 +79,21 @@
             <br>
             <div style="padding-left:7rem;">
             <h1 class="title_font">멤버십</h1>
-            
-            <h1 class="content_font">[멤버십안내]&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">6개월과 12개월의 차이는 무엇인가요?</a></h1>
-            <h1 class="content_font">[멤버십안내]&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">6개월과 12개월의 차이는 무엇인가요?</a></h1>
-            <h1 class="content_font">[멤버십안내]&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">6개월과 12개월의 차이는 무엇인가요?</a></h1>
-
+        
+   	<c:forEach var="f" items="${FAQ }">
+    <h1 class="content_font"> ${f.boardTitle }&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">${f.boardContent }</a></h1>
+    <h1 class="content_font">${f.boardTitle }&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">${f.boardContent }</a></h1>
+    <h1 class="content_font">${f.boardTitle }&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">${f.boardContent }</a></h1>
+            	
+			
         </div></div></div>
 
         <div class="col-2">
         </div>
+        
+      </section>
   
-
+		
          <!-- FAQ 답변에 대한 Modal -->
          <!-- Vertically centered modal -->
         <div class="modal-dialog modal-dialog-centered">
@@ -82,8 +109,7 @@
           </button>
         </div>
         <div class="modal-body">
-          6개월이랑 12개월의 혜택은 다르지 않습니다. 대신 조금 더 저렴한 가격에 멤버십을 이용할 수 있습니다.
-         
+          ${f.answerContent }
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -96,8 +122,9 @@
     </div>
        </div>   
   </div>   <!--container끝-->
+		</c:forEach>
       </section>
-
+		
       
       <!--footer-->
       <footer>
@@ -123,4 +150,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   </body>
 </html>
-
