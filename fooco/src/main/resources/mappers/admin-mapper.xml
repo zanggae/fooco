@@ -111,7 +111,7 @@
 
 <!-- 첫 방문시 튜플 생성  -->
 <insert id="insertVisitorCount">
-   INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC))
+	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC),0,0)
 </insert>
 
 <!-- 2번째 이후 업데이트 -->
@@ -173,7 +173,7 @@
 ]]>
 </select>
 
-<select id="selectListInquiry" resultMap="BoardResultSet">
+<select id="selectListInquiry" resultMap="BoardResultSet" parameterType="Board">
    SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3
    <if test="inquiryYN != null">
       AND INQUIRY_YN = #{inquiryYN}
@@ -183,4 +183,21 @@
    </if>
 </select>
 
+<select id="selectInquiryOne" parameterType="Board" resultMap="BoardResultSet">
+	SELECT * FROM SELECT_BOARD WHERE BOARD_ID = #{boardId} AND BOARD_STATUS = 'Y'
+</select>
+
+<update id="updateReplyInquiry" parameterType="Board">
+	UPDATE INQUIRY SET INQUIRY_CONTENT=#{inquiryContent},INQUIRY_YN='Y',INQUIRY_DATE=SYSDATE WHERE BOARD_ID=#{boardId}
+</update>
+
+<select id="selectInquiryCount" parameterType="Board" resultType="_int">
+	SELECT COUNT(*) FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3
+   <if test="inquiryYN != null">
+      AND INQUIRY_YN = #{inquiryYN}
+   </if>
+   <if test="inquiryCode != 0">
+      AND INQUIRY_CODE = #{inquiryCode}
+   </if>
+</select>
 </mapper>

@@ -63,7 +63,7 @@
             <input type="radio" name="inquiryYN" value="N" onclick="inquirySubmit()">&nbsp;<label>미답변</label>&nbsp;&nbsp;&nbsp;<input type="radio" name="inquiryYN" value="Y" onclick="inquirySubmit()">&nbsp;<label>답변완료</label>
           </div>
           <div class="col-3" style="vertical-align: middle;">            
-
+			<input type="hidden" name="page" id="pageNum">			
             <select class="float-right" name="inquiryCode" id="inquiryCode"onchange="inquirySubmit()">
               <option selected value="0">선택</option>
               <option value="1">음식점 문의</option>
@@ -78,7 +78,6 @@
         	function inquirySubmit(){        		
         		var inquiryCode = $("#inquiryCode").val();
         		var inquiryYN = $(":input:radio[name=inquiryYN]:checked").val();
-
         		 $.ajax({
         				url:"inquiryEdit2.do",
         				/* data:{inquiryCode:inquiryCode, inquiryYN:inquiryYN}, */
@@ -89,22 +88,24 @@
         					$tableBody.html("");
         					
         					var $tr;
+        					var $boardId;
         					var $boardTitle;
         					var $boardWriter;
         					var $inquiryName;
         					var $boardUpdateDate;
         					var $inquiryYN;
         					
-        					
-        					if(data.first.length > 0){	// 조회된 문의가 존재하면
-        						for(var i in data.first){
+        					if(data.inquiry.length > 0){	// 조회된 문의가 존재하면
+        						for(var i in data.inquiry){
         							$tr = $("<tr>");
-        							$boardTitle = $("<td>").text(data.first[i].boardTitle);
-        							$boardWriter = $("<td>").text(data.first[i].boardWriter);
-        							$inquiryName = $("<td>").text(data.first[i].inquiryName);
-        							$boardUpdateDate = $("<td>").text(data.first[i].boardUpdateDate);
-        							$inquiryYN = $("<td>").text(data.first[i].inquiryYN);
+        							$boardId = $("<td style='display: none'>").text(data.inquiry[i].boardId);
+        							$boardTitle = $("<td>").text(data.inquiry[i].boardTitle);
+        							$boardWriter = $("<td>").text(data.inquiry[i].boardWriter);
+        							$inquiryName = $("<td>").text(data.inquiry[i].inquiryName);
+        							$boardUpdateDate = $("<td>").text(data.inquiry[i].boardUpdateDate);
+        							$inquiryYN = $("<td>").text(data.inquiry[i].inquiryYN);
         							
+        							$tr.append($boardId);
         							$tr.append($boardTitle);
         							$tr.append($boardWriter);
         							$tr.append($inquiryName);
@@ -122,6 +123,47 @@
         						
         					}
         					
+        					
+        					$tableFooter = $("#inquiryTable tfoot");
+        					$tableFooter.html("");
+        					
+        					
+        					var $td;
+        					var $back;
+        					var $p;
+        					var $after;
+        					
+        					$tr = $("<tr align='center' height='20' >");
+        					$th = $("<th colspan='7'>");
+        					
+        					if(data.pi.currentPage == 1){
+        						$back = $("<span>").text("[이전] ");
+        					}else{
+        						$back = $("<a href='#' onclick='paging(this)'>").attr('value',data.pi.currentPage-1).text("[이전]");
+        					}
+        					$th.append($back);        					
+        					alert("커런트"+data.pi.currentPage);	
+        					
+							for(var i = 0; i <data.pi.maxPage; i++){
+								if(data.pi.currentPage == i+1){
+									$p = $("<font color='red' size='4'>").text('['+(i+1)+']');
+								}else{
+        						$p = $("<a href='#' onclick='paging(this)'>").attr('value',i+1).text(i+1);									
+								}
+								$th.append($p);
+        					}
+							
+							
+							if(data.pi.currentPage == data.pi.maxPage||data.pi.maxPage==0){
+        						$back = $("<span>").text("  [이후]");
+        					}else{
+        						$back = $("<a href='#' onclick='paging(this)'>").attr('value',data.pi.currentPage+1).text("[이후]");
+        					}
+							$th.append($back);
+							$tr.append($th);
+        					$tableFooter.append($tr);
+        					
+        					open();
         				},
         				error:function(request, status, errorData){
         					alert("error code: " + request.status + "\n"
@@ -152,30 +194,85 @@
                   	</tr>
                 </c:if>                
                 <c:if test="${!empty inquiry }">
-                <c:forEach var="i" items="${inquiry }">
-                  <tr>                   
-                    <td>${i.boardTitle }</td>
-                    <td>${i.boardWriter }</td>
-                    <td>${i.inquiryName }</td>
-                    <td>${i.boardUpdateDate }</td>
-                    <td>${i.inquiryYN }</td>
-                  </tr>
-                  </c:forEach>
-                  </c:if>                  
+	                <c:forEach var="i" items="${inquiry }">
+	                  <tr>
+	                 	<td style="display: none">${i.boardId }</td>              
+	                    <td>${i.boardTitle }</td>
+	                    <td>${i.boardWriter }</td>
+	                    <td>${i.inquiryName }</td>
+	                    <td>${i.boardUpdateDate }</td>
+	                    <td>${i.inquiryYN }</td>
+	                  </tr>
+	                </c:forEach>	                
+                 </c:if>
                 </tbody>
+                <tfoot>
+                	<c:if test="${!empty inquiry }">
+	                	<!-- 페이징 처리부분 -->
+						<tr align="center" height="20">
+							<th colspan="7">
+							<!-- [이전] -->
+								<c:if test="${pi.currentPage eq 1 }">
+									[이전]&nbsp;
+								</c:if>								
+								<c:if test="${pi.currentPage gt 1 }">									
+									<a href="#" onclick="paging(this)" value="${pi.currentPage - 1 }">[이전]</a>
+								</c:if>
+						<!-- [번호들] -->
+								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+									<c:if test="${p eq pi.currentPage }">
+										<font color="red" size="4"><b>[${p}]</b></font>
+									</c:if>
+									<c:if test="${p ne pi.currentPage }">										
+										<a href="#" onclick="paging(this)" value="${p}">${p}</a>
+									</c:if>
+								</c:forEach>
+						<!-- [이후] -->
+								<c:if test="${pi.currentPage eq pi.maxPage }">
+									&nbsp;[이후]
+								</c:if>
+								<c:if test="${pi.currentPage lt pi.maxPage }">									
+									<a href="#" onclick="paging(this)" value="${pi.currentPage + 1 }">[이후]</a>
+								</c:if>				
+							</th>		
+						</tr>
+					</c:if>
+                </tfoot>
               </table>
             </div>
           </div>
         </div>
       </div>
-
+		<script>			
+			function paging(obj){				
+				var page = $(obj).attr('value');
+				$("#pageNum").val(page);
+				inquirySubmit();
+			}
+			
+		</script>
+		<script>
+			$(function(){
+				$("#inquiryTable").find("td").click(function(){
+					alert($("dddd").text())
+					var boardId = $(this).parents().children("td").eq(0).text();
+					location.href="selectInquiryOne.do?boardId="+boardId;
+				})
+			})
+			function open(){
+				$("#inquiryTable").find("td").click(function(){
+					alert($("dddd").text())
+					var boardId = $(this).parents().children("td").eq(0).text();
+					location.href="selectInquiryOne.do?boardId="+boardId;
+				})
+			}
+		</script>
       
       </script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 
     </div>
   </div>

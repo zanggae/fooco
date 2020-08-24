@@ -157,6 +157,17 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 회원관리에서 관리버튼 눌렀을때 해당 회원의 정보를 modal에 넣어주는 ajax
+	@RequestMapping("memberEditModal.do")
+	public void memberEditModal(HttpServletResponse response, String memberId) throws JsonIOException, IOException {
+		response.setContentType("application/json;charset=utf-8");
+		Member memberInfo = adminService.selectOneMember(memberId);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(memberInfo , response.getWriter());
+		
+	}
+	
 	// 리뷰권한
 	@RequestMapping("reviewProhibition.do")
 	public ModelAndView reviewProhibition(ModelAndView mv, String memberId) {
@@ -184,11 +195,23 @@ public class AdminController {
 		
 	// 1:1문의 관리 페이지
 	@RequestMapping("inquiryEdit.do")
-	public ModelAndView inquiryEdit(ModelAndView mv, Board board) {
-		ArrayList<Board> inquiry = adminService.selectListInquiry(board);
-//		System.out.println(inquiry);
+	public ModelAndView inquiryEdit(ModelAndView mv, Board board,
+			@RequestParam(value="page", required=false) Integer page) {
 		
-		mv.addObject("inquiry", inquiry);
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		int inquiryCount = adminService.selectInquiryCount(board);
+		
+		System.out.println(inquiryCount);
+		PageInfo pi = getPageInfo(currentPage, inquiryCount);
+		
+		ArrayList<Board> inquiry = adminService.selectListInquiry(pi, board);
+//		System.out.println(inquiry);
+//		System.out.println(pi);
+		mv.addObject("pi",pi);
+		mv.addObject("inquiry", inquiry);		
 		mv.setViewName("admin/inquiryEdit");
 		
 		return mv;
@@ -196,27 +219,37 @@ public class AdminController {
 	
 	// 1:1문의 관리 페이지 ajax
 	@RequestMapping("inquiryEdit2.do")
-	public void inquiryEdit2(HttpServletResponse response, Board board) throws JsonIOException, IOException {
+	public void inquiryEdit2(HttpServletResponse response, Board board,
+			@RequestParam(value="page", required=false) Integer page) throws JsonIOException, IOException {
 		response.setContentType("application/json;charset=utf-8");
 		
-		ArrayList<Board> inquiry = adminService.selectListInquiry(board);
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		int inquiryCount = adminService.selectInquiryCount(board);
+		
+		PageInfo pi = getPageInfo(currentPage, inquiryCount);
+		System.out.println(pi);
+		ArrayList<Board> inquiry = adminService.selectListInquiry(pi, board);
 //		System.out.println(inquiry);
 		
 		Map<String, Object> result = new HashMap<>();
-		result.put("first", inquiry);		
-		
+		result.put("inquiry", inquiry);
+		result.put("pi", pi);			
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(result , response.getWriter());
 		
 	}
 	
+	// 회원 관리에서 회원에게 이메일 보내는 컨트롤러
 	@RequestMapping("sendEmailAdmin.do")
-	public ModelAndView sendEmailAdmin(ModelAndView mv, String memberId, String emailContent) {
+	public ModelAndView sendEmailAdmin(ModelAndView mv, String email, String emailContent, String title) {
 		
-		System.out.println("아이디 :" + memberId+ "내용" + emailContent);
+		System.out.println("이메일 :" + email+ "내용" + emailContent+ "제목" + title);
 		
-		String toEmail = "";			// 받는사람의 email 주소
-		String title = ""; 				// 메일 제목
+		String toEmail = email;			// 받는사람의 email 주소
+//		String title = ""; 				// 메일 제목
 		String content = emailContent; 	// 보낼 내용
 		
 //		System.getProperty("line.separator")+		// 줄바꿈 필요시 사용하기
@@ -232,15 +265,45 @@ public class AdminController {
             mailSender.send(message);
             
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 		
-		
-		mv.setViewName("admin/inquiryEdit");
+		mv.setViewName("redirect:memberManagement.do");
 		return mv;
 		
 	}
+	
+	// 1:1문의 상세정보로 이동하는 컨트롤러
+	@RequestMapping("selectInquiryOne.do")
+	public ModelAndView selectInquiryOne(ModelAndView mv, Board board) {
+//		System.out.println(board);
+		
+		Board inquiry = adminService.selectInquiryOne(board);
+//		System.out.println(inquiry);
+		
+		mv.addObject("inquiry", inquiry);
+		mv.setViewName("admin/inquiryReply");
+		
+		return mv;
+	}
+	
+	// 1:1문의 답변하기
+	@RequestMapping("replyInquiry.do")
+	public ModelAndView replyInquiry(ModelAndView mv, Board board) {
+		
+		System.out.println(board);
+		int result = adminService.updateReplyInquiry(board);
+		
+		if(result >0) {
+			mv.setViewName("redirect:inquiryEdit.do");
+		}else {
+			throw new AdminException("1:1문의 답변하기 실패!");
+		}
+		
+		
+		return mv;
+	}
+	
 	
 	@RequestMapping("restaurantEdit.do")
 	public String restaurantEdit() {

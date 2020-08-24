@@ -9,6 +9,8 @@ public interface MemberService {
 
 	int insertMember(Member m);
 
+	int checkNickName(String nickName);
+
 
 	
 
