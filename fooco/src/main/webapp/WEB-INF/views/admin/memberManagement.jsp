@@ -17,6 +17,9 @@
   <style>    
     .table td {vertical-align:middle;}
     #searchBtn {background-color: rgb(204, 51, 98); color: white; border-color: rgb(204, 51, 98);}
+    .modalBtn{background:rgb(253, 215, 129) !important; color:rgb(204, 51, 98) !important; width:125px !important; }
+    .mainModalBtn{background-color: white !important; color: rgb(204, 51, 98) !important; border-color: rgb(204, 51, 98) !important;}
+    
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
@@ -97,12 +100,43 @@
 		                    <td>회원 ${m.memberStatus }<br>리뷰 ${m.reviewStatus }</td>
 		                    
 		                    <td>
-		                      <button type="button" class="btn btn-primary" style="background-color: white; color: rgb(204, 51, 98); border-color: rgb(204, 51, 98);" data-toggle="modal" data-target="#exampleModal" data-whatever=${m.memberId }><i class="fas fa-cog"></i></button>
+		                    	<button type="button" class="btn btn-primary mainModalBtn memberId" onclick="selectOneMember()" value="${m.memberId }"><i class="fas fa-cog"></i></button>
+		                        <button type="button" id="modal1"style="display: none;"class="btn btn-primary mainModalBtn" data-toggle="modal" data-target="#memberEditModal" data-whatever=${m.memberId }><i class="fas fa-cog"></i></button>
+		                        
 		                    </td>
 		               	</tr>
 	                </c:forEach>
                 </c:if>
-                
+                <script>
+                	/* function selectOneMember(){
+                		alert("나 나와?");
+                		alert($(this).attr('value'));
+                	} */
+                	
+                	$( document ).ready( function() {                        
+                        $(".memberId").click(function(){
+                        	var memberId = $(this).attr('value');
+                        	 $.ajax({
+                        		 url:"memberEditModal.do",
+                        		 data:{memberId:memberId},
+                        		 success:function(data){
+                        			 $("#modal1MemberIdInput").val(data.memberId);
+                        			 $("#modal2MemberIdInput").val(data.memberId);
+                        			 $("#modal1EmailInput").val(data.email);                        			 
+                        			 
+                        			 $("#modal1").click();
+                        			 
+                        			 
+                        		 },
+                        		 error:function(request, status, errorData){
+                 					alert("error code: " + request.status + "\n"
+                 							+"message: " + request.responseText
+                 							+"error: " + errorData);
+                 				}
+                        	 })
+                        });                  
+                    });
+                </script>
                   <!-- 페이징 처리부분 -->
 					<tr align="center" height="20">
 						<td colspan="7">
@@ -154,7 +188,7 @@
 
       
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="memberEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -166,42 +200,80 @@
       <div class="modal-body">
         <form>
           <div class="form-group">            
-            <input type="hidden" class="form-control" id="recipient-name">
+            <input type="hidden" class="form-control" id="modal1MemberIdInput">
           </div>
           <div align="center">
-          <button type="button" class="btn" style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;" data-toggle="modal" data-target="#exampleModal1" data-whatever="">이메일</button></td>
-          <button type="button" class="btn" onclick="membershipSuspension()" style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;">회원상태변경</button></td>
-          <button type="button" class="btn" onclick="reviewProhibition()"style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:125px;">리뷰상태변경</button></td>
+          <button type="button" class="btn modalBtn" onclick="emailModalOpen()">이메일</button>
+          <button type="button" class="btn modalBtn"  data-toggle="modal" data-target="#emailModal" id="modal2" style="display: none">이메일</button>
+          <button type="button" class="btn modalBtn" onclick="membershipSuspension()" >회원상태변경</button>
+          <button type="button" class="btn modalBtn" onclick="reviewProhibition()">리뷰상태변경</button>
         </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modal1Close">Close</button>
       </div>
     </div>
   </div>
 </div>
-
 <script>
   function membershipSuspension(){
-	  var memberId = $("#recipient-name").val();
-	  	
-	  location.href="membershipSuspension.do?memberId="+memberId;
+	  var memberId = $("#modal1MemberIdInput").val();
+	  var confirm1 = confirm("정말로 회원상태를 변경하시겠습니까?");
+	  
+	  if(confirm1 == true){
+		  location.href="membershipSuspension.do?memberId="+memberId;		  
+	  }else{
+		  $("#modal1Close").click();		  
+	  }
   }
   function reviewProhibition(){
-	  var memberId = $("#recipient-name").val();
+	  var memberId = $("#modal1MemberIdInput").val();
+	  var confirm1 = confirm("정말로 리뷰상태를 변경하시겠습니까?");
 	  
-	  location.href="reviewProhibition.do?memberId="+memberId;
+	  if(confirm1 == true){
+		  location.href="reviewProhibition.do?memberId="+memberId;  
+	  }else{
+		  $("#modal1Close").click();		  
+	  }
+	  
+	  
+	  
   }
+  function emailModalOpen(){
+	  $('#memberEditModal').modal("hide");
+	  $("#modal2").click();
+  }
+  
+  
   function sendEmail(){
-	  var memberId = $("#recipient-name1").val();
-	  var emailContent = $("#message-text1").html();
+	  var memberId = $("#modal2MemberIdInput").val();
+	  var title = $("#emailTitle").val();
+	  var email = $("#modal1EmailInput").val();
+	  var emailContent = $("#messageText").val();
+	  if($("#emailTitle").val()==""){
+		  alert("제목을 입력하세요");
+		  return;
+	  }else if($("#messageText").val() == ""){
+		  alert("내용을 입력하세요");
+		  return;
+	  }
+	  var confirm1 = confirm("정말로 이메일을 보내시겠습니까?");
 	  
-	  location.href="sendEmailAdmin.do?memberId="+memberId+"&emailContent"+emailContent;
+	  if(confirm1 == true){
+		  location.href="sendEmailAdmin.do?memberId="+memberId+"&title="+ title +"&email="+ email +"&emailContent="+ emailContent;
+	  }else{
+		  $("#emailTitle").val("");
+		  $("#messageText").val("");
+		  $("#modal2Close").click();	  
+	  }
+	  
+	  
+	  
   }
   
 </script>
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -211,43 +283,27 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>          
+        <form action="sendEmailAdmin.do", method="get" id="emailModal" onsubmit="return checkEmail()">
+	       <div class="form-group">
+	           <label for="recipient-name" class="col-form-label">Title:</label>
+	           <input type="text" class="form-control" id="emailTitle" name="title">
+	       </div>
           <div class="form-group">
-            <input type="hidden" class="form-control" id="recipient-name1">
+            <input type="hidden" class="form-control" id="modal2MemberIdInput" name="memberId">
+            <input type="hidden" class="form-control" id="modal1EmailInput" name="email">
             <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text1"></textarea>
+            <textarea class="form-control" id="messageText" name="emailContent"></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modal2Close">Close</button>
         <button type="button" class="btn btn-primary" onclick="sendEmail()">Send message</button>
       </div>
     </div>
   </div>
 </div>
-<script>  
-$(function(){
-  $('#exampleModal').on('show.bs.modal', function (event) {
-var button = $(event.relatedTarget) // Button that triggered the modal
-var recipient = button.data('whatever') // Extract info from data-* attributes
-// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-var modal = $(this)
-modal.find('.modal-body input').val(recipient)
-})
 
-$('#exampleModal1').on('show.bs.modal', function (event) {
-  $('#exampleModal').modal("hide");
-var button = $(event.relatedTarget) // Button that triggered the modal
-var recipient = button.data('whatever') // Extract info from data-* attributes
-// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-var modal = $(this)
-modal.find('.modal-body input').val(recipient)
-})
-})
-</script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
