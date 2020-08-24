@@ -220,6 +220,7 @@ public class AdminController {
 		
 	}
 	
+	// 회원 관리에서 회원에게 이메일 보내는 컨트롤러
 	@RequestMapping("sendEmailAdmin.do")
 	public ModelAndView sendEmailAdmin(ModelAndView mv, String email, String emailContent, String title) {
 		
@@ -243,13 +244,44 @@ public class AdminController {
             
 		} catch (MessagingException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		
 		mv.setViewName("redirect:memberManagement.do");
 		return mv;
 		
 	}
+	
+	// 1:1문의 상세정보로 이동하는 컨트롤러
+	@RequestMapping("selectInquiryOne.do")
+	public ModelAndView selectInquiryOne(ModelAndView mv, Board board) {
+//		System.out.println(board);
+		
+		Board inquiry = adminService.selectInquiryOne(board);
+//		System.out.println(inquiry);
+		
+		mv.addObject("inquiry", inquiry);
+		mv.setViewName("admin/inquiryReply");
+		
+		return mv;
+	}
+	
+	// 1:1문의 답변하기
+	@RequestMapping("replyInquiry.do")
+	public ModelAndView replyInquiry(ModelAndView mv, Board board) {
+		
+		System.out.println(board);
+		int result = adminService.updateReplyInquiry(board);
+		
+		if(result >0) {
+			mv.setViewName("redirect:inquiryEdit.do");
+		}else {
+			throw new AdminException("1:1문의 답변하기 실패!");
+		}
+		
+		
+		return mv;
+	}
+	
 	
 	@RequestMapping("restaurantEdit.do")
 	public String restaurantEdit() {

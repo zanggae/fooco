@@ -93,4 +93,14 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectListInquiry(board);
 	}
 
+	@Override
+	public Board selectInquiryOne(Board board) {
+		return adminDao.selectInquiryOne(board);
+	}
+
+	@Override
+	public int updateReplyInquiry(Board board) {
+		return adminDao.updateReplyInquiry(board);
+	}
+
 }

@@ -92,5 +92,15 @@ public class AdminDao {
 		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListInquiry", board);
 	}
 
+	public Board selectInquiryOne(Board board) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectInquiryOne",board);
+	}
+
+	public int updateReplyInquiry(Board board) {
+		return sqlSessionTemplate.update("adminMapper.updateReplyInquiry", board);
+		
+		
+	}
+
 
 }

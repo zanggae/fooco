@@ -153,7 +153,8 @@
                 </c:if>                
                 <c:if test="${!empty inquiry }">
                 <c:forEach var="i" items="${inquiry }">
-                  <tr>                   
+                  <tr>
+                 	<td style="display: none">${i.boardId }</td>              
                     <td>${i.boardTitle }</td>
                     <td>${i.boardWriter }</td>
                     <td>${i.inquiryName }</td>
@@ -161,21 +162,27 @@
                     <td>${i.inquiryYN }</td>
                   </tr>
                   </c:forEach>
-                  </c:if>                  
+                  </c:if>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-
+		<script>
+			$(function(){
+				$("#inquiryTable").find("td").click(function(){
+					var boardId = $(this).parents().children("td").eq(0).text();
+					location.href="selectInquiryOne.do?boardId="+boardId;
+				})
+			})
+		</script>
       
       </script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 
     </div>
   </div>

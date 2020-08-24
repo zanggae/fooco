@@ -41,5 +41,9 @@ public interface AdminService {
 
 	ArrayList<Board> selectListInquiry(Board board);
 
+	Board selectInquiryOne(Board board);
+
+	int updateReplyInquiry(Board board);
+
 	
 }
