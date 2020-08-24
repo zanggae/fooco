@@ -157,6 +157,16 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping("memberEditModal.do")
+	public void memberEditModal(HttpServletResponse response, String memberId) throws JsonIOException, IOException {
+		response.setContentType("application/json;charset=utf-8");
+		Member memberInfo = adminService.selectOneMember(memberId);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(memberInfo , response.getWriter());
+		
+	}
+	
 	// 리뷰권한
 	@RequestMapping("reviewProhibition.do")
 	public ModelAndView reviewProhibition(ModelAndView mv, String memberId) {
@@ -211,12 +221,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping("sendEmailAdmin.do")
-	public ModelAndView sendEmailAdmin(ModelAndView mv, String memberId, String emailContent) {
+	public ModelAndView sendEmailAdmin(ModelAndView mv, String email, String emailContent, String title) {
 		
-		System.out.println("아이디 :" + memberId+ "내용" + emailContent);
+		System.out.println("이메일 :" + email+ "내용" + emailContent+ "제목" + title);
 		
-		String toEmail = "";			// 받는사람의 email 주소
-		String title = ""; 				// 메일 제목
+		String toEmail = email;			// 받는사람의 email 주소
+//		String title = ""; 				// 메일 제목
 		String content = emailContent; 	// 보낼 내용
 		
 //		System.getProperty("line.separator")+		// 줄바꿈 필요시 사용하기
@@ -232,12 +242,11 @@ public class AdminController {
             mailSender.send(message);
             
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
-		mv.setViewName("admin/inquiryEdit");
+		mv.setViewName("redirect:memberManagement.do");
 		return mv;
 		
 	}

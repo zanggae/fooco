@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
 import com.kh.fooco.member.model.vo.Member;
@@ -217,10 +218,20 @@ public class MemberController {
 	         
 	         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 	         gson.toJson(dice, response.getWriter());
+
+		}
+		
+		//닉네임 중복 체크
+		@RequestMapping(value="checkNickName.do")
+		public void checkNickName(String nickName,HttpServletResponse response) throws JsonIOException, IOException{
+			boolean trueorfalse = memberService.checkNickName(nickName)==0? true:false;
 			
-			 
-			
-			
+			//gson boolean형태 안 먹기 떄문에 int형으로 바꿔서 넘기기
+			int chekchemail = memberService.checkNickName(nickName);
+		
+		 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		 gson.toJson(chekchemail,response.getWriter());
+		
 		}
 		
 	

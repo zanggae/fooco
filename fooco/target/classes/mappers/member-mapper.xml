@@ -2,23 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
-<!-- 멤버(멤버테이블) -->
-<resultMap type="Member" id="MemberResultSet">
-	<id property="memberId" column="MEMBER_ID"></id>
-	<result property="memberName" column="MEMBER_NAME"></result>
-	<result property="memberPwd" column="MEMBER_PWD"></result>
-	<result property="email" column="EMAIL"></result>
-	<result property="nickName" column="NICKNAME"></result>
-	<result property="gender" column="GENDER"></result>
-	<result property="phone" column="PHONE"></result>
-	<result property="address" column="ADDRESS"></result>
-	<result property="memberEnrolldate" column="MEMBER_ENROLLDATE"></result>
-	<result property="memberModifydate" column="MEMBER_MODIFYDATE"></result>
-	<result property="memberAccessdate" column="MEMBER_ACCESSDATE"></result>
-	<result property="memberStatus" column="MEMBER_STATUS"></result>
-	<result property="memberJoinType" column="MEMBERJOIN_TYPE"></result>
-	<result property="reviewStatus" column="REVIEW_STATUS"></result>
-</resultMap>
 
 <!-- 맴버 (맴버 테이블 + 맴버십이름 + 프로필 사진) -->
 <resultMap type="Member" id="memberListResultSet">
@@ -44,15 +27,17 @@
 	<result property="file_path" column="FILE_PATH"></result>	
 </resultMap>
 
+
+<!-- ==================================지민(로그인/회원가입)============================== -->
 <!-- 로그인(회원 불러오기) -->
-<select id="selectOneMember" resultMap="MemberResultSet">
+<select id="loginMember" resultMap="memberListResultSet">
 	SELECT *
-	FROM MEMBER
+	FROM SELECT_MEMBER
 	WHERE EMAIL=#{email}
 	AND MEMBER_STATUS='Y'
 </select>
 
-<!-- 회원가입 -->
+<!-- 회원가입-->
 <insert id="insertMember" parameterType="Member">
 		INSERT ALL
     	INTO MEMBER VALUES(SEQ_MEMBERID.NEXTVAL,#{memberName},#{memberPwd},#{email},#{nickName},#{gender},#{phone},#{address},SYSDATE,SYSDATE,SYSDATE,DEFAULT,#{memberJoinType},DEFAULT)
@@ -60,5 +45,17 @@
     	SELECT *
     	FROM DUAL
 </insert>
+
+<!-- 닉네임 중복체크 -->
+<select id="checkNickName" parameterType="string" resultType="_int">
+	SELECT COUNT(*)
+	FROM SELECT_MEMBER
+	WHERE NICKNAME=#{nickName}
+</select>
+
+
+
+
+<!-- ==================================지민(로그인/회원가입) 끝 ============================== -->
 
 </mapper>
