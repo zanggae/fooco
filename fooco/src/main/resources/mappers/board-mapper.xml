@@ -28,4 +28,12 @@
    	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>    	  
 </resultMap>
 
+	<select id="selectListNotice" resultMap="BoardResultSet">
+		SELECT BOARD_TITLE, BOARD_CONTENT
+		FROM SELECT_BOARD
+		WHERE CATEGORY_NO = 1
+		ORDER BY BOARD_ID DESC
+	</select>
+
 </mapper>
+

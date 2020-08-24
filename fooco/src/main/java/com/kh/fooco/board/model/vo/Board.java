@@ -37,6 +37,7 @@ public class Board implements Serializable{
 	private int imageLevel;				// 이미지 레벨(섬네일:0, 그밖에:1)
 	private String imageStatus;			// 이미지 상태
 	private int imageDownloadCount;		// 이미지 다운로드 횟수
+	
 	public Board() {
 		super();
 	}

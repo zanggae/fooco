@@ -15,6 +15,7 @@
 	 		</h3>
 	 	</c:if>
 	<a href="main.do">Go Main</a>
+	<a href="notice.do">gg</a>
 
 </body>
 </html>
