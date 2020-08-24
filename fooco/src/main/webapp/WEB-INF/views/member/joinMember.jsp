@@ -81,7 +81,7 @@
       }
       /* 2.본인인증 버튼 */
       #identity_confirm_btn{
-      	display:none;
+      	/* display:none; */
         border: 1px solid rgb(204, 51, 98);
         color:rgb(204, 51, 98);
         border-radius: 3px;
@@ -93,7 +93,7 @@
       }
       /* 이메일 중복체크 버튼 */
       #emaildouble_btn{
-      	display:inline-block;
+      	display:none;
       	border: 1px solid rgb(204, 51, 98);
         color:rgb(204, 51, 98);
         border-radius: 3px;
@@ -170,7 +170,7 @@
                   <option value="selfEmail" id="selfEmail">직접 입력</option>
                 </select>&nbsp;
                 <input type="button" id="emaildouble_btn" value="이메일 중복 체크" onclick="emaildouble_check();">	<!-- 이메일 중복 체크 -->
-                <span><input type="button" value="본인 인증" id="identity_confirm_btn" onclick="identity_confirm();"></span>
+                <input type="button" value="본인 인증" id="identity_confirm_btn" onclick="identity_confirm();">
                 <label id="resultEmail"></label>
               </td>
             </tr>
