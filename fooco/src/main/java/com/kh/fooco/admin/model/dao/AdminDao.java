@@ -88,8 +88,10 @@ public class AdminDao {
 		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListInquiryD");
 	}
 
-	public ArrayList<Board> selectListInquiry(Board board) {
-		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListInquiry", board);
+	public ArrayList<Board> selectListInquiry(PageInfo pi, Board board) {
+		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListInquiry", board, rowBounds);
 	}
 
 	public Board selectInquiryOne(Board board) {
@@ -100,6 +102,10 @@ public class AdminDao {
 		return sqlSessionTemplate.update("adminMapper.updateReplyInquiry", board);
 		
 		
+	}
+
+	public int selectInquiryCount(Board board) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectInquiryCount", board);
 	}
 
 

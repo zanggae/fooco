@@ -39,11 +39,13 @@ public interface AdminService {
 
 	ArrayList<Board> selectListInquiryD();
 
-	ArrayList<Board> selectListInquiry(Board board);
+	ArrayList<Board> selectListInquiry(PageInfo pi, Board board);
 
 	Board selectInquiryOne(Board board);
 
 	int updateReplyInquiry(Board board);
+
+	int selectInquiryCount(Board board);
 
 	
 }

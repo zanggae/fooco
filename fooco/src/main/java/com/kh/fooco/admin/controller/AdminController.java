@@ -157,6 +157,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 회원관리에서 관리버튼 눌렀을때 해당 회원의 정보를 modal에 넣어주는 ajax
 	@RequestMapping("memberEditModal.do")
 	public void memberEditModal(HttpServletResponse response, String memberId) throws JsonIOException, IOException {
 		response.setContentType("application/json;charset=utf-8");
@@ -194,11 +195,23 @@ public class AdminController {
 		
 	// 1:1문의 관리 페이지
 	@RequestMapping("inquiryEdit.do")
-	public ModelAndView inquiryEdit(ModelAndView mv, Board board) {
-		ArrayList<Board> inquiry = adminService.selectListInquiry(board);
-//		System.out.println(inquiry);
+	public ModelAndView inquiryEdit(ModelAndView mv, Board board,
+			@RequestParam(value="page", required=false) Integer page) {
 		
-		mv.addObject("inquiry", inquiry);
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		int inquiryCount = adminService.selectInquiryCount(board);
+		
+		System.out.println(inquiryCount);
+		PageInfo pi = getPageInfo(currentPage, inquiryCount);
+		
+		ArrayList<Board> inquiry = adminService.selectListInquiry(pi, board);
+//		System.out.println(inquiry);
+//		System.out.println(pi);
+		mv.addObject("pi",pi);
+		mv.addObject("inquiry", inquiry);		
 		mv.setViewName("admin/inquiryEdit");
 		
 		return mv;
@@ -206,15 +219,24 @@ public class AdminController {
 	
 	// 1:1문의 관리 페이지 ajax
 	@RequestMapping("inquiryEdit2.do")
-	public void inquiryEdit2(HttpServletResponse response, Board board) throws JsonIOException, IOException {
+	public void inquiryEdit2(HttpServletResponse response, Board board,
+			@RequestParam(value="page", required=false) Integer page) throws JsonIOException, IOException {
 		response.setContentType("application/json;charset=utf-8");
 		
-		ArrayList<Board> inquiry = adminService.selectListInquiry(board);
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		int inquiryCount = adminService.selectInquiryCount(board);
+		
+		PageInfo pi = getPageInfo(currentPage, inquiryCount);
+		System.out.println(pi);
+		ArrayList<Board> inquiry = adminService.selectListInquiry(pi, board);
 //		System.out.println(inquiry);
 		
 		Map<String, Object> result = new HashMap<>();
-		result.put("first", inquiry);		
-		
+		result.put("inquiry", inquiry);
+		result.put("pi", pi);			
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(result , response.getWriter());
 		
