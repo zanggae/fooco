@@ -131,10 +131,10 @@
                       </div>
                       
                       <!-- 조회를 하기 전 이미지 값이 없을 때   -->
-                      <div class="col-9" style="padding: 0;">
+                      <div class="col-9" style="padding: 0; display:none;">
                       </div>
                       <!-- 조회 버튼으로 식당 클릭 시 이미지 값이 null이 아니면 display:block 되게만들기  -->
-                      <div class="col-9" style="padding: 0; margin-bottom:10rem; display:none;">
+                      <div class="col-9" style="padding: 0;">
                         <img src="img/갈비찜.jpg" style="width: 12rem; height: 9rem; margin:0rem;">
                       </div>
                     </div>

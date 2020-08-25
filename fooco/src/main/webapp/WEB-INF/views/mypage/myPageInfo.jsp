@@ -92,44 +92,44 @@
 	border-radius: 0.5rem;
 }
 
-/* 프로필 사진 */
-.profile_poto {
-	width: 6rem;
-	height: 6rem;
-	border-radius: 50%;
-	background-color: white;
-	align-content: center;
-	z-index: 0;
-	margin-bottom: 0.3rem;
-	border: solid 1px black;
-	margin: 0rem;
-}
+  /* 프로필 사진 */
+  .profile_poto {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    background-color: white;
+    align-content: center;
+    margin-bottom: 1rem;
+    z-index: 0;
+    margin-bottom: 0.3rem;
+    border: solid 1px black;
+  }
 
-.profile_location {
-	width: 30rem;
-	margin-left: 5.5rem;
-	background-color: white;
-	border-radius: 0.5rem;
-	padding: 0.5rem;
-}
+  .profile_location {
+    width: 30rem;
+    margin-left: 5.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
 
-.profile_poto_add {
-	color: #0066FF;
-	position: absolute;
-	z-index: 1;
-	top: 4.5rem;
-	left: 10.5rem;
-	font-size: 1.3rem;
-	cursor: pointer;
-}
+  .profile_poto_add {
+    color: #0066FF;
+    position: absolute;
+    z-index: 1;
+    top: 4.5rem;
+    left: 9.5rem;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
 
-.profile_font {
-	padding-left: 0rem !important;
-	padding-right: 0rem !important;
-	padding-bottom: 0.5rem;
-	font-family: 'medium';
-	font-size: 21px;
-}
+  .profile_font {
+    padding-left: 0rem;
+    padding-right: 0rem;
+    padding-bottom: 0.5rem;
+    font-family: 'medium';
+    font-size: 21px;
+  }
 </style>
 
 <body>
@@ -149,49 +149,43 @@
 								나의 활동</p>
 						</div>
 
-						<div align="center" style="margin-bottom: 2rem;">
-							<div class="row shadow-sm profile_location">
+            <div align="center" style="margin-bottom: 2rem;">
+              <div class="row shadow-sm profile_location">
 
-								<div class="col-5" style="position: relative; right: 1rem">
-									<div>
-										<img class="profile_poto" src="resources/logo/logo.png">
-									</div>
-									<div>
-										<i class="fas fa-plus-circle profile_poto_add"
-											onclick="ProfileChange();"></i>
-									</div>
+                <div class="col-5" style="position: relative; padding-right: 0; padding-left: 4rem;">
+                  <div>
+                    <img class="profile_poto" src="img/logo.png">
+                  </div>
+                  <div>
+                    <i class="fas fa-plus-circle profile_poto_add" onclick="ProfileChange();"></i>
+                  </div>
+                  <input class="btn btn-primary btn-sm" type="submit" value="변경">
+                  <input type="file" id="ProfileChange" name="ProfileChange" style="display: none;">
+                </div>
+                <div class="col-6" style="padding-left: 0rem;">
 
-									<input type="file" id="ProfileChange" name="ProfileChange"
-										style="display: none;">
-								</div>
+                  <div class="row" style="padding-top: 1rem;">
+                    <div class="col-7 profile_font" style="padding:0rem;">
+                      짱경남짱경남
+                    </div>
+                    <div class="col-3">
+                      <i class="fas fa-user-plus" style="font-size: 1.5rem; cursor: pointer;"></i>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-4" style="padding-left: 0rem;">
+                      <p style="margin: 0rem;">팔로워</p>
+                      <p style="margin: 0rem;">233</p>
+                    </div>
+                    <div class="col-4" style="padding-left: 0rem;">
+                      <p style="margin: 0rem;">팔로잉</p>
+                      <p style="margin: 0rem;">23</p>
+                    </div>
+                  </div>
+                </div>
 
-								<div class="col-7" style="padding-left: 0rem;">
-
-									<div class="row" style="padding-top: 1rem;">
-										<div class="col-7 profile_font">짱경남짱경남</div>
-
-										<div class="col-3">
-											<i class="fas fa-user-plus"
-												style="font-size: 1.5rem; cursor: pointer;"></i>
-										</div>
-
-									</div>
-									<div class="row">
-										<div class="col-4" style="padding-left: 0rem;">
-											<p style="margin: 0rem;">팔로워</p>
-											<p style="margin: 0rem;">233</p>
-										</div>
-										<div class="col-3" style="padding-left: 0rem;">
-											<p style="margin: 0rem;">팔로잉</p>
-											<p style="margin: 0rem;">23</p>
-										</div>
-									</div>
-								</div>
-								<div class="row" style="margin-left: 6.5rem;">
-									<input class="btn btn-primary btn-sm" type="submit" value="변경">
-								</div>
-							</div>
-						</div>
+              </div>
+            </div>
 
 						<div class="row center_title">
 							<p style="font-size: 1.5rem; font-family: 'heavy';">&#x23F0;

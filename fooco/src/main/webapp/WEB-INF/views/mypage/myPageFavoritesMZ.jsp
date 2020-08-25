@@ -83,13 +83,31 @@
 .main_content .row {
 	margin: 0;
 }
-  .card_div {padding:0.2rem;}
-  .card_img_div {height:5rem;}
-  .card_heart{color: rgb(204,51,98); position: absolute; z-index: 1; top: 4.3rem; left: 7rem; font-size: 1.5rem;}
-  .card {padding:0.5rem;}
-  .card-body {padding:0;}
-  .card-body p {margin:0; padding:0;}
 
+.card_div {
+	padding: 0.2rem;
+}
+
+.card_img_div {
+	height: 5rem;
+}
+
+.card_heart {
+	color: rgb(204, 51, 98);
+	position: absolute;
+	z-index: 1;
+	top: 4.3rem;
+	left: 7rem;
+	font-size: 1.5rem;
+}
+
+.card {
+	padding: 0.5rem !important;
+}
+
+.card-body {
+	padding: 0;
+}
 </style>
 
 <body>
@@ -100,141 +118,43 @@
 		<div class="container mypage_container">
 			<div class="row myPage-row">
 				<jsp:include page="../common/myPageSideMenubar.jsp"></jsp:include>
-
-				<div class="col-7 main_content">
+				<div class="col-7 main_content" style="padding: 0rem;">
 					<div class="main_content_div shadow-sm">
 						<div class="row center_title">
-                <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F495; 즐겨찾기 - 맛집</p>
-              </div>
-<div class="row row-cols-4 center_content shadow_sm">
-                
-                <a href="">
-                <div class="card_div">
-                  <div class="col card shadow-sm" style="height: 12rem;">
-                    <div style="position: relative;">
-                      <img src="resources/logo/galbi.jpg" class="card-img-top" style="z-index: 0; margin:0rem;">
-                    </div>
-                    <i class="fas fa-heart card_heart"></i>
-                    <div class="card-body">
-                      <p class="card-text">
-                      <p style="font-family:'bold'; font-size:1rem; height:3rem;">동원이가 제일 좋아하는 갈비찜</p>
-                      <p style="font-family:'bold'; font-size:0.8rem; color:#F4E04E;"><i class="fas fa-star"></i>4.9</p>
-                      <p style="font-family:'medium'; font-size:0.8rem;">
-                        <i class="fas fa-map-marker-alt" style="color:rgb(204,51,98);"></i> 인천</p>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-
-
-              <a href="">
-                <div class="card_div">
-                  <div class="col card shadow-sm" style="height: 12rem;">
-                    <div style="position: relative;">
-                      <img src="resources/logo/galbi.jpg" class="card-img-top" style="z-index: 0;">
-                    </div>
-                    <i class="fas fa-heart card_heart"></i>
-                    <div class="card-body">
-                      <p class="card-text">
-                      <p style="font-family:'bold'; font-size:1rem; height:3rem;">동원이가 제일 좋아하는 갈비찜</p>
-                      <p style="font-family:'bold'; font-size:0.8rem; color:#F4E04E;"><i class="fas fa-star"></i>4.9</p>
-                      <p style="font-family:'medium'; font-size:0.8rem;">
-                        <i class="fas fa-map-marker-alt" style="color:rgb(204,51,98);"></i> 인천</p>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-
-              <a href="">
-                <div class="card_div">
-                  <div class="col card shadow-sm" style="height: 12rem;">
-                    <div style="position: relative;">
-                      <img src="img/갈비찜.jpg" class="card-img-top" style="z-index: 0;">
-                    </div>
-                    <i class="fas fa-heart card_heart"></i>
-                    <div class="card-body">
-                      <p class="card-text">
-                      <p style="font-family:'bold'; font-size:1rem; height:3rem;">동원이가 제일 좋아하는 갈비찜</p>
-                      <p style="font-family:'bold'; font-size:0.8rem; color:#F4E04E;"><i class="fas fa-star"></i>4.9</p>
-                      <p style="font-family:'medium'; font-size:0.8rem;">
-                        <i class="fas fa-map-marker-alt" style="color:rgb(204,51,98);"></i> 인천</p>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-
-              <a href="">
-                <div class="card_div">
-                  <div class="col card shadow-sm" style="height: 12rem;">
-                    <div style="position: relative;">
-                      <img src="img/갈비찜.jpg" class="card-img-top" style="z-index: 0;">
-                    </div>
-                    <i class="fas fa-heart card_heart"></i>
-                    <div class="card-body">
-                      <p class="card-text">
-                      <p style="font-family:'bold'; font-size:1rem; height:3rem;">동원이가 제일 좋아하는 갈비찜</p>
-                      <p style="font-family:'bold'; font-size:0.8rem; color:#F4E04E;"><i class="fas fa-star"></i>4.9</p>
-                      <p style="font-family:'medium'; font-size:0.8rem;">
-                        <i class="fas fa-map-marker-alt" style="color:rgb(204,51,98);"></i> 인천</p>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-
-              <a href="">
-                <div class="card_div">
-                  <div class="col card shadow-sm" style="height: 12rem;">
-                    <div style="position: relative;">
-                      <img src="img/갈비찜.jpg" class="card-img-top" style="z-index: 0;">
-                    </div>
-                    <i class="fas fa-heart card_heart"></i>
-                    <div class="card-body">
-                      <p class="card-text">
-                      <p style="font-family:'bold'; font-size:1rem; height:3rem;">동원이가 제일 좋아하는 갈비찜</p>
-                      <p style="font-family:'bold'; font-size:0.8rem; color:#F4E04E;"><i class="fas fa-star"></i>4.9</p>
-                      <p style="font-family:'medium'; font-size:0.8rem;">
-                        <i class="fas fa-map-marker-alt" style="color:rgb(204,51,98);"></i> 인천</p>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-
-              <a href="">
-                <div class="card_div">
-                  <div class="col card shadow-sm" style="height: 12rem;">
-                    <div style="position: relative;">
-                      <img src="img/갈비찜.jpg" class="card-img-top" style="z-index: 0;">
-                    </div>
-                    <i class="fas fa-heart card_heart"></i>
-                    <div class="card-body">
-                      <p class="card-text">
-                      <p style="font-family:'bold'; font-size:1rem; height:3rem;">동원이가 제일 좋아하는 갈비찜</p>
-                      <p style="font-family:'bold'; font-size:0.8rem; color:#F4E04E;"><i class="fas fa-star"></i>4.9</p>
-                      <p style="font-family:'medium'; font-size:0.8rem;">
-                        <i class="fas fa-map-marker-alt" style="color:rgb(204,51,98);"></i> 인천</p>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-
-
-              </div>
-					
-
-						
-
-					
+							<p
+								style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F495;
+								즐겨찾기 - 맛집</p>
+						</div>
+						<div class="row row-cols-4 center_content shadow_sm">
+							<a href="">
+								<div class="card_div">
+									<div class="col card shadow-sm" style="height: 12rem;">
+										<div style="position: relative;">
+											<img src="resources/logo/galbi.jpg" class="card-img-top"
+												style="z-index: 0;">
+										</div>
+										<i class="fas fa-heart card_heart"></i>
+										<div class="card-body" style="margin: 0; padding: 0;">
+											<p class="card-text" style="font-family:'bold'; font-size:1rem; height:3rem; margin-bottom:0;">동원이가 제일
+												좋아하는 갈비찜</p>
+											<p
+												style="font-family: 'bold'; font-size: 0.8rem; color: #F4E04E
+											; margin-bottom: 0;">
+												<i class="fas fa-star"></i>4.9
+											</p>
+											<p
+												style="font-family: 'medium'; font-size: 0.8rem; margin-bottom: 0;">
+												<i class="fas fa-map-marker-alt"
+													style="color: rgb(204, 51, 98); margin-bottom: 0;"></i> 인천
+											</p>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
 					</div>
 				</div>
-
 				<jsp:include page="../common/myPageAdMenubar.jsp"></jsp:include>
-
 			</div>
 		</div>
 	</section>
