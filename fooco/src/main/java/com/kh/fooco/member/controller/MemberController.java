@@ -76,6 +76,7 @@ public class MemberController {
 		
 		m.setMemberPwd(encPwd);
 		
+		//이메일 정보 합쳐서 set
 		if(emailself==null) {	//직접입력 이메일 안했으면
 			m.setEmail(emailfront + "@" + emailback);
 		}else if(emailself!=null) {
