@@ -84,7 +84,7 @@
 	 $(function(){
 	  /* visit이라는 키의 쿠키가 없으면 쿠키 생성 후 방문자수 증가  */
 	  if(getCookie("visit")!=undefined){		  
-	     	alert(getCookie("visit"));
+	     	/* alert(getCookie("visit")); */
 	     	/* document.cookie = "visit=John; max-age=0"; */
 	     	
 	  }else{
@@ -107,7 +107,7 @@
 	  $.ajax({
 			url:"visitCount.do",
 			success:function(data){
-				alert(data)
+				/* alert(data) */
 			},
 			error:function(request, status, errorData){
 				alert("error code: " + request.status + "\n"

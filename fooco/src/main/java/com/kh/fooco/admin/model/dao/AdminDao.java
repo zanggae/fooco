@@ -108,5 +108,19 @@ public class AdminDao {
 		return sqlSessionTemplate.selectOne("adminMapper.selectInquiryCount", board);
 	}
 
+	public ArrayList<Board> selectBoardList(Board board, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());		
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectBoardList",board,rowBounds);
+	}
+
+	public int selectBoardCount(Board board) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectBoardCount",board);
+	}
+
+	public int deleteBoardAdmin(Board board) {
+		return sqlSessionTemplate.update("adminMapper.deleteBoardAdmin",board);
+	}
+
 
 }

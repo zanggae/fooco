@@ -68,7 +68,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2"><label>작성자</label></div>
-                    <div class="col-md-4"><label class="form-control" style="width:80%">${inquiry.boardWriter }</label></div>
+                    <div class="col-md-4"><label class="form-control" style="width:80%">${inquiry.nickname }</label></div>
                     <div class="col-md-2"><label>작성일시</label></div>
                     <div class="col-md-4"><label class="form-control" style="width:100%">${inquiry.boardCreateDate }</label>
                     </div>
