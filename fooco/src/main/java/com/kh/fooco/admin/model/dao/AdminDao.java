@@ -122,5 +122,9 @@ public class AdminDao {
 		return sqlSessionTemplate.update("adminMapper.deleteBoardAdmin",board);
 	}
 
+	public int registrationBoard(Board board) {
+		return sqlSessionTemplate.insert("adminMapper.registrationBoard",board);
+	}
+
 
 }

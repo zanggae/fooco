@@ -2,13 +2,16 @@ package com.kh.fooco.admin.controller;
 
 import static com.kh.fooco.common.Pagination.getPageInfo;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -27,6 +31,7 @@ import com.kh.fooco.admin.model.service.AdminService;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
@@ -104,9 +109,12 @@ public class AdminController {
 			if(searchMemberTextbox == null) {
 				// 회원수를 조회
 				MembershipStatus membershipStatus = adminService.selectOneMembershipStatus();
-				memberCount = membershipStatus.getTotalCount();
+				if(membershipStatus != null) {
+					memberCount = membershipStatus.getTotalCount();					
+				}
+				System.out.println(memberCount);
+					pi = getPageInfo(currentPage, memberCount);					
 				
-				pi = getPageInfo(currentPage, memberCount);
 				
 				// 회원 리스트 조회
 				m = adminService.selectlistMember(pi);
@@ -120,15 +128,13 @@ public class AdminController {
 				// 회원 리스트 조회
 				m = adminService.searchlistMember(pi, searchMemberTextbox);
 			}
-		if(m != null) {
+		
 			mv.addObject("memberList", m);
 			mv.addObject("pi", pi);
 			mv.addObject("memberCount", memberCount);
 			mv.addObject("searchName", searchMemberTextbox);
 			mv.setViewName("admin/memberManagement");
-		}else {
-			throw new AdminException("맴버 리스트 조회 실패!");
-		}
+		
 		return mv;
 	}
 	
@@ -346,6 +352,62 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping("registrationBoard.do")
+	public String registrationBoard(HttpServletRequest request, Board board,
+			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+		
+		if(!file.getOriginalFilename().equals("")) {
+			String renameFileName = saveFile(file,request);
+			
+			board.setImageOriginName(file.getOriginalFilename());
+			board.setImageNewName(renameFileName);
+		}
+		
+		int result = adminService.registrationBoard(board);
+		if(result >0) {
+			return "redirect:boardEdit.do";
+		}else {
+			throw new BoardException("게시글 등록 실패!");
+		}
+	}
+	
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String savePath = root + "\\buploadFiles";
+		
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) {	// webapp아래에 있는 resources 폴더 아래에
+								// buploadFiles가 없어서 File객체를 찾을 수 없다면
+			folder.mkdirs();
+			
+		}
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originFileName = file.getOriginalFilename();
+		String renameFileName
+			= sdf.format(new java.sql.Date(System.currentTimeMillis()))
+			+ "." + originFileName.substring(originFileName.lastIndexOf(".")+1);
+		
+		
+		String filePath = folder + "\\" + renameFileName;
+		// 실제 저장 될 파일의 경로 + rename파일명
+		
+		try {
+			file.transferTo(new File(filePath));
+			// 이 상태로는 파일 업로드가 되지 않는다.
+			// 왜냐면 파일 제한크기에 대한 설정을 주지 않았기 때문이다.
+			// root-context.xml에 업로드 제한 파일 크기를 지정해 주자.
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return renameFileName;
+	}
 	
 	@RequestMapping("restaurantEdit.do")
 	public String restaurantEdit() {
