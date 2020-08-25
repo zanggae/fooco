@@ -43,7 +43,7 @@
 
         <section>
             <div class="container">
-            <br><br><br>
+            <br><br>
             <div class="img">
                 <div class="content1">
                     <h2>Fooco 고객센터</h2>
