@@ -258,7 +258,7 @@
                 <p>6개월 이용권</p>
                 <p>혜택1. 할인쿠폰(최대 ￦10,000까지)</p>
                 <p>혜택2. 무료음료쿠폰</p>
-                <button id="buy_membership">구매하기</button>
+                <button id="buy_membership" onclick="requestPay()">구매하기</button>
             </span>
             <span id="membership_area2">
                 <p>MOST POPULAR</p>
@@ -272,7 +272,8 @@
         </div>
         <!-- 정보 넘길 form 태그 -->
         	<!-- 회원 정보 -->
-        	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.memberName}">
+        	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.nickName}">
+        	<span class="mh-dropdown-title" style="font-family:'bold'"><c:out value="${loginUser.nickName}님"/></span>
         	<!-- 멤버십정보 -->
         	<c:forEach var="item" items="${membershiplist}" end="0">
         	<input type="hidden" name="membership_Id" id="membership_Id" value="${item.membershipId}">
@@ -295,63 +296,45 @@
     <footer></footer>
     
     <!-- 동적 제어 시작 -->
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <script>
-    $("#buy_membership").on("click",function(){
-    	//멤버십 이름
+    function requestPay() {
+    	alert("잘뜨는지");
     	var name = $("#membership_name").val();
-    	//멤버십 가격
     	var price = $("#membership_price").val();
-    	//회원 이름
-    	var memberName = $("#buy_memberId").val();
     	
-    	console.log("멤버십 이름 : " + name +"price: " + price + "memberName :" + memberName); 
-    	
-    	//iamport api
-    	// getter
-        var IMP = window.IMP;
-        IMP.init('imp96485144');
-
-        IMP.request_pay({
-            pg: 'kakao',
-            pay_method: 'card',
-            merchant_uid: 'merchant_' + new Date().getTime(),
-           /*  +',memberNo='+buyMemberNo, */
+    	 var IMP = window.IMP; // 생략해도 괜찮습니다.
+    	  IMP.init("imp96485144"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"
+        // IMP.request_pay(param, callback) 호출
+        IMP.request_pay({ // param - 결제 요청에 필요한 속성과 값을 담음
+            pg: "html5_inicis",
+            pay_method: "card",
+            merchant_uid: "merchant_" + new Date().getTime(),	//주문번호
             name: name,
             amount: price,
-            /* buyer_email: 'iamport@siot.do', */
-            buyer_name: memberName,
-            /* buyer_tel: '010-1234-5678',
-            buyer_addr: '인천광역시 부평구',
-            buyer_postcode: '123-456' */
-           /*  m_redirect_url: '/webapp/views/membership/paymentconfirm.jsp' */
-        }, function (rsp) {
-            console.log(rsp);
+            /* buyer_email: "gildong@gmail.com",
+            buyer_name: "홍길동",
+            buyer_tel: "010-4242-4242",
+            buyer_addr: "서울특별시 강남구 신사동",
+            buyer_postcode: "01181" */
+        }, function (rsp) { // callback - 결제 완료 후 실행되는 함수
             if (rsp.success) {
-            	console.log("결제성공");
-                /* var msg = '결제가 완료되었습니다.';
-                msg += '고유ID : ' + rsp.imp_uid;
-                msg += '상점 거래ID : ' + rsp.merchant_uid;
-                msg += '결제 금액 : ' + rsp.paid_amount;
-                msg += '카드 승인번호 : ' + rsp.apply_num; */
-              //결제 완료 후 결과 화면으로
-             		 /* location.href="buyMembership.do?buy_memberId="+buy_memberId; */
+               console.log("결제 성공");
             } else {
-            	console.log("결제실패");
-                /* var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
-        		alert("에러:"+msg); */
+                console.log("결제 실패");
             }
-           
-           
         });
-    });
-   
+      }
+    
     </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <!-- 결제 api script -->
