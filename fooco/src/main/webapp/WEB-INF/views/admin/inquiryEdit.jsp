@@ -100,7 +100,7 @@
         							$tr = $("<tr>");
         							$boardId = $("<td style='display: none'>").text(data.inquiry[i].boardId);
         							$boardTitle = $("<td>").text(data.inquiry[i].boardTitle);
-        							$boardWriter = $("<td>").text(data.inquiry[i].boardWriter);
+        							$boardWriter = $("<td>").text(data.inquiry[i].nickname);
         							$inquiryName = $("<td>").text(data.inquiry[i].inquiryName);
         							$boardUpdateDate = $("<td>").text(data.inquiry[i].boardUpdateDate);
         							$inquiryYN = $("<td>").text(data.inquiry[i].inquiryYN);
@@ -142,7 +142,7 @@
         						$back = $("<a href='#' onclick='paging(this)'>").attr('value',data.pi.currentPage-1).text("[이전]");
         					}
         					$th.append($back);        					
-        					alert("커런트"+data.pi.currentPage);	
+        					
         					
 							for(var i = 0; i <data.pi.maxPage; i++){
 								if(data.pi.currentPage == i+1){
@@ -155,7 +155,7 @@
 							
 							
 							if(data.pi.currentPage == data.pi.maxPage||data.pi.maxPage==0){
-        						$back = $("<span>").text("  [이후]");
+        						$back = $("<span>").text(" [이후]");
         					}else{
         						$back = $("<a href='#' onclick='paging(this)'>").attr('value',data.pi.currentPage+1).text("[이후]");
         					}
@@ -198,7 +198,7 @@
 	                  <tr>
 	                 	<td style="display: none">${i.boardId }</td>              
 	                    <td>${i.boardTitle }</td>
-	                    <td>${i.boardWriter }</td>
+	                    <td>${i.nickname }</td>
 	                    <td>${i.inquiryName }</td>
 	                    <td>${i.boardUpdateDate }</td>
 	                    <td>${i.inquiryYN }</td>
@@ -253,8 +253,7 @@
 		</script>
 		<script>
 			$(function(){
-				$("#inquiryTable").find("td").click(function(){
-					alert($("dddd").text())
+				$("#inquiryTable").find("td").click(function(){					
 					var boardId = $(this).parents().children("td").eq(0).text();
 					location.href="selectInquiryOne.do?boardId="+boardId;
 				})
