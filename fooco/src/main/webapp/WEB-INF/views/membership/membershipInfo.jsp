@@ -213,7 +213,7 @@
   <body>
     <!--header시작-->
     <header>
-    <jsp:include page="../common/menubar.jsp"></jsp:include>
+    <jsp:include page="../common/commonHeader.jsp"></jsp:include>
     </header>
 
     <!--section시작-->
