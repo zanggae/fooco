@@ -65,6 +65,8 @@
             <div class="nav-scroller d-flex align-items-center shadow-sm mainSubHeader">
                 <div class="container msh-container">
                     <div class="nav nav-underline d-flex justify-content-around">
+                        <a class="nav-link msh-items" style="font-family:'medium'" href="myPageInfo.do">지역 맛집</a>
+                        <a class="nav-link msh-items" style="font-family:'medium'" href="#">테마 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">지역 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">테마 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">멤버십</a>
