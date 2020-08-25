@@ -2,150 +2,191 @@
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="ko">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-     <!-- 아이콘 -->
-     <script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
-     <style>
-       /*폰트*/
-      @font-face {font-family: 'heavy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff'); font-weight: bold; font-style: normal;}
-      @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
-      @font-face {font-family: 'medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff'); font-weight: normal; font-style: normal;}
-      @font-face {font-family: 'light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: normal; font-style: normal;}
-      * {font-family:'light';}
-      
-     /*좌측 메뉴바*/
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    .left_menu {border: rgb(253, 215, 129); width: 9.5rem; height: 10rem; background-color: rgb(253, 215, 129);}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
+   <!-- 아이콘 -->
+   <script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
 
-    .li_1 {color: black; font-weight: bolder; margin-left: 0.4rem;}
+   <!--jquery-->
+   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-    .leftMenubar li {list-style: none;}
+  <style>
+    @font-face {font-family: 'heavy';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+      font-weight: bold; font-style: normal;}
 
-    .li_2 {color: black; margin-left: 0.4rem;}
-       
-      /*FAQ*/
-    .center{border: rgb(253, 215, 129); width: 45rem; background-color: rgb(253, 215, 129); position: auto;}
-    .header_font{ margin-left: 3rem; margin-top: 1.5rem; font-size: 1.8rem; font-weight: bold;}
-    .title_font{margin-left: 3rem; margin-top: 1.5rem; font-size: 1.4rem; font-weight: bold;}
-    .content_font{margin-left: 3rem; margin-top: 1rem; font-size: 1.1rem;}
+    @font-face {font-family: 'bold';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+      font-weight: normal; font-style: normal;}
+
+    @font-face {font-family: 'medium';
+                src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+                font-weight: normal; font-style: normal;}
+
+    @font-face { font-family: 'light';
+                src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+                font-weight: normal; font-style: normal;}
+
+    * {font-family: 'light';}
+    /*a태그 설정*/
+    A:link {text-decoration: none; color:#646464;}
+    /* A:visited {text-decoration: none; color:#646464;} */
+     A:active {text-decoration: none; color:#646464;} 
+    A:hover {text-decoration: none; color:rgb(204,51,98);}
+
+    /*상단 제목*/
+    .back{border-style : none; height: 12rem; width: 54rem; background-image: url(resources/etcimage/serviceCenterImg2.png); opacity: 0.8; position: absolute; z-index: 0;}
+    .title{font-size: 4rem; font-family: 'heavy'; color : black; margin-left: 3rem; margin-top: 0.5rem; z-index:3; position: absolute;}
     
-    </style>
-    </head>
-    <body>
-    <header>
-	  <jsp:include page="../common/subMenubar.jsp"></jsp:include> 
-
-    </header>
-      <!--왼쪽 메뉴바-->
-
-    <section>
-    <div class="row">
-      <div class="col-2">
-      </div>
-      &nbsp;&nbsp;&nbsp;&nbsp;<h6>HOME></h6>
-      <h6 style="color: rgb(204, 51, 98)">고객센터</h6>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-2">
-        <div class="left_menu">
-          <ul class="leftMenubar">
-            <br>
-            <li><a href="#" class="li_1">고객센터</a></li>
-            <li style="margin-top: 0.6rem;"><a href="#" class="li_2">공지사항</a></li>
-            <li style="margin-top: 0.2rem;"><a href="#" class="li_2">&nbsp;&nbsp;FAQ</a></li>
-            <li style="margin-top: 0.1rem;"><a href="#" class="li_2">1:1문의</a></li>
-          </ul>
-        </div>
-      </div>
-    
-    <!--FAQ -->        
-  <section>
-        <div class="row">
-        <div class="col-2">
-        </div>
-        <div class="col-6">
-        <div class="center">
-            <h1 class="header_font">FAQ</h1>
-            <br>
-            <div style="padding-left:7rem;">
-            <h1 class="title_font">멤버십</h1>
-        
-   	<c:forEach var="f" items="${FAQ }">
-    <h1 class="content_font"> ${f.boardTitle }&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">${f.boardContent }</a></h1>
-       </c:forEach>
-            	
-			
-        </div></div></div>
-
-        <div class="col-2">
-        </div>
-      </section>
-  
-         <!-- FAQ 답변에 대한 Modal -->
-         <!-- Vertically centered modal -->
-        <div class="modal-dialog modal-dialog-centered">
-         <!-- Vertically centered scrollable modal -->
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">멤버십 안내</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-		
-          ${f.answerContent }
+    /*메뉴바*/
+    #round{border-style: solid; color : black; height: 19rem; width: 12.5rem; }
+    .leftMenubar li{list-style:none; margin-top:1rem;}
+    .li_1{color :rgb(204,51,98);; font-family: 'heavy'; font-size: 1.7rem;}
+    .li_2{color : #646464; font-family: 'medium'; font-size:1.2rem; margin-left: 2.4rem;}    
+    .li_3{color : #646464; font-family: 'medium'; font-size:1.2rem; margin-left: 1.1rem;} 
+    .text1{font-size : 1.1rem; font-family: 'medium'; color:black;}
+    .text1 a:hover {color:rgb(253,215,129);font-family: 'medium';} 
    
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"onClick="location.href='inquiry.html'">1:1 문의등록하기</button>
-        </div>
-      </div>
-    </div>
-  </div>
-    </div>
-    </div>
-       </div>   
-  </div>   <!--container끝-->
+   /*아코디언 토글*/
+   #accordian li{ list-style:none;}
+		#accordian li >h1{ cursor:pointer;}
+		li > ul{ display:none;}
+		li > ul >li{ color:#00F;}
+    .qborder{border-style:none; border-top: 0.1px groove black; border-bottom:0.1px groove black; width: 50rem; height: 5rem; margin-top : 0.5rem;}
+    .aborder{border-style:none; border-top: 0.1px groove black;  width: 50rem; height: auto; margin-left: -2.5rem; background-color: rgb(245, 245, 245);}
+    .mark{font-family: 'heavy'; margin-top: 0.8rem; font-size: 2rem; color: darkblue; background:none ;}
+    .question{font-family: 'light'; margin-top: 1.5rem; font-size: 1.5rem;cursor:pointer;}
+    .answer{font-family: 'light'; font-size:1.5rem; margin-top:1.5rem;}
+
+    /*아이콘 설정*/
+    #plus{position : absolute; margin-top: 1.3rem; font-size: 2rem; cursor:pointer;}
+    </style>
+    
+    </head>
+
+<body>
+  <header>
+    <jsp:include page="../common/menubar.jsp"></jsp:include>
+  </header>
+
+
+
+  <section>
+  <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-10">
+
+          <div class="back">
+            <a href="FAQ.do" class="title">FAQ</a>
+          </div>
+			
+          <div id="accordian" style="margin-top:18rem;">
+            <c:forEach var="F" items="${FAQ }">
+            <ul>
+              <li>
+                <div class="qborder">
+                  <div class="row">
+                    <div class="col-1">
+                      <h1 class="mark">Q</h1>
+                    </div>
+                    <div class="col-9">
+                      <h1 class="question">${F.boardTitle }</h1>
+                    </div>
+                    <div class="col-2">
+                      <span class="ico_ar"><i class="fas fa-angle-down" id="plus"></i></span></h1>
+                    </div>
+                  </div>
+                </div>
+               
+                <ul>
+                  <div class="aborder">
+                    <div class="row">
+                      <div class="col-1">
+                        <h1 class="mark">A</h1>
+                      </div>
+                      <div class="col-9">
+                        <li class="answer">${F.boardContent }</li><br>
+                      </div>
+                      <div class="col-2"></div>
+                    </div>
+                    <!--row끝-->
+                  </div>
+                  <!--aborder끝-->
+                </ul>
+              </li>
+
+            </ul><!--마지막 ul-->
 		
-      </section>
-		
-      
-      <!--footer-->
-      <footer>
-        <div class="mainFooter shadow-sm d-flex justify-content-center align-items-center">
-          <span style="font-family:'medium'">Copyright </span>                
+			</c:forEach>
+
+
+          </div>
+          <!--아코디언 div끝-->
+
+        </div>
+        <!--col-10에 끝 -->
+        <div class="col-2" style="margin-top: 3rem;">
+
+          <ul class="leftMenubar">
+            <li class="li_1" style="margin-top: 3.5rem; margin-bottom: 1.3rem;">고객센터</li>
+
+            <li><a href="notice.do" class="li_3">공지사항</a></li>
+
+            <li><a href="FAQ.do" class="li_2">FAQ</a></li>
+
+            <li><a href="#" class="li_3">1:1 문의</a></li>
+          </ul>
+
+        </div>
+        <!---->
+
       </div>
-      </footer>
+      <!--container 끝-->
+
+  </section>
+
+  <footer>
+
+  </footer>
+
+  <script>
+
+    $(function () {
+      $("#accordian div").click(function() {
+        $("#accordian ul ul").slideUp();
+        $(this).find("i").attr("class","fas fa-angle-down");
+        if (!$(this).next().is(":visible")) {
+          $(this).next().slideDown();
+          $(this).find("i").attr("class","fas fa-angle-up");
+        }
+      })
+    })
 
 
+  </script>
 
-      <!--script-->
-       <script>
-           $('#myModal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus')
-            })h
 
-       </script>
-		 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </body>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>

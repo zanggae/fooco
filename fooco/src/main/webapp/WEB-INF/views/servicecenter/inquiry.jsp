@@ -8,9 +8,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+ <!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<!-- include summernote css/js-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<!-- include summernote-ko-KR -->
+<script src="/resources/js/summernote-ko-KR.js"></script>
+   
   <style>
     /*폰트*/
     @font-face {
@@ -98,9 +105,8 @@
         <div class="col-3">
         </div>
         <label>&nbsp;&nbsp;내용</label>
-        <textarea id="summernote" name="editordata" class="form-control" rows="15"
-          style="margin-left: 3.4rem; width: 25rem; box-shadow: none !important; resize:none">
-                </textarea>
+        <textarea id="summernote" name="editordata">
+        </textarea>
       </div>
 
       <!--이미지 첨부-->
@@ -140,6 +146,45 @@
   </footer>
 
   <br><br><br><br>
+  
+  <script>
+  $(document).ready(function() {
+	//여기 아래 부분
+	$('#summernote').summernote({
+		  height: 300,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null,             // 최대 높이
+		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+          
+	});
+});
+  </script>
+ 	
+ 	<script>
+	//서머노트에 text 쓰기
+  $('#summernote').summernote('insertText');
+
+
+  // 서머노트 쓰기 비활성화
+  $('#summernote').summernote('disable');
+
+  // 서머노트 쓰기 활성화
+  $('#summernote').summernote('enable');
+
+
+  // 서머노트 리셋
+  $('#summernote').summernote('reset');
+
+
+  // 마지막으로 한 행동 취소 ( 뒤로가기 )
+  $('#summernote').summernote('undo');
+  // 앞으로가기
+  $('#summernote').summernote('redo');
+  
+  
+  </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -151,6 +196,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
+    
+  
 </body>
 
 </html>
