@@ -60,7 +60,7 @@
       <br>
       <div class="container my-4" id="post">
         <div class="container my-3">
-            <form class="form-group">
+            <form class="form-group" action="registrationBoard.do" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-2"><label>카테고리</label></div>
                     <div class="col-md-4">

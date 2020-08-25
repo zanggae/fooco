@@ -219,4 +219,12 @@
 <update id="deleteBoardAdmin" parameterType="Board">
 	UPDATE BOARD SET BOARD_STATUS = 'N' WHERE BOARD_ID=#{boardId}
 </update>
+
+<insert id="registrationBoard" parameterType="Board">
+	INSERT ALL
+   	INTO MEMBER VALUES(SEQ_MEMBERID.NEXTVAL,#{memberName},#{memberPwd},#{email},#{nickName},#{gender},#{phone},#{address},SYSDATE,SYSDATE,SYSDATE,DEFAULT,#{memberJoinType},DEFAULT)
+   	INTO PROFILE_IMG VALUES(SEQ_PROFILEID.NEXTVAL,SEQ_MEMBERID.CURRVAL,'noimage.png','noimage.png',SYSDATE,'0')
+   	SELECT *
+   	FROM DUAL
+</insert>
 </mapper>
