@@ -82,18 +82,15 @@
         
    	<c:forEach var="f" items="${FAQ }">
     <h1 class="content_font"> ${f.boardTitle }&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">${f.boardContent }</a></h1>
-    <h1 class="content_font">${f.boardTitle }&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">${f.boardContent }</a></h1>
-    <h1 class="content_font">${f.boardTitle }&nbsp;&nbsp;<a href="#exampleModal" data-toggle="modal" style="color: black;">${f.boardContent }</a></h1>
+       </c:forEach>
             	
 			
         </div></div></div>
 
         <div class="col-2">
         </div>
-        
       </section>
   
-		
          <!-- FAQ 답변에 대한 Modal -->
          <!-- Vertically centered modal -->
         <div class="modal-dialog modal-dialog-centered">
@@ -109,7 +106,9 @@
           </button>
         </div>
         <div class="modal-body">
+		
           ${f.answerContent }
+   
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -122,7 +121,7 @@
     </div>
        </div>   
   </div>   <!--container끝-->
-		</c:forEach>
+		
       </section>
 		
       
@@ -139,10 +138,10 @@
        <script>
            $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')
-            })
+            })h
 
        </script>
-
+		 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

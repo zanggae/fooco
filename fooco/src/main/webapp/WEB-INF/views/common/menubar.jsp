@@ -31,7 +31,7 @@
             <nav class="navbar navbar-expand-xl shadow-sm mainHeader">
                 <div class="container d-flex justify-content-between">
                     <a class="navbar-brand mh-navbar-brand" href="#">
-                        <img class="logo" src="logo/logo.png">
+                        <img class="logo" src="resources/logo/logo.png">
                     </a>
                     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarsExample07">
                         <div class="navbar-nav">
@@ -50,7 +50,7 @@
                                     <a class="dropdown-item mh-dropdown-item" href="#">지역 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">멤버십</a>
-                                    <a class="dropdown-item mh-dropdown-item" href="notice.do">고객센터</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
                                     <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
                                     <div class="dropdown-divider"></div>
                                     <c:if test="${!empty loginUser }">
@@ -68,7 +68,7 @@
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">지역 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">테마 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">멤버십</a>
-                        <a class="nav-link msh-items" style="font-family:'medium'" href="notice.do">고객센터</a>
+                        <a class="nav-link msh-items" style="font-family:'medium'" href="serviceCenterMain.do">고객센터</a>
                     </div>
                 </div>
             </div>
