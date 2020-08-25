@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="membershipMapper">
+<resultMap type="Membership" id="membershipResultSet">
+	<id property="membershipId" column="MEMBERSHIP_ID"></id>
+	<result property="membershipName" column="MEMBERSHIP_NAME"></result>
+	<result property="membershipContent" column="MEMBERSHIP_CONTENT"></result>
+	<result property="membershipPrice" column="MEMBERSHIP_PRICE"></result>
+	<result property="membershipDuringDate" column="MEMBERSHIP_DURINGDATE"></result>
+</resultMap>
+
+<select id="selectMembership" resultMap="membershipResultSet">
+	SELECT *
+	FROM MEMBERSHIP
+</select>
+
+  
+</mapper>

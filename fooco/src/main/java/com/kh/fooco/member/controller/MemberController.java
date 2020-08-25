@@ -1,7 +1,6 @@
 package com.kh.fooco.member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -19,8 +18,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +30,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
+import com.kh.fooco.member.model.vo.Follow;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.naver.NaverLoginBO;
 
@@ -95,6 +93,13 @@ public class MemberController {
 			throw new MemberException("회원 가입 실패");
 		}
 	}
+	
+	//약관동의 페이지로 이동
+	@RequestMapping("memberTerms.do")
+	public String movetoTerms() {
+		return "member/terms";
+	}
+	
 	
 	//08.18 로그인 - 지민
 	@RequestMapping(value="mlogin.do",method=RequestMethod.POST)
@@ -234,6 +239,24 @@ public class MemberController {
 		
 		}
 		
-	
+
+// ================================== MyPage 동원 ===========================================
+		
+//		@RequestMapping(value="myPageInfo.do")
+//		public ModelAndView myPageInfo(Member m ,Follow fw, HttpSession session, ModelAndView mv) {
+//			
+//			
+//		
+//			System.out.println("여기는 마이페이지");
+//			mv.setViewName("mypage/myPageInfo");
+//			
+//			return mv;
+//		}
+		
+		@RequestMapping("myPageInfo.do")
+		public String myPageInfo() {
+			return "mypage/myPageFrame";
+		}
+		
 	
 }

@@ -36,10 +36,11 @@
     }
     
     label{
-      width: 10rem;
-      color: rgb(204, 51, 98);
-      
+     
+      color: rgb(204, 51, 98);      
     }
+    .inquiryBtn{background:black !important; color:white !important; height:50px !important; width:100px !important;}
+    .filecol{padding:0 !important;}
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
@@ -50,63 +51,65 @@
   
   <div style="margin-left: 13%;">
     <div class="container" style="padding: 5%;">
-      <h2>게시물 등록</h2>
+      <h2>게시판 등록하기</h2>
       <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="#">관리자페이지</a></li>
         <li class="breadcrumb-item"><a href="#">게시판 관리</a></li>
-        <li class="breadcrumb-item active">게시물 등록</li>
+        <li class="breadcrumb-item active">게시판 등록하기</li>
       </ol>
       <br>
-      <div class="container">
-        <div class="row" style="margin-bottom: 1rem;">
-          <div class="col" style="margin:auto;" align="center">
-            <form>
-              <table>
-                <tr>
-                  <td><label>제목</label></td>
-                  <td><input type="text" class="form-control" id="none"
-                    placeholder="제목을 입력하세요" style="width: 25rem; margin-top: -0.3rem;"></td>
-                </tr>
-                <tr>
-                  <td><label>카테고리 선택</label></td>
-                  <td><select class="custom-select my-1 mr-sm-2" id="none" style="width: 25rem;">
-                    <option selected>선택</option>
-                     <option value="1">공지사항</option>
-                     <option value="2">FAQ</option>
-                   </select></td>
-                </tr>
-                <tr>
-                  <td style="padding-top:0 !important;"><label>내용</label></td> 
-                  <td><textarea id="summernote" name="editordata" class="form-control" rows="15" 
-                    style="width: 25rem; box-shadow: none !important"></textarea></td>                 
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <button type="button" class="btn"
-          style="margin-top: 1rem; background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:95px; float: right;">등록</button>
-                  </td>
-                </tr>
-              </table>
-            </form>
-          </div>
-          
+      <div class="container my-4" id="post">
+        <div class="container my-3">
+            <form class="form-group">
+                <div class="row">
+                    <div class="col-md-2"><label>카테고리</label></div>
+                    <div class="col-md-4">
+                    <select name="categoryNo" class="form-control" style="width:80%">
+                    	<option value="0" selected="selected">선택</option>
+                    	<option value="1">공지사항</option>
+                    	<option value="2">FAQ</option>
+                    </select>
+                    </div>
+                </div>
+                
+                <div class="row mt-2">
+                    <div class="col-md-2"><label>제목</label></div>
+                    <div class="col-md-10"><input type="text" class="form-control"
+                            style="width:100%; text-align:left;"></div>
+                </div>
+                
+                <div class="mt-2">
+                	<textarea class="form-control"
+                     	style="width:100%; height:300px; resize:none; text-align:left;">${inquiry.boardContent }</textarea>
+                </div>
+                
+                <div class="row mt-2 filerow">
+                     <div class="col-md-2 text-center"><label for="find_file01">파일첨부</label></div>
+                     <div class="col-md-10 form-group form_file filecol" style="position: relative;">
+
+                         <input type="text" id="fileName" class="form-control form_point_color01"
+                             style="position: absolute; width:97%" readonly
+                             placeholder="파일첨부 클릭 또는 파일을 여기로 드래그하세요">
+                         <input type="file" class="form-control" id="find_file01"
+                             style="position: absolute; opacity: 0;"
+                             onchange="javascript: document.getElementById('fileName').value = this.value">
+                     </div>
+                 </div>
+                 <div class="row mt-3" style="height:100px; display:flex; padding:5px;" >
+                     <div class="col text-center">
+                         <button type="button" class="btn inquiryBtn"
+                              onclick="goInquiryEdit()">목록으로</button>							
+                         	<button type="button" class="btn inquiryBtn">작성완료</button>                         	
+                         	
+                     </div>
+                 </div>
+        </form>
         </div>
-        
-      </div>
-
-      
-
-
-      
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
+    </div>
 
     </div>
   </div>
-
+	
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"

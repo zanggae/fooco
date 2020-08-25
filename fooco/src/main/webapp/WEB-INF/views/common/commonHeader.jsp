@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-/* 헤더 네비게이션 바 */
+	/* 헤더 네비게이션 바 */
         .mainHeader {padding:0; background-color:rgb(253,215,129);}
         .logo {width:8rem; height:4.5rem;}
         .mh-navbar-brand {padding:0;}
@@ -125,7 +125,7 @@
 	height:40px;
 }
 /* 이미지 사진 */
-img {
+#pwdimg {
 	margin-top: -20px;
 	margin-left: 59px;
 	position: absolute;
@@ -153,7 +153,7 @@ img {
 	color: rgb(204, 51, 98);
 	font-weight: bold;
 }
-h5, p, #email {
+#forh5 h5, #forh5 p, #email {
 	margin-left: 20px;
 }
 /* 이메일 입력창 */
@@ -229,12 +229,14 @@ h5, p, #email {
                                     </c:if>                                   
                                     <a class="dropdown-item mh-dropdown-item" href="#">지역 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
+
                                     <a class="dropdown-item mh-dropdown-item" href="#">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
+
                                     <!-- 추후 관리자 회원등록 시 수정 -->
                                     <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
-                                    <div class="dropdown-divider"></div>
                                     <c:if test="${!empty loginUser }">
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃</a>
                                     </c:if>
                                 </div>
@@ -281,7 +283,7 @@ h5, p, #email {
               </div>
               <div id="forLine"></div>
               <div class="col">
-                <img src="image/PlateCoupon.png">
+                <img id="pwdimg" src="image/PlateCoupon.png">
                 <button id="JoinMember_btn" onclick="joinMemberView();">회원가입</button><br><br>
                 <button type="button" id="toPwdSearch" class="btn btn-primary" data-toggle="modal"
                   data-target="#staticBackdrop">비밀번호 찾기</button>
@@ -304,7 +306,7 @@ h5, p, #email {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div>
+          <div id="forh5">
             <br>
             <h5>패스워드를 잊으셨나요?</h5>
             <p>아래에 이메일 주소를 입력하시면 임시비밀번호를 보내드립니다.</p><br>
@@ -329,9 +331,7 @@ h5, p, #email {
       </div>
     </div>
     
-    <!-- 동적제어 시작 -->
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript">
+ 
     </script>
     <!-- 경남오빠 -->
     <script>
