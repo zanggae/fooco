@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-/* 헤더 네비게이션 바 */
+	/* 헤더 네비게이션 바 */
         .mainHeader {padding:0; background-color:rgb(253,215,129);}
         .logo {width:8rem; height:4.5rem;}
         .mh-navbar-brand {padding:0;}
@@ -235,8 +235,8 @@
 
                                     <!-- 추후 관리자 회원등록 시 수정 -->
                                     <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
-                                    <div class="dropdown-divider"></div>
                                     <c:if test="${!empty loginUser }">
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃</a>
                                     </c:if>
                                 </div>
@@ -331,9 +331,7 @@
       </div>
     </div>
     
-    <!-- 동적제어 시작 -->
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript">
+ 
     </script>
     <!-- 경남오빠 -->
     <script>
