@@ -304,6 +304,48 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 게시판 관리페이지
+	@RequestMapping("boardEdit.do")
+	public ModelAndView boardEdit(ModelAndView mv, Board board,
+			@RequestParam(value="page", required=false) Integer page) {
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		if(board.getCategoryNo()==0) {
+			board.setCategoryNo(1);			
+		}
+		int boardCategory = board.getCategoryNo();
+		int bCount = adminService.selectBoardCount(board);
+		PageInfo pi = getPageInfo(currentPage, bCount);
+		
+		ArrayList<Board> boardList = adminService.selectBoardList(board,pi);
+		
+		mv.addObject("boardList",boardList);
+		mv.addObject("pi",pi);
+		mv.addObject("boardCategory",boardCategory);
+		mv.setViewName("admin/boardEdit");
+		
+		
+		
+		return mv;
+	}
+	
+	@RequestMapping("deleteBoardAdmin.do")
+	public ModelAndView deleteBoardAdmin(ModelAndView mv, Board board) {
+		
+		int result = adminService.deleteBoardAdmin(board);
+		
+		if(result>0) {
+			mv.setViewName("redirect:boardEdit.do");
+		}else {
+			throw new AdminException("게시물 삭제 실패!");
+		}		
+		
+		return mv;
+	}
+	
 	
 	@RequestMapping("restaurantEdit.do")
 	public String restaurantEdit() {
@@ -316,10 +358,6 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("boardEdit.do")
-	public String boardEdit() {
-		return "admin/boardEdit";
-	}
 	
 	@RequestMapping("boardRegistration.do")
 	public String boardRegistration() {
