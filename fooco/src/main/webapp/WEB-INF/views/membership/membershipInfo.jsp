@@ -2,16 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <title>MembershipInfo</title>
+	 <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js" ></script>
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	
+	<title>MembershipInfo</title>
+	
 
     <style>
         @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
@@ -230,15 +232,12 @@
         <div class="container">
             <div class="row">
               <div class="col" id="second_area_left">
-                <!-- <p>ONE MEMBERSHIP</p>
-                <div class="for_line"></div><p>FOR</p><div class="for_line"></div>
-                <p>ALL YOUR DINING NEEDS</p> -->
-                <img src="image/DiningBackground.jpg">
+                <img src="#">
               </div>
               <div class="col" id="second_area_right">
                 <div id="for_line1"></div><div id="for_freecoupon"><p>무료쿠폰</p></div><div id="for_line2"></div>
-                <span><img src="image/PlateCoupon.png" id="first_img"></span>
-                <span><img src="image/DrinkCoupon.png" id="second_img"></span><br>
+                <span><img src="#" id="first_img"></span>
+                <span><img src="#" id="second_img"></span><br>
                 <span>음식할인쿠폰</span><br>
                 <span>최대 ￦10,000까지 이용가능</span>
                 <span>무료음료쿠폰</span>
@@ -296,23 +295,22 @@
     <footer></footer>
     
     <!-- 동적 제어 시작 -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <script>
     function requestPay() {
-    	alert("잘뜨는지");
-    	var name = $("#membership_name").val();
-    	var price = $("#membership_price").val();
+    	alert("잘뜨는지1");
+    	/* var name = $("#membership_name").val();
+    	var price = $("#membership_price").val(); */
     	
-    	 var IMP = window.IMP; // 생략해도 괜찮습니다.
+    	 var IMP = window.IMP; // 생략가능
     	  IMP.init("imp96485144"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"
         // IMP.request_pay(param, callback) 호출
         IMP.request_pay({ // param - 결제 요청에 필요한 속성과 값을 담음
             pg: "html5_inicis",
             pay_method: "card",
             merchant_uid: "merchant_" + new Date().getTime(),	//주문번호
-            name: name,
-            amount: price,
+            name: "이름",
+            amount: 1000,
             /* buyer_email: "gildong@gmail.com",
             buyer_name: "홍길동",
             buyer_tel: "010-4242-4242",
@@ -328,16 +326,5 @@
       }
     
     </script>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <!-- 결제 api script -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   </body>
 </html>
