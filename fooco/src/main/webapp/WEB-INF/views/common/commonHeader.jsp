@@ -157,12 +157,12 @@
 	margin-left: 20px;
 }
 /* 이메일 입력창 */
-#selfSiteName {
+#selfSiteNameHeader {
 	width: 100px;
 	border: 1px solid gray;
 	border-radius: 3px;
 }
-#selectEmail {
+#selectEmailHeader {
 	height: 29px;
 }
 /* 비밀번호 찾기 버튼 */
@@ -230,7 +230,7 @@
                                     <a class="dropdown-item mh-dropdown-item" href="#">지역 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
 
-                                    <a class="dropdown-item mh-dropdown-item" href="#">멤버십</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
 
                                     <!-- 추후 관리자 회원등록 시 수정 -->
@@ -312,16 +312,16 @@
             <p>아래에 이메일 주소를 입력하시면 임시비밀번호를 보내드립니다.</p><br>
             <form>
               <h5>이메일주소</h5>
-              <input type="text" required id="email" placeholder="가입메일주소">
+              <input type="text" required id="emailHeader" placeholder="가입메일주소">
               <span style="font-size: 17px;">@</span>
-              <input type="text" id="selfSiteName" required disabled>
-              <select class="" id="selectEmail">
+              <input type="text" id="selfSiteNameHeader" required disabled>
+              <select class="" id="selectEmailHeader">
                 <option value="e_option" selected>선택하세요</option>
                 <option value="naver.com">naver.com</option>
                 <option value="daum.net">daum.net</option>
                 <option value="google.com">google.com</option>
                 <option value="hanmail.net">hanmail.net</option>
-                <option value="selfEmail" id="selfEmail">직접 입력</option>
+                <option value="selfEmail" id="selfEmailHeader">직접 입력</option>
               </select><br><br><br>
               <button type="button" id="SearchPwd_btn">비밀번호 찾기</button><br>
               <input type="reset" value="취소" id="SearchPwd_reset_btn">
@@ -357,37 +357,37 @@
     })
 
     $("#SearchPwd_btn").on("click",function(){
-      if($("#email").val()==""){
+      if($("#emailHeader").val()==""){
         alert("이메일을 입력해주세요");
         return;
       }
-      if($("#selfSiteName").val()=="" &&($("#selectEmail").val()==""||$("#selectEmail").val()=="e_option")){
+      if($("#selfSiteNameHeader").val()=="" &&($("#selectEmailHeader").val()==""||$("#selectEmailHeader").val()=="e_option")){
         alert("이메일주소를 선택해주세요");
         return;
       }
-      if($("#selectEmail").val()=="selfEmail" && ($("#selfSiteName").val()=="")){
+      if($("#selectEmailHeader").val()=="selfEmail" && ($("#selfSiteNameHeader").val()=="")){
         alert("이메일 주소를 입력해주세요");
-        $("#selfSiteName").focus();
+        $("#selfSiteNameHeader").focus();
         return;
       }
     })
     //이메일 선택 시 직접 입력창 활성화
-    $("#selectEmail").change(function(){
-            var selectedValue = $("#selectEmail").children("option:selected").html();
+    $("#selectEmailHeader").change(function(){
+            var selectedValue = $("#selectEmailHeader").children("option:selected").html();
                 
-            if(selectedValue==$("#selfEmail").html()){
-                $("#selfSiteName").prop("disabled", false).focus().prop("value", "");
-            }else if(!$("#selfSiteName").prop("disabled")){
-                $("#selfSiteName").prop("disabled", true).prop("value", "");
+            if(selectedValue==$("#selfEmailHeder").html()){
+                $("#selfSiteNameHeader").prop("disabled", false).focus().prop("value", "");
+            }else if(!$("#selfSiteNameHeader").prop("disabled")){
+                $("#selfSiteNameHeader").prop("disabled", true).prop("value", "");
             }
-            if($("#selfSiteName").prop("disabled")){
-                $("#selfSiteName").css("background", "lightgray");
-            }else if($("#selfSiteName").prop("disabled")==false){
-                $("#selfSiteName").css("background", "white");
+            if($("#selfSiteNameHeader").prop("disabled")){
+                $("#selfSiteNameHeader").css("background", "lightgray");
+            }else if($("#selfSiteNameHeader").prop("disabled")==false){
+                $("#selfSiteNameHeader").css("background", "white");
             }
         });
-        if($("#selfSiteName").prop("disabled")){
-                $("#selfSiteName").css("background", "lightgray");
+        if($("#selfSiteNameHeader").prop("disabled")){
+                $("#selfSiteNameHeader").css("background", "lightgray");
         }
 
 
