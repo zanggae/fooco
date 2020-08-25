@@ -65,8 +65,7 @@
 
 <body>
 	<header>
-		<!-- 상단 메뉴바 commommenubar.jsp로 변경예정 -->
-		<jsp:include page="../common/subMenubar.jsp"></jsp:include>
+		<jsp:include page="../common/commonHeader.jsp"></jsp:include>
 	</header>
 	<section>
 		<div class="container mypage_container">
