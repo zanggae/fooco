@@ -101,6 +101,7 @@
                               onclick="goInquiryEdit()">목록으로</button>							
                          	<button type="button" class="btn inquiryBtn">작성완료</button>
                          	
+                         	
                      </div>
                  </div>
         </form>
