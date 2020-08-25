@@ -40,18 +40,9 @@
     A:hover {text-decoration: none; color:rgb(204,51,98);}
 
     /*상단 제목*/
-    .back{border-style : none; height: 12rem; width: 57rem; background-image: url(resources/etcimage/serviceCenterImg2.png); opacity: 0.8; position: absolute; z-index: 0;}
+    .back{border-style : none; height: 12rem; width: 54rem; background-image: url(resources/etcimage/serviceCenterImg2.png); opacity: 0.8; position: absolute; z-index: 0;}
     .title{font-size: 4rem; font-family: 'heavy'; color : black; margin-left: 3rem; margin-top: 0.5rem; z-index:3; position: absolute;}
     
-    /*메뉴바*/
-    #round{border-style: solid; color : black; height: 19rem; width: 12.5rem; }
-    .leftMenubar li{list-style:none; margin-top:1rem;}
-    .li_1{color :rgb(204,51,98);; font-family: 'heavy'; font-size: 1.7rem;}
-    .li_2{color : #646464; font-family: 'medium'; font-size:1.2rem; margin-left: 2.4rem;}    
-    .li_3{color : #646464; font-family: 'medium'; font-size:1.2rem; margin-left: 1.1rem;} 
-    .text1{font-size : 1.1rem; font-family: 'medium'; color:black;}
-    .text1 a:hover {color:rgb(253,215,129);font-family: 'medium';} 
-   
 
     </style>
     </head>
@@ -62,6 +53,7 @@
   </header>
 
   <section>
+  <br>
     <div class="container">
      <div class="row">
       <div class="col-10">
@@ -70,7 +62,7 @@
           <div class="back">
           <a href="notice.do" class="title">NOTICE</a>
         </div>
-    <div style="margin-top: 20rem;">
+    <div style="margin-top: 18rem;">
       <c:forEach var="n" items="${notice }">
         <div style="margin-top: 2rem;">
 
@@ -98,17 +90,8 @@
     </div>
     
       <div class="col-2" style="margin-top: 3rem;">
-           <!-- <div id="round">  -->
-          <ul class="leftMenubar">
-            <li class="li_1" style="margin-top: 3.5rem; margin-bottom: 1.3rem;">고객센터</li>
         
-            <li><a href="notice.do" class="li_3">공지사항</a></li>
-
-            <li><a href="#" class="li_2">FAQ</a></li>
-
-            <li><a href="#" class="li_3">1:1 문의</a></li>
-          </ul>
-       <!--  </div> -->
+        <jsp:include page="../servicecenter/servicecenterMenubar.jsp"></jsp:include>
       </div>
     </div>
     <!--container 끝-->

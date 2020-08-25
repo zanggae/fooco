@@ -85,4 +85,9 @@ public class BoardController {
 		return "servicecenter/noticeDetail";
 	}
 	
+	
+	@RequestMapping("summernote.do")
+	public String summernote() {
+		return "servicecenter/summernote";
+	}
 }
