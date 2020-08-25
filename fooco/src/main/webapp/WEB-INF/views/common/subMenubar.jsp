@@ -125,7 +125,7 @@
 	height:40px;
 }
 /* 이미지 사진 */
-img {
+.logo {
 	margin-top: -20px;
 	margin-left: 59px;
 	position: absolute;
@@ -153,7 +153,7 @@ img {
 	color: rgb(204, 51, 98);
 	font-weight: bold;
 }
-h5, p, #email {
+#forh5 h5, #forh5 p, #email {
 	margin-left: 20px;
 }
 /* 이메일 입력창 */
@@ -229,13 +229,10 @@ h5, p, #email {
                                     </c:if>                                   
                                     <a class="dropdown-item mh-dropdown-item" href="#">지역 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
-<<<<<<< HEAD
-                                    <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
-                                    <a class="dropdown-item mh-dropdown-item" href="notice.do">고객센터</a>
-=======
+
                                     <a class="dropdown-item mh-dropdown-item" href="#">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
->>>>>>> refs/remotes/origin/master
+
                                     <!-- 추후 관리자 회원등록 시 수정 -->
                                     <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
                                     <div class="dropdown-divider"></div>
@@ -253,13 +250,8 @@ h5, p, #email {
                     <div class="nav nav-underline d-flex justify-content-around">
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">지역 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">테마 맛집</a>
-<<<<<<< HEAD
-                        <a class="nav-link msh-items" style="font-family:'medium'" href="goMembershipInfo.do">멤버십</a>
-                        <a class="nav-link msh-items" style="font-family:'medium'" href="notice.do">고객센터</a>
-=======
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">멤버십</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="serviceCenterMain.do">고객센터</a>
->>>>>>> refs/remotes/origin/master
                     </div>
                 </div>
             </div>
@@ -291,7 +283,7 @@ h5, p, #email {
               </div>
               <div id="forLine"></div>
               <div class="col">
-                <img src="image/PlateCoupon.png">
+                <img class="logo" src="image/PlateCoupon.png">
                 <button id="JoinMember_btn" onclick="joinMemberView();">회원가입</button><br><br>
                 <button type="button" id="toPwdSearch" class="btn btn-primary" data-toggle="modal"
                   data-target="#staticBackdrop">비밀번호 찾기</button>
@@ -314,7 +306,7 @@ h5, p, #email {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div>
+          <div id="forh5">
             <br>
             <h5>패스워드를 잊으셨나요?</h5>
             <p>아래에 이메일 주소를 입력하시면 임시비밀번호를 보내드립니다.</p><br>
