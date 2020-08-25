@@ -208,7 +208,6 @@
                                 <span class="mh-dropdown-title" style="font-family:'bold'"><c:out value="${loginUser.nickName}님"/></span>
                           </a>
                           </c:if>
-                            
                             <div class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle mh-dropdown-toggle" onclick="openMenu();" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="header-menu-btn d-flex justify-content-center align-items-center">
