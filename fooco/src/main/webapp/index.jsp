@@ -8,8 +8,7 @@
 	
 </head>
 <body>
-	<jsp:forward page="inquiry.do"/>       
-	
+	<jsp:forward page="main.do"/>       
 	
 	
 </body>

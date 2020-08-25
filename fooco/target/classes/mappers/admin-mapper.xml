@@ -222,8 +222,11 @@
 
 <insert id="registrationBoard" parameterType="Board">
 	INSERT ALL
-   	INTO MEMBER VALUES(SEQ_MEMBERID.NEXTVAL,#{memberName},#{memberPwd},#{email},#{nickName},#{gender},#{phone},#{address},SYSDATE,SYSDATE,SYSDATE,DEFAULT,#{memberJoinType},DEFAULT)
-   	INTO PROFILE_IMG VALUES(SEQ_PROFILEID.NEXTVAL,SEQ_MEMBERID.CURRVAL,'noimage.png','noimage.png',SYSDATE,'0')
+   	INTO BOARD VALUES(SEQ_BOARDID.NEXTVAL,#{categoryNo},21,#{boardTitle},#{boardContent},0,SYSDATE,SYSDATE,'Y',DEFAULT)
+   	<if test="imageOriginName != null">
+   	INTO IMAGE VALUES(SEQ_BOARDFILEID.NEXTVAL,#{imageOriginName},#{imageNewName},0,SYSDATE,0,'Y',0)
+   	INTO BOARD_IMAGE VALUES(SEQ_BOARDFILEID.CURRVAL,SEQ_BOARDID.CURRVAL)
+   	</if>
    	SELECT *
    	FROM DUAL
 </insert>

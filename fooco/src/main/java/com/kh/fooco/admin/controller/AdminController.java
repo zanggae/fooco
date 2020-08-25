@@ -365,7 +365,7 @@ public class AdminController {
 		
 		int result = adminService.registrationBoard(board);
 		if(result >0) {
-			return "redirect:blist.do";
+			return "redirect:boardEdit.do";
 		}else {
 			throw new BoardException("게시글 등록 실패!");
 		}
@@ -385,8 +385,6 @@ public class AdminController {
 			
 		}
 		
-		// 공지글은 파일명 중복 제거는 신경쓰지 않고 했지만
-		// 게시판에서는 파일명을 날짜(업로드시간)로 rename 해보자
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String originFileName = file.getOriginalFilename();
