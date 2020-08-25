@@ -47,5 +47,11 @@ public interface AdminService {
 
 	int selectInquiryCount(Board board);
 
+	ArrayList<Board> selectBoardList(Board board, PageInfo pi);
+
+	int selectBoardCount(Board board);
+
+	int deleteBoardAdmin(Board board);
+
 	
 }
