@@ -125,7 +125,7 @@
 	height:40px;
 }
 /* 이미지 사진 */
-.logo {
+#pwdimg {
 	margin-top: -20px;
 	margin-left: 59px;
 	position: absolute;
@@ -283,7 +283,7 @@
               </div>
               <div id="forLine"></div>
               <div class="col">
-                <img class="logo" src="image/PlateCoupon.png">
+                <img id="pwdimg" src="image/PlateCoupon.png">
                 <button id="JoinMember_btn" onclick="joinMemberView();">회원가입</button><br><br>
                 <button type="button" id="toPwdSearch" class="btn btn-primary" data-toggle="modal"
                   data-target="#staticBackdrop">비밀번호 찾기</button>
