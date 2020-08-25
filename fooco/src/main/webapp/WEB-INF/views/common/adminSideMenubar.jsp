@@ -38,6 +38,7 @@
     
     </style>
   </head>
+  
   <body>
   	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
     <div style="height: 100%; width:13%; position: fixed; background-color: rgb(253, 215, 129);">

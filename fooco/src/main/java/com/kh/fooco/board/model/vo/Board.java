@@ -20,6 +20,7 @@ public class Board implements Serializable{
 	private Date boardUpdateDate;		// 게시물 수정날짜
 	private String boardStatus;			// 게시물 상태
 	private String answerContent;		// FAQ 질문에 대한 답변
+	private String nickname;			// 게시물작성자닉네임
 	
 	// 문의 테이블에 관한 속성
 	private int inquiryCode;			// 문의 코드
@@ -41,9 +42,10 @@ public class Board implements Serializable{
 	public Board() {
 		super();
 	}
+
 	public Board(int boardId, int boardWriter, int categoryNo, String boardTitle, String boardContent, int boardCount,
-			Date boardCreateDate, Date boardUpdateDate, String boardStatus, String answerContent, int inquiryCode,
-			String inquiryContent, Date inquiryDate, String inquiryYN, String inquiryName, int imageId,
+			Date boardCreateDate, Date boardUpdateDate, String boardStatus, String answerContent, String nickname,
+			int inquiryCode, String inquiryContent, Date inquiryDate, String inquiryYN, String inquiryName, int imageId,
 			String imageOriginName, String imageNewName, String imageFilepath, Date imageCreateDate, int imageLevel,
 			String imageStatus, int imageDownloadCount) {
 		super();
@@ -57,6 +59,7 @@ public class Board implements Serializable{
 		this.boardUpdateDate = boardUpdateDate;
 		this.boardStatus = boardStatus;
 		this.answerContent = answerContent;
+		this.nickname = nickname;
 		this.inquiryCode = inquiryCode;
 		this.inquiryContent = inquiryContent;
 		this.inquiryDate = inquiryDate;
@@ -71,159 +74,216 @@ public class Board implements Serializable{
 		this.imageStatus = imageStatus;
 		this.imageDownloadCount = imageDownloadCount;
 	}
+
 	public int getBoardId() {
 		return boardId;
 	}
+
 	public void setBoardId(int boardId) {
 		this.boardId = boardId;
 	}
+
 	public int getBoardWriter() {
 		return boardWriter;
 	}
+
 	public void setBoardWriter(int boardWriter) {
 		this.boardWriter = boardWriter;
 	}
+
 	public int getCategoryNo() {
 		return categoryNo;
 	}
+
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
+
 	public String getBoardTitle() {
 		return boardTitle;
 	}
+
 	public void setBoardTitle(String boardTitle) {
 		this.boardTitle = boardTitle;
 	}
+
 	public String getBoardContent() {
 		return boardContent;
 	}
+
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
+
 	public int getBoardCount() {
 		return boardCount;
 	}
+
 	public void setBoardCount(int boardCount) {
 		this.boardCount = boardCount;
 	}
+
 	public Date getBoardCreateDate() {
 		return boardCreateDate;
 	}
+
 	public void setBoardCreateDate(Date boardCreateDate) {
 		this.boardCreateDate = boardCreateDate;
 	}
+
 	public Date getBoardUpdateDate() {
 		return boardUpdateDate;
 	}
+
 	public void setBoardUpdateDate(Date boardUpdateDate) {
 		this.boardUpdateDate = boardUpdateDate;
 	}
+
 	public String getBoardStatus() {
 		return boardStatus;
 	}
+
 	public void setBoardStatus(String boardStatus) {
 		this.boardStatus = boardStatus;
 	}
+
 	public String getAnswerContent() {
 		return answerContent;
 	}
+
 	public void setAnswerContent(String answerContent) {
 		this.answerContent = answerContent;
 	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	public int getInquiryCode() {
 		return inquiryCode;
 	}
+
 	public void setInquiryCode(int inquiryCode) {
 		this.inquiryCode = inquiryCode;
 	}
+
 	public String getInquiryContent() {
 		return inquiryContent;
 	}
+
 	public void setInquiryContent(String inquiryContent) {
 		this.inquiryContent = inquiryContent;
 	}
+
 	public Date getInquiryDate() {
 		return inquiryDate;
 	}
+
 	public void setInquiryDate(Date inquiryDate) {
 		this.inquiryDate = inquiryDate;
 	}
+
 	public String getInquiryYN() {
 		return inquiryYN;
 	}
+
 	public void setInquiryYN(String inquiryYN) {
 		this.inquiryYN = inquiryYN;
 	}
+
 	public String getInquiryName() {
 		return inquiryName;
 	}
+
 	public void setInquiryName(String inquiryName) {
 		this.inquiryName = inquiryName;
 	}
+
 	public int getImageId() {
 		return imageId;
 	}
+
 	public void setImageId(int imageId) {
 		this.imageId = imageId;
 	}
+
 	public String getImageOriginName() {
 		return imageOriginName;
 	}
+
 	public void setImageOriginName(String imageOriginName) {
 		this.imageOriginName = imageOriginName;
 	}
+
 	public String getImageNewName() {
 		return imageNewName;
 	}
+
 	public void setImageNewName(String imageNewName) {
 		this.imageNewName = imageNewName;
 	}
+
 	public String getImageFilepath() {
 		return imageFilepath;
 	}
+
 	public void setImageFilepath(String imageFilepath) {
 		this.imageFilepath = imageFilepath;
 	}
+
 	public Date getImageCreateDate() {
 		return imageCreateDate;
 	}
+
 	public void setImageCreateDate(Date imageCreateDate) {
 		this.imageCreateDate = imageCreateDate;
 	}
+
 	public int getImageLevel() {
 		return imageLevel;
 	}
+
 	public void setImageLevel(int imageLevel) {
 		this.imageLevel = imageLevel;
 	}
+
 	public String getImageStatus() {
 		return imageStatus;
 	}
+
 	public void setImageStatus(String imageStatus) {
 		this.imageStatus = imageStatus;
 	}
+
 	public int getImageDownloadCount() {
 		return imageDownloadCount;
 	}
+
 	public void setImageDownloadCount(int imageDownloadCount) {
 		this.imageDownloadCount = imageDownloadCount;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public String toString() {
 		return "Board [boardId=" + boardId + ", boardWriter=" + boardWriter + ", categoryNo=" + categoryNo
 				+ ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", boardCount=" + boardCount
 				+ ", boardCreateDate=" + boardCreateDate + ", boardUpdateDate=" + boardUpdateDate + ", boardStatus="
-				+ boardStatus + ", answerContent=" + answerContent + ", inquiryCode=" + inquiryCode
-				+ ", inquiryContent=" + inquiryContent + ", inquiryDate=" + inquiryDate + ", inquiryYN=" + inquiryYN
-				+ ", inquiryName=" + inquiryName + ", imageId=" + imageId + ", imageOriginName=" + imageOriginName
-				+ ", imageNewName=" + imageNewName + ", imageFilepath=" + imageFilepath + ", imageCreateDate="
-				+ imageCreateDate + ", imageLevel=" + imageLevel + ", imageStatus=" + imageStatus
+				+ boardStatus + ", answerContent=" + answerContent + ", nickname=" + nickname + ", inquiryCode="
+				+ inquiryCode + ", inquiryContent=" + inquiryContent + ", inquiryDate=" + inquiryDate + ", inquiryYN="
+				+ inquiryYN + ", inquiryName=" + inquiryName + ", imageId=" + imageId + ", imageOriginName="
+				+ imageOriginName + ", imageNewName=" + imageNewName + ", imageFilepath=" + imageFilepath
+				+ ", imageCreateDate=" + imageCreateDate + ", imageLevel=" + imageLevel + ", imageStatus=" + imageStatus
 				+ ", imageDownloadCount=" + imageDownloadCount + "]";
 	}
+	
 	
 	
 }

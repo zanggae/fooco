@@ -13,8 +13,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
+  
    <!-- 아이콘 -->
    <script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
+  
   <style>
     @font-face {font-family: 'heavy';
       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
@@ -33,92 +35,81 @@
                 font-weight: normal; font-style: normal;}
 
     * {font-family: 'light';}
-    /*a태그 설정*/
-    A:link {text-decoration: none; color:#646464;}
+
+     /*a태그 설정*/
+    /*  A:link {text-decoration: none; color:#646464;} */
     /* A:visited {text-decoration: none; color:#646464;} */
-     A:active {text-decoration: none; color:#646464;} 
+    /*  A:active {text-decoration: none; color:#646464;} */ 
     A:hover {text-decoration: none; color:rgb(204,51,98);}
 
-    /*상단 제목*/
-    .back{border-style : none; height: 12rem; width: 57rem; background-image: url(resources/etcimage/serviceCenterImg2.png); opacity: 0.8; position: absolute; z-index: 0;}
-    .title{font-size: 4rem; font-family: 'heavy'; color : black; margin-left: 3rem; margin-top: 0.5rem; z-index:3; position: absolute;}
+    /*내용 설정*/
+    .round{border-style : none; background-color: #FFFAFA; height: auto;}
+    .menuname{font-size: 5.5rem; font-family: 'bold'; color :rgb(253, 215, 129); margin-left: 3rem; margin-top: 0.5rem; }
+    .title{font-size : 2.5rem; font-family: 'medium'; color : black; margin-top:10rem; margin-left: 3rem;}
+    .date{ font-size : 1.5rem; color: #646464; margin-left: 3rem; margin-top: 0.5rem;}
+    .content{font-size : 1.2rem; color: black; margin-top : 5rem;}
+    .list{font-size : 2rem; color:#646464; margin-left: 3rem; margin-bottom: 4rem; font-family: 'light'!important;}
     
-    /*메뉴바*/
-    #round{border-style: solid; color : black; height: 19rem; width: 12.5rem; }
-    .leftMenubar li{list-style:none; margin-top:1rem;}
-    .li_1{color :rgb(204,51,98);; font-family: 'heavy'; font-size: 1.7rem;}
-    .li_2{color : #646464; font-family: 'medium'; font-size:1.2rem; margin-left: 2.4rem;}    
-    .li_3{color : #646464; font-family: 'medium'; font-size:1.2rem; margin-left: 1.1rem;} 
-    .text1{font-size : 1.1rem; font-family: 'medium'; color:black;}
-    .text1 a:hover {color:rgb(253,215,129);font-family: 'medium';} 
-   
-
     </style>
     </head>
-
-  <body>
+<body>
   <header>
-    <jsp:include page="../common/menubar.jsp"></jsp:include>
+	 <jsp:include page="../common/menubar.jsp"></jsp:include>
   </header>
 
   <section>
     <div class="container">
-     <div class="row">
-      <div class="col-10">
-     
-      
-          <div class="back">
-          <a href="notice.do" class="title">NOTICE</a>
+      <div class="round">
+        <a href="notice.do" class="menuname">NOITCE</a>
+        <div class="title">${board.boardTitle }
         </div>
-    <div style="margin-top: 20rem;">
-      <c:forEach var="n" items="${notice }">
-        <div style="margin-top: 2rem;">
-
-          <hr><br>
-          <div class="row">
-            <div class="col-1">
-            </div>
-            <div class="col-8">
-            <c:url var="noticedetail" value="noticeDetail.do">
-            <c:param name="boardId" value="${n.boardId }"/>
-            </c:url>
-          	
-              <a href="${noticedetail }"class="text1">${n.boardTitle }</a>
-            </div>
-            <div class="col-3">
-              ${n.boardCreateDate}
+        <div class="date">
+           ${board.boardCreateDate }
+        </div>
+        <div class="row">
+          <div class="col-1">
+          </div>
+          <div class="col-10">
+            <div class="content">
+          		${board.boardContent }
+          		
             </div>
           </div>
-          <br>
-          <hr>
+          <div class="col-1">
+
+
+          </div>
 
         </div>
-      </c:forEach>
-    </div>
-    </div>
-    
-      <div class="col-2" style="margin-top: 3rem;">
-           <!-- <div id="round">  -->
-          <ul class="leftMenubar">
-            <li class="li_1" style="margin-top: 3.5rem; margin-bottom: 1.3rem;">고객센터</li>
-        
-            <li><a href="notice.do" class="li_3">공지사항</a></li>
+        <br><br><br><br><br><br>
+        <div class="row">
+          <div class="col-5">
+            <a href="notice.do" class="list"><i class="fas fa-arrow-left" style="font-size: 1.5rem;">&nbsp;&nbsp;뒤로가기</a></i>
+          </div>
 
-            <li><a href="#" class="li_2">FAQ</a></li>
+          <div class="col-5">
 
-            <li><a href="#" class="li_3">1:1 문의</a></li>
-          </ul>
-       <!--  </div> -->
+
+          </div>
+
+        </div>
+        <br><br>
       </div>
-    </div>
-    <!--container 끝-->
+
+
+
+    </div>	<!-- container끝 -->
+
+
+
+    
 
   </section>
 
   <footer>
 
-  </footer>
 
+  </footer>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
