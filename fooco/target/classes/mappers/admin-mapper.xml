@@ -66,7 +66,8 @@
       <result property="boardCreateDate" column="BOARD_CREATE_DATE"/> 
       <result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
       <result property="boardStatus" column="BOARD_STATUS"/>
-      <result property="answerContent" column="ANSWER_CONTENT"/> 
+      <result property="answerContent" column="ANSWER_CONTENT"/>
+      <result property="nickname" column="NICKNAME"/>       
       <result property="inquiryCode" column="INQUIRY_CODE"/> 
       <result property="inquiryContent" column="INQUIRY_CONTENT"/>
       <result property="inquiryDate" column="INQUIRY_DATE"/>
@@ -173,7 +174,7 @@
 ]]>
 </select>
 
-<select id="selectListInquiry" resultMap="BoardResultSet">
+<select id="selectListInquiry" resultMap="BoardResultSet" parameterType="Board">
    SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3
    <if test="inquiryYN != null">
       AND INQUIRY_YN = #{inquiryYN}
@@ -183,4 +184,21 @@
    </if>
 </select>
 
+<select id="selectInquiryOne" parameterType="Board" resultMap="BoardResultSet">
+	SELECT * FROM SELECT_BOARD WHERE BOARD_ID = #{boardId} AND BOARD_STATUS = 'Y'
+</select>
+
+<update id="updateReplyInquiry" parameterType="Board">
+	UPDATE INQUIRY SET INQUIRY_CONTENT=#{inquiryContent},INQUIRY_YN='Y',INQUIRY_DATE=SYSDATE WHERE BOARD_ID=#{boardId}
+</update>
+
+<select id="selectInquiryCount" parameterType="Board" resultType="_int">
+	SELECT COUNT(*) FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3
+   <if test="inquiryYN != null">
+      AND INQUIRY_YN = #{inquiryYN}
+   </if>
+   <if test="inquiryCode != 0">
+      AND INQUIRY_CODE = #{inquiryCode}
+   </if>
+</select>
 </mapper>

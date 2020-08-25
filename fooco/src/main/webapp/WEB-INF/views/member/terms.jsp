@@ -299,9 +299,9 @@
         // 약관영역 가로넓이 지정
         $('#termsOfService').css('width', screen.availWidth);
 
-        $("#closeUsingTOS").click(function(){
-           location.href="joinMember.jsp";
-        });
+       $("#closeUsingTOS").click(function(){
+           redirect:"joinMemberView.do";
+        }); 
     </script>
 </body>
 </html>

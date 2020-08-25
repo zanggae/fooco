@@ -18,5 +18,19 @@ public class BoardDao {
 		
 		return (ArrayList)sqlSessionTemplate.selectList("boardMapper.selectListNotice");
 	}
+
+
+	public ArrayList<Board> selectListFAQ() {
+
+		return (ArrayList)sqlSessionTemplate.selectList("boardMapper.selectListFAQ");
+	}
+
+
+
+
+	public Board selectNoticeDetail(int boardId) {
+		System.out.println("뭐지" + boardId);
+		return sqlSessionTemplate.selectOne("boardMapper.selectNoticeDetail",boardId);
+	}
 	
 }

@@ -12,7 +12,8 @@
    	<result property="boardCreateDate" column="BOARD_CREATE_DATE"/> 
    	<result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
    	<result property="boardStatus" column="BOARD_STATUS"/>
-   	<result property="answerContent" column="ANSWER_CONTENT"/>   	
+   	<result property="answerContent" column="ANSWER_CONTENT"/>
+   	<result property="nickname" column="NICKNAME"/>   	
    	<result property="inquiryCode" column="INQUIRY_CODE"/> 
    	<result property="inquiryContent" column="INQUIRY_CONTENT"/>
    	<result property="inquiryDate" column="INQUIRY_DATE"/>
@@ -29,11 +30,24 @@
 </resultMap>
 
 	<select id="selectListNotice" resultMap="BoardResultSet">
-		SELECT BOARD_TITLE, BOARD_CONTENT
+		SELECT BOARD_TITLE, BOARD_CREATE_DATE, BOARD_ID
 		FROM SELECT_BOARD
 		WHERE CATEGORY_NO = 1
 		ORDER BY BOARD_ID DESC
 	</select>
 
+	<select id="selectListFAQ" resultMap="BoardResultSet">
+		SELECT BOARD_TITLE, BOARD_CONTENT, ANSWER_CONTENT
+		FROM SELECT_BOARD
+		WHERE CATEGORY_NO = 2
+		ORDER BY BOARD_ID DESC 
+	
+	</select>
+	
+	<select id="selectNoticeDetail" parameterType="_int" resultMap="BoardResultSet">
+		SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_CREATE_DATE
+		FROM SELECT_BOARD
+		WHERE CATEGORY_NO = 1 AND BOARD_ID=#{boardId}
+	</select>
 </mapper>
 
