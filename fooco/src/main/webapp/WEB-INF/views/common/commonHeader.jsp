@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-/* 헤더 네비게이션 바 */
+	/* 헤더 네비게이션 바 */
         .mainHeader {padding:0; background-color:rgb(253,215,129);}
         .logo {width:8rem; height:4.5rem;}
         .mh-navbar-brand {padding:0;}
@@ -230,13 +230,13 @@
                                     <a class="dropdown-item mh-dropdown-item" href="#">지역 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
 
-                                    <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="#">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
 
                                     <!-- 추후 관리자 회원등록 시 수정 -->
                                     <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
-                                    <div class="dropdown-divider"></div>
                                     <c:if test="${!empty loginUser }">
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃</a>
                                     </c:if>
                                 </div>
@@ -250,7 +250,7 @@
                     <div class="nav nav-underline d-flex justify-content-around">
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">지역 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">테마 맛집</a>
-                        <a class="nav-link msh-items" style="font-family:'medium'" href="goMembershipInfo.do">멤버십</a>
+                        <a class="nav-link msh-items" style="font-family:'medium'" href="#">멤버십</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="serviceCenterMain.do">고객센터</a>
                     </div>
                 </div>
@@ -331,9 +331,7 @@
       </div>
     </div>
     
-    <!-- 동적제어 시작 -->
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript">
+ 
     </script>
     <!-- 경남오빠 -->
     <script>

@@ -108,4 +108,19 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectInquiryCount(board);
 	}
 
+	@Override
+	public ArrayList<Board> selectBoardList(Board board, PageInfo pi) {
+		return adminDao.selectBoardList(board,pi);
+	}
+
+	@Override
+	public int selectBoardCount(Board board) {
+		return adminDao.selectBoardCount(board);
+	}
+
+	@Override
+	public int deleteBoardAdmin(Board board) {
+		return adminDao.deleteBoardAdmin(board);
+	}
+
 }

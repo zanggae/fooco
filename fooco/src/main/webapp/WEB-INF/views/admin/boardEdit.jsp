@@ -53,68 +53,57 @@
       <div class="container">
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col-6" style="margin:auto;">
+            <c:if test="${boardCategory eq 1 }">
+            	<h3>공지사항</h3>
+            </c:if>
+            <c:if test="${boardCategory eq 2 }">
+            	<h3>FAQ</h3>
+            </c:if>
             <p style="margin:auto;">카테고리를 선택하시면 해당 게시물이 조회됩니다.</p>
           </div>
           <div class="col-6">
-            <select class="float-right">
-              <option selected>선택</option>
-              <option>공지사항</option>
-              <option>FAQ</option>
-            </select>
-
+          
+          	<form action="boardEdit.do" method="get" id="boardCategory">
+	            <select class="float-right" onchange="changeCategory()" name="categoryNo">
+	              <option value="0" selected>선택</option>
+	              <option value="1" >공지사항</option>
+	              <option value="2">FAQ</option>
+	            </select>
+			</form>
           </div>
         </div>
         <div class="card mb-4">
           <div class="card-body">
             <div class="table-responsive mt-3">
               <table class="table table-hover">
-                <thead>
+                <thead align="center">
                   <tr>
-                    <th>게시물 제목</th>
-                    <th>작성자</th>
-                    <th>카테고리</th>
+                    <th>게시물 제목</th>                    
                     <th>등록 날짜</th>
                     <th>조회수</th>
                     <th>관리</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>ddd</td>
-                    <td>12-458264</td>
-                    <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
-                    <td>
-                      <button type="button" class="btn btn-primary" onclick="restaurantDelete()"
-                        style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
-                          class="fas fa-trash-alt"></i></button>
-                    </td>
-                  </tr><tr>
-                    <td>ddd</td>
-                    <td>12-458264</td>
-                    <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
-                    <td>
-                      <button type="button" class="btn btn-primary" onclick="restaurantDelete()"
-                        style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
-                          class="fas fa-trash-alt"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>ddd</td>
-                    <td>12-458264</td>
-                    <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
-                    <td>
-                      <button type="button" class="btn btn-primary" onclick="restaurantDelete()"
-                        style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
-                          class="fas fa-trash-alt"></i></button>
-                    </td>
-                  </tr>
-                  
+                <tbody align="center">
+              	<c:if test="${empty boardList }">
+	               	<tr >
+	               		<td colspan="4">조회된 게시물이 없습니다.</td>
+	               	</tr>
+               	</c:if>
+               	<c:if test="${!empty boardList }">
+               		<c:forEach var="b" items="${boardList }">               	
+	                  <tr >
+	                    <td>${b.boardTitle }</td>	                    
+	                    <td>${b.boardCreateDate }</td>
+	                    <td>${b.boardCount }</td>
+	                    <td>
+	                      <button type="button" class="btn btn-primary" value="${b.boardId }" onclick="restaurantDelete(this)"
+	                        style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
+	                          class="fas fa-trash-alt"></i></button>
+	                    </td>
+	                  </tr> 
+                  	</c:forEach>
+                  </c:if>                 
                 </tbody>
               </table>
             </div>
@@ -127,9 +116,17 @@
 
 
       <script>
-        function restaurantDelete(){
-          alert("지우기 나와?");
+        function restaurantDelete(id){          
+          var boardId = $(id).attr("value")
+          if(confirm("게시물을 삭제하시겠습니까?")){
+        	location.href="deleteBoardAdmin.do?boardId="+boardId;        	  
+          }
         }
+        function changeCategory(){
+        	$("#boardCategory").submit();
+        	
+        }
+        
       </script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
