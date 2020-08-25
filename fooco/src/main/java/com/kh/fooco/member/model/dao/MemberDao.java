@@ -13,7 +13,7 @@ public class MemberDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	//로그인 메소드
-	public Member selectoneMember(Member m) {
+	public Member loginMember(Member m) {
 		
 		return sqlSessionTemplate.selectOne("memberMapper.loginMember",m);
 	}

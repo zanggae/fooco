@@ -15,7 +15,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member loginMember(Member m) {
 		
-		return memberDao.selectoneMember(m);
+		return memberDao.loginMember(m);
 	}
 
 	//회원가입메소드
