@@ -96,6 +96,13 @@ public class MemberController {
 		}
 	}
 	
+	//약관동의 페이지로 이동
+	@RequestMapping("memberTerms.do")
+	public String movetoTerms() {
+		return "member/terms";
+	}
+	
+	
 	//08.18 로그인 - 지민
 	@RequestMapping(value="mlogin.do",method=RequestMethod.POST)
 	public String loginMember(Member m,Model model) {
@@ -233,6 +240,8 @@ public class MemberController {
 		 gson.toJson(chekchemail,response.getWriter());
 		
 		}
+		
+		
 		
 	
 	

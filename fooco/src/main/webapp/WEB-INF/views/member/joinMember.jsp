@@ -215,7 +215,7 @@
             <tr>
               <td><label><li type="square">약관동의</li></label></td>
               <td><input type="checkbox" id="terms_box"><label>약관에 동의 합니다</label></td>
-              <td><a href="member/terms">약관 보기</a></td>
+              <td><a href="memberTerms.do">약관 보기</a></td>
             </tr>
           </table><br><br><br><br>
               <button type="button" onclick="validate()" id="Join_btn">회원가입</button>&nbsp;
