@@ -430,4 +430,8 @@ public class AdminController {
 	public String themeEdit() {
 		return "admin/themeEdit";
 	}
+	@RequestMapping("test.do")
+	public String test() {
+		return "admin/test";
+	}
 }
