@@ -18,4 +18,9 @@ public class MemberShipDao {
 		return (ArrayList)sqlSessionTemplate.selectList("membershipMapper.selectMembership",membership);
 	}
 
+	public int insertMembership(MemberShip membership) {
+		
+		return sqlSessionTemplate.insert("membershipMapper.insertMembership",membership);
+	}
+
 }

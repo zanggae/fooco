@@ -255,7 +255,7 @@
                 <p>6개월 이용권</p>
                 <p>혜택1. 할인쿠폰(최대 ￦10,000까지)</p>
                 <p>혜택2. 무료음료쿠폰</p>
-                <button onclick="requestPay()">구매하기</button>
+                <button onclick="requestPay2()">구매하기</button>
             </span>
             <span id="membership_area2">
                 <p>MOST POPULAR</p>
@@ -264,31 +264,30 @@
                 <p>12개월 이용권</p>
                 <p>혜택1. 할인쿠폰(최대 ￦10,000까지)</p>
                 <p>혜택2. 무료음료쿠폰</p>
-                <button>구매하기</button>
+                <button onclick="requestPay1()">구매하기</button>
             </span>
 
         </div>
         	<form id="mbuyForm" action="buyMembership.do" method="post">
 	        <!-- 회원 정보 -->
-        	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.memberName}">
+        	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.memberId}">
         	<h1>${loginUser.memberName}asd</h1>
         	<h1><c:out value="${loginUser.nickName}님"/></h1>
         	<!-- 멤버십정보 -->
-        	<%-- <c:forEach var="item" items="${membershiplist}" end="0">
-        	<input type="hidden" name="membership_Id" id="membership_Id" value="${item.membershipId}">
-        	<input type="hidden" name="membership_name" id="membership_name" value="${item.membershipName}">
-        	<input type="hidden" name="membership_price" id="membership_price" value="${item.membershipPrice}">
-
-        	</c:forEach> --%>
+        	<!-- 1.gold 멤버십 -->
+        	<c:forEach var="item" items="${membershiplist}" end="0">
+        	<input type="hidden" name="membershipId1" id="membershipId1" value="${item.membershipId}">
+        	<input type="hidden" name="membership_name1" id="membership_name1" value="${item.membershipName}">
+        	<input type="hidden" name="membership_price1" id="membership_price1" value="${item.membershipPrice}">
+        	</c:forEach> 
+        	<!-- 2.silver 멤버십 -->
+        	<c:forEach var="item" items="${membershiplist}" begin="1" end="1">
+        	<input type="hidden" name="membershipId2" id="membershipId2" value="${item.membershipId}">
+        	<input type="hidden" name="membership_name2" id="membership_name2" value="${item.membershipName}">
+        	<input type="hidden" name="membership_price2" id="membership_price2" value="${item.membershipPrice}">
+        	</c:forEach>  
         	</form>
     </section><br><br><br><br><br><br>
-    	<c:forEach var="item" items="${membershiplist}" end="0">
-     		<p>멤버십번호 : ${item.membershipId}</p>
-     		<p>멤버십이름 : ${item.membershipName}</p>
-     		<p>멤버십내용: ${item.membershipContent}</p>
-     		<p>멤버십가격: ${item.membershipPrice}</p>
-     		<p>멤버십기간: ${item.membershipDuringDate}</p>
-		</c:forEach> 
 
     <!--footer시작-->
     <footer></footer>
@@ -296,14 +295,22 @@
  	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js" ></script>
   	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <script>
-    function requestPay() {
-      //  alert("잘뜨는지");
+    function requestPay1(){
+    	$("#mbuyForm").submit();
+    }
+    function requestPay2(){
+    	$("#mbuyForm").submit();
+    }
+    //1. gold 멤버십 구매
+    /* function requestPay1() {
       	//사용자 정보 받아오기
       	var memberName = $("#buy_memberId").val();
-        var name = $("#membership_name").val();
-        var price = $("#membership_price").val();
-        alert("name:" + name + "price: " + price + "회원이름:" + memberName);
-       
+      	
+      	//멤버십 정보 받아오기
+      	//1. gold 멤버십
+        var name1 = $("#membership_name1").val();
+        var price1 = $("#membership_price1").val();
+         
         var IMP = window.IMP; // 생략가능
         IMP.init("imp96485144"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"
          
@@ -312,13 +319,8 @@
             pg: "html5_inicis",
             pay_method: "card",
             merchant_uid: "merchant_" + new Date().getTime(),   //주문번호
-            name: name,
-            amount: price,
-            /* buyer_email: "gildong@gmail.com",
-            buyer_name: "홍길동",
-            buyer_tel: "010-4242-4242",
-            buyer_addr: "서울특별시 강남구 신사동",
-            buyer_postcode: "01181" */
+            name: name1,
+            amount: 1000,
         }, function (rsp) { // callback - 결제 완료 후 실행되는 함수
         	console.log(rsp);
             if (rsp.success) {
@@ -332,6 +334,40 @@
             }
         });
       }
+    
+    //2. silver 멤버십 구매
+    function requestPay2() {
+        	//사용자 정보 받아오기
+        	var memberName = $("#buy_memberId").val();
+        	
+          //멤버십 정보 받아오기
+          //2. silver 멤버십
+          var name2 =$("#membership_name2").val();
+          var price2 = $("#membership_price2").val();
+
+          var IMP = window.IMP; // 생략가능
+          IMP.init("imp96485144"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"
+           
+          // IMP.request_pay(param, callback) 호출
+          IMP.request_pay({ // param - 결제 요청에 필요한 속성과 값을 담음
+              pg: "html5_inicis",
+              pay_method: "card",
+              merchant_uid: "merchant_" + new Date().getTime(),   //주문번호   
+              name: name2,
+              amount: price2,
+          }, function (rsp) { // callback - 결제 완료 후 실행되는 함수
+          	console.log(rsp);
+              if (rsp.success) {
+                 console.log("결제 성공");
+                 //결제 완료 후 결과 화면으로
+                 $("#mbuyForm").submit();
+              } else {
+                  console.log("결제 실패");
+                  var msg = rsp.error_msg;
+                  alert(msg);
+              }
+          });
+        } */
     
 	</script>
 	<!-- Optional JavaScript -->

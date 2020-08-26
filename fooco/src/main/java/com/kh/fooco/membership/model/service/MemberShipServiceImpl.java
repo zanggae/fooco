@@ -20,4 +20,11 @@ public class MemberShipServiceImpl implements MemberShipService{
 		return memberShipDao.selectMembershipList(membership);
 	}
 
+	//결제 후 멤버십 insert 메소드
+	@Override
+	public int insertMembership(MemberShip membership) {
+		
+		return memberShipDao.insertMembership(membership);
+	}
+
 }
