@@ -75,7 +75,7 @@
         <div class="card mb-4">
           <div class="card-body">
             <div class="table-responsive mt-3">
-              <table class="table table-hover">
+              <table class="table table-hover" id="boardTable">
                 <thead align="center">
                   <tr>
                     <th>게시물 제목</th>                    
@@ -93,14 +93,15 @@
                	<c:if test="${!empty boardList }">
                		<c:forEach var="b" items="${boardList }">               	
 	                  <tr >
+	                  	<td style="display:none;">${b.boardId}</td>
 	                    <td>${b.boardTitle }</td>	                    
 	                    <td>${b.boardCreateDate }</td>
 	                    <td>${b.boardCount }</td>
-	                    <td>
+	                    <th>
 	                      <button type="button" class="btn btn-primary" value="${b.boardId }" onclick="restaurantDelete(this)"
 	                        style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
 	                          class="fas fa-trash-alt"></i></button>
-	                    </td>
+	                    </th>
 	                  </tr> 
                   	</c:forEach>
                   </c:if>                 
@@ -126,7 +127,12 @@
         	$("#boardCategory").submit();
         	
         }
-        
+        $(function(){
+			$("#boardTable").find("td").click(function(){
+				var boardId = $(this).parents().children("td").eq(0).text();
+				location.href="selectBoardOneAdmin.do?boardId="+boardId;
+			})
+		})
       </script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

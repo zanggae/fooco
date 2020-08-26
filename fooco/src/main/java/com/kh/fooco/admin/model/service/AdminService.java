@@ -55,5 +55,9 @@ public interface AdminService {
 
 	int registrationBoard(Board board);
 
+	int modifyBoardAdmin(Board board);
+
+	int modifyBoardAdmin2(Board board);
+
 	
 }
