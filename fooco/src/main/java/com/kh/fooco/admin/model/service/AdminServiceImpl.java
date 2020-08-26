@@ -128,4 +128,14 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.registrationBoard(board);
 	}
 
+	@Override
+	public int modifyBoardAdmin(Board board) {
+		return adminDao.modifyBoardAdmin(board);
+	}
+
+	@Override
+	public int modifyBoardAdmin2(Board board) {
+		return adminDao.modifyBoardAdmin2(board);
+	}
+
 }

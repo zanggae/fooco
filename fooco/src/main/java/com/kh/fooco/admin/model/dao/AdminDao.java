@@ -126,5 +126,13 @@ public class AdminDao {
 		return sqlSessionTemplate.insert("adminMapper.registrationBoard",board);
 	}
 
+	public int modifyBoardAdmin(Board board) {
+		return sqlSessionTemplate.update("adminMapper.modifyBoardAdmin",board);
+	}
+
+	public int modifyBoardAdmin2(Board board) {
+		return sqlSessionTemplate.update("adminMapper.modifyBoardAdmin2",board);
+	}
+
 
 }

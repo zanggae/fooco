@@ -19,6 +19,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -203,7 +204,7 @@ public class AdminController {
 	@RequestMapping("inquiryEdit.do")
 	public ModelAndView inquiryEdit(ModelAndView mv, Board board,
 			@RequestParam(value="page", required=false) Integer page) {
-		
+		System.out.println(page);
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -212,7 +213,7 @@ public class AdminController {
 		
 		System.out.println(inquiryCount);
 		PageInfo pi = getPageInfo(currentPage, inquiryCount);
-		
+		System.out.println(pi);
 		ArrayList<Board> inquiry = adminService.selectListInquiry(pi, board);
 //		System.out.println(inquiry);
 //		System.out.println(pi);
@@ -319,6 +320,7 @@ public class AdminController {
 		if(page != null) {
 			currentPage = page;
 		}
+		
 		if(board.getCategoryNo()==0) {
 			board.setCategoryNo(1);			
 		}
@@ -338,6 +340,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 게시물 삭제  status N으로 변경
 	@RequestMapping("deleteBoardAdmin.do")
 	public ModelAndView deleteBoardAdmin(ModelAndView mv, Board board) {
 		
@@ -352,7 +355,8 @@ public class AdminController {
 		return mv;
 	}
 	
-	@RequestMapping("registrationBoard.do")
+	// 게시물 등록
+	@RequestMapping(value="registrationBoard.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public String registrationBoard(HttpServletRequest request, Board board,
 			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
 		
@@ -371,6 +375,7 @@ public class AdminController {
 		}
 	}
 	
+	// 파일 저장 함수
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -407,6 +412,60 @@ public class AdminController {
 		}
 		
 		return renameFileName;
+	}
+	
+	// 파일 삭제 함수
+	private void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String savePath = root + "\\buploadFiles";
+		
+		File f = new File(savePath + "\\" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}
+		
+	}
+	
+	// 게시물 디테일 및 수정으로 이동
+	@RequestMapping("selectBoardOneAdmin.do")
+	public ModelAndView selectBoardOneAdmin(ModelAndView mv, Board board) {
+		
+		Board b = adminService.selectInquiryOne(board);
+		
+		mv.addObject("board", b);
+		mv.setViewName("admin/boardModify");
+		
+		return mv;
+	}
+	
+	// 게시물 수정시
+	@RequestMapping(value="modifyBoardAdmin.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String modifyBoardAdmin(HttpServletRequest request, Board board,
+			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+		System.out.println(board);
+		
+		String imageNewName="";
+		if(!file.getOriginalFilename().equals("")) {
+			if(board.getImageNewName() != null) {
+				deleteFile(board.getImageNewName(), request);				
+			}
+			
+			imageNewName = saveFile(file,request);
+			
+			board.setImageOriginName(file.getOriginalFilename());
+			board.setImageNewName(imageNewName);
+			int result2 = adminService.modifyBoardAdmin2(board);
+		}
+		
+		int result = adminService.modifyBoardAdmin(board);
+		if(result >0) {
+			return "redirect:boardEdit.do";
+		}else {
+			throw new BoardException("게시글 수정 실패!");
+		}
+		
 	}
 	
 	@RequestMapping("restaurantEdit.do")

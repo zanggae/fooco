@@ -230,4 +230,19 @@
    	SELECT *
    	FROM DUAL
 </insert>
+
+<!-- 게시물 수정시 board 수정 -->
+<update id="modifyBoardAdmin" parameterType="Board">
+	UPDATE BOARD SET BOARD_TITLE=#{boardTitle},BOARD_CONTENT=#{boardContent},BOARD_UPDATE_DATE=SYSDATE	
+	WHERE BOARD_ID=#{boardId}
+</update>
+
+<!-- 게시물 수정시 image 수정 -->
+<update id="modifyBoardAdmin2" parameterType="Board">
+	UPDATE (SELECT I.*, BI.BOARD_ID FROM IMAGE I 
+			LEFT JOIN BOARD_IMAGE BI 
+			ON(I.IMAGE_ID = BI.IMAGE_ID) )
+	SET IMAGE_ORIGIN_NAME=#{imageOriginName},IMAGE_NEW_NAME=#{imageNewName}
+	WHERE BOARD_ID=#{boardId}
+</update>
 </mapper>
