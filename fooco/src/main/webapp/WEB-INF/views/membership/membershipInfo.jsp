@@ -210,6 +210,7 @@
         }
         
     </style>
+
 </head>
 
 <body>
@@ -273,16 +274,24 @@
         	<h1>${loginUser.memberName}asd</h1>
         	<h1><c:out value="${loginUser.nickName}님"/></h1>
         	<!-- 멤버십정보 -->
-        	<c:forEach var="item" items="${membershiplist}" end="0">
+        	<%-- <c:forEach var="item" items="${membershiplist}" end="0">
         	<input type="hidden" name="membership_Id" id="membership_Id" value="${item.membershipId}">
         	<input type="hidden" name="membership_name" id="membership_name" value="${item.membershipName}">
         	<input type="hidden" name="membership_price" id="membership_price" value="${item.membershipPrice}">
-        	</c:forEach>
+
+        	</c:forEach> --%>
         	</form>
     </section><br><br><br><br><br><br>
+    	<c:forEach var="item" items="${membershiplist}" end="0">
+     		<p>멤버십번호 : ${item.membershipId}</p>
+     		<p>멤버십이름 : ${item.membershipName}</p>
+     		<p>멤버십내용: ${item.membershipContent}</p>
+     		<p>멤버십가격: ${item.membershipPrice}</p>
+     		<p>멤버십기간: ${item.membershipDuringDate}</p>
+		</c:forEach> 
+
     <!--footer시작-->
     <footer></footer>
-
 
  	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js" ></script>
   	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
