@@ -111,8 +111,15 @@
 </select>
 
 <!-- 첫 방문시 튜플 생성  -->
-<insert id="insertVisitorCount">
-	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC),0,0)
+<insert id="insertVisitorCount" parameterType="string">
+	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,
+	<if test="value ==null">
+		1
+	</if>
+	<if test="value !=null">
+		(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC)
+	</if>
+	,0,0)
 </insert>
 
 <!-- 2번째 이후 업데이트 -->
@@ -162,7 +169,9 @@
    UPDATE MEMBER SET REVIEW_STATUS = 'Y' WHERE MEMBER_ID = #{memberId}
 </update>
 
-
+<select id="selectvisitorMaxCount" resultType="string">
+	SELECT TO_CHAR(MAX(STATIC_T_COUNT)) FROM STATIC
+</select>
 
 
 <!-- ============================ 게시판 관련 쿼리문 작성 ============================ -->
@@ -245,4 +254,6 @@
 	SET IMAGE_ORIGIN_NAME=#{imageOriginName},IMAGE_NEW_NAME=#{imageNewName}
 	WHERE BOARD_ID=#{boardId}
 </update>
+
+
 </mapper>

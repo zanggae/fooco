@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <!-- Required meta tags -->
-<meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,8 +13,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-	
-	<!-- Optional JavaScript -->
+
+<!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script
@@ -103,12 +102,12 @@
   .card_img_div {height:5rem;}
   .card_heart{color: rgb(204,51,98); position: absolute; z-index: 1; top: 7.7rem; left: 9.3rem; font-size: 2.5rem;}
   .card {padding:0.5rem; height: 11rem;}
-  .thema_title{z-index: 2; position: absolute; top: 3rem; word-break: break-all; width: 10.5rem; font-size: 0.8rem; font-family: 'bold'; margin-left:0rem;}
+  .thema_title{z-index: 2; position: absolute; top: 3rem; word-break: break-all; width: 11.5rem; font-size: 0.8rem; font-family: 'bold'; padding-left: 0.4rem; padding-right:0.4rem;}
 </style>
 
 <body>
 	<header>
-		<jsp:include page="../common/subMenubar.jsp"></jsp:include>
+		<jsp:include page="../common/commonHeader.jsp"></jsp:include>
 	</header>
 	<section>
 		<div class="container mypage_container">
@@ -128,7 +127,7 @@
                     <div style="position: relative;">
                       <img src="img/버거테마.PNG" class="card-img-top" style="z-index: 0; height: 10rem;">
                     </div>
-                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!</p>
+                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!소개합니다 정말 맛있어요</p>
                     <i class="fas fa-heart card_heart"></i>
                   
                   </div>
@@ -168,7 +167,7 @@
                     <div style="position: relative;">
                       <img src="img/버거테마.PNG" class="card-img-top" style="z-index: 0; height: 10rem;">
                     </div>
-                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!asfsafasfafsafafaf</p>
+                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!</p>
                     <i class="fas fa-heart card_heart"></i>
                   
                   </div>

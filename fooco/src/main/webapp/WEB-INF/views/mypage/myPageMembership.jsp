@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <!-- Required meta tags -->
-<meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,49 +13,26 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery.min.js"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+<!-- 아이콘 -->
+<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
+	crossorigin="anonymous"></script>
+
+
 <title>Insert title here</title>
 </head>
 <style>
-@font-face {
-	font-family: 'heavy';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff')
-		format('woff');
-	font-weight: bold;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'medium';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'light';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-* {
-	font-family: 'light';
-}
 
 /* 페이지 전체 */
 .mypage_container {
@@ -84,25 +60,222 @@
 	margin: 0;
 }
 
+  /* 멤버십 */
+  .my_membership {
+    font-size: 1.5rem;
+    font-family: 'heavy';
+    color: rgb(204, 51, 98);
+  }
 
+  /* 쿠폰 */
+  .coupon_div_div {
+    overflow-x: auto;
+    height: 9.5rem;
+  
+    margin-top: 0.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .coupon_div {
+    padding: 0.5rem;
+  }
+
+  .coupon {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: white;
+  }
+
+  .deadline {
+    font-size: 0.9rem;
+  }
 </style>
 
 <body>
 	<header>
-		<jsp:include page="../common/subMenubar.jsp"></jsp:include>
+		<jsp:include page="../common/commonHeader.jsp"></jsp:include>
 	</header>
 	<section>
 		<div class="container mypage_container">
 			<div class="row myPage-row">
+				<!-- 왼쪽 메뉴바 -->
 				<jsp:include page="../common/myPageSideMenubar.jsp"></jsp:include>
 
-				<div class="col-7 main_content">
+				<div class="col-7 main_content" style="padding:0;">
 					<div class="main_content_div shadow-sm">
-						<div class="row center_title">
-							<p
-								style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F618;
-								나의 활동</p>
-						</div>
+						<div class="row">
+              <p class="my_membership">&#x1F451; 나의 멤버십</p>
+            </div>
+            
+            <div class="row" style="margin-left: 1rem;">
+              <i class="fas fa-ticket-alt" style="font-size: 1.7rem;"></i>&nbsp;
+              <span style="font-family: 'heavy'; font-size: 1.2rem;">내가 보유한 쿠폰</span>
+            </div>
+
+            <div class="coupon_div_div">
+              <div class="row row-cols-2">
+
+                <div class="coupon_div">
+                  <div class="col coupon shadow-sm">
+                    <div class="row">
+                      <div class="col-8" style="padding: 0rem;">
+                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
+                      </div>
+                      <div class="col-4" align="right" style="padding:0rem">
+                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <span class="deadline">유효기간 : &nbsp;</span>
+                      <span class="deadline">2020.08.15</span>
+                      <span class="deadline">&nbsp;~&nbsp;</span>
+                      <span class="deadline">2020.09.15</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="coupon_div">
+                  <div class="col coupon shadow-sm">
+                    <div class="row">
+                      <div class="col-8" style="padding: 0rem;">
+                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
+                      </div>
+                      <div class="col-4" align="right" style="padding:0rem">
+                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <span class="deadline">유효기간 : &nbsp;</span>
+                      <span class="deadline">2020.08.15</span>
+                      <span class="deadline">&nbsp;~&nbsp;</span>
+                      <span class="deadline">2020.09.15</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="coupon_div">
+                  <div class="col coupon shadow-sm">
+                    <div class="row">
+                      <div class="col-8" style="padding: 0rem;">
+                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
+                      </div>
+                      <div class="col-4" align="right" style="padding:0rem">
+                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <span class="deadline">유효기간 : &nbsp;</span>
+                      <span class="deadline">2020.08.15</span>
+                      <span class="deadline">&nbsp;~&nbsp;</span>
+                      <span class="deadline">2020.09.15</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="coupon_div">
+                  <div class="col coupon shadow-sm">
+                    <div class="row">
+                      <div class="col-8" style="padding: 0rem;">
+                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
+                      </div>
+                      <div class="col-4" align="right" style="padding:0rem">
+                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <span class="deadline">유효기간 : &nbsp;</span>
+                      <span class="deadline">2020.08.15</span>
+                      <span class="deadline">&nbsp;~&nbsp;</span>
+                      <span class="deadline">2020.09.15</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="coupon_div">
+                  <div class="col coupon shadow-sm">
+                    <div class="row">
+                      <div class="col-8" style="padding: 0rem;">
+                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
+                      </div>
+                      <div class="col-4" align="right" style="padding:0rem">
+                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <span class="deadline">유효기간 : &nbsp;</span>
+                      <span class="deadline">2020.08.15</span>
+                      <span class="deadline">&nbsp;~&nbsp;</span>
+                      <span class="deadline">2020.09.15</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="coupon_div">
+                  <div class="col coupon shadow-sm">
+                    <div class="row">
+                      <div class="col-8" style="padding: 0rem;">
+                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
+                      </div>
+                      <div class="col-4" align="right" style="padding:0rem">
+                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <span class="deadline">유효기간 : &nbsp;</span>
+                      <span class="deadline">2020.08.15</span>
+                      <span class="deadline">&nbsp;~&nbsp;</span>
+                      <span class="deadline">2020.09.15</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="coupon_div">
+                  <div class="col coupon shadow-sm">
+                    <div class="row">
+                      <div class="col-8" style="padding: 0rem;">
+                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
+                      </div>
+                      <div class="col-4" align="right" style="padding:0rem">
+                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <span class="deadline">유효기간 : &nbsp;</span>
+                      <span class="deadline">2020.08.15</span>
+                      <span class="deadline">&nbsp;~&nbsp;</span>
+                      <span class="deadline">2020.09.15</span>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+
+            <div class="row" style="margin-left: 1rem; margin-top: 7.5rem;">
+              <i class="fas fa-id-card" style="font-size: 1.7rem;"></i>&nbsp;
+              <span style="font-family: 'heavy'; font-size: 1.2rem; margin-right: 0.7rem;">내가 가입한 멤버십</span>
+              <!-- 구독내역 없으면 가입된 멤버십이 없습니다.라는 alert창 발생 -->
+              <button type="button" class="btn btn-primary btn-sm" onclick="subscript_btn();" style="font-size: 0.7rem; line-height: 0.9rem;">구독내역</button>
+            </div>
+            <!-- 가입 유무로 display속성주기 -->
+            <div class="row" style="margin-left: 2rem; margin-top: 0.5rem;">
+              <span>6개월 구독 멤버십 </span>
+              <span style="color: tomato; margin-left: 0.3rem;">가입중</span>
+            </div>
+            <div class="row" style="margin-left: 2rem;">
+              <span class="deadline">구독기간 : &nbsp;</span>
+              <span class="deadline">2020.08.15</span>
+              <span class="deadline">&nbsp;~&nbsp;</span>
+              <span class="deadline">2021.02.16</span>
+            </div>
 
 					
 
@@ -111,7 +284,7 @@
 					
 					</div>
 				</div>
-
+				<!-- 오른쪽 광고 -->
 				<jsp:include page="../common/myPageAdMenubar.jsp"></jsp:include>
 
 			</div>
@@ -120,20 +293,13 @@
 
 </body>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-	crossorigin="anonymous"></script>
-<!-- 아이콘 -->
-<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
-	crossorigin="anonymous"></script>
+
+<script>
+  function subscript_btn(){
+      alert("가입된 멤버십이 없습니다.");
+  }
+</script>
+
 
 
 </html>
