@@ -245,20 +245,22 @@ public class MemberController {
 
 // ================================== MyPage 동원 ===========================================
 		
-//		@RequestMapping(value="myPageInfo.do")
-//		public ModelAndView myPageInfo(Member m ,Follow fw, HttpSession session, ModelAndView mv) {
-//			
-//			
-//		
-//			System.out.println("여기는 마이페이지");
-//			mv.setViewName("mypage/myPageInfo");
-//			
-//			return mv;
-//		}
-		
 		@RequestMapping("myPageInfo.do")
-		public String myPageInfo() {
-			return "mypage/myPageReview";
+		public ModelAndView myPageInfo(ModelAndView mv, Member memberId) {
+			
+			
+			int followCount = memberService.selectOneFollowCount(memberId);
+			int followingCount = memberService.selectOneFollowingCount(memberId);
+			String rename_name = memberService.selectOneProFile(memberId);
+			System.out.println("팔로워 수 : " + followCount);
+			System.out.println("팔로잉 수 : " + followingCount);
+			
+			mv.addObject("followCount",followCount);
+			mv.addObject("followingCount",followingCount);
+			mv.addObject("rename_name",rename_name);
+			mv.setViewName("mypage/myPageInfo");
+			
+			return mv;
 		}
 		
 	
