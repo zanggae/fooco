@@ -208,7 +208,6 @@
                                 <span class="mh-dropdown-title" style="font-family:'bold'"><c:out value="${loginUser.nickName}님"/></span>
                           </a>
                           </c:if>
-                            
                             <div class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle mh-dropdown-toggle" onclick="openMenu();" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="header-menu-btn d-flex justify-content-center align-items-center">
@@ -217,6 +216,7 @@
                                     </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right mh-dropdown-menu" aria-labelledby="dropdown07">
+                                	<a class="dropdown-item mh-dropdown-item" href="myPageInfo.do">마이 페이지</a>
                                 	<c:if test="${!empty loginUser }">                             	
                                     <a class="dropdown-item mh-dropdown-item" href="#">마이페이지</a> 
                                     </c:if>                                   

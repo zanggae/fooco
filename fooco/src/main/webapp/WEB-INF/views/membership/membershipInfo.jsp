@@ -2,19 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
-<html lang="en">
-  <head>
+<html lang="ko">
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!-- 아이콘 -->
+	<script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
 
-    <title>MembershipInfo</title>
-
+    <title>membershipInfo</title>
+    
     <style>
-        @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
+     @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
         @font-face {font-family: 'medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff'); font-weight: normal; font-style: normal;}
         @font-face {font-family: 'heavy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff'); font-weight: bold; font-style: normal;}
         @font-face {font-family: 'light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: normal; font-style: normal;}
@@ -206,19 +208,18 @@
         #membership_area2 p:nth-of-type(5),#membership_area2 p:nth-of-type(6){
             font-size: 13px;
         }
-
-      
+        
     </style>
-  </head>
-  <body>
-    <!--header시작-->
-    <header>
-    <jsp:include page="../common/commonHeader.jsp"></jsp:include>
-    </header>
 
-    <!--section시작-->
+</head>
+
+<body>
+	<!--header시작-->
+    <header><jsp:include page="../common/commonHeader.jsp"></jsp:include></header>
+    
+    <!-- section시작 -->
     <section>
-        <!--FIRST AREA-->
+    <!--FIRST AREA-->
         <div id="first_area">
             <p>FOOCO</p>
             <p>MEMBERSHIP</p>
@@ -229,10 +230,7 @@
         <div id="second_area">
         <div class="container">
             <div class="row">
-              <div class="col" id="second_area_left">
-                <!-- <p>ONE MEMBERSHIP</p>
-                <div class="for_line"></div><p>FOR</p><div class="for_line"></div>
-                <p>ALL YOUR DINING NEEDS</p> -->
+              <div class="col" id="second_area_left">  
                 <img src="image/DiningBackground.jpg">
               </div>
               <div class="col" id="second_area_right">
@@ -244,10 +242,9 @@
                 <span>무료음료쿠폰</span>
               </div>
             </div>
-        </div>
+        </div> 
         </div><br><br><br>
         <!--멤버십 선택 영역-->
-        <form id="mbuyForm" action="#" method="post">
         <div id="membership_area">
             <h3>SELECT YOUR MEMBERSHIP</h3>
             <h3>⋁</h3><br><br>
@@ -258,7 +255,7 @@
                 <p>6개월 이용권</p>
                 <p>혜택1. 할인쿠폰(최대 ￦10,000까지)</p>
                 <p>혜택2. 무료음료쿠폰</p>
-                <button id="buy_membership" onclick="requestPay()">구매하기</button>
+                <button onclick="requestPay2()">구매하기</button>
             </span>
             <span id="membership_area2">
                 <p>MOST POPULAR</p>
@@ -267,77 +264,125 @@
                 <p>12개월 이용권</p>
                 <p>혜택1. 할인쿠폰(최대 ￦10,000까지)</p>
                 <p>혜택2. 무료음료쿠폰</p>
-                <button>구매하기</button>
+                <button onclick="requestPay1()">구매하기</button>
             </span>
+
         </div>
-        <!-- 정보 넘길 form 태그 -->
-        	<!-- 회원 정보 -->
-        	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.nickName}">
-        	<span class="mh-dropdown-title" style="font-family:'bold'"><c:out value="${loginUser.nickName}님"/></span>
+        	<form id="mbuyForm" action="buyMembership.do" method="post">
+	        <!-- 회원 정보 -->
+        	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.memberId}">
+        	<h1>${loginUser.memberName}asd</h1>
+        	<h1><c:out value="${loginUser.nickName}님"/></h1>
         	<!-- 멤버십정보 -->
+        	<!-- 1.gold 멤버십 -->
         	<c:forEach var="item" items="${membershiplist}" end="0">
-        	<input type="hidden" name="membership_Id" id="membership_Id" value="${item.membershipId}">
-        	<input type="hidden" name="membership_name" id="membership_name" value="${item.membershipName}">
-        	<input type="hidden" name="membership_price" id="membership_price" value="${item.membershipPrice}">
-        	</c:forEach>
-      
-        	<!-- 결제 정보 -->
-        </form>
+        	<input type="hidden" name="membershipId1" id="membershipId1" value="${item.membershipId}">
+        	<input type="hidden" name="membership_name1" id="membership_name1" value="${item.membershipName}">
+        	<input type="hidden" name="membership_price1" id="membership_price1" value="${item.membershipPrice}">
+        	</c:forEach> 
+        	<!-- 2.silver 멤버십 -->
+        	<c:forEach var="item" items="${membershiplist}" begin="1" end="1">
+        	<input type="hidden" name="membershipId2" id="membershipId2" value="${item.membershipId}">
+        	<input type="hidden" name="membership_name2" id="membership_name2" value="${item.membershipName}">
+        	<input type="hidden" name="membership_price2" id="membership_price2" value="${item.membershipPrice}">
+        	</c:forEach>  
+        	</form>
     </section><br><br><br><br><br><br>
-    	<%-- <c:forEach var="item" items="${membershiplist}" end="0">
-     		<p>멤버십번호 : ${item.membershipId}</p>
-     		<p>멤버십이름 : ${item.membershipName}</p>
-     		<p>멤버십내용: ${item.membershipContent}</p>
-     		<p>멤버십가격: ${item.membershipPrice}</p>
-     		<p>멤버십기간: ${item.membershipDuringDate}</p>
-		</c:forEach> --%>
 
     <!--footer시작-->
     <footer></footer>
-    
-    <!-- 동적 제어 시작 -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+ 	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js" ></script>
+  	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <script>
-    function requestPay() {
-    	alert("잘뜨는지");
-    	var name = $("#membership_name").val();
-    	var price = $("#membership_price").val();
-    	
-    	 var IMP = window.IMP; // 생략해도 괜찮습니다.
-    	  IMP.init("imp96485144"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"
+    function requestPay1(){
+    	$("#mbuyForm").submit();
+    }
+    function requestPay2(){
+    	$("#mbuyForm").submit();
+    }
+    //1. gold 멤버십 구매
+    /* function requestPay1() {
+      	//사용자 정보 받아오기
+      	var memberName = $("#buy_memberId").val();
+      	
+      	//멤버십 정보 받아오기
+      	//1. gold 멤버십
+        var name1 = $("#membership_name1").val();
+        var price1 = $("#membership_price1").val();
+         
+        var IMP = window.IMP; // 생략가능
+        IMP.init("imp96485144"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"
+         
         // IMP.request_pay(param, callback) 호출
         IMP.request_pay({ // param - 결제 요청에 필요한 속성과 값을 담음
             pg: "html5_inicis",
             pay_method: "card",
-            merchant_uid: "merchant_" + new Date().getTime(),	//주문번호
-            name: name,
-            amount: price,
-            /* buyer_email: "gildong@gmail.com",
-            buyer_name: "홍길동",
-            buyer_tel: "010-4242-4242",
-            buyer_addr: "서울특별시 강남구 신사동",
-            buyer_postcode: "01181" */
+            merchant_uid: "merchant_" + new Date().getTime(),   //주문번호
+            name: name1,
+            amount: 1000,
         }, function (rsp) { // callback - 결제 완료 후 실행되는 함수
+        	console.log(rsp);
             if (rsp.success) {
                console.log("결제 성공");
+               //결제 완료 후 결과 화면으로
+               $("#mbuyForm").submit();
             } else {
                 console.log("결제 실패");
+                var msg = rsp.error_msg;
+                alert(msg);
             }
         });
       }
     
-    </script>
+    //2. silver 멤버십 구매
+    function requestPay2() {
+        	//사용자 정보 받아오기
+        	var memberName = $("#buy_memberId").val();
+        	
+          //멤버십 정보 받아오기
+          //2. silver 멤버십
+          var name2 =$("#membership_name2").val();
+          var price2 = $("#membership_price2").val();
 
-    <!-- Optional JavaScript -->
+          var IMP = window.IMP; // 생략가능
+          IMP.init("imp96485144"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"
+           
+          // IMP.request_pay(param, callback) 호출
+          IMP.request_pay({ // param - 결제 요청에 필요한 속성과 값을 담음
+              pg: "html5_inicis",
+              pay_method: "card",
+              merchant_uid: "merchant_" + new Date().getTime(),   //주문번호   
+              name: name2,
+              amount: price2,
+          }, function (rsp) { // callback - 결제 완료 후 실행되는 함수
+          	console.log(rsp);
+              if (rsp.success) {
+                 console.log("결제 성공");
+                 //결제 완료 후 결과 화면으로
+                 $("#mbuyForm").submit();
+              } else {
+                  console.log("결제 실패");
+                  var msg = rsp.error_msg;
+                  alert(msg);
+              }
+          });
+        } */
+    
+	</script>
+	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script
+   <!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+   <script
             src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <!-- 결제 api script -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	
+
+
+
+</body>
+
 </html>

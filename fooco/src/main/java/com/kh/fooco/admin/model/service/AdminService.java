@@ -53,5 +53,11 @@ public interface AdminService {
 
 	int deleteBoardAdmin(Board board);
 
+	int registrationBoard(Board board);
+
+	int modifyBoardAdmin(Board board);
+
+	int modifyBoardAdmin2(Board board);
+
 	
 }

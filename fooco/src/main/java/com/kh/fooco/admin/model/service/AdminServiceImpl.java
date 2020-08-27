@@ -123,4 +123,19 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.deleteBoardAdmin(board);
 	}
 
+	@Override
+	public int registrationBoard(Board board) {
+		return adminDao.registrationBoard(board);
+	}
+
+	@Override
+	public int modifyBoardAdmin(Board board) {
+		return adminDao.modifyBoardAdmin(board);
+	}
+
+	@Override
+	public int modifyBoardAdmin2(Board board) {
+		return adminDao.modifyBoardAdmin2(board);
+	}
+
 }

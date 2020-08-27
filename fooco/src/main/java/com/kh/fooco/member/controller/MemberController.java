@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,6 +35,7 @@ import com.kh.fooco.member.model.vo.Follow;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.naver.NaverLoginBO;
 
+@SessionAttributes("loginUser")
 @Controller
 public class MemberController {
 	//	네이버 로그인을 위한 설정
@@ -76,6 +78,7 @@ public class MemberController {
 		
 		m.setMemberPwd(encPwd);
 		
+		//이메일 정보 합쳐서 set
 		if(emailself==null) {	//직접입력 이메일 안했으면
 			m.setEmail(emailfront + "@" + emailback);
 		}else if(emailself!=null) {

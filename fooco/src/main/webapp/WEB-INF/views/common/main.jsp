@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +64,7 @@
         .ml-title {color:rgb(204,51,98); font-size:1.5rem;}
         .ml-row {width:70rem;}
         .ml-list {min-width:6rem; min-height:8rem; border:none; border-radius:1rem; padding:0.5rem; padding-top:1rem; margin-right:1rem; margin-bottom:0.5rem; color:black; text-align:center; text-decoration:none;}
-        .ml-list:hover {background:lightgray; color:black;}
+        .ml-list:hover {background:#ECECEC; color:black;}
         .ml-logo-div {width:4rem; height:4rem; margin:auto; margin-bottom:0.5rem;}
         .ml-logo {max-width:100%;}
         .ml-scroll {width:25rem; max-width:50rem; overflow-x:scroll;}
@@ -128,10 +129,9 @@
     
     </head>
     <body>
+    <c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
         <header>
-             <jsp:include page="../common/mainHeader.jsp"></jsp:include> 
-
-            
+             <jsp:include page="mainHeader.jsp"></jsp:include> 
         </header>
         <section>
             <!-- 메인 검색 -->
@@ -162,7 +162,7 @@
                                 <div class="col-8 d-flex flex-row flex-nowrap ml-scroll">
                                     <a href="#" class="card shadow-sm ml-list">
                                         <div class="ml-logo-div">
-                                            <image class="ml-logo" src="cityLogo/seoul_logo.png">
+                                            <image class="ml-logo" src="resources/locationlogo/seoul_logo.png">
                                         </div>
                                         <div class="card-body ml-card-body">
                                             <span class="card-title ml-card-title" style="font-family:'bold'">서 울</span>
@@ -170,7 +170,7 @@
                                     </a>
                                     <a href="#" class="card shadow-sm ml-list">
                                         <div class="ml-logo-div">
-                                            <image class="ml-logo" src="cityLogo/incheon_logo.png">
+                                            <image class="ml-logo" src="resources/locationlogo/incheon_logo.png">
                                         </div>
                                         <div class="card-body ml-card-body">
                                             <span class="card-title ml-card-title" style="font-family:'bold'">인 천</span>
@@ -178,7 +178,7 @@
                                     </a> 
                                     <a href="#" class="card shadow-sm ml-list">
                                         <div class="ml-logo-div">
-                                            <image class="ml-logo" src="cityLogo/busan_logo.png">
+                                            <image class="ml-logo" src="resources/locationlogo/busan_logo.png">
                                         </div>
                                         <div class="card-body ml-card-body">
                                             <span class="card-title ml-card-title" style="font-family:'bold'">부 산</span>
@@ -186,7 +186,7 @@
                                     </a> 
                                     <a href="#" class="card shadow-sm ml-list">
                                         <div class="ml-logo-div">
-                                            <image class="ml-logo" src="cityLogo/daegu_logo.png">
+                                            <image class="ml-logo" src="resources/locationlogo/daegu_logo.png">
                                         </div>
                                         <div class="card-body ml-card-body">
                                             <span class="card-title ml-card-title" style="font-family:'bold'">대 구</span>
@@ -194,7 +194,7 @@
                                     </a> 
                                     <a href="#" class="card shadow-sm ml-list">
                                         <div class="ml-logo-div">
-                                            <image class="ml-logo" src="cityLogo/gwangju_logo.png">
+                                            <image class="ml-logo" src="resources/locationlogo/gwangju_logo.png">
                                         </div>
                                         <div class="card-body ml-card-body">
                                             <span class="card-title ml-card-title" style="font-family:'bold'">광 주</span>
@@ -202,7 +202,7 @@
                                     </a>
                                     <a href="#" class="card shadow-sm ml-list">
                                         <div class="ml-logo-div">
-                                            <image class="ml-logo" src="cityLogo/daejeon_logo.png">
+                                            <image class="ml-logo" src="resources/locationlogo/daejeon_logo.png">
                                         </div>
                                         <div class="card-body ml-card-body">
                                             <span class="card-title ml-card-title" style="font-family:'bold'">대 전</span>
@@ -210,12 +210,20 @@
                                     </a> 
                                     <a href="#" class="card shadow-sm ml-list">
                                         <div class="ml-logo-div">
-                                            <image class="ml-logo" src="cityLogo/ulsan_logo.png">
+                                            <image class="ml-logo" src="resources/locationlogo/ulsan_logo.png">
                                         </div>
                                         <div class="card-body ml-card-body">
                                             <span class="card-title ml-card-title" style="font-family:'bold'">울 산</span>
                                         </div> 
-                                    </a>                                      
+                                    </a>    
+                                    <a href="#" class="card shadow-sm ml-list">
+                                        <div class="ml-logo-div">
+                                            <image class="ml-logo" src="resources/locationlogo/jeju_logo.png">
+                                        </div>
+                                        <div class="card-body ml-card-body">
+                                            <span class="card-title ml-card-title" style="font-family:'bold'">제 주</span>
+                                        </div> 
+                                    </a>                                     
                                 </div>
                                 <div class="col-4 ml-button-col">
                                     <div class="ml-button-div">

@@ -229,7 +229,6 @@
                                     </c:if>                                   
                                     <a class="dropdown-item mh-dropdown-item" href="#">지역 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
-                                    <a class="dropdown-item mh-dropdown-item" href="#">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
 
@@ -332,7 +331,7 @@
     </div>
     
  
-    </script>
+    
     <!-- 경남오빠 -->
     <script>
             function openMenu() {
