@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -7,255 +6,253 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-        /* 헤더 네비게이션 바 */
-        .mainHeader {padding:0; background-color:rgb(253,215,129);}
-        .logo {width:8rem; height:4.5rem;}
-        .mh-navbar-brand {padding:0;}
-        .fa-user-circle {margin-right:0.5rem; color:rgb(204,51,98); font-size:2.3rem;}
-        .mh-dropdown-title {color:black; font-size:1.1rem;}
-        .mh-dropdown-menu {text-align:right; border:none; background-color:whitesmoke;}
-        .mh-dropdown-menu a:hover {color:white; background-color:rgb(204,51,98);}
-        .mh-dropdown-toggle::after {display:none;}
-        .mh-dropdown-item {font-family:'medium';}
-        .header-menu-login {margin-right:0.3rem;}
-        .header-menu-login:hover {text-decoration:none;}
-        .header-menu-btn {border:0.2rem solid rgb(204,51,98); width:2rem; height:2rem; border-radius:0.2rem;}
-        
-        /* 모달 기본 설정 */
-.modal fade, .modal-content, .container {
-	margin: 0 auto;
-	padding: 0px;
-}
-/* ----------------------1.로그인 모달창----------------------- */
-/* 클릭 시 모달 창 띄우는 버튼 */
-#for_login_modal{
-	background:none;
-	border:none;
-	color:black;
-	font-size:16px;
-	padding:0px;
-	margin:0px
-}
-/* 모달 가로 넓게 */
-#for_first_modal {
-	width: 129%;
-}
-/* 모달 헤더(LOGIN) */
-#myModalLabel {
-	margin: 5 auto;
-	padding: 5px;
-	padding-left: 15px;
-	width: 210%;
-	height: 12px;
-	background: rgb(253, 215, 129);
-	color: rgb(204, 51, 98);
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-	font-weight: bold;
-	font-size: 50px;
-}
-/* 모달창 끄기(x표) */
-.close {
-	margin-right: 10px;
-	margin-top: 7px;
-}
-/* 세로선 */
-#forLine {
-	top: 0px;
-	bottom: 0px;
-	height: 250px;
-	border: none;
-	border-left: 1px solid lightgray;
-	margin-left: 60px;
-	margin-top: -40px;
-}
-/* input태그 */
-#for_first_modal input {
-	width: 90%;
-	margin-left: 50px;
-}
-/* hr태그 */
-#for_first_modal hr {
-	margin-left: 28px;
-	width: 107%;
-}
-/* 로그인 버튼 */
-#login_btn {
-	margin-left: 125px;
-	width: 80px;
-	height: 36px;
-	border: none;
-	border-radius: 3px;
-	color: white;
-	background: RGB(204, 51, 98);
-	/* font-weight: bold; */
-}
-#login_btn:hover {
-	border: 1px solid rgb(204, 51, 98);
-	background: rgb(253, 215, 129);
-	color: rgb(204, 51, 98);
-}
-/* 회원가입 버튼 */
-#JoinMember_btn {
-	margin-left: 54px;
-	width: 150px;
-	height: 36px;
-	border: none;
-	border-radius: 3px;
-	/* color: RGB(253, 215, 129); */
-	color: white;
-	background: rgb(204, 51, 98);
-	margin-top: 115px;
-	/* font-weight: bold; */
-}
-#JoinMember_btn:hover {
-	border: 1px solid rgb(204, 51, 98);
-	background: rgb(253, 215, 129);
-	color: rgb(204, 51, 98);
-}
-#naver_login_img{
-	margin-left:-60px;
-	margin-top:2px;
-	width:200px;
-	height:40px;
-}
-/* 이미지 사진 */
-#pwdimg {
-	margin-top: -20px;
-	margin-left: 59px;
-	position: absolute;
-	width: 45%;
-	height: 55%;
-}
-/* 비밀번호 찾기 */
-#toPwdSearch {
-	background: white;
-	border: none;
-	position: absolute;
-	margin-left: 53%;
-	font-size: 13px;
-	color: gray;
-}
-#toPwdSearch:hover {
-	text-decoration: underline;
-}
-/* ----------------------2.비밀번호 찾기 모달창----------------------- */
-/* 제목(Recovery Account) */
-#staticBackdropLabel {
-	margin: 5 auto;
-	padding: 5px;
-	padding-left: 15px;
-	color: rgb(204, 51, 98);
-	font-weight: bold;
-}
-#forh5 h5, #forh5 p, #email {
-	margin-left: 20px;
-}
-/* 이메일 입력창 */
-#selfSiteName {
-	width: 100px;
-	border: 1px solid gray;
-	border-radius: 3px;
-}
-#selectEmail {
-	height: 29px;
-}
-/* 비밀번호 찾기 버튼 */
-#SearchPwd_btn {
-	margin-left: 170px;
-	width: 150px;
-	height: 36px;
-	border: none;
-	border-radius: 3px;
-	color: white;
-	background: rgb(204, 51, 98);
-}
-#SearchPwd_btn:hover {
-	border: 1px solid rgb(204, 51, 98);
-	background: rgb(253, 215, 129);
-	color: rgb(204, 51, 98);
-}
-/* 취소하기 버튼 */
-#SearchPwd_reset_btn {
-	margin-left: 88%;
-	background: white;
-	border: none;
-}
-#SearchPwd_reset_btn:hover {
-	text-decoration: underline;
-}
+	/* 헤더 네비게이션 바 */
+	.mainHeader {padding:0; background-color:rgb(253,215,129);}
+	.logo {width:8rem; height:4.5rem;}
+	.mh-navbar-brand {padding:0;}
+	.fa-user-circle {margin-right:0.5rem; color:rgb(204,51,98); font-size:2.3rem;}
+	.mh-dropdown-menu {text-align:right; border:none; background-color:whitesmoke;}
+	.mh-dropdown-menu a:hover {color:white; background-color:rgb(204,51,98);}
+	.mh-dropdown-toggle::after {display:none;}
+	.mh-dropdown-item {font-family:'medium';}
+	.header-menu-login {margin-right:0.3rem;}
+	.header-menu-login:hover {text-decoration:none;}
+	.header-menu-btn {border:0.2rem solid rgb(204,51,98); width:2rem; height:2rem; border-radius:0.2rem;}
+	
+	/* 모달 기본 설정 */
+	.modal fade, .modal-content, .container {margin: 0 auto; padding: 0px;}
+	
+	/* ----------------------1.로그인 모달창----------------------- */
+	/* 클릭 시 모달 창 띄우는 버튼 */
+	#for_login_modal{
+		background:none;
+		border:none;
+		color:black;
+		font-size:16px;
+		padding:0px;
+		margin:0px;
+	}
+	/* 모달 가로 넓게 */
+	#for_first_modal {
+		width: 129%;
+	}
+	/* 모달 헤더(LOGIN) */
+	#myModalLabel {
+		margin: 5 auto;
+		padding: 5px;
+		padding-left: 15px;
+		width: 210%;
+		height: 12px;
+		background: rgb(253, 215, 129);
+		color: rgb(204, 51, 98);
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		font-weight: bold;
+		font-size: 50px;
+	}
+	/* 모달창 끄기(x표) */
+	.close {
+		margin-right: 10px;
+		margin-top: 7px;
+	}
+	/* 세로선 */
+	#forLine {
+		top: 0px;
+		bottom: 0px;
+		height: 250px;
+		border: none;
+		border-left: 1px solid lightgray;
+		margin-left: 60px;
+		margin-top: -40px;
+	}
+	/* input태그 */
+	#for_first_modal input {
+		width: 90%;
+		margin-left: 50px;
+	}
+	/* hr태그 */
+	#for_first_modal hr {
+		margin-left: 28px;
+		width: 107%;
+	}
+	/* 로그인 버튼 */
+	#login_btn {
+		margin-left: 125px;
+		width: 80px;
+		height: 36px;
+		border: none;
+		border-radius: 3px;
+		color: white;
+		background: RGB(204, 51, 98);
+		/* font-weight: bold; */
+	}
+	#login_btn:hover {
+		border: 1px solid rgb(204, 51, 98);
+		background: rgb(253, 215, 129);
+		color: rgb(204, 51, 98);
+	}
+	/* 회원가입 버튼 */
+	#JoinMember_btn {
+		margin-left: 54px;
+		width: 150px;
+		height: 36px;
+		border: none;
+		border-radius: 3px;
+		/* color: RGB(253, 215, 129); */
+		color: white;
+		background: rgb(204, 51, 98);
+		margin-top: 115px;
+		/* font-weight: bold; */
+	}
+	#JoinMember_btn:hover {
+		border: 1px solid rgb(204, 51, 98);
+		background: rgb(253, 215, 129);
+		color: rgb(204, 51, 98);
+	}
+	#naver_login_img{
+		margin-left:-60px;
+		margin-top:2px;
+		width:200px;
+		height:40px;
+	}
+	/* 이미지 사진 */
+	#pwdimg {
+		margin-top: -20px;
+		margin-left: 59px;
+		position: absolute;
+		width: 45%;
+		height: 55%;
+	}
+	/* 비밀번호 찾기 */
+	#toPwdSearch {
+		background: white;
+		border: none;
+		position: absolute;
+		margin-left: 53%;
+		font-size: 13px;
+		color: gray;
+	}
+	#toPwdSearch:hover {
+		text-decoration: underline;
+	}
+	
+	/* ----------------------2.비밀번호 찾기 모달창----------------------- */
+	/* 제목(Recovery Account) */
+	#staticBackdropLabel {
+		margin: 5 auto;
+		padding: 5px;
+		padding-left: 15px;
+		color: rgb(204, 51, 98);
+		font-weight: bold;
+	}
+	#forh5 h5, #forh5 p, #email {
+		margin-left: 20px;
+	}
+	/* 이메일 입력창 */
+	#selfSiteName {
+		width: 100px;
+		border: 1px solid gray;
+		border-radius: 3px;
+	}
+	#selectEmail {
+		height: 29px;
+	}
+	/* 비밀번호 찾기 버튼 */
+	#SearchPwd_btn {
+		margin-left: 170px;
+		width: 150px;
+		height: 36px;
+		border: none;
+		border-radius: 3px;
+		color: white;
+		background: rgb(204, 51, 98);
+	}
+	#SearchPwd_btn:hover {
+		border: 1px solid rgb(204, 51, 98);
+		background: rgb(253, 215, 129);
+		color: rgb(204, 51, 98);
+	}
+	/* 취소하기 버튼 */
+	#SearchPwd_reset_btn {
+		margin-left: 88%;
+		background: white;
+		border: none;
+	}
+	#SearchPwd_reset_btn:hover {
+		text-decoration: underline;
+	}
 </style>
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
+
+	<nav class="navbar navbar-expand-xl shadow-sm mainHeader">
+		<div class="container d-flex justify-content-between">
+			<a class="navbar-brand mh-navbar-brand" href="#">
+				<img class="logo" src="resources/logo/logo.png">
+			</a>
+			<div class="collapse navbar-collapse d-flex justify-content-end" id="navbarsExample07">
+				<div class="navbar-nav d-flex align-items-center">
+					<c:if test="${empty loginUser }">
+						<a class="header-menu-login d-flex align-items-center" href="#">
+							<i class="fas fa-user-circle"></i>
+							<span class="mh-dropdown-title" style="font-family: 'bold'">
+								<button type="button" id="for_login_modal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">로그인</button>
+							</span>
+						</a>
+					</c:if>
+					<c:if test="${!empty loginUser }">
+						<a class="header-menu-login d-flex align-items-center" href="#">
+							<i class="fas fa-user-circle"></i>
+							<span class="mh-dropdown-title" style="font-family: 'bold'">
+								<c:out value="${loginUser.nickName}님" />
+							</span>
+						</a>
+					</c:if>
+					<div class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle mh-dropdown-toggle" onclick="openMenu();" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<div class="header-menu-btn d-flex justify-content-center align-items-center">
+								<i class="dropdown-title fas fa-align-justify" id="fa-align-justify" style="color: rgb(204, 51, 98); font-size: 1.3rem;"></i>
+								<i class="dropdown-title fas fa-times" id="fa-times" style="color: rgb(204, 51, 98); display: none; font-size: 1.3rem;"></i>
+							</div>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right mh-dropdown-menu" aria-labelledby="dropdown07">
+							<c:if test="${!empty loginUser }">
+								<a class="dropdown-item mh-dropdown-item" href="#">마이페이지</a>
+							</c:if>
+							<a class="dropdown-item mh-dropdown-item" href="goSearchedRestaurant.do">지역 맛집</a>
+							<a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
+							<a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
+							<a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
+							
+							<!-- 추후 관리자 회원등록 시 수정 -->
+							<a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
+							<c:if test="${!empty loginUser }">
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃</a>
+							</c:if>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
 	
-            <nav class="navbar navbar-expand-xl shadow-sm mainHeader">
-                <div class="container d-flex justify-content-between">
-                    <a class="navbar-brand mh-navbar-brand" href="#">
-                        <img class="logo" src="resources/logo/logo.png">
-                    </a>
-                    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarsExample07">
-                        <div class="navbar-nav d-flex align-items-center">
-                         <c:if test="${empty loginUser }">
-                            <a class="header-menu-login d-flex align-items-center" href="#">
-                                <i class="fas fa-user-circle"></i>
-                                <span class="mh-dropdown-title" style="font-family:'bold'"><button type="button"  id="for_login_modal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >로그인</button></span>
-                            </a>
-                          </c:if>
-                          <c:if test="${!empty loginUser }">
-                          <a class="header-menu-login d-flex align-items-center" href="#">
-                                <i class="fas fa-user-circle"></i>
-                                <span class="mh-dropdown-title" style="font-family:'bold'"><c:out value="${loginUser.nickName}님"/></span>
-                          </a>
-                          </c:if>
-                            <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle mh-dropdown-toggle" onclick="openMenu();" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="header-menu-btn d-flex justify-content-center align-items-center">
-                                        <i class="dropdown-title fas fa-align-justify" id="fa-align-justify" style="color:rgb(204,51,98); font-size:1.3rem;"></i>
-                                        <i class="dropdown-title fas fa-times" id="fa-times" style="color:rgb(204,51,98); display:none; font-size:1.3rem;"></i>
-                                    </div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right mh-dropdown-menu" aria-labelledby="dropdown07">
-                                	<a class="dropdown-item mh-dropdown-item" href="myPageInfo.do">마이 페이지</a>
-                                	<c:if test="${!empty loginUser }">                             	
-                                    <a class="dropdown-item mh-dropdown-item" href="#">마이페이지</a> 
-                                    </c:if>                                   
-                                    <a class="dropdown-item mh-dropdown-item" href="myPageInfo.do">지역 맛집</a>
-                                    <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
-
-                                    <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
-                                    <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
-
-                                    <!-- 추후 관리자 회원등록 시 수정 -->
-                                    <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
-                                    <c:if test="${!empty loginUser }">
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃</a>
-                                    </c:if>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            
-            
-            <!-- 경남오빠 -->
+	<!-- 김경남: 메뉴 열고 닫을 때 아이콘 변경하는 스크립트 -->
     <script>
-            function openMenu() {
-                var open = document.getElementById("fa-align-justify");
-                var close = document.getElementById("fa-times");
-
-                if (open.style.display === "none") {
-                    open.style.display = "inline";
-                    close.style.display = "none";
-                } else {
-                    open.style.display = "none";
-                    close.style.display = "inline";
-                }
-            }
-            
-        </script>
+    	function openMenu() {
+    		var open = document.getElementById("fa-align-justify");
+    		var close = document.getElementById("fa-times");
+    		
+    		if(open.style.display === "none") {
+    			open.style.display = "inline";
+    			close.style.display = "none";
+    		}else {
+    			open.style.display = "none";
+				close.style.display = "inline";
+			}
+    	}
+    </script>
             
             
             
