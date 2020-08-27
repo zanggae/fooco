@@ -8,4 +8,6 @@ public interface MemberShipService {
 
 	ArrayList<MemberShip> selectMembershipList(MemberShip membership);
 
+	int insertMembership(MemberShip membership);
+
 }
