@@ -17,7 +17,7 @@ public interface AdminService {
 
 	MembershipCount selectOneMembershipCount();
 
-	int insertVisitorCount();
+	int insertVisitorCount(String maxCount);
 
 	int updateVisitorCount();
 
@@ -58,6 +58,8 @@ public interface AdminService {
 	int modifyBoardAdmin(Board board);
 
 	int modifyBoardAdmin2(Board board);
+
+	String selectvisitorMaxCount();
 
 	
 }

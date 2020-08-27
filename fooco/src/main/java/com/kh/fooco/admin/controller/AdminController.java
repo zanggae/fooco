@@ -82,9 +82,13 @@ public class AdminController {
 		response.setContentType("application/json;charset=utf-8");
 		
 		VisitorCount vc = adminService.selectOneVisitorCount();
-//		System.out.println(vc);
+		System.out.println(vc);
 		if(vc == null) {
-			int result = adminService.insertVisitorCount();
+			String maxCount = adminService.selectvisitorMaxCount();
+			
+			System.out.println("maxCount" + maxCount);
+			
+			int result = adminService.insertVisitorCount(maxCount);
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson("성공", response.getWriter());
 		}else {
