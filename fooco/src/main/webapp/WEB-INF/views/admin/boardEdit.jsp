@@ -130,7 +130,10 @@
         $(function(){
 			$("#boardTable").find("td").click(function(){
 				var boardId = $(this).parents().children("td").eq(0).text();
-				location.href="selectBoardOneAdmin.do?boardId="+boardId;
+				
+				if(boardId !="조회된 게시물이 없습니다."){
+					location.href="selectBoardOneAdmin.do?boardId="+boardId;
+				}
 			})
 		})
       </script>

@@ -37,19 +37,38 @@
       <br>
       <div class="container">
         <div class="row" style="margin-bottom: 1rem;">
-          <div class="col-6">
-            <h4>음식점(200)</h4>
+          <div class="col-5">
+          	<c:if test="${search.category eq 0 }">
+          		<h4>음식점(${rCount })</h4> 
+          	</c:if>
+          	<c:if test="${search.category ne 0 }"> 
+	            <h4>${search.category} : "${search.search }"(${rCount })</h4>            
+          	</c:if>
           </div>
-          <div class="col-6">
+          <div class="col-7">
             <form class="d-none d-md-inline-block form-inline float-right ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            	<input type="hidden" name="search" id="search">
+            	<input type="hidden" name="category" id="category">
+            	<input type="hidden" name="page" id="page" value="${page }">
               <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
-                  aria-describedby="basic-addon2" />
-                <div class="input-group-append"></div>
+              	<select class="float-right form-control" id="searchCategory">
+	              <option selected value="0">선택</option>
+	              <option value="1">맛집명</option>
+	              <option value="2">지역</option>
+	              <option value="3">카테고리</option>
+	            </select>
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" id="searchContent"
+                  aria-describedby="basic-addon2" />                
                 <button class="btn btn-primary mr-0"
                   style="background-color: rgb(204, 51, 98); color: white; border-color: rgb(204, 51, 98);"
-                  type="button" id="jin">
-                  <i class="fas fa-search"></i></i></button>
+                  type="button" onclick="searchOnclick()">
+                  <i class="fas fa-search"></i></button>
+                  <script>
+                  	function searchOnclick(){
+                  		$("#search").val($("#searchContent").val());
+                  		$("#category").val($("#searchCategory").val());
+                  	}
+                  </script>
               </div>
             </form>
           </div>
@@ -63,13 +82,37 @@
                     <th></th>
                     <th>맛집명</th>
                     <th>지역</th>
-                    <th>음식스타일</th>
+                    <th>카테고리</th>
                     <th>평점</th>
-                    <th>등록접속일</th>
+                    <th>음식점등록일</th>
                     <th>관리</th>
                   </tr>
                 </thead>
                 <tbody>
+               	<c:if test="${empty memberList }">
+	              	<tr align="center">
+	              		<td colspan="7">조회된 음식점이 없습니다.</td>
+	              	</tr>
+                </c:if>
+                <c:if test="${!empty restaurantList }">
+	               	<c:forEach var="r" items="${restaurantList }">
+	                  <tr>
+	                    <td align="center">
+	                      <img src="${r.resImageFilepath}/${r.resImageName}" width="60" height="60">
+	                    </td>
+	                    <td>${r.resName}</td>
+	                    <td>${r.locationName }</td>
+	                    <td>${r.resCategoryName }</td>
+	                    <td>${r.reviewRatingAvg }</td>
+	                    <td>${r.resUpdateDate }</td>
+	                    <th>
+	                      <button type="button" class="btn btn-primary" onclick="restaurantDelete(this)" value="${r.resId }"
+	                        style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
+	                          class="fas fa-trash-alt"></i></button>
+	                    </th>
+	                  </tr>
+                  	</c:forEach>
+                </c:if>
                   <tr>
                     <td align="center">
                       <img src="img/logo.png" width="60" height="60">
@@ -83,25 +126,7 @@
                     <td>2020-05-14</td>
                     <td>2020-05-14</td>
                     <td>
-                      <button type="button" class="btn btn-primary" onclick="restaurantDelete()"
-                        style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
-                          class="fas fa-trash-alt"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="center">
-                      <img src="img/logo.png" width="60" height="60">
-                    </td>
-                    <td>
-                      서정완(와니비)<br>
-                      wjddhkswoddl@naver.com
-                    </td>
-                    <td>12-458264</td>
-                    <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
-                    <td>
-                      <button type="button" class="btn btn-primary"
+                      <button type="button" class="btn btn-primary" value="1" onclick="restaurantDelete(this)"
                         style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
                           class="fas fa-trash-alt"></i></button>
                     </td>
@@ -118,8 +143,9 @@
 
 
       <script>
-        function restaurantDelete(){
-          alert("지우기 나와?");
+        function restaurantDelete(id){
+         	var rId = $(id).val();
+         	location.href="deleteRestaurant.do?resId="+rId;
         }
       </script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

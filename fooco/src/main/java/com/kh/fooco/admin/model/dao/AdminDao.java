@@ -9,10 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 @Repository("adminDao")
 public class AdminDao {
@@ -136,6 +138,20 @@ public class AdminDao {
 
 	public String selectvisitorMaxCount() {
 		return sqlSessionTemplate.selectOne("adminMapper.selectvisitorMaxCount");
+	}
+
+	public ArrayList<Restaurant> selectListRestaurantAdmin(Search search, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListRestaurant",search,rowBounds);
+	}
+
+	public int selectOneRestaurantCount(Search search) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectOneRestaurantCount", search);
+	}
+
+	public int deleteRestaurant(Restaurant r) {
+		return sqlSessionTemplate.update("adminMapper.deleteRestaurant", r);
 	}
 
 

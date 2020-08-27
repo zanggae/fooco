@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 public interface AdminService {
 
@@ -60,6 +62,12 @@ public interface AdminService {
 	int modifyBoardAdmin2(Board board);
 
 	String selectvisitorMaxCount();
+
+	ArrayList<Restaurant> selectListRestaurantAdmin(Search search, PageInfo pi);
+
+	int selectOneRestaurantCount(Search search);
+
+	int deleteRestaurant(Restaurant r);
 
 	
 }
