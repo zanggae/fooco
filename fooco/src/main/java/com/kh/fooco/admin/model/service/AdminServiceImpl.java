@@ -34,8 +34,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public int insertVisitorCount() {
-		return adminDao.insertVisitorCount();
+	public int insertVisitorCount(String maxCount) {
+		return adminDao.insertVisitorCount(maxCount);
 	}
 
 	@Override
@@ -136,6 +136,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int modifyBoardAdmin2(Board board) {
 		return adminDao.modifyBoardAdmin2(board);
+	}
+
+	@Override
+	public String selectvisitorMaxCount() {
+		return adminDao.selectvisitorMaxCount();
 	}
 
 }
