@@ -50,7 +50,7 @@
 
     /* 검색 결과 맛집 리스트 */        
     .sr-content-list {margin-bottom:0.5rem; border-radius:0.5rem; background-color:#ECECEC; padding:0.9rem; }
-    .sr-mz {margin:0; margin-bottom:1rem; padding-top:0.5rem; padding-bottom:0.5rem; padding-right:0.5rem; background-color:white; border-radius:0.5rem;}
+    .sr-mz {margin:0; margin-bottom:1rem; padding-top:0.5rem; padding-bottom:0.5rem; padding-right:0.5rem; background-color:white; border-radius:0.5rem; cursor:pointer;}
     .sr-mz-title {padding-left:0.5rem;}
     .sr-mz-address {padding-left:0.5rem;}
     .sr-mz-address span {padding-left:0.5rem;}
@@ -99,7 +99,7 @@
 	<header>
 		<jsp:include page="../common/commonHeader.jsp"/>
 	</header>
-	<!-- ---------------------------------------------------------------------------------------------------- -->
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<section>
 		<div class="container searchResult">
 			<div class="row sr-breadcrumb">
@@ -243,7 +243,7 @@
 								결과</p>
 						</div>
 						<div class="col sr-content-list">
-							<div class="row sr-mz shadow-sm">
+							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail();">
 								<div class="col-4 sr-mz-img-col">
 									<div
 										class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end"
@@ -610,7 +610,14 @@
 			</div>
 		</div>
 	</section>
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<footer>
 	</footer>
+	
+	<script>
+		function goDetail() {
+			location.href="goDetailRestaurant.do";
+		}
+	</script>
 </body>
 </html>

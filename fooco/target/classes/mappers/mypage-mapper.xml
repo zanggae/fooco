@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mypageMapper">
+
+<!-- 팔로워 수 카운트 쿼리 -->
+ <select id="selectOneFollowCount" parameterType="_int" resultType="_int">
+SELECT COUNT(*)
+FROM FOLLOW
+WHERE FOLLOWING_ID = #{memberId}
+</select>
+ 
+<!-- 팔로잉 수 카운트 쿼리 -->
+ <select id="selectOneFollowingCount" parameterType="_int" resultType="_int">
+SELECT COUNT(*)
+FROM FOLLOW
+WHERE FOLLOWER_ID = #{memberId}
+</select> 
+
+<!-- 프로필 사진 조회 쿼리 -->
+<select id="selectOneProFile" parameterType="_int" resultType="string">
+SELECT RENAME_NAME
+FROM PROFILE_IMG
+WHERE MEMBER_ID = #{memberId}
+</select>
+  
+</mapper>
