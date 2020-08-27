@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <!-- Required meta tags -->
-<meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,7 +13,22 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery.min.js"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+<!-- 아이콘 -->
+<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
+	crossorigin="anonymous"></script>
+	
 <title>Insert title here</title>
 </head>
 <style>
@@ -134,7 +148,7 @@
 
 <body>
 	<header>
-		<jsp:include page="../common/subMenubar.jsp"></jsp:include>
+		<jsp:include page="../common/commonHeader.jsp"></jsp:include>
 	</header>
 	<section>
 		<div class="container mypage_container">
@@ -143,7 +157,7 @@
 
 				<div class="col-7 main_content" style="padding:0rem;">
 					<div class="main_content_div shadow-sm">
-						<div class="row center_title">
+						<div class="row">
 							<p
 								style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F618;
 								나의 활동</p>
@@ -274,21 +288,6 @@
     })
   }
 </script>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-	crossorigin="anonymous"></script>
-<!-- 아이콘 -->
-<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
-	crossorigin="anonymous"></script>
 
 
 </html>

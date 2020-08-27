@@ -255,7 +255,7 @@ public class MemberController {
 		
 		@RequestMapping("myPageInfo.do")
 		public String myPageInfo() {
-			return "mypage/myPageFrame";
+			return "mypage/myPageReview";
 		}
 		
 	
