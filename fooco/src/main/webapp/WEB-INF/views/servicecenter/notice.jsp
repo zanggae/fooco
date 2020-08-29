@@ -43,13 +43,21 @@
     .back{border-style : none; height: 12rem; width: 54rem; background-image: url(resources/etcimage/serviceCenterImg2.png); opacity: 0.8; position: absolute; z-index: 0;}
     .title{font-size: 4rem; font-family: 'heavy'; color : black; margin-left: 3rem; margin-top: 0.5rem; z-index:3; position: absolute;}
     
+    /*메뉴바*/
+    #round{border-style: solid; color : black; height: 19rem; width: 12.5rem; }
+    .leftMenubar li{list-style:none; margin-top:1rem;}
+    .li_1{color :rgb(204,51,98);; font-family: 'heavy'; font-size: 1.7rem;}
+    .li_2{color : #646464; font-family: 'medium'; font-size:1.2rem; margin-left: 2.4rem;}    
+    .li_3{color : #646464; font-family: 'medium'; font-size:1.2rem; margin-left: 1.1rem;} 
+    .text1{font-size : 1.1rem; font-family: 'medium'; color:black;}
+    .text1 a:hover {color:rgb(253,215,129);font-family: 'medium';} 
 
     </style>
     </head>
 
   <body>
   <header>
-    <jsp:include page="../common/menubar.jsp"></jsp:include>
+    <jsp:include page="../common/commonHeader.jsp"></jsp:include>
   </header>
 
   <section>
@@ -89,9 +97,20 @@
     </div>
     </div>
     
-      <div class="col-2" style="margin-top: 3rem;">
         
-        <jsp:include page="../servicecenter/servicecenterMenubar.jsp"></jsp:include>
+        <div class="col-2" style="margin-top: 3rem;">
+
+          <ul class="leftMenubar">
+            <li class="li_1" style="margin-top: 3.5rem; margin-bottom: 1.3rem;">고객센터</li>
+
+            <li><a href="notice.do" class="li_3">공지사항</a></li>
+
+            <li><a href="FAQ.do" class="li_2">FAQ</a></li>
+
+            <li><a href="#" class="li_3">1:1 문의</a></li>
+          </ul>
+
+        </div>
       </div>
     </div>
     <!--container 끝-->

@@ -5,11 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	
 </head>
 <body>
-	<jsp:forward page="main.do"/>       
-		
-	
+			<h1>문의 등록이 완료되었습니다.</h1>
 </body>
 </html>

@@ -13,6 +13,8 @@ public interface BoardService {
 
 	Board selectNoticeDetail(int boardId);
 
+	int inquiryInsert(Board b);
+
 	
 	
 }

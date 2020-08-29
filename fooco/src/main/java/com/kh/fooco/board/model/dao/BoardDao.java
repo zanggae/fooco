@@ -29,8 +29,16 @@ public class BoardDao {
 
 
 	public Board selectNoticeDetail(int boardId) {
-		System.out.println("뭐지" + boardId);
 		return sqlSessionTemplate.selectOne("boardMapper.selectNoticeDetail",boardId);
 	}
+
+
+
+	public int inquiryInsert(Board b) {
+		
+		return sqlSessionTemplate.insert("boardMapper.inquiryInsert",b);
+	}
+
+
 	
 }

@@ -57,7 +57,7 @@
     </head>
     <body>
         <header>
-              <jsp:include page="../common/subMenubar.jsp"></jsp:include>  
+              <jsp:include page="../common/commonHeader.jsp"></jsp:include>  
         </header>
         <section>
             <!-- 메인 검색 -->

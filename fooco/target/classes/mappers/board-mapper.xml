@@ -37,7 +37,7 @@
 	</select>
 
 	<select id="selectListFAQ" resultMap="BoardResultSet">
-		SELECT BOARD_TITLE, BOARD_CONTENT, ANSWER_CONTENT
+		SELECT BOARD_TITLE, ANSWER_CONTENT
 		FROM SELECT_BOARD
 		WHERE CATEGORY_NO = 2
 		ORDER BY BOARD_ID DESC 
@@ -49,5 +49,93 @@
 		FROM SELECT_BOARD
 		WHERE CATEGORY_NO = 1 AND BOARD_ID=#{boardId}
 	</select>
+		
+		
+<!-- ============================ boardinsert관련 resultMap 작성 ============================ -->
+
+
+	<resultMap type="InsertBoard" id="BoardInsertSet">
+	<id property="boardId" column="BOARD_ID"/>
+	<result property="categoryNo" column="CATEGORY_NO"/>
+	<result property="boardWriter" column="BOARD_WRITER"/>
+	<result property="boardTitle" column="BOARD_TITLE"/>
+   	<result property="boardContent" column="BOARD_CONTENT"/>
+   	<result property="boardCount" column="BOARD_COUNT"/>
+   	<result property="boardCreateDate" column="BOARD_CREATE_DATE"/> 
+   	<result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
+   	<result property="boardStatus" column="BOARD_STATUS"/>
+   	<result property="answerContent" column="ANSWER_CONTENT"/>
+   <result property="inquiryCode" column="INQUIRY_CODE"/> 
+   	<result property="inquiryContent" column="INQUIRY_CONTENT"/>
+   	<result property="inquiryYN" column="INQUIRY_YN"/> 
+   	<result property="inquiryDate" column="INQUIRY_DATE"/>
+   	<result property="imageId" column="IMAGE_ID"/>
+   	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/> 
+   	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+   	<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+   	<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/> 
+   	<result property="imageLevel" column="IMAGE_LEVEL"/>
+   	<result property="imageStatus" column="IMAGE_STATUS"/>
+   	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>   
+	
+	
+	</resultMap>
+		
+		
+		
+		
+		<insert id="insCompareResult" parameterType="java.util.List" >
+    <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" 
+        separator=" ">
+    INTO KTF_COMPARE_RESULT(
+          IDX
+        , TIMESTAMP_ACCIDENT
+        , VIN
+        , DATA_GB
+    ) VALUES (
+          #{item.idx}
+        , #{item.timestampAccident}
+        , #{item.vin}
+        , #{item.dataGb}
+    )
+    </foreach>
+</insert>
+		
+	<insert id="inquiryInsert" parameterType="InsertBoard">
+	<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
+	INTO BOARD(
+		BOARD_ID, CATEGORY_NO, BOARD_WRITER, BOARD_TITLE, BOARD_CONTENT, BOARD_COUNT, BOARD_CREATE_DATE,
+		BOARD_UPDATE_DATE, BOARD_STATUS, ANSWER_CONTENT
+	)VALUES(
+		#{item.6}, #{item.3}, #{item.21}, #{item.boardTitle}, #{item.boardContent}, #{item.boardCount,jdbcType=INTEGER},
+		#{item.boardCreateDate,jdbcType=DATE}, #{item.boardUpdateDate,jdbcType=DATE}, #{item.DEFAULT}, #{item.answerContent, jdbcType=VARCHAR}
+	)
+	INTO INQUIRY(
+	BOARD_ID, INQUIRY_CODE, INQUIRY_CONTENT, INQUIRY_YN, INQUIRY_DATE
+	)VALUES(
+		#{item.6},#{item.inquiryCode}, #{item.inquiryContent,jdbcType=VARCHAR}, #{item.DEFAULT}, #{item.inquiryDate,jdbcType=DATE}
+	)
+	INTO BOARD_IMAGE(
+		IMAGE_ID, BOARD_ID
+	)VALUES(
+		#{item.1}, #{item.6}
+	)
+	INTO IMAGE(
+		IMAGE_ID, IMAGE_ORIGIN_NAME, IMAGE_NEW_NAME, IMAGE_FILEPATH, IMAGE_CREATE_DATE, IMAGE_LEVEL, IMAGE_STATUS, IMAGE_DOWNLOAD_COUNT
+	)VALUES(
+		#{item.1}, #{item.imageOriginName}, #{item.imageNewName}, #{item.imageFilepath}, #{item.SYSDATE}, #{item.imageStatus,jdbcType=INTEGER},
+		#{item.imageDownloadCount,jdbcType=INTEGER}
+	)
+	
+	</foreach>
+	</insert>
+		
+	
+	
+
 </mapper>
+
+
+
+
 
