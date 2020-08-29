@@ -124,12 +124,16 @@ public class MemberController {
 	}
 	
 	//0819 로그아웃 - 지민
-	@RequestMapping(value="mlogout.do",method=RequestMethod.GET)
-	public String logoutMember(SessionStatus status) {
-		status.setComplete();
-		System.out.println("로그아웃");
-		return "common/main";
-	}
+	   @RequestMapping(value="mlogout.do",method=RequestMethod.GET)
+	   public String logoutMember(SessionStatus status) {
+	      status.setComplete();
+	      System.out.println("로그아웃");
+	      return "redirect:mainpage1.do";
+	   }
+	   @RequestMapping("mainpage1.do")
+	   public String mainpage1() {
+	      return "common/main";
+	   }
 	
 	//0819 네이버 로그인 - 지민
 	//로그인 첫 화면 요청 메소드
