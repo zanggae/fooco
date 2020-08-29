@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import com.kh.fooco.admin.model.dao.AdminDao;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService{
@@ -34,8 +36,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public int insertVisitorCount() {
-		return adminDao.insertVisitorCount();
+	public int insertVisitorCount(String maxCount) {
+		return adminDao.insertVisitorCount(maxCount);
 	}
 
 	@Override
@@ -121,6 +123,41 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int deleteBoardAdmin(Board board) {
 		return adminDao.deleteBoardAdmin(board);
+	}
+
+	@Override
+	public int registrationBoard(Board board) {
+		return adminDao.registrationBoard(board);
+	}
+
+	@Override
+	public int modifyBoardAdmin(Board board) {
+		return adminDao.modifyBoardAdmin(board);
+	}
+
+	@Override
+	public int modifyBoardAdmin2(Board board) {
+		return adminDao.modifyBoardAdmin2(board);
+	}
+
+	@Override
+	public String selectvisitorMaxCount() {
+		return adminDao.selectvisitorMaxCount();
+	}
+
+	@Override
+	public ArrayList<Restaurant> selectListRestaurantAdmin(Search search, PageInfo pi) {
+		return adminDao.selectListRestaurantAdmin(search, pi);
+	}
+
+	@Override
+	public int selectOneRestaurantCount(Search search) {
+		return adminDao.selectOneRestaurantCount(search);
+	}
+
+	@Override
+	public int deleteRestaurant(Restaurant r) {
+		return adminDao.deleteRestaurant(r);
 	}
 
 }

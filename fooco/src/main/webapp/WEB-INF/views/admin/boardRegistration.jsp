@@ -32,11 +32,10 @@
     }
 
     select::-ms-expand {
-      display: none;
+      display: none;         
     }
     
-    label{
-     
+    label{     
       color: rgb(204, 51, 98);      
     }
     .inquiryBtn{background:black !important; color:white !important; height:50px !important; width:100px !important;}
@@ -60,30 +59,37 @@
       <br>
       <div class="container my-4" id="post">
         <div class="container my-3">
-            <form class="form-group">
+            <form class="form-group" action="registrationBoard.do" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-2"><label>카테고리</label></div>
                     <div class="col-md-4">
-                    <select name="categoryNo" class="form-control" style="width:80%">
+                    <select name="categoryNo" class="form-control" style="width:80%" onchange="change(this)">
                     	<option value="0" selected="selected">선택</option>
                     	<option value="1">공지사항</option>
                     	<option value="2">FAQ</option>
                     </select>
                     </div>
                 </div>
-                
+                <script>
+                	function change(result){
+                		$("#fileDiv").css("visibility","visible");
+                		if($(result).val()==2){
+                			$("#fileDiv").css("visibility","hidden");
+                		}
+                	}
+                </script>
                 <div class="row mt-2">
                     <div class="col-md-2"><label>제목</label></div>
                     <div class="col-md-10"><input type="text" class="form-control"
-                            style="width:100%; text-align:left;"></div>
+                            style="width:100%; text-align:left;" name="boardTitle"></div>
                 </div>
                 
                 <div class="mt-2">
                 	<textarea class="form-control"
-                     	style="width:100%; height:300px; resize:none; text-align:left;">${inquiry.boardContent }</textarea>
+                     	style="width:100%; height:300px; resize:none; text-align:left;" name="boardContent"></textarea>
                 </div>
                 
-                <div class="row mt-2 filerow">
+                <div class="row mt-2 filerow" id="fileDiv">
                      <div class="col-md-2 text-center"><label for="find_file01">파일첨부</label></div>
                      <div class="col-md-10 form-group form_file filecol" style="position: relative;">
 
@@ -91,7 +97,7 @@
                              style="position: absolute; width:97%" readonly
                              placeholder="파일첨부 클릭 또는 파일을 여기로 드래그하세요">
                          <input type="file" class="form-control" id="find_file01"
-                             style="position: absolute; opacity: 0;"
+                             style="position: absolute; opacity: 0;" name="uploadFile"
                              onchange="javascript: document.getElementById('fileName').value = this.value">
                      </div>
                  </div>
@@ -99,7 +105,7 @@
                      <div class="col text-center">
                          <button type="button" class="btn inquiryBtn"
                               onclick="goInquiryEdit()">목록으로</button>							
-                         	<button type="button" class="btn inquiryBtn">작성완료</button>                         	
+                         	<button class="btn inquiryBtn">작성완료</button>                         	
                          	
                      </div>
                  </div>

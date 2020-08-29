@@ -116,7 +116,7 @@
         						}
         					}else{					// 조회된 문의가 없으면
         						$tr = $("<tr>");
-        						$boardTitle = $("<td colspan='5'>").text("등록 된 댓글이 없습니다.");
+        						$boardTitle = $("<td colspan='5'>").text("조회된 문의가 없습니다.");
         						
         						$tr.append($boardTitle);
         						$tableBody.append($tr);
@@ -207,7 +207,7 @@
                  </c:if>
                 </tbody>
                 <tfoot>
-                	<c:if test="${!empty inquiry }">
+                	<c:if test="${!empty pi }">
 	                	<!-- 페이징 처리부분 -->
 						<tr align="center" height="20">
 							<th colspan="7">
@@ -229,6 +229,9 @@
 								</c:forEach>
 						<!-- [이후] -->
 								<c:if test="${pi.currentPage eq pi.maxPage }">
+									&nbsp;[이후]
+								</c:if>
+								<c:if test="${0 eq pi.maxPage }">
 									&nbsp;[이후]
 								</c:if>
 								<c:if test="${pi.currentPage lt pi.maxPage }">									
@@ -255,14 +258,20 @@
 			$(function(){
 				$("#inquiryTable").find("td").click(function(){					
 					var boardId = $(this).parents().children("td").eq(0).text();
-					location.href="selectInquiryOne.do?boardId="+boardId;
+					
+					if(boardId!="조회된 문의가 없습니다."){
+						location.href="selectInquiryOne.do?boardId="+boardId;						
+					}
 				})
 			})
 			function open(){
 				$("#inquiryTable").find("td").click(function(){
-					alert($("dddd").text())
+					
 					var boardId = $(this).parents().children("td").eq(0).text();
-					location.href="selectInquiryOne.do?boardId="+boardId;
+					if(boardId!="조회된 문의가 없습니다."){
+						location.href="selectInquiryOne.do?boardId="+boardId;						
+					}
+					
 				})
 			}
 		</script>

@@ -11,6 +11,15 @@ public interface MemberService {
 
 	int checkNickName(String nickName);
 
+	int selectOneFollowCount(Member m);
+
+	int selectOneFollowingCount(Member m);
+
+	String selectOneProFile(Member m);
+
+	int updateMemberProfile(Member m);
+
+
 
 	
 

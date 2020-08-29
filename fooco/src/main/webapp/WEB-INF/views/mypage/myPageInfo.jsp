@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <!-- Required meta tags -->
-<meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,7 +14,22 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery.min.js"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+<!-- 아이콘 -->
+<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
+	crossorigin="anonymous"></script>
+	
 <title>Insert title here</title>
 </head>
 <style>
@@ -134,7 +149,7 @@
 
 <body>
 	<header>
-		<jsp:include page="../common/subMenubar.jsp"></jsp:include>
+		<jsp:include page="../common/commonHeader.jsp"></jsp:include>
 	</header>
 	<section>
 		<div class="container mypage_container">
@@ -143,7 +158,7 @@
 
 				<div class="col-7 main_content" style="padding:0rem;">
 					<div class="main_content_div shadow-sm">
-						<div class="row center_title">
+						<div class="row">
 							<p
 								style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F618;
 								나의 활동</p>
@@ -154,32 +169,38 @@
 
                 <div class="col-5" style="position: relative; padding-right: 0; padding-left: 4rem;">
                   <div>
-                    <img class="profile_poto" src="img/logo.png">
+                    <img class="profile_poto" id="img" src="${contextPath }/resources/ProFiles/${rename_name}">
                   </div>
                   <div>
                     <i class="fas fa-plus-circle profile_poto_add" onclick="ProfileChange();"></i>
                   </div>
+                  <form action="proFileUpDate.do" method="post" enctype="Multipart/form-data">
+               
+				<input type="hidden" name="memberId" value="${loginUser.memberId }"/>
+				
+				
                   <input class="btn btn-primary btn-sm" type="submit" value="변경">
-                  <input type="file" id="ProfileChange" name="ProfileChange" style="display: none;">
+                  <input type="file" id="ProfileChange" name="profile" accept="image/*" style="display: none;">
+                  </form>
                 </div>
                 <div class="col-6" style="padding-left: 0rem;">
 
                   <div class="row" style="padding-top: 1rem;">
                     <div class="col-7 profile_font" style="padding:0rem;">
-                      짱경남짱경남
+              			${loginUser.nickName }
                     </div>
-                    <div class="col-3">
+                    <div class="col-3" style="display:none;">
                       <i class="fas fa-user-plus" style="font-size: 1.5rem; cursor: pointer;"></i>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-4" style="padding-left: 0rem;">
                       <p style="margin: 0rem;">팔로워</p>
-                      <p style="margin: 0rem;">233</p>
+                      <p style="margin: 0rem;">${followCount }</p>
                     </div>
                     <div class="col-4" style="padding-left: 0rem;">
                       <p style="margin: 0rem;">팔로잉</p>
-                      <p style="margin: 0rem;">23</p>
+                      <p style="margin: 0rem;">${followingCount}</p>
                     </div>
                   </div>
                 </div>
@@ -266,7 +287,7 @@
 
 </body>
 
-
+<!-- 프로필 +버튼 클릭 시 파일 변경 창 띄우기 -->
 <script>
   function ProfileChange() {
     $(function () {
@@ -275,20 +296,33 @@
   }
 </script>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-	crossorigin="anonymous"></script>
-<!-- 아이콘 -->
-<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
-	crossorigin="anonymous"></script>
+<!-- 프로필 사진 변경 시 이미지 미리보기 -->
+<script>
+	var sel_file;
+	$(document).ready(function(){
+		$("#ProfileChange").on("change", handleImgFileSelect);
+	});
 
+	function handleImgFileSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+			
+			sel_file = f;
+			
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#img").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(f);
+		});
+	}
+
+</script>
 
 </html>

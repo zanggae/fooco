@@ -32,5 +32,33 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.checkNickName(nickName);
 	}
 
+	// 팔로워 수 카운트 메소드
+	@Override
+	public int selectOneFollowCount(Member m) {
+		
+		return memberDao.selectOneFollowCount(m);
+	}
+
+	// 팔로잉 수 카운트 메소드
+	@Override
+	public int selectOneFollowingCount(Member m) {
+		
+		return memberDao.selectOneFollowingCount(m);
+	}
+	
+	// 프로필 사진 조회 메소드
+	@Override
+	public String selectOneProFile(Member m) {
+		
+		return memberDao.selectOneProFile(m);
+	}
+
+	// 프로필 사진 수정 메소드
+	@Override
+	public int updateMemberProfile(Member m) {
+		
+		return memberDao.updateMemberProfile(m);
+	}
+
 	
 }

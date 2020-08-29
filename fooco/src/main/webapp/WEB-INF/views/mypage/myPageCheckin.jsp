@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <!-- Required meta tags -->
-<meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,7 +13,22 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery.min.js"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+<!-- 아이콘 -->
+<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
+	crossorigin="anonymous"></script>
+	
 <title>Insert title here</title>
 </head>
 <style>
@@ -60,8 +74,8 @@
 
 /* 페이지 전체 */
 .mypage_container {
-	padding: 0 ;
-	margin-top: 3rem ;
+	padding: 0 !important;
+	margin-top: 3rem !important;
 }
 
 .myPage-row {
@@ -108,7 +122,7 @@
 
 <body>
 	<header>
-		<jsp:include page="../common/subMenubar.jsp"></jsp:include>
+		<jsp:include page="../common/commonHeader.jsp"></jsp:include>
 	</header>
 	<section>
 		<div class="container mypage_container">
@@ -117,7 +131,7 @@
 
 				<div class="col-7 main_content">
 					<div class="main_content_div shadow-sm">
-						<div class="row center_title">
+						<div class="row">
               <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F618; 나의 활동 - 체크인</p>
             </div>
 
@@ -127,9 +141,7 @@
                 <span style="font-family: 'heavy'; font-size: 1.2rem;">방문한 맛집에 대해 자유롭게 기록하세요!</span>
               </div>
               <div class="col-4" align="right">
-                <i class="fas fa-plus-square" style="font-size: 1.5rem;">
                   <button type="button" class="btn btn-warning btn-sm" style="padding: 0.2rem;">추가하기</button>
-                </i>
               </div>
             </div>
 
@@ -142,17 +154,17 @@
                   </div>
                   <div class="col-9" style="padding-left: 0.3rem; margin-bottom: 0.5rem;">
                     <div class="row">
-                      <div class="col-4" style="padding-left: 0rem;">
-                        <p style="font-family: 'medium'; font-size: 1.5rem; margin-bottom: 0.3rem;">동네갈비</p>
+                      <div class="col-8" style="padding-left: 0rem;">
+                        <p style="font-family: 'medium'; font-size: 1.1rem; margin-bottom: 0.3rem;">동네갈비야야야야야야야야야ㅑ양</p>
                       </div>
-                      <div class="col-8" align="right">
+                      <div class="col-4" align="right">
                         <button type="button" class="btn btn-primary btn-sm">수정</button>
                         <button type="button" class="btn btn-secondary btn-sm">삭제</button>
                       </div>
 
                     </div>
                     <div class="row" style="margin-bottom: 0.3rem;">
-                      <p style="margin:0rem; padding-left:1.2rem;">2020-08-22</p>
+                      <p style="margin:0rem; padding-left:0rem;">2020-08-22</p>
                     </div>
                     <div class="row" style="overflow-x: auto; height: 5rem;">
                       <p style="word-break: break-all;">갈비 양념이 너무 맛있었고 웨이팅이 길지않아 너무 좋았다. 주차공간도 넓고 식후 무료 디저트들이 배치되어있었다.
@@ -175,26 +187,24 @@
                 </div>
               </div>
 
-              
-              
-                            <div class="checkin_div shadow-sm">
+               <div class="checkin_div shadow-sm">
                 <div class="row">
                   <div class="col-3">
                     <img src="img/갈비찜.jpg" style="width: 8rem; height: 6rem; margin:0rem;">
                   </div>
                   <div class="col-9" style="padding-left: 0.3rem; margin-bottom: 0.5rem;">
                     <div class="row">
-                      <div class="col-4" style="padding-left: 0rem;">
-                        <p style="font-family: 'medium'; font-size: 1.5rem; margin-bottom: 0.3rem;">동네갈비</p>
+                      <div class="col-8" style="padding-left: 0rem;">
+                        <p style="font-family: 'medium'; font-size: 1.1rem; margin-bottom: 0.3rem;">동네갈비야야야야야야야야야ㅑ양</p>
                       </div>
-                      <div class="col-8" align="right">
+                      <div class="col-4" align="right">
                         <button type="button" class="btn btn-primary btn-sm">수정</button>
                         <button type="button" class="btn btn-secondary btn-sm">삭제</button>
                       </div>
 
                     </div>
                     <div class="row" style="margin-bottom: 0.3rem;">
-                      <p style="margin:0rem; padding-left:1.2rem;">2020-08-22</p>
+                      <p style="margin:0rem; padding-left:0rem;">2020-08-22</p>
                     </div>
                     <div class="row" style="overflow-x: auto; height: 5rem;">
                       <p style="word-break: break-all;">갈비 양념이 너무 맛있었고 웨이팅이 길지않아 너무 좋았다. 주차공간도 넓고 식후 무료 디저트들이 배치되어있었다.
@@ -216,6 +226,8 @@
                   </div>
                 </div>
               </div>
+              
+
               
               
               
@@ -233,21 +245,5 @@
 	</section>
 
 </body>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-	crossorigin="anonymous"></script>
-<!-- 아이콘 -->
-<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
-	crossorigin="anonymous"></script>
-
 
 </html>

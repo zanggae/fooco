@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.membership.model.exception.MemberShipException;
 import com.kh.fooco.membership.model.service.MemberShipService;
 import com.kh.fooco.membership.model.vo.MemberShip;
@@ -17,12 +19,6 @@ import com.kh.fooco.membership.model.vo.MemberShip;
 public class MemberShipController {
 	@Autowired
 	private MemberShipService memberShipService;
-	
-	//멤버십 메인 화면으로 이동
-	/*
-	 * @RequestMapping("goMembershipInfo.do") public String goMembershipInfo() {
-	 * return "membership/membershipInfo"; }
-	 */
 	
 	//멤버십 메인 화면으로 이동 + 멤버십 조회
 	@RequestMapping("goMembershipInfo.do")
@@ -37,14 +33,27 @@ public class MemberShipController {
 	}
 	
 	
-	//결제 
+	//결제 + 멤버십 insert
 	@RequestMapping("buyMembership.do")
-	public ModelAndView buyMemberShip(ModelAndView mv, String memberId) {
+	public String insertMembership(MemberShip membership) {
 		System.out.println("뜨나");
-		System.out.println("회원번호:" + memberId);	//안넘어옴
+		System.out.println("membership:" + membership);	
 		
-		mv.setViewName("redirect:goMembershipInfo.do");
-		return mv;
+		//insert작업
+		int result = memberShipService.insertMembership(membership);
+		
+		System.out.println("result:"+result);
+		
+		if(result>0) {
+			System.out.println("insert성공");
+			return "redirect:goMembershipInfo.do";
+		}else {
+			System.out.println("inser실패");
+			throw new MemberShipException("멤버십 등록 실패");
+		}
+		
+		
+		
 		
 	}
 }

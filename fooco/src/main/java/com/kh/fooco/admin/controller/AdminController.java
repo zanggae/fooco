@@ -2,13 +2,16 @@ package com.kh.fooco.admin.controller;
 
 import static com.kh.fooco.common.Pagination.getPageInfo;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -26,10 +31,13 @@ import com.kh.fooco.admin.model.exception.AdminException;
 import com.kh.fooco.admin.model.service.AdminService;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 @Controller
 public class AdminController {
@@ -78,7 +86,11 @@ public class AdminController {
 		VisitorCount vc = adminService.selectOneVisitorCount();
 //		System.out.println(vc);
 		if(vc == null) {
-			int result = adminService.insertVisitorCount();
+			String maxCount = adminService.selectvisitorMaxCount();
+			
+//			System.out.println("maxCount" + maxCount);
+			
+			int result = adminService.insertVisitorCount(maxCount);
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson("성공", response.getWriter());
 		}else {
@@ -104,9 +116,12 @@ public class AdminController {
 			if(searchMemberTextbox == null) {
 				// 회원수를 조회
 				MembershipStatus membershipStatus = adminService.selectOneMembershipStatus();
-				memberCount = membershipStatus.getTotalCount();
+				if(membershipStatus != null) {
+					memberCount = membershipStatus.getTotalCount();					
+				}
+				System.out.println(memberCount);
+					pi = getPageInfo(currentPage, memberCount);					
 				
-				pi = getPageInfo(currentPage, memberCount);
 				
 				// 회원 리스트 조회
 				m = adminService.selectlistMember(pi);
@@ -120,15 +135,13 @@ public class AdminController {
 				// 회원 리스트 조회
 				m = adminService.searchlistMember(pi, searchMemberTextbox);
 			}
-		if(m != null) {
+		
 			mv.addObject("memberList", m);
 			mv.addObject("pi", pi);
 			mv.addObject("memberCount", memberCount);
 			mv.addObject("searchName", searchMemberTextbox);
 			mv.setViewName("admin/memberManagement");
-		}else {
-			throw new AdminException("맴버 리스트 조회 실패!");
-		}
+		
 		return mv;
 	}
 	
@@ -197,7 +210,7 @@ public class AdminController {
 	@RequestMapping("inquiryEdit.do")
 	public ModelAndView inquiryEdit(ModelAndView mv, Board board,
 			@RequestParam(value="page", required=false) Integer page) {
-		
+		System.out.println(page);
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -206,7 +219,7 @@ public class AdminController {
 		
 		System.out.println(inquiryCount);
 		PageInfo pi = getPageInfo(currentPage, inquiryCount);
-		
+		System.out.println(pi);
 		ArrayList<Board> inquiry = adminService.selectListInquiry(pi, board);
 //		System.out.println(inquiry);
 //		System.out.println(pi);
@@ -313,6 +326,7 @@ public class AdminController {
 		if(page != null) {
 			currentPage = page;
 		}
+		
 		if(board.getCategoryNo()==0) {
 			board.setCategoryNo(1);			
 		}
@@ -332,6 +346,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 게시물 삭제  status N으로 변경
 	@RequestMapping("deleteBoardAdmin.do")
 	public ModelAndView deleteBoardAdmin(ModelAndView mv, Board board) {
 		
@@ -346,10 +361,157 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 게시물 등록
+	@RequestMapping(value="registrationBoard.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String registrationBoard(HttpServletRequest request, Board board,
+			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+		
+		if(!file.getOriginalFilename().equals("")) {
+			String renameFileName = saveFile(file,request);
+			
+			board.setImageOriginName(file.getOriginalFilename());
+			board.setImageNewName(renameFileName);
+		}
+		
+		int result = adminService.registrationBoard(board);
+		if(result >0) {
+			return "redirect:boardEdit.do";
+		}else {
+			throw new BoardException("게시글 등록 실패!");
+		}
+	}
 	
+	// 파일 저장 함수
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String savePath = root + "\\buploadFiles";
+		
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) {	// webapp아래에 있는 resources 폴더 아래에
+								// buploadFiles가 없어서 File객체를 찾을 수 없다면
+			folder.mkdirs();
+			
+		}
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originFileName = file.getOriginalFilename();
+		String renameFileName
+			= sdf.format(new java.sql.Date(System.currentTimeMillis()))
+			+ "." + originFileName.substring(originFileName.lastIndexOf(".")+1);
+		
+		
+		String filePath = folder + "\\" + renameFileName;
+		// 실제 저장 될 파일의 경로 + rename파일명
+		
+		try {
+			file.transferTo(new File(filePath));
+			// 이 상태로는 파일 업로드가 되지 않는다.
+			// 왜냐면 파일 제한크기에 대한 설정을 주지 않았기 때문이다.
+			// root-context.xml에 업로드 제한 파일 크기를 지정해 주자.
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return renameFileName;
+	}
+	
+	// 파일 삭제 함수
+	private void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String savePath = root + "\\buploadFiles";
+		
+		File f = new File(savePath + "\\" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}
+		
+	}
+	
+	// 게시물 디테일 및 수정으로 이동
+	@RequestMapping("selectBoardOneAdmin.do")
+	public ModelAndView selectBoardOneAdmin(ModelAndView mv, Board board) {
+		
+		Board b = adminService.selectInquiryOne(board);
+		
+		mv.addObject("board", b);
+		mv.setViewName("admin/boardModify");
+		
+		return mv;
+	}
+	
+	// 게시물 수정시
+	@RequestMapping(value="modifyBoardAdmin.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public String modifyBoardAdmin(HttpServletRequest request, Board board,
+			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+		System.out.println(board);
+		
+		String imageNewName="";
+		if(!file.getOriginalFilename().equals("")) {
+			if(board.getImageNewName() != null) {
+				deleteFile(board.getImageNewName(), request);				
+			}
+			
+			imageNewName = saveFile(file,request);
+			
+			board.setImageOriginName(file.getOriginalFilename());
+			board.setImageNewName(imageNewName);
+			int result2 = adminService.modifyBoardAdmin2(board);
+		}
+		
+		int result = adminService.modifyBoardAdmin(board);
+		if(result >0) {
+			return "redirect:boardEdit.do";
+		}else {
+			throw new BoardException("게시글 수정 실패!");
+		}
+		
+	}
+	
+	// 음식점 관리 페이지로 이동
 	@RequestMapping("restaurantEdit.do")
-	public String restaurantEdit() {
-		return "admin/restaurantEdit";
+	public ModelAndView restaurantEdit(ModelAndView mv,Search search,
+			@RequestParam(value="page", required=false) Integer page) {
+		
+//		int currentPage = 1;
+//		if(page != null) {
+//			currentPage = page;
+//		}
+//		
+//		int rCount = adminService.selectOneRestaurantCount(search);
+//		
+//		PageInfo pi = getPageInfo(currentPage, rCount);
+//		
+//		ArrayList<Restaurant> r = adminService.selectListRestaurantAdmin(search,pi);
+//		
+//		
+//		mv.addObject("search",search);
+//		mv.addObject("restaurantList", r);
+//		mv.addObject("pi",pi);
+//		mv.addObject("rCount",rCount);
+		mv.setViewName("admin/restaurantEdit");
+		
+		return mv;
+	}
+	
+	@RequestMapping("deleteRestaurant.do")
+	public ModelAndView deleteRestaurant(ModelAndView mv, Restaurant r) {
+		
+//		int result = adminService.deleteRestaurant(r);
+		
+//		if(result>0) {
+		mv.setViewName("redirect:restaurantEdit.do");
+//		}else {
+//			throw new BoardException("음식점 삭제 실패!");
+//		}
+		
+		return mv;
 	}
 	
 	@RequestMapping("restaurantRegistration.do")
@@ -367,5 +529,9 @@ public class AdminController {
 	@RequestMapping("themeEdit.do")
 	public String themeEdit() {
 		return "admin/themeEdit";
+	}
+	@RequestMapping("test.do")
+	public String test() {
+		return "admin/test";
 	}
 }
