@@ -169,14 +169,18 @@
 
                 <div class="col-5" style="position: relative; padding-right: 0; padding-left: 4rem;">
                   <div>
-                    <img class="profile_poto" id="img" src="${contextPath }/resources/noimage/${rename_name}">
+                    <img class="profile_poto" id="img" src="${contextPath }/resources/ProFiles/${rename_name}">
                   </div>
                   <div>
                     <i class="fas fa-plus-circle profile_poto_add" onclick="ProfileChange();"></i>
                   </div>
-                  <form >
+                  <form action="proFileUpDate.do" method="post" enctype="Multipart/form-data">
+               
+				<input type="hidden" name="memberId" value="${loginUser.memberId }"/>
+				
+				
                   <input class="btn btn-primary btn-sm" type="submit" value="변경">
-                  <input type="file" id="ProfileChange" name="ProfileChange" style="display: none;">
+                  <input type="file" id="ProfileChange" name="profile" accept="image/*" style="display: none;">
                   </form>
                 </div>
                 <div class="col-6" style="padding-left: 0rem;">

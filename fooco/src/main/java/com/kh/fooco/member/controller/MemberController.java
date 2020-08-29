@@ -1,6 +1,8 @@
 package com.kh.fooco.member.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -245,13 +248,15 @@ public class MemberController {
 
 // ================================== MyPage 동원 ===========================================
 		
+		// 메인페이지에서 로그인 후 마이페이지 버튼 클릭 시
 		@RequestMapping("myPageInfo.do")
-		public ModelAndView myPageInfo(ModelAndView mv, Member memberId) {
+		public ModelAndView myPageInfo(ModelAndView mv, Member m) {
 			
 			
-			int followCount = memberService.selectOneFollowCount(memberId);
-			int followingCount = memberService.selectOneFollowingCount(memberId);
-			String rename_name = memberService.selectOneProFile(memberId);
+			int followCount = memberService.selectOneFollowCount(m);
+			int followingCount = memberService.selectOneFollowingCount(m);
+			String rename_name = memberService.selectOneProFile(m);
+			
 			System.out.println("팔로워 수 : " + followCount);
 			System.out.println("팔로잉 수 : " + followingCount);
 			
@@ -263,5 +268,105 @@ public class MemberController {
 			return mv;
 		}
 		
-	
+		
+		
+		// 나의활동에서 프로필 사진 변경 시
+		@RequestMapping(value="proFileUpDate.do", method=RequestMethod.POST)
+		public ModelAndView proFileUpDate(HttpServletRequest request, Member m, ModelAndView mv,
+				@RequestParam(value="profile", required=false) MultipartFile file) {
+			
+			
+			if(!file.getOriginalFilename().equals("")) {
+				String renameFileName = saveFile(file,request);
+				
+				m.setOriginalName(file.getOriginalFilename());
+				m.setRenameName(renameFileName);
+			}
+			
+			int result = memberService.updateMemberProfile(m);
+			
+			int followCount = memberService.selectOneFollowCount(m);
+			int followingCount = memberService.selectOneFollowingCount(m);
+			String rename_name = memberService.selectOneProFile(m);
+			
+			System.out.println(m);
+			
+			
+			mv.addObject("followCount",followCount);
+			mv.addObject("followingCount",followingCount);
+			mv.addObject("rename_name",rename_name);
+			mv.setViewName("mypage/myPageInfo");
+			
+			if(result > 0) {
+				
+				return mv;
+				
+			} else {
+				throw new MemberException("프로필 파일 업로드 실패");
+			}
+		}
+		
+		
+		
+		private String saveFile(MultipartFile file, HttpServletRequest request) {
+			
+			// webapp 경로
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			// == webapp/resources
+//			System.out.println("경로를 확인해 보자 : " + root);
+			
+			String savePath = root + "\\ProFiles";
+			
+			File folder = new File(savePath); // import java.io.File;
+			
+			if(!folder.exists()) { // webapp아래에 있는 resources 폴더 아래에
+								   // nuploadFiles가 없어서 File객체를 찾을 수 없다면
+				folder.mkdirs();
+			}
+			
+			
+			// 공지글은 파일명 중복 제거는 신경쓰지 않고 했지만
+			// 게시판에서는 파일명을 날짜(업로드 시간)로 rename 해보자
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String originFileName = file.getOriginalFilename();
+			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis()))
+					+ "." + originFileName.substring(originFileName.lastIndexOf(".")+1); // 시스템에서 현재시간을 long형으로 변환해줌
+			
+			String filePath = folder + "\\" + renameFileName;
+			// 실제 저장 될 파일의 경로 + rename 파일명
+			
+			System.out.println("내파일 경로 :"+ filePath);
+			
+			try {
+				file.transferTo(new File(filePath));
+				// 사용자가 넘겨줄 파일을 집어넣어라
+				// 이 상태로는 파일 업로드가 되지 않는다.
+				// 왜냐하면 파일 제한크기에 대한 설정을 주지 않았기 때문이다.
+				// root-context.xml에 업로드 제한 파일 크기를 지정해 주자!
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return renameFileName;
+		}
+		
+//		private void deleteFile(String fileName, HttpServletRequest request) {
+//			String root = request.getSession().getServletContext().getRealPath("resources");
+//			String savePath = root + "\\buploadFiles";
+//			
+//			File f = new File(savePath + "\\" + fileName);
+//			if(f.exists()) {
+//				f.delete(); // 그 경로안에 있는 파일을 지워주는 메소드
+//			}
+//			
+//		}
+		
+		
+		
+		@RequestMapping("follow.do")
+		public String followpage() {
+			return "mypage/myPageFollow";
+		}
+		
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,11 +128,17 @@ a {
 		<div class="left_menubar_div shadow-sm">
 			<div class="row row-cols-1 menubar_group shadow-sm">
 				<div class="menubar_group_title">
-					<a href="#"><span style="font-family: 'bold';">&#x1F618;
+				<c:url var="mypage" value="myPageInfo.do">
+					<c:param name="memberId" value="${loginUser.memberId }"/>
+				</c:url>
+					<a href="${mypage }"><span style="font-family: 'bold';">&#x1F618;
 							나의 활동</span></a>
 				</div>
 				<div class="col menubar_group_member">
-					<a href="#">
+				<c:url var="follow" value="follow.do">
+					<c:param name="memberId" value="${loginUser.memberId }"/>
+				</c:url>
+					<a href="${follow }">
 						<p>팔로우</p>
 					</a> <a href="#">
 						<p>체크인</p>

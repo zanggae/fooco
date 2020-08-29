@@ -11,11 +11,13 @@ public interface MemberService {
 
 	int checkNickName(String nickName);
 
-	int selectOneFollowCount(Member memberId);
+	int selectOneFollowCount(Member m);
 
-	int selectOneFollowingCount(Member memberId);
+	int selectOneFollowingCount(Member m);
 
-	String selectOneProFile(Member memberId);
+	String selectOneProFile(Member m);
+
+	int updateMemberProfile(Member m);
 
 
 
