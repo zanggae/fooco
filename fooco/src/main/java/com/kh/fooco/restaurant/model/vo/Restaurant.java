@@ -8,30 +8,30 @@ public class Restaurant implements Serializable {
 	private static final long serialVersionUID = 5368816804079658850L;
 	
 	// RESTAURANT 필수 멤버 변수	
-	private int resId;
-	private int resCategoryId;
-	private int locationId;
-	private String resName;
-	private String resAddress;
-	private String resContent;
-	private int resViewCount;
-	private String resTime;
-	private String resStatus;
-	private Date resCreateDate;
-	private Date resUpdateDate;
+	private int resId;				// 맛집번호
+	private int resCategoryId;		// 맛집 카테고리 번호
+	private int locationId;			// 지역번호
+	private String resName;			// 맛집이름
+	private String resAddress;		// 맛집주소
+	private String resContent;		// 맛집설명
+	private int resViewCount;		// 맛집 조회수
+	private String resTime;			// 맛집 영업시간
+	private String resStatus;		// 맛집상태
+	private Date resCreateDate;		// 맛집등록일
+	private Date resUpdateDate;		// 맛집수정일
 	
 	// 조회할 때 추가적으로 필요한 멤버 변수
-	private String resImageName;
-	private String resImageFilepath;
-	private String locationName;
-	private int reviewId;
-	private int reviewRatingAvg;
-	private String reviewProfileImageName;
-	private String reviewProfileImageFilepath;
-	private String reviewNickname;
-	private int bookmarkCount;
-	private int reviewCount;
-	private String resCategoryName;
+	private String resImageName;				// 맛집썸네일이미지이름
+	private String resImageFilepath;			// 맛집썸네일이미지파일경로
+	private String locationName;				// 맛집지역이름
+	private int reviewId;						// 리뷰번호(좋아요가 제일많은리뷰1)
+	private int reviewRatingAvg;				// 리뷰평점
+	private String reviewProfileImageName;		// 리뷰남긴사람의 프로필사진이름
+	private String reviewProfileImageFilepath;	// 리뷰남긴사람의 프로필사진경로
+	private String reviewNickname;				// 리뷰남긴사람의 별칭
+	private int bookmarkCount;					// 맛집즐겨찾기 횟수
+	private int reviewCount;					// 리뷰수
+	private String resCategoryName;				// 음식점 카테고리 이름
 	
 	public Restaurant() {
 		super();
