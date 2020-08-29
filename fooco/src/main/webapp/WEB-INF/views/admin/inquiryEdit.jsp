@@ -258,14 +258,20 @@
 			$(function(){
 				$("#inquiryTable").find("td").click(function(){					
 					var boardId = $(this).parents().children("td").eq(0).text();
-					location.href="selectInquiryOne.do?boardId="+boardId;
+					
+					if(boardId!="조회된 문의가 없습니다."){
+						location.href="selectInquiryOne.do?boardId="+boardId;						
+					}
 				})
 			})
 			function open(){
 				$("#inquiryTable").find("td").click(function(){
-					alert($("dddd").text())
+					
 					var boardId = $(this).parents().children("td").eq(0).text();
-					location.href="selectInquiryOne.do?boardId="+boardId;
+					if(boardId!="조회된 문의가 없습니다."){
+						location.href="selectInquiryOne.do?boardId="+boardId;						
+					}
+					
 				})
 			}
 		</script>

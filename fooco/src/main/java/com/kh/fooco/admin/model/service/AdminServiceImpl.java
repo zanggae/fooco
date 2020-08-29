@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import com.kh.fooco.admin.model.dao.AdminDao;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService{
@@ -141,6 +143,21 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public String selectvisitorMaxCount() {
 		return adminDao.selectvisitorMaxCount();
+	}
+
+	@Override
+	public ArrayList<Restaurant> selectListRestaurantAdmin(Search search, PageInfo pi) {
+		return adminDao.selectListRestaurantAdmin(search, pi);
+	}
+
+	@Override
+	public int selectOneRestaurantCount(Search search) {
+		return adminDao.selectOneRestaurantCount(search);
+	}
+
+	@Override
+	public int deleteRestaurant(Restaurant r) {
+		return adminDao.deleteRestaurant(r);
 	}
 
 }

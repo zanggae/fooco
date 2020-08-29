@@ -83,7 +83,31 @@
       <result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>         
 </resultMap>
 
-
+<!-- ===================== 음식점 관련 resultMap ===================================== -->
+<resultMap type="Restaurant" id="RestaurantResultSet">
+	<id property="resId" column="BOARD_ID"/>
+      <result property="resCategoryId" column="#"/>
+      <result property="locationId" column="#"/>
+      <result property="resName" column="#"/>
+      <result property="resAddress" column="#"/>
+      <result property="resContent" column="#"/>
+      <result property="resViewCount" column="#"/> 
+      <result property="resTime" column="#"/>
+      <result property="resStatus" column="#"/>
+      <result property="resCreateDate" column="#"/>
+      <result property="resUpdateDate" column="#"/>       
+      <result property="resImageName" column="#"/> 
+      <result property="resImageFilepath" column="#"/>
+      <result property="locationName" column="#"/>
+      <result property="reviewId" column="#"/> 
+      <result property="reviewRatingAvg" column="#"/>
+      <result property="reviewProfileImageName" column="#"/>
+      <result property="reviewProfileImageFilepath" column="#"/> 
+      <result property="reviewNickname" column="#"/>
+      <result property="bookmarkCount" column="#"/>
+      <result property="reviewCount" column="#"/> 
+      <result property="resCategoryName" column="#"/>      
+</resultMap>
 
 <!-- ============================ 회원 관련 쿼리문 작성 ============================  -->
 
@@ -256,4 +280,35 @@
 </update>
 
 
+<!-- ================= 음식점 관련 쿼리문 ================================== -->
+<!-- 음식점 list 조회 -->
+<select id="selectListRestaurant" parameterType="Search" resultMap="RestaurantResultSet">
+	SELECT * FROM SELECT_RESTAURANT WHERE RES_STATUS='Y' 
+	<if test="category == 1">
+		AND RES_NAME LIKE '%'||#{search}||'%'
+	</if>
+	<if test="category == 2">
+		AND LOCATION_NAME LIKE '%'||#{search}||'%'
+	</if>
+	<if test="category == 3">
+		AND RES_CATEGORY_NAME LIKE '%'||#{search}||'%'
+	</if>		
+</select>
+
+<select id="selectOneRestaurantCount" parameterType="Search" resultType="_int">
+	SELECT COUNT(*) FROM SELECT_RESTAURANT WHERE RES_STATUS='Y' 
+	<if test="category == 1">
+		AND RES_NAME LIKE '%'||#{search}||'%'
+	</if>
+	<if test="category == 2">
+		AND LOCATION_NAME LIKE '%'||#{search}||'%'
+	</if>
+	<if test="category == 3">
+		AND RES_CATEGORY_NAME LIKE '%'||#{search}||'%'
+	</if>
+</select>
+
+<update id="deleteRestaurant" parameterType="Restaurant">
+	UPDATE RESTAURANT SET RES_STATUS = 'N' WHERE RES_ID=#{resId}
+</update>
 </mapper>
