@@ -152,17 +152,17 @@
 	margin-left: 20px;
 }
 /* 이메일 입력창 */
-#selfSiteName {
-	width: 100px;
+#emailchange {
+	margin-left:30px;
+	width: 400px;
+	height:40px;
 	border: 1px solid gray;
 	border-radius: 3px;
-}
-#selectEmail {
-	height: 29px;
 }
 /* 비밀번호 찾기 버튼 */
 #SearchPwd_btn {
 	margin-left: 170px;
+	margin-top:20px;
 	width: 150px;
 	height: 36px;
 	border: none;
@@ -312,20 +312,11 @@
             <br>
             <h5>패스워드를 잊으셨나요?</h5>
             <p>아래에 이메일 주소를 입력하시면 임시비밀번호를 보내드립니다.</p><br>
-            <form>
-              <h5>이메일주소</h5>
-              <input type="text" required id="email" placeholder="가입메일주소">
-              <span style="font-size: 17px;">@</span>
-              <input type="text" id="selfSiteName" required disabled>
-              <select class="" id="selectEmail">
-                <option value="e_option" selected>선택하세요</option>
-                <option value="naver.com">naver.com</option>
-                <option value="daum.net">daum.net</option>
-                <option value="google.com">google.com</option>
-                <option value="hanmail.net">hanmail.net</option>
-                <option value="selfEmail" id="selfEmail">직접 입력</option>
-              </select><br><br><br>
-              <button type="button" id="SearchPwd_btn">비밀번호 찾기</button><br>
+            <form id="searchPwdForm" action="searchMemberPwd.do" method="post">
+			  <h5>이메일주소</h5>
+              <input type="email" id="emailchange" name="emailchange" placeholder="가입메일주소" required>
+              <input type="hidden" id="memberId" name="idForchange">
+              <button type="button" id="SearchPwd_btn" onclick="searchPwd();">비밀번호 찾기</button><br>
               <input type="reset" value="취소" id="SearchPwd_reset_btn">
             </form><br>
           </div>
@@ -383,6 +374,18 @@
   	function joinMemberView(){
   		$("#loginform").attr("action","joinMemberView.do");
     	$("#loginform").submit();
+  	}
+  </script>
+  
+  <!-- 비밀번호 찾기  이메일 전송 -->
+  <script>
+  	function searchPwd(){
+       var emailchange = $("#emailchange").val();
+       var memberId = $("#memberId").val();
+       console.log(emailchange);
+       console.log("회원아이디 : " + memberId);
+       location.href="searchMemberPwd.do?emailchange="+emailchange; 
+		alert("이메일을 확인해주세요");
   	}
   </script>
   

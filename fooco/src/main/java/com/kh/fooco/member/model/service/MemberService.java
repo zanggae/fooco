@@ -11,6 +11,10 @@ public interface MemberService {
 
 	int checkNickName(String nickName);
 
+	int searchMemberPwd(Member m);
+
+	String searchPwdMember(Member m);
+
 
 	
 

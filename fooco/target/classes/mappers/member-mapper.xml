@@ -30,7 +30,7 @@
 
 <!-- ==================================지민(로그인/회원가입)============================== -->
 <!-- 로그인(회원 불러오기) -->
-<select id="loginMember" resultMap="memberListResultSet">
+<select id="loginMember" parameterType="Member" resultMap="memberListResultSet">
 	SELECT *
 	FROM SELECT_MEMBER
 	WHERE EMAIL=#{email}
@@ -52,6 +52,16 @@
 	FROM SELECT_MEMBER
 	WHERE NICKNAME=#{nickName}
 </select>
+
+<!-- 비밀번호 찾기 - select -->
+<select id="searchPwdMember">
+	SELECT MEMBER_PWD FROM MEMBER WHERE EMAIL=#{email}
+</select>
+
+<!-- 비밀번호 찾기 -->
+<update id="searchMemberPwd">
+	UPDATE MEMBER SET MEMBER_PWD=#{memberPwd} WHERE EMAIL=#{email}
+</update>
 
 
 

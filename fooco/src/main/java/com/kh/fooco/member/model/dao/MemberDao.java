@@ -30,6 +30,17 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("memberMapper.checkNickName",nickName);
 	}
 
+	public String searchPwdMember(Member m) {
+		
+		return sqlSessionTemplate.selectOne("memberMapper.searchPwdMember",m);
+	}
+	
+	public int searchMemberPwd(Member m) {
+		
+		return sqlSessionTemplate.update("memberMapper.searchMemberPwd",m);
+	}
+
+
 	
 
 	

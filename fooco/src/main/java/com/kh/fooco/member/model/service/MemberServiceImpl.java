@@ -31,6 +31,19 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.checkNickName(nickName);
 	}
+	
+	//비밀번호 찾기 메소드 - 현재 비밀번호 select해오기
+	@Override
+	public String searchPwdMember(Member m) {
+		
+		return memberDao.searchPwdMember(m);
+	}
+	//비밀번호 찾기 메소드
+	@Override
+	public int searchMemberPwd(Member m) {
+		
+		return memberDao.searchMemberPwd(m);
+	}
 
 	
 }
