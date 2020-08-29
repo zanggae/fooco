@@ -188,6 +188,14 @@
 </head>
 
 <body>
+	<header>
+	
+	
+	</header>
+	
+	<section>
+	
+	
   <div class="top">
     <img src="img/foocoLogo.png" class="fixed">
     <div class="circle"></div>
@@ -240,8 +248,13 @@
 
     </div>
     <!--container끝-->
-  </div>
-  <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br>
+ 	</div>
+ 	</section>
+  <br><br><br> <br><br><br>	 <br><br><br> <br><br><br> <br><br><br> <br><br><br>
+ 	
+ 	<footer>
+ 	
+ 	</footer>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

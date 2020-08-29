@@ -37,7 +37,7 @@
 	</select>
 
 	<select id="selectListFAQ" resultMap="BoardResultSet">
-		SELECT BOARD_TITLE, BOARD_CONTENT, ANSWER_CONTENT
+		SELECT BOARD_TITLE, ANSWER_CONTENT
 		FROM SELECT_BOARD
 		WHERE CATEGORY_NO = 2
 		ORDER BY BOARD_ID DESC 
@@ -49,5 +49,14 @@
 		FROM SELECT_BOARD
 		WHERE CATEGORY_NO = 1 AND BOARD_ID=#{boardId}
 	</select>
+		
+		
+	
+	
+
 </mapper>
+
+
+
+
 

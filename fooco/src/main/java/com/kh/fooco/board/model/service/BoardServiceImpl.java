@@ -32,6 +32,12 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectNoticeDetail(boardId);
 	}
 
+	@Override
+	public int inquiryInsert(Board b) {
+		return boardDao.inquiryInsert(b);
+	}
+
+	
 	
 
 	

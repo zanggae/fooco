@@ -440,7 +440,7 @@
         //인증메일 전송 버튼 함수
         //이메일 입력했는 지 확인
         function identity_confirm(){
-          emailTrimCheck();
+            emailTrimCheck();
         	if(emailCheck==1){
         		emailCheck=0;
         		return;
@@ -454,6 +454,7 @@
           }else{
             email2 = $("#selfSiteName");    //직접입력 이메일
           }
+
           $.ajax({
 				url:"sendEmailforMemerJoin.do"
 				, type:"post"

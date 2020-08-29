@@ -31,26 +31,46 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.checkNickName(nickName);
 	}
+	
+	//비밀번호 찾기 메소드 - 현재 비밀번호 select해오기
+	@Override
+	public String searchPwdMember(Member m) {
+		
+		return memberDao.searchPwdMember(m);
+	}
+	//비밀번호 찾기 메소드
+	@Override
+	public int searchMemberPwd(Member m) {
+		
+		return memberDao.searchMemberPwd(m);
+	}
 
 	// 팔로워 수 카운트 메소드
 	@Override
-	public int selectOneFollowCount(Member memberId) {
+	public int selectOneFollowCount(Member m) {
 		
-		return memberDao.selectOneFollowCount(memberId);
+		return memberDao.selectOneFollowCount(m);
 	}
 
 	// 팔로잉 수 카운트 메소드
 	@Override
-	public int selectOneFollowingCount(Member memberId) {
+	public int selectOneFollowingCount(Member m) {
 		
-		return memberDao.selectOneFollowingCount(memberId);
+		return memberDao.selectOneFollowingCount(m);
 	}
 	
 	// 프로필 사진 조회 메소드
 	@Override
-	public String selectOneProFile(Member memberId) {
+	public String selectOneProFile(Member m) {
 		
-		return memberDao.selectOneProFile(memberId);
+		return memberDao.selectOneProFile(m);
+	}
+
+	// 프로필 사진 수정 메소드
+	@Override
+	public int updateMemberProfile(Member m) {
+		
+		return memberDao.updateMemberProfile(m);
 	}
 
 	

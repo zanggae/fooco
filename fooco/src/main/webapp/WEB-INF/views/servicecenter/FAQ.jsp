@@ -75,7 +75,7 @@
 
 <body>
   <header>
-    <jsp:include page="../common/menubar.jsp"></jsp:include>
+    <jsp:include page="../common/commonHeader.jsp"></jsp:include>
   </header>
 
 
@@ -115,7 +115,7 @@
                         <h1 class="mark">A</h1>
                       </div>
                       <div class="col-9">
-                        <li class="answer">${F.boardContent }</li><br>
+                        <li class="answer">${F.answerContent }</li><br>
                       </div>
                       <div class="col-2"></div>
                     </div>
@@ -126,10 +126,10 @@
               </li>
 
             </ul><!--마지막 ul-->
-		
+			
 			</c:forEach>
 
-
+			<br><br>
           </div>
           <!--아코디언 div끝-->
 

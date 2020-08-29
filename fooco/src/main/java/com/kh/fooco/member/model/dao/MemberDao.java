@@ -31,22 +31,38 @@ public class MemberDao {
 	}
 	
 	// 팔로워 수 카운트 메소드
-	public int selectOneFollowCount(Member memberId) {
+	public int selectOneFollowCount(Member m) {
 		
-		return sqlSessionTemplate.selectOne("mypageMapper.selectOneFollowCount",memberId);
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneFollowCount",m);
 	}
 	
 	// 팔로잉 수 카운트 메소드
-	public int selectOneFollowingCount(Member memberId) {
+	public int selectOneFollowingCount(Member m) {
 		
-		return sqlSessionTemplate.selectOne("mypageMapper.selectOneFollowingCount",memberId);
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneFollowingCount",m);
 	}
 	
 	// 프로필 사진 조회 메소드
-	public String selectOneProFile(Member memberId) {
+	public String selectOneProFile(Member m) {
 		
-		return sqlSessionTemplate.selectOne("mypageMapper.selectOneProFile",memberId);
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneProFile",m);
 	}
+
+	public int updateMemberProfile(Member m) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateMemberProfile",m);
+	}
+
+	public String searchPwdMember(Member m) {
+		
+		return sqlSessionTemplate.selectOne("memberMapper.searchPwdMember",m);
+	}
+	
+	public int searchMemberPwd(Member m) {
+		
+		return sqlSessionTemplate.update("memberMapper.searchMemberPwd",m);
+	}
+
 
 	
 
