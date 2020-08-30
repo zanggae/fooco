@@ -180,7 +180,7 @@ $('#summernote').summernote('redo');
                     <br><br>
                   </div>
                    
-                   <textarea id="summernote" name="boardContent" class="form-control" readonly>
+                   <textarea id="summernote" name="summernoteContent" class="form-control" readonly>
                    </textarea>
                   
 
