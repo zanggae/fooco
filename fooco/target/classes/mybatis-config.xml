@@ -15,6 +15,8 @@
 		<typeAlias type="com.kh.fooco.membership.model.vo.MemberShip" alias="Membership"/>	
 		<typeAlias type="com.kh.fooco.membership.model.vo.Coupon" alias="Coupon"/>	
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Restaurant" alias="Restaurant"/>
+		<typeAlias type="com.kh.fooco.restaurant.model.vo.Review" alias="Review"/>
+		<typeAlias type="com.kh.fooco.common.model.vo.Image" alias="Image"/>
 	</typeAliases>
 	
 	<mappers>
@@ -24,5 +26,6 @@
 		<mapper resource="/mappers/membership-mapper.xml"/>
 		<mapper resource="/mappers/coupon-mapper.xml"/>
 		<mapper resource="/mappers/mypage-mapper.xml"/>
+		<mapper resource="/mappers/restaurant-mapper.xml"/>
 	</mappers>
 </configuration>

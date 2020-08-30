@@ -223,7 +223,7 @@
                                     <a class="dropdown-item mh-dropdown-item" href="${mypage}">마이페이지</a> 
                                     </c:if>                                   
 
-                                    <a class="dropdown-item mh-dropdown-item" href="myPageInfo.do">지역 맛집</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="goSearchedRestaurant.do">지역 맛집</a>
                                     <a class="dropdown-item mh-dropdown-item" href="theme.do">테마 맛집</a>
 
 
