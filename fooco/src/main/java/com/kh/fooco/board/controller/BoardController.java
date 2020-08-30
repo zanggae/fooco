@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.service.BoardService;
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.board.model.vo.InsertBoard;
+import com.kh.fooco.member.model.vo.Member;
 import com.sun.javafx.sg.prism.NGShape.Mode;
 
 @Controller
@@ -38,6 +41,7 @@ public class BoardController {
    
    @Autowired
    private BoardService boardService;
+   HttpSession session;
    
    //0821 서비스센터 메인화면 
    @RequestMapping("serviceCenterMain.do")
@@ -55,6 +59,11 @@ public class BoardController {
       public String inquiry() {
          return "servicecenter/inquiry";
       }
+   
+   @RequestMapping("myPageInquiryModify.do")
+   public String myPageInquiryModify() {
+	   return "mypage/myPageInquiryModify";
+   }
    
 
    //0821 공지사항 게시물 불러오기 (notice.jsp)
@@ -108,25 +117,36 @@ public class BoardController {
    }
    
 
-   //1:1 문의 등록 
-   @RequestMapping(value="inquiryInsert.do", method=RequestMethod.POST)
-   public String inquiryInsert(Board b, HttpServletRequest request, @RequestParam(name="/uploadSummernoteImageFile",required=false)
-   MultipartFile file) {
-      
-      System.out.println("아오 : " + b);
-      if(!file.getOriginalFilename().contentEquals("")) {
-         String imageNewName = saveFile(file, request);
-         
-         b.setImageOriginName(file.getOriginalFilename());
-         b.setImageNewName(imageNewName);
-      }   
-         
+   //1:1 문의 등록
+   @RequestMapping(value="inquiryInsert.do",method= {RequestMethod.GET,RequestMethod.POST})
+
+   public String inquiryInsert(InsertBoard b, HttpSession session, HttpServletRequest request) {
+	 
+    
          int result = boardService.inquiryInsert(b);
          
          
+//     	@RequestMapping(value="login.do",method=RequestMethod.POST)
+// 		public String memberLogin( Member m, HttpSession session, Model model) {
+ //	
+// 		
+// 				Member loginUser = mService.loginMember(m);
+// 				
+// 				// session가 model을 매개변수에 추가하여 작성하자
+// 				if(loginUser != null) {	// 로그인 할 멤버 객체가 조회되었을 시 
+// 					session.setAttribute("loginUser", loginUser);
+// 					return "home";
+ //
+// 				}else {					// 로그인 실패 시 
+// 					model.addAttribute("msg", "로그인 실패!!");	
+// 					return "common/errorPage";
+// 				}
+// 		}
+ 	
          
-      
-      if(result > 0) {
+	
+      if(result > 0 ) {
+			/* session.setAttribute(name, value); */
          return "redirect:inquiryRegistrationFin.do";
       }
       else {
@@ -135,48 +155,7 @@ public class BoardController {
       
    }
 
-   //파일이 저장될 경로를 설정하는 메소드
-
-      private String saveFile(MultipartFile file, HttpServletRequest request) {
-         
-         String root = request.getSession().getServletContext().getRealPath("resources");
-         
-         String savePath = root + "\\boarduploadFiles";
-         
-         File folder = new File(savePath);
-         
-         if(!folder.exists()) {      // webapp아래에 있는 resources 폴더 아래에 
-                              // nuploadFiles가 없어서 File객체를 찾을 수 없다면 
-            folder.mkdirs();      
-            
-         }
-         
-         
-         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-         String imageOriginName = file.getOriginalFilename();
-         String imageNewName = sdf.format(new java.sql.Date(System.currentTimeMillis()))
-                  + "." + imageOriginName.substring(imageOriginName.lastIndexOf(".")+1);
-         
-         String imageFilepath = folder + "\\" + imageNewName;
-         
-         
-         
-         
-         try {
-            file.transferTo(new File(imageFilepath));
-            // 이 상태로는 파일 업로드가 되지 않는다.
-            // 왜냐면 파일 제한크기에 대한 설정을 주지 않았기 때문이다.
-            // root-context.xml에 업로드 제한 파일 크기를 지정해 주자.
-            
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
-         
-         
-         return imageNewName;
-         
-      }
-      
+   
 
 
    

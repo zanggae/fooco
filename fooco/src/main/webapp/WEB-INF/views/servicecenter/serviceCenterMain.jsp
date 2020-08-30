@@ -31,6 +31,7 @@
     /*버튼 설정*/
     #btn_set{width: 14rem; height: 2.2rem; margin-top:1rem; font-family: 'light'; box-shadow: none !important;}
     
+    
     </style>
     </head>
 
@@ -53,11 +54,16 @@
                     <br>
                     <button type="button" class="btn btn-outline-light" id="btn_set" onclick="location.href='FAQ.do'">FAQ</button>
                     <br>
+                   <c:if test="${!empty loginUser }">
                     <button type="button" class="btn btn-outline-light" id="btn_set" onclick="location.href='inquiry.do'">1:1문의</button>
+                	</c:if>
+                	<c:if test="${empty loginUser }">
+                	 <button type="button" class="btn btn-outline-light" id="btn_set" onclick="button_click();">1:1문의</button>
+                	 </c:if>
                 </div>
                 <div class="img-cover"> </div>
             </div>
-                
+                                     
             </div>
             
             <br><br>
@@ -69,8 +75,21 @@
 
 
         </footer>
+        
+        <script>
+        function button_click(){
+        	if(confirm("1:1 문의 등록은 로그인 후 가능합니다. 로그인 하시겠습니까?")==true){
+        		location.href="main.do";
+        	}else{
+        		return;
+        	}
+        }
+        
+       
+        	
+        </script>
     </body>
-    
+   <!--  <button type="button"  id="for_login_modal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" > -->
 
     
 

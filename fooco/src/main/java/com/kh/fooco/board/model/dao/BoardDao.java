@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.board.model.vo.InsertBoard;
 
 @Repository("boardDao")
 public class BoardDao {
@@ -34,7 +35,7 @@ public class BoardDao {
 
 
 
-	public int inquiryInsert(Board b) {
+	public int inquiryInsert(InsertBoard b) {
 		
 		return sqlSessionTemplate.insert("boardMapper.inquiryInsert",b);
 	}

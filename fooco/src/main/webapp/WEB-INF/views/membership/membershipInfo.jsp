@@ -296,14 +296,6 @@
         	</form>
     </section><br><br><br><br><br><br>
     <hr>
-    <h1>쿠폰 리스트들 잘 나오는 지 한번 보자!</h1>
-    <c:forEach var="item" items="${couponList}">
-    	<input type="hidden" name="couponIdT" id="couponIdT" value="${item.couponId}">
-    	<p>${item.couponId}</p>
-    	<p>${item.couponName}</p>
-    	<p>${item.couponContent}</p>
-    	<p>${item.couponExp}</p>   
-    </c:forEach>
     
 
     <!--footer시작-->
@@ -318,6 +310,7 @@
     }
     function requestPaySilver(){
     	$("#mbuyFormSilver").submit();
+    	alert("결제성공");
     }
     //결제!_! 결제 안되도록 우선 주석처리 해 둠!_! 결제 없이 바로 INSERT되도록 임시로 적용해놓음
     //1. gold 멤버십 구매
