@@ -124,12 +124,16 @@ public class MemberController {
 	}
 	
 	//0819 로그아웃 - 지민
-	@RequestMapping(value="mlogout.do",method=RequestMethod.GET)
-	public String logoutMember(SessionStatus status) {
-		status.setComplete();
-		System.out.println("로그아웃");
-		return "common/main";
-	}
+	   @RequestMapping(value="mlogout.do",method=RequestMethod.GET)
+	   public String logoutMember(SessionStatus status) {
+	      status.setComplete();
+	      System.out.println("로그아웃");
+	      return "redirect:mainpage1.do";
+	   }
+	   @RequestMapping("mainpage1.do")
+	   public String mainpage1() {
+	      return "common/main";
+	   }
 	
 	//0819 네이버 로그인 - 지민
 	//로그인 첫 화면 요청 메소드
@@ -244,6 +248,67 @@ public class MemberController {
 		 gson.toJson(chekchemail,response.getWriter());
 		
 		}
+		
+		//비밀번호 찾기
+		@RequestMapping("searchMemberPwd.do")
+		public String searchMemberPwd(String emailchange,Member m, HttpServletRequest request,HttpServletResponse response) {
+			System.out.println("비밀번호 맵핑 잘 오나");
+			System.out.println("email잘 나오는지" +emailchange);
+				StringBuilder sb = new StringBuilder();
+				//임의 난수 생성
+				Random r = new Random();
+				for(int i=0; i<4; i++) {
+					sb.append((char)(r.nextInt(26)+'A')+""); // 대문자
+					sb.append((char)(r.nextInt(10)+'0')+""); // 숫자
+				}
+				String dice = sb.toString();
+				
+				String tomail = request.getParameter("emailchange"); //받는 사람
+				String title = "[Fooco]임시 비밀번호가 발급되었습니다";	//메일제목
+				String content = System.getProperty("line.separator")+
+						System.getProperty("line.separaotr")+
+						"안녕하세요! Fooco입니다."+
+						System.getProperty("line.separator")+
+						System.getProperty("line.separator")+
+						"임시비밀번호는 " + dice+ "입니다"+
+						System.getProperty("line.separator")+
+						System.getProperty("line.separator")+
+						"위의 임시번호로  로그인 후 마이페이지에서 비밀번호를 변경해주세요.";
+				
+				try {
+					MimeMessage message = mailSender.createMimeMessage();
+					MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
+					messageHelper.setTo(tomail); 		// 받는사람 이메일
+		            messageHelper.setSubject(title); 	// 메일제목은 생략가능
+		            messageHelper.setText(content); 	// 메일 내용
+		            mailSender.send(message);
+		            System.out.println("비밀번호 이메일 전송됨!");
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+		/*
+		 * String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd()); //암호화된 비밀번호
+		 */				//임시 비밀번호로 DB업데이트 작업 시작
+				m.setMemberPwd(dice); 
+				String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());	//암호화된 비밀번호
+				m.setMemberPwd(encPwd);
+				m.setEmail(emailchange);
+				String pwdtest = m.getMemberPwd();
+				String emailtest =m.getEmail();
+				System.out.println("비밀번호 바뀌었는지 테스트:" + pwdtest);
+				System.out.println("이메일값:" + emailtest);
+				
+				int result = memberService.searchMemberPwd(m);
+				
+				if(result>0) {
+					System.out.println("비밀번호 찾기 성공");
+				}else {
+					System.out.println("비밀번호 찾기 실패");
+					throw new MemberException("비밀번호 찾기 실패");
+				}
+			return "common/main";	
+			}
+		
 		
 
 // ================================== MyPage 동원 ===========================================

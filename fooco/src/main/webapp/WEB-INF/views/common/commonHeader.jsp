@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	/* 헤더 네비게이션 바 */
+        /* 헤더 네비게이션 바 */
         .mainHeader {padding:0; background-color:rgb(253,215,129);}
         .logo {width:8rem; height:4.5rem;}
         .mh-navbar-brand {padding:0;}
@@ -19,15 +19,15 @@
         .header-menu-login {margin-right:0.3rem;}
         .header-menu-login:hover {text-decoration:none;}
         .header-menu-btn {border:0.2rem solid rgb(204,51,98); width:2rem; height:2rem; border-radius:0.2rem;}
-     
-
-        /* 헤더 네비게이션 서브 */
+        
+         /* 헤더 네비게이션 서브 */
         .mainSubHeader {padding:0; height:3rem; background-color:rgb(204,51,98);}
         .nav-underline {margin:auto;}
         .msh-items {color:white; font-size:1.1rem;}
         .nav-underline a:hover {color:rgb(253,215,129);}
-/* 모달 기본 설정 */
-.modal fade, .modal-content, .container {
+        
+        /* 모달 기본 설정 */
+	.modal fade, .modal-content, .container {
 	margin: 0 auto;
 	padding: 0px;
 }
@@ -157,17 +157,17 @@
 	margin-left: 20px;
 }
 /* 이메일 입력창 */
-#selfSiteNameHeader {
-	width: 100px;
+#emailchange {
+	margin-left:30px;
+	width: 400px;
+	height:40px;
 	border: 1px solid gray;
 	border-radius: 3px;
-}
-#selectEmailHeader {
-	height: 29px;
 }
 /* 비밀번호 찾기 버튼 */
 #SearchPwd_btn {
 	margin-left: 170px;
+	margin-top:20px;
 	width: 150px;
 	height: 36px;
 	border: none;
@@ -189,13 +189,12 @@
 #SearchPwd_reset_btn:hover {
 	text-decoration: underline;
 }
+
 </style>
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
-		
-		
-           <header>
+
             <nav class="navbar navbar-expand-xl shadow-sm mainHeader">
                 <div class="container d-flex justify-content-between">
                     <a class="navbar-brand mh-navbar-brand" href="#">
@@ -215,7 +214,6 @@
                                 <span class="mh-dropdown-title" style="font-family:'bold'"><c:out value="${loginUser.nickName}님"/></span>
                           </a>
                           </c:if>
-                            
                             <div class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle mh-dropdown-toggle" onclick="openMenu();" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="header-menu-btn d-flex justify-content-center align-items-center">
@@ -224,11 +222,17 @@
                                     </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right mh-dropdown-menu" aria-labelledby="dropdown07">
-                                	<c:if test="${!empty loginUser }">                             	
-                                    <a class="dropdown-item mh-dropdown-item" href="#">마이페이지</a> 
+                                	<c:if test="${!empty loginUser }">
+                                	<c:url var="mypage" value="myPageInfo.do">
+									<c:param name="memberId" value="${loginUser.memberId }"/>
+									</c:url>                             	
+                                    <a class="dropdown-item mh-dropdown-item" href="${mypage}">마이페이지</a> 
                                     </c:if>                                   
-                                    <a class="dropdown-item mh-dropdown-item" href="#">지역 맛집</a>
-                                    <a class="dropdown-item mh-dropdown-item" href="#">테마 맛집</a>
+
+                                    <a class="dropdown-item mh-dropdown-item" href="myPageInfo.do">지역 맛집</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="theme.do">테마 맛집</a>
+
+
                                     <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
 
@@ -249,14 +253,32 @@
                     <div class="nav nav-underline d-flex justify-content-around">
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">지역 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="#">테마 맛집</a>
-                        <a class="nav-link msh-items" style="font-family:'medium'" href="#">멤버십</a>
+                        <a class="nav-link msh-items" style="font-family:'medium'" href="goMembershipInfo.do">멤버십</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="serviceCenterMain.do">고객센터</a>
                     </div>
                 </div>
             </div>
-        </header>
             
-             <!-- 1.로그인 모달 영역 -->
+	<!-- 김경남: 메뉴 열고 닫을 때 아이콘 변경하는 스크립트 -->
+
+    <script>
+    	function openMenu() {
+    		var open = document.getElementById("fa-align-justify");
+    		var close = document.getElementById("fa-times");
+    		
+    		if(open.style.display === "none") {
+    			open.style.display = "inline";
+    			close.style.display = "none";
+    		}else {
+    			open.style.display = "none";
+				close.style.display = "inline";
+			}
+    	}
+    </script>
+            
+            
+            
+                    <!-- 1.로그인 모달 영역 -->
     <form action="mlogin.do" method="post" id="loginform">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
@@ -274,7 +296,7 @@
               <div class="col">
                 <input type="text" name="email" placeholder="이메일" id="email_input" required><span style="line-height: 30px;"></span>
                 <input type="password" name="memberPwd" placeholder="비밀번호" id="pwd_input" required><span style="line-height: 50px;"></span>
-                <button id="login_btn">LOGIN</button>
+                <button id="login_btn" onclick="loginbtn();">LOGIN</button>
                 <hr>
                 <!-- 네이버 로그인 창으로 이동 -->
 				<div id="naver_id_login" style="text-align:center"><a href="${url}">
@@ -309,46 +331,21 @@
             <br>
             <h5>패스워드를 잊으셨나요?</h5>
             <p>아래에 이메일 주소를 입력하시면 임시비밀번호를 보내드립니다.</p><br>
-            <form>
-              <h5>이메일주소</h5>
-              <input type="text" required id="emailHeader" placeholder="가입메일주소">
-              <span style="font-size: 17px;">@</span>
-              <input type="text" id="selfSiteNameHeader" required disabled>
-              <select class="" id="selectEmailHeader">
-                <option value="e_option" selected>선택하세요</option>
-                <option value="naver.com">naver.com</option>
-                <option value="daum.net">daum.net</option>
-                <option value="google.com">google.com</option>
-                <option value="hanmail.net">hanmail.net</option>
-                <option value="selfEmail" id="selfEmailHeader">직접 입력</option>
-              </select><br><br><br>
-              <button type="button" id="SearchPwd_btn">비밀번호 찾기</button><br>
+            <form id="searchPwdForm" action="searchMemberPwd.do" method="post">
+			  <h5>이메일주소</h5>
+              <input type="email" id="emailchange" name="emailchange" placeholder="가입메일주소" required>
+              <input type="hidden" id="memberId" name="idForchange">
+              <button type="button" id="SearchPwd_btn" onclick="searchPwd();">비밀번호 찾기</button><br>
               <input type="reset" value="취소" id="SearchPwd_reset_btn">
             </form><br>
           </div>
         </div>
       </div>
     </div>
-    
- 
-    
-    <!-- 경남오빠 -->
-    <script>
-            function openMenu() {
-                var open = document.getElementById("fa-align-justify");
-                var close = document.getElementById("fa-times");
-
-                if (open.style.display === "none") {
-                    open.style.display = "inline";
-                    close.style.display = "none";
-                } else {
-                    open.style.display = "none";
-                    close.style.display = "inline";
-                }
-            }
             
-        </script>
-    <!--------------------1. 비밀번호 찾기 모달 영역------------------------------>
+            
+            
+                <!--------------------1. 비밀번호 찾기 모달 영역------------------------------>
   <script>
     //비밀번호 찾기 시 로그인 모달 꺼지도록 함
     $("#toPwdSearch").click(function () {
@@ -356,40 +353,40 @@
     })
 
     $("#SearchPwd_btn").on("click",function(){
-      if($("#emailHeader").val()==""){
+      if($("#email").val()==""){
         alert("이메일을 입력해주세요");
         return;
       }
-      if($("#selfSiteNameHeader").val()=="" &&($("#selectEmailHeader").val()==""||$("#selectEmailHeader").val()=="e_option")){
+      if($("#selfSiteName").val()=="" &&($("#selectEmail").val()==""||$("#selectEmail").val()=="e_option")){
         alert("이메일주소를 선택해주세요");
         return;
       }
-      if($("#selectEmailHeader").val()=="selfEmail" && ($("#selfSiteNameHeader").val()=="")){
+      if($("#selectEmail").val()=="selfEmail" && ($("#selfSiteName").val()=="")){
         alert("이메일 주소를 입력해주세요");
-        $("#selfSiteNameHeader").focus();
+        $("#selfSiteName").focus();
         return;
       }
     })
-    //이메일 선택 시 직접 입력창 활성화
-    $("#selectEmailHeader").change(function(){
-            var selectedValue = $("#selectEmailHeader").children("option:selected").html();
-                
-            if(selectedValue==$("#selfEmailHeder").html()){
-                $("#selfSiteNameHeader").prop("disabled", false).focus().prop("value", "");
-            }else if(!$("#selfSiteNameHeader").prop("disabled")){
-                $("#selfSiteNameHeader").prop("disabled", true).prop("value", "");
-            }
-            if($("#selfSiteNameHeader").prop("disabled")){
-                $("#selfSiteNameHeader").css("background", "lightgray");
-            }else if($("#selfSiteNameHeader").prop("disabled")==false){
-                $("#selfSiteNameHeader").css("background", "white");
-            }
-        });
-        if($("#selfSiteNameHeader").prop("disabled")){
-                $("#selfSiteNameHeader").css("background", "lightgray");
-        }
 
-
+  </script>
+  
+    <!-- 비밀번호 찾기  이메일 전송 -->
+  <script>
+  	function searchPwd(){
+       var emailchange = $("#emailchange").val();
+       var memberId = $("#memberId").val();
+       console.log(emailchange);
+       console.log("회원아이디 : " + memberId);
+       
+       if($("#emailchange").val()==""){
+    	   alert("이메일을 입력하세요");
+           $("#emailchange").focus();
+           return;
+       }else{
+    	   location.href="searchMemberPwd.do?emailchange="+emailchange; 
+   		   alert("전송된 이메일을 확인해주세요");
+       }
+  	}
   </script>
   <!--------------------- 2.회원가입 페이지 이동 script -------------------------->
   <script>
@@ -399,6 +396,25 @@
   	}
   </script>
   
+   <!-- 로그인 시 null처리 -->
+  <script>
+  	function loginbtn(){
+  		if($("#email_input").val()==""){
+  			alert("이메일을 입력하세요");
+  			 $("#email_input").focus();
+  			 return;
+  		}
+  		if($("#pwd_input").val()==""){
+  			alert("비밀번호를 입력하세요");
+  			$("#pwd_input").focus();
+  			return;
+  		}
+  		if($("#email_input").val()!="" && $("#pwd_input").val()!=""){
+  			$("#loginform").submit();
+  		}
+  		}
+  </script>
+  
   <!-- 추가로 해야할 것(지민)-->
 <!--
   1. 로그인 - 존재하지않는 아이디나 비밀번호일 경우 alert창 띄워주기
@@ -406,6 +422,5 @@
   
     
   
-            
 </body>
 </html>

@@ -26,6 +26,10 @@ public class MemberShip implements Serializable{
 	private String membershipId1;			//골드멤버십 번호
 	private String membershipId2;			//실버멤버십 번호
 	private String buy_memberId;			//멤버십 구입한 회원 번호
+	private String buy_coupon1;				//1번쿠폰
+	private String buy_coupon2;				//2번쿠폰
+	private String buy_coupon3;				//3번쿠폰
+	private String couponIdT;				//쿠폰테스트
 	
 	public MemberShip() {
 		super();
@@ -33,7 +37,8 @@ public class MemberShip implements Serializable{
 
 	public MemberShip(int membershipId, String membershipName, String membershipContent, int membershipPrice,
 			String membershipDuringDate, Date membershipEnrollDate, Date membershipExpireDate, String membershipStatus,
-			String membershipId1, String membershipId2, String buy_memberId) {
+			String membershipId1, String membershipId2, String buy_memberId, String buy_coupon1, String buy_coupon2,
+			String buy_coupon3, String couponIdT) {
 		super();
 		this.membershipId = membershipId;
 		this.membershipName = membershipName;
@@ -46,6 +51,10 @@ public class MemberShip implements Serializable{
 		this.membershipId1 = membershipId1;
 		this.membershipId2 = membershipId2;
 		this.buy_memberId = buy_memberId;
+		this.buy_coupon1 = buy_coupon1;
+		this.buy_coupon2 = buy_coupon2;
+		this.buy_coupon3 = buy_coupon3;
+		this.couponIdT = couponIdT;
 	}
 
 	public int getMembershipId() {
@@ -136,6 +145,38 @@ public class MemberShip implements Serializable{
 		this.buy_memberId = buy_memberId;
 	}
 
+	public String getBuy_coupon1() {
+		return buy_coupon1;
+	}
+
+	public void setBuy_coupon1(String buy_coupon1) {
+		this.buy_coupon1 = buy_coupon1;
+	}
+
+	public String getBuy_coupon2() {
+		return buy_coupon2;
+	}
+
+	public void setBuy_coupon2(String buy_coupon2) {
+		this.buy_coupon2 = buy_coupon2;
+	}
+
+	public String getBuy_coupon3() {
+		return buy_coupon3;
+	}
+
+	public void setBuy_coupon3(String buy_coupon3) {
+		this.buy_coupon3 = buy_coupon3;
+	}
+
+	public String getCouponIdT() {
+		return couponIdT;
+	}
+
+	public void setCouponIdT(String couponIdT) {
+		this.couponIdT = couponIdT;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberShip [membershipId=" + membershipId + ", membershipName=" + membershipName
@@ -143,15 +184,10 @@ public class MemberShip implements Serializable{
 				+ ", membershipDuringDate=" + membershipDuringDate + ", membershipEnrollDate=" + membershipEnrollDate
 				+ ", membershipExpireDate=" + membershipExpireDate + ", membershipStatus=" + membershipStatus
 				+ ", membershipId1=" + membershipId1 + ", membershipId2=" + membershipId2 + ", buy_memberId="
-				+ buy_memberId + "]";
+				+ buy_memberId + ", buy_coupon1=" + buy_coupon1 + ", buy_coupon2=" + buy_coupon2 + ", buy_coupon3="
+				+ buy_coupon3 + ", couponIdT=" + couponIdT + "]";
 	}
-	
-	
-	
-	
 
 	
 	
-	
-
 }

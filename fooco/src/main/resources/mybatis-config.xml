@@ -12,11 +12,14 @@
 		<typeAlias type="com.kh.fooco.admin.model.vo.Search" alias="Search"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.fooco.board.model.vo.Board" alias="Board"/>	
-		<typeAlias type="com.kh.fooco.membership.model.vo.MemberShip" alias="Membership"/>	
 
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.Restaurant" alias="Restaurant"/>
 
 		<typeAlias type="com.kh.fooco.board.model.vo.InsertBoard" alias="InsertBoard"/>	
+
+		<typeAlias type="com.kh.fooco.membership.model.vo.MemberShip" alias="Membership"/>	
+		<typeAlias type="com.kh.fooco.membership.model.vo.Coupon" alias="Coupon"/>	
+		<typeAlias type="com.kh.fooco.restaurant.model.vo.Restaurant" alias="Restaurant"/>
+
 	</typeAliases>
 	
 	<mappers>
@@ -24,8 +27,7 @@
 		<mapper resource="/mappers/board-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper.xml"/>
 		<mapper resource="/mappers/membership-mapper.xml"/>
-
+		<mapper resource="/mappers/coupon-mapper.xml"/>
 		<mapper resource="/mappers/mypage-mapper.xml"/>
-
 	</mappers>
 </configuration>
