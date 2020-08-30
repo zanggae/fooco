@@ -20,6 +20,7 @@ public class Board implements Serializable{
 	private Date boardUpdateDate;		// 게시물 수정날짜
 	private String boardStatus;			// 게시물 상태
 	private String answerContent;		// FAQ 질문에 대한 답변
+	private String summernoteContent;	//섬머노트 내용
 	private String nickname;			// 게시물작성자닉네임
 	
 	// 문의 테이블에 관한 속성
@@ -44,10 +45,10 @@ public class Board implements Serializable{
 	}
 
 	public Board(int boardId, int boardWriter, int categoryNo, String boardTitle, String boardContent, int boardCount,
-			Date boardCreateDate, Date boardUpdateDate, String boardStatus, String answerContent, String nickname,
-			int inquiryCode, String inquiryContent, Date inquiryDate, String inquiryYN, String inquiryName, int imageId,
-			String imageOriginName, String imageNewName, String imageFilepath, Date imageCreateDate, int imageLevel,
-			String imageStatus, int imageDownloadCount) {
+			Date boardCreateDate, Date boardUpdateDate, String boardStatus, String answerContent,
+			String summernoteContent, String nickname, int inquiryCode, String inquiryContent, Date inquiryDate,
+			String inquiryYN, String inquiryName, int imageId, String imageOriginName, String imageNewName,
+			String imageFilepath, Date imageCreateDate, int imageLevel, String imageStatus, int imageDownloadCount) {
 		super();
 		this.boardId = boardId;
 		this.boardWriter = boardWriter;
@@ -59,6 +60,7 @@ public class Board implements Serializable{
 		this.boardUpdateDate = boardUpdateDate;
 		this.boardStatus = boardStatus;
 		this.answerContent = answerContent;
+		this.summernoteContent = summernoteContent;
 		this.nickname = nickname;
 		this.inquiryCode = inquiryCode;
 		this.inquiryContent = inquiryContent;
@@ -153,6 +155,14 @@ public class Board implements Serializable{
 
 	public void setAnswerContent(String answerContent) {
 		this.answerContent = answerContent;
+	}
+
+	public String getSummernoteContent() {
+		return summernoteContent;
+	}
+
+	public void setSummernoteContent(String summernoteContent) {
+		this.summernoteContent = summernoteContent;
 	}
 
 	public String getNickname() {
@@ -276,14 +286,14 @@ public class Board implements Serializable{
 		return "Board [boardId=" + boardId + ", boardWriter=" + boardWriter + ", categoryNo=" + categoryNo
 				+ ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", boardCount=" + boardCount
 				+ ", boardCreateDate=" + boardCreateDate + ", boardUpdateDate=" + boardUpdateDate + ", boardStatus="
-				+ boardStatus + ", answerContent=" + answerContent + ", nickname=" + nickname + ", inquiryCode="
-				+ inquiryCode + ", inquiryContent=" + inquiryContent + ", inquiryDate=" + inquiryDate + ", inquiryYN="
-				+ inquiryYN + ", inquiryName=" + inquiryName + ", imageId=" + imageId + ", imageOriginName="
-				+ imageOriginName + ", imageNewName=" + imageNewName + ", imageFilepath=" + imageFilepath
-				+ ", imageCreateDate=" + imageCreateDate + ", imageLevel=" + imageLevel + ", imageStatus=" + imageStatus
-				+ ", imageDownloadCount=" + imageDownloadCount + "]";
+				+ boardStatus + ", answerContent=" + answerContent + ", summernoteContent=" + summernoteContent
+				+ ", nickname=" + nickname + ", inquiryCode=" + inquiryCode + ", inquiryContent=" + inquiryContent
+				+ ", inquiryDate=" + inquiryDate + ", inquiryYN=" + inquiryYN + ", inquiryName=" + inquiryName
+				+ ", imageId=" + imageId + ", imageOriginName=" + imageOriginName + ", imageNewName=" + imageNewName
+				+ ", imageFilepath=" + imageFilepath + ", imageCreateDate=" + imageCreateDate + ", imageLevel="
+				+ imageLevel + ", imageStatus=" + imageStatus + ", imageDownloadCount=" + imageDownloadCount + "]";
 	}
-	
+
 	
 	
 }

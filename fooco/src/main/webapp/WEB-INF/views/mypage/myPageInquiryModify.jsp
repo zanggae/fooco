@@ -1,37 +1,95 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+    pageEncoding="UTF-8"%>
+<!doctype html>
+<html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<!-- Required meta tags -->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-	crossorigin="anonymous">
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-	crossorigin="anonymous"></script>
+   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-	crossorigin="anonymous"></script>
-<!-- 아이콘 -->
-<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
-	crossorigin="anonymous"></script>
+   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<link
+   href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css"
+   rel="stylesheet">
+<script
+   src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/resources/js/summernote-ko-KR.js"></script>
+   <!-- fontawesome -->
+   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
+
+<!-- summernote script (밑부분에는 인식이 안되서 위에 올림) -->
+<script>
+$(document).ready(function() {
+   //여기 아래 부분
+   $('#summernote').summernote({
+      
+        height: 400,                     // 에디터 높이
+        width : 550,                     // 에디터 넓이
+        minHeight: 400,                      // 최소 높이
+        maxHeight: 400,                      // 최대 높이
+        focus: false,                       // 에디터 로딩후 포커스를 맞출지 여부
+        lang: "ko-KR",                  // 한글 설정
+        placeholder: '최대 2048자까지 쓸 수 있습니다',   //placeholder 설정
+       codemirror: { // codemirror options
+                  theme: 'monokai'
+                 },
+               
+               
+      toolbar: [
+          // [groupName, [list of button]]
+          ['fontname', ['fontname']],
+          ['fontsize', ['fontsize']],
+          ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+          ['color', ['color']],
+          ['table', ['table']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['height', ['height']],
+          ['insert',['picture','link','video']],
+          ['view', ['fullscreen', 'help']]
+        ],
+      fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+      fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+      
+   });
+   
+});
 
 
-<title>Insert title here</title>
-</head>
+
+</script>
+
+
+<script>
+
+
+//서머노트에 text 쓰기
+$('#summernote').summernote('insertText');
+
+
+// 서머노트 쓰기 활성화
+$('#summernote').summernote('enable');
+
+
+// 서머노트 리셋
+$('#summernote').summernote('reset');
+
+
+// 마지막으로 한 행동 취소 ( 뒤로가기 )
+$('#summernote').summernote('undo');
+// 앞으로가기
+$('#summernote').summernote('redo');
+
+
+</script>
+
+
 <style>
 
 /* 페이지 전체 */
@@ -65,7 +123,7 @@
   .inquiry_div{background-color: white; border-radius: 0.5rem; padding-top :2rem; padding-bottom: 2rem;}
 
 </style>
-
+</head>
 <body>
 	<header>
 		<jsp:include page="../common/commonHeader.jsp"></jsp:include>
@@ -96,10 +154,10 @@
                     <div class="col-6" id="select_area2" style="display: none;">
                       <select class="form-control" style="width: 20rem;">
                         <option selected value="">선택</option>
-                        <option value="res">음식점 문의</option>
-                        <option value="review">리뷰 문의</option>
-                        <option value="theme">테마 문의</option>
-                        <option value="etc">기타 문의</option>
+                        <option value="1">음식점 문의</option>
+                        <option value="2">리뷰 문의</option>
+                        <option value="3">테마 문의</option>
+                        <option value="4">기타 문의</option>
                       </select>
                     </div>
                   </div>
@@ -113,33 +171,20 @@
                       style="width: 20rem;" readonly>
                     </div>
                   </div>
-  
+  					
+  					<!-- summernote추가 위해 변경 -->
                   <div class="row" style="margin-bottom: 0.7rem;">
                     <div class="col-4">
                       <p class="inquiry_font">내용</p>
                     </div>
-                    <div class="col-6">
-                      <textarea id="summernote" name="editordata" class="form-control" rows="15"
-                        style="width: 20rem; box-shadow: none !important; resize:none" readonly>
-                      </textarea>
-                    </div>
+                    <br><br>
                   </div>
+                   
+                   <textarea id="summernote" name="summernoteContent" class="form-control" readonly>
+                   </textarea>
+                  
 
-                  <!-- 수정하기 버튼 누를 시 나오는 내용 -->
-                  <div class="row" id="img_area" style="margin-bottom: 0.7rem; display: none;">
-                    <div class="col-4">
-                      <p class="inquiry_font">이미지 첨부</p>
-                    </div>
-                    
-                    <div class="col-6" style="position: relative;">
-                      <input type="text" id="inquiryFile" class="form-control form_point_color01"
-                        style="position: absolute; width: 20rem; font-size: 0.9rem;" readonly
-                        placeholder="첨부할 이미지 파일을 클릭 또는 드래그하세요">
-                    <input type="file" name="inquiryFile" class="form-control" id="inquiryFile"
-                        style="position:absolute; opacity: 0;"
-                        onchange="javascript: document.getElementById('inquiryFile').value = this.value">
-                    </div>
-                  </div>
+                
 
                   <div class="row" style="margin-top: 2rem;">
                     <div class="col" align="center" id="modifybtn">
