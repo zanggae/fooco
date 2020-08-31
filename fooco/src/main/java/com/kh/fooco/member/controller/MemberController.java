@@ -3,6 +3,7 @@ package com.kh.fooco.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -34,7 +35,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
-import com.kh.fooco.member.model.vo.Follow;
+import com.kh.fooco.member.model.vo.Follower;
+import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.naver.NaverLoginBO;
 
@@ -351,22 +353,39 @@ public class MemberController {
 			return renameFileName;
 		}
 		
-//		private void deleteFile(String fileName, HttpServletRequest request) {
-//			String root = request.getSession().getServletContext().getRealPath("resources");
-//			String savePath = root + "\\buploadFiles";
-//			
-//			File f = new File(savePath + "\\" + fileName);
-//			if(f.exists()) {
-//				f.delete(); // 그 경로안에 있는 파일을 지워주는 메소드
-//			}
-//			
-//		}
+		private void deleteFile(String fileName, HttpServletRequest request) {
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "\\buploadFiles";
+			
+			File f = new File(savePath + "\\" + fileName);
+			if(f.exists()) {
+				f.delete(); // 그 경로안에 있는 파일을 지워주는 메소드
+			}
+			
+		}
 		
 		
 		
 		@RequestMapping("follow.do")
-		public String followpage() {
-			return "mypage/myPageFollow";
+		public ModelAndView followpage(ModelAndView mv, Member m){
+			
+			// 팔로워
+			ArrayList<Follower> followerlist = memberService.selectFollower(m);
+			
+			System.out.println(followerlist);	 		
+			
+			
+			// 팔로잉
+			ArrayList<Following> followinglist = memberService.selectFollowing(m);
+			
+			System.out.println(followinglist);
+			
+			
+			mv.addObject("followerlist",followerlist);
+			mv.addObject("followinglist",followinglist);
+			mv.setViewName("mypage/myPageFollow");
+		
+			return mv;
 		}
 		
 }

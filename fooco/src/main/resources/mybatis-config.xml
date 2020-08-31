@@ -14,6 +14,7 @@
 		<typeAlias type="com.kh.fooco.board.model.vo.Board" alias="Board"/>	
 		<typeAlias type="com.kh.fooco.membership.model.vo.MemberShip" alias="Membership"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Restaurant" alias="Restaurant"/>
+		<typeAlias type="com.kh.fooco.member.model.vo.Follower" alias="Follower"/>
 	</typeAliases>
 	
 	<mappers>

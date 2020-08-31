@@ -1,9 +1,13 @@
 package com.kh.fooco.member.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.fooco.member.model.dao.MemberDao;
+import com.kh.fooco.member.model.vo.Follower;
+import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 
 @Service("memberService")
@@ -58,6 +62,18 @@ public class MemberServiceImpl implements MemberService{
 	public int updateMemberProfile(Member m) {
 		
 		return memberDao.updateMemberProfile(m);
+	}
+
+	@Override
+	public ArrayList<Follower> selectFollower(Member m) {
+		
+		return memberDao.selectFollower(m);
+	}
+
+	@Override
+	public ArrayList<Following> selectFollowing(Member m) {
+		
+		return memberDao.selectFollowing(m);
 	}
 
 	

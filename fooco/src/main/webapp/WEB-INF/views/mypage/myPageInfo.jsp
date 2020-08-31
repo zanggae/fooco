@@ -179,7 +179,7 @@
 				<input type="hidden" name="memberId" value="${loginUser.memberId }"/>
 				
 				
-                  <input class="btn btn-primary btn-sm" type="submit" value="변경">
+                  <input class="btn btn-primary btn-sm" id="changebtn" type="submit" value="변경" disabled>
                   <input type="file" id="ProfileChange" name="profile" accept="image/*" style="display: none;">
                   </form>
                 </div>
@@ -318,6 +318,7 @@
 			var reader = new FileReader();
 			reader.onload = function(e){
 				$("#img").attr("src", e.target.result);
+				$("#changebtn").attr('disabled', false);
 			}
 			reader.readAsDataURL(f);
 		});

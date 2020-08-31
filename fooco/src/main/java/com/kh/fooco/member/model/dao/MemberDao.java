@@ -1,9 +1,13 @@
 package com.kh.fooco.member.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fooco.member.model.vo.Follower;
+import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 
 
@@ -51,6 +55,16 @@ public class MemberDao {
 	public int updateMemberProfile(Member m) {
 		
 		return sqlSessionTemplate.update("mypageMapper.updateMemberProfile",m);
+	}
+
+	public ArrayList<Follower> selectFollower(Member m) {
+	
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectFollower",m);
+	}
+
+	public ArrayList<Following> selectFollowing(Member m) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectFollowing",m);
 	}
 
 	
