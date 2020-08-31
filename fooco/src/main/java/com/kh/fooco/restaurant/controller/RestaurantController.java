@@ -21,6 +21,11 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService restaurantService;
 	
+	@RequestMapping("goMain.do")
+	public String goMain() {
+		return "common/main";
+	}
+	
 	@RequestMapping("goSearchedRestaurant.do")
 	public String goSearchedRestaurant() {
 		return "restaurant/searchedRestaurant";

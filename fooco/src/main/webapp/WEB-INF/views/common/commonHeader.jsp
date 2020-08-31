@@ -197,7 +197,7 @@
 
             <nav class="navbar navbar-expand-xl shadow-sm mainHeader">
                 <div class="container d-flex justify-content-between">
-                    <a class="navbar-brand mh-navbar-brand" href="#">
+                    <a class="navbar-brand mh-navbar-brand" href="goMain.do">
                         <img class="logo" src="resources/logo/logo.png">
                     </a>
                     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarsExample07">
