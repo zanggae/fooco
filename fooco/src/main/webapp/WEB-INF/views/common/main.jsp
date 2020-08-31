@@ -50,6 +50,9 @@
 
 
         /* 메인 검색 */
+        .input-group-text {background:white;}
+        .sr-content-input-local {width:2rem;}
+        .fa-map-marker-alt {color:rgb(204,51,98); font-size:1.3rem;}
         .mainSearch {height:23rem; background-color:rgb(204,51,98); display:flex; justify-content:center; align-items:center;}
         .ms-container {display:flex; justify-content:center; align-items:center;}
         .ms-title-col {text-align:center; vertical-align:middle; margin-bottom:1.5rem;}
@@ -141,8 +144,25 @@
                         <div class="col ms-title-col">
                             <span class="ms-title" style="font-family:'heavy'">진짜 맛집을 알려줄게!</span>
                         </div>
-                        <div class="col ms-input-col">
-                            <input type="search" class="form-control">
+                        <div class="input-group">
+                        	<div class="input-group-prepend">
+                        		<span class="input-group-text">
+                        			<i class="fas fa-map-marker-alt"></i>
+                        		</span>
+                        	</div>
+                        	<select class="form-control sr-content-input-local">
+                        		<option selected>전체</option>
+                        		<option>서울</option>
+                        		<option>인천</option>
+                        		<option>부산</option>
+                        		<option>대구</option>
+                        		<option>광주</option>
+                        		<option>대전</option>
+                        		<option>울산</option>
+                        	</select>
+                        	<div class="col ms-input-col">
+                        		<input type="search" class="form-control">
+                        	</div>
                         </div>
                     </div>
                 </div>
