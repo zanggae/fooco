@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 <!-- board 조회 resultMap -->
+
  <resultMap type="Board" id="BoardResultSet">
 	<id property="boardId" column="BOARD_ID"/>
    	<result property="boardWriter" column="BOARD_WRITER"/>
@@ -13,6 +14,7 @@
    	<result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
    	<result property="boardStatus" column="BOARD_STATUS"/>
    	<result property="answerContent" column="ANSWER_CONTENT"/>
+   	<result property="summernoteContent" column="SUMMERNOTE_CONTENT"/>
    	<result property="nickname" column="NICKNAME"/>   	
    	<result property="inquiryCode" column="INQUIRY_CODE"/> 
    	<result property="inquiryContent" column="INQUIRY_CONTENT"/>
@@ -28,7 +30,12 @@
    	<result property="imageStatus" column="IMAGE_STATUS"/>
    	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>    	  
 </resultMap>
+<resultMap type="Member" id="memberListResultSet">
+	<id property="memberId" column="MEMBER_ID"/>
+	</resultMap>
 
+
+	
 	<select id="selectListNotice" resultMap="BoardResultSet">
 		SELECT BOARD_TITLE, BOARD_CREATE_DATE, BOARD_ID
 		FROM SELECT_BOARD
@@ -37,7 +44,7 @@
 	</select>
 
 	<select id="selectListFAQ" resultMap="BoardResultSet">
-		SELECT BOARD_TITLE, BOARD_CONTENT, ANSWER_CONTENT
+		SELECT BOARD_TITLE, ANSWER_CONTENT
 		FROM SELECT_BOARD
 		WHERE CATEGORY_NO = 2
 		ORDER BY BOARD_ID DESC 
@@ -49,5 +56,20 @@
 		FROM SELECT_BOARD
 		WHERE CATEGORY_NO = 1 AND BOARD_ID=#{boardId}
 	</select>
+		
+		
+
+		
+	<insert id="inquiryInsert" parameterType="InsertBoard">
+	INSERT ALL
+    	INTO BOARD VALUES(SEQ_BOARDID.NEXTVAL,3,21,#{boardTitle},'내용내용내용',0,SYSDATE,SYSDATE,'Y',NULL,#{summernoteContent})
+    	INTO INQUIRY VALUES(SEQ_BOARDID.CURRVAL,#{inquiryCode},NULL,'N',NULL)
+    	SELECT *
+    	FROM DUAL
+	</insert>
 </mapper>
+
+
+
+
 

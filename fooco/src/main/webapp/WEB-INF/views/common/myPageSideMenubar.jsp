@@ -177,7 +177,7 @@ a {
 			</div>
 			<div class="row menubar_group">
 				<div class="row menubar_group_title">
-					<a href="#"><span style="font-family: 'bold';">&#x1F64B;
+					<a href="inquiryes.do"><span style="font-family: 'bold';">&#x1F64B;
 							1:1문의</span></a>
 				</div>
 			</div>

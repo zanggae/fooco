@@ -42,9 +42,11 @@
     /*  A:active {text-decoration: none; color:#646464;} */ 
     A:hover {text-decoration: none; color:rgb(204,51,98);}
 
+	/*버튼 설정*/
+	#button{box-shadow: none !important; background-color: rgb(204,51,98); border-style:none; margin-top:2rem; width:10rem; height:3rem;}
     /*내용 설정*/
     .round{border-style : none; background-color: #FFFAFA; height: auto;}
-    .menuname{font-size: 5.5rem; font-family: 'bold'; color :rgb(253, 215, 129); margin-left: 3rem; margin-top: 0.5rem; }
+    .menuname{font-size: 5.5rem; font-family: 'bold'; color :rgb(253, 215, 129); margin-left: 3rem; margin-top: 1rem; }
     .title{font-size : 2.5rem; font-family: 'medium'; color : black; margin-top:10rem; margin-left: 3rem;}
     .date{ font-size : 1.5rem; color: #646464; margin-left: 3rem; margin-top: 0.5rem;}
     .content{font-size : 1.2rem; color: black; margin-top : 5rem;}
@@ -54,13 +56,16 @@
     </head>
 <body>
   <header>
-	 <jsp:include page="../common/menubar.jsp"></jsp:include>
+	 <jsp:include page="../common/commonHeader.jsp"></jsp:include>
   </header>
 
   <section>
     <div class="container">
       <div class="round">
+     
+      
         <a href="notice.do" class="menuname">NOITCE</a>
+        
         <div class="title">${board.boardTitle }
         </div>
         <div class="date">
@@ -88,8 +93,12 @@
           </div>
 
           <div class="col-5">
-
-
+			 <c:if test="${loginUser.memberName eq '관리자' }">   
+        	 
+        	 <button type="button" class="btn btn-secondary" id="button" onclick="location.href='boardEdit.do'">수정하기</button>
+        	 
+         	 </c:if> 
+				
           </div>
 
         </div>

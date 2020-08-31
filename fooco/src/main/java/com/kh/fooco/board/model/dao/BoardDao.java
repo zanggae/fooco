@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.board.model.vo.InsertBoard;
 
 @Repository("boardDao")
 public class BoardDao {
@@ -29,8 +30,16 @@ public class BoardDao {
 
 
 	public Board selectNoticeDetail(int boardId) {
-		System.out.println("뭐지" + boardId);
 		return sqlSessionTemplate.selectOne("boardMapper.selectNoticeDetail",boardId);
 	}
+
+
+
+	public int inquiryInsert(InsertBoard b) {
+		
+		return sqlSessionTemplate.insert("boardMapper.inquiryInsert",b);
+	}
+
+
 	
 }

@@ -255,7 +255,7 @@
                 <p>6개월 이용권</p>
                 <p>혜택1. 할인쿠폰(최대 ￦10,000까지)</p>
                 <p>혜택2. 무료음료쿠폰</p>
-                <button onclick="requestPay2()">구매하기</button>
+                <button onclick="requestPaySilver()">구매하기</button>
             </span>
             <span id="membership_area2">
                 <p>MOST POPULAR</p>
@@ -264,22 +264,29 @@
                 <p>12개월 이용권</p>
                 <p>혜택1. 할인쿠폰(최대 ￦10,000까지)</p>
                 <p>혜택2. 무료음료쿠폰</p>
-                <button onclick="requestPay1()">구매하기</button>
+                <button onclick="requestPayGold()">구매하기</button>
             </span>
 
         </div>
-        	<form id="mbuyForm" action="buyMembership.do" method="post">
+        	<form id="mbuyFormGold" action="buyGoldMembership.do" method="post">
 	        <!-- 회원 정보 -->
         	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.memberId}">
-        	<h1>${loginUser.memberName}asd</h1>
-        	<h1><c:out value="${loginUser.nickName}님"/></h1>
         	<!-- 멤버십정보 -->
         	<!-- 1.gold 멤버십 -->
         	<c:forEach var="item" items="${membershiplist}" end="0">
         	<input type="hidden" name="membershipId1" id="membershipId1" value="${item.membershipId}">
         	<input type="hidden" name="membership_name1" id="membership_name1" value="${item.membershipName}">
         	<input type="hidden" name="membership_price1" id="membership_price1" value="${item.membershipPrice}">
-        	</c:forEach> 
+        	</c:forEach>
+        	<!-- 쿠폰정보 -->
+        	<c:forEach var="item" items="${couponList}" end="0">
+        	    <input type="hidden" name="buy_coupon1" id="buy_coupon1" value="${item.couponId}">  
+    		</c:forEach> 
+    		<c:forEach var="item" items="${couponList}" begin="2" end="2">
+        	    <input type="hidden" name="buy_coupon3" id="buy_coupon3" value="${item.couponId}">  
+    		</c:forEach> 
+        	</form>
+        	<form id="mbuyFormSilver" action="buySilverMembership.do" method="post">
         	<!-- 2.silver 멤버십 -->
         	<c:forEach var="item" items="${membershiplist}" begin="1" end="1">
         	<input type="hidden" name="membershipId2" id="membershipId2" value="${item.membershipId}">
@@ -288,6 +295,8 @@
         	</c:forEach>  
         	</form>
     </section><br><br><br><br><br><br>
+    <hr>
+    
 
     <!--footer시작-->
     <footer></footer>
@@ -295,12 +304,15 @@
  	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js" ></script>
   	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <script>
-    function requestPay1(){
-    	$("#mbuyForm").submit();
+    function requestPayGold(){
+    	$("#mbuyFormGold").submit();
+    	alert("결제성공");
     }
-    function requestPay2(){
-    	$("#mbuyForm").submit();
+    function requestPaySilver(){
+    	$("#mbuyFormSilver").submit();
+    	alert("결제성공");
     }
+    //결제!_! 결제 안되도록 우선 주석처리 해 둠!_! 결제 없이 바로 INSERT되도록 임시로 적용해놓음
     //1. gold 멤버십 구매
     /* function requestPay1() {
       	//사용자 정보 받아오기

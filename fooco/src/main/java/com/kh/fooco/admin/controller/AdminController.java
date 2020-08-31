@@ -90,6 +90,7 @@ public class AdminController {
 			
 //			System.out.println("maxCount" + maxCount);
 			
+			
 			int result = adminService.insertVisitorCount(maxCount);
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson("성공", response.getWriter());
@@ -500,6 +501,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 음식점 삭제
 	@RequestMapping("deleteRestaurant.do")
 	public ModelAndView deleteRestaurant(ModelAndView mv, Restaurant r) {
 		
@@ -519,8 +521,6 @@ public class AdminController {
 		return "admin/restaurantRegistration";
 	}
 	
-	
-	
 	@RequestMapping("boardRegistration.do")
 	public String boardRegistration() {
 		return "admin/boardRegistration";
@@ -535,3 +535,5 @@ public class AdminController {
 		return "admin/test";
 	}
 }
+
+

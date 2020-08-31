@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.fooco.board.model.dao.BoardDao;
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.board.model.vo.InsertBoard;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService{
@@ -32,6 +33,14 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectNoticeDetail(boardId);
 	}
 
+	@Override
+	public int inquiryInsert(InsertBoard b) {
+		return boardDao.inquiryInsert(b);
+	}
+
+
+
+	
 	
 
 	

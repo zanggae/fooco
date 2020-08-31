@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="couponMapper">
+	<resultMap type="Coupon" id="CouponResultSet">
+	<id property="couponId" column="COUPON_ID"></id>
+	<result property="couponName" column="COUPON_NAME"></result>
+	<result property="couponContent" column="COUPON_CONTENT"></result>
+	<result property="couponExp" column="COUPON_EXP"></result>
+	<result property="couponListId" column="COUPON_LIST_ID"></result>
+	<result property="membershipListId" column="MEMBERSHIP_LIST_ID"></result>
+	<result property="couponStart" column="COUPON_START_DATE"></result>
+	<result property="couponEnd" column="COUPON_EXPIREDATE"></result>
+	<result property="couponStatus" column="C_STATUS"></result>
+</resultMap>
+
+<!-- 쿠폰 조회 -->
+<select id="selectCoupon" resultMap="CouponResultSet">
+	SELECT *
+	FROM COUPON
+</select>
+</mapper>

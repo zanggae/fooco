@@ -75,7 +75,7 @@
 
 <body>
   <header>
-    <jsp:include page="../common/menubar.jsp"></jsp:include>
+    <jsp:include page="../common/commonHeader.jsp"></jsp:include>
   </header>
 
 
@@ -115,7 +115,7 @@
                         <h1 class="mark">A</h1>
                       </div>
                       <div class="col-9">
-                        <li class="answer">${F.boardContent }</li><br>
+                        <li class="answer">${F.answerContent }</li><br>
                       </div>
                       <div class="col-2"></div>
                     </div>
@@ -126,10 +126,10 @@
               </li>
 
             </ul><!--마지막 ul-->
-		
+			
 			</c:forEach>
 
-
+			<br><br>
           </div>
           <!--아코디언 div끝-->
 
@@ -176,11 +176,6 @@
   </script>
 
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
     integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
     crossorigin="anonymous"></script>

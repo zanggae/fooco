@@ -35,6 +35,19 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.checkNickName(nickName);
 	}
+	
+	//비밀번호 찾기 메소드 - 현재 비밀번호 select해오기
+	@Override
+	public String searchPwdMember(Member m) {
+		
+		return memberDao.searchPwdMember(m);
+	}
+	//비밀번호 찾기 메소드
+	@Override
+	public int searchMemberPwd(Member m) {
+		
+		return memberDao.searchMemberPwd(m);
+	}
 
 	// 팔로워 수 카운트 메소드
 	@Override
@@ -63,13 +76,15 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.updateMemberProfile(m);
 	}
-
+	
+	// 팔로우 페이지 팔로워 메소드
 	@Override
 	public ArrayList<Follower> selectFollower(Member m) {
 		
 		return memberDao.selectFollower(m);
 	}
 
+	// 팔로우 페이지 팔로잉 메소드
 	@Override
 	public ArrayList<Following> selectFollowing(Member m) {
 		
