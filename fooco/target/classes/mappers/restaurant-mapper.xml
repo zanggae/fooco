@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="restaurantMapper">
+	<resultMap type="Review" id="ReviewResultSet">
+		<id property="reviewId" column="REVIEW_ID"/>
+		<result property="resId" column="RES_ID"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="reviewCreateDate" column="REVIEW_CREATE_DATE"/>
+		<result property="reviewUpdateDate" column="REVIEW_UPDATE_DATE"/>
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="reviewGoodcount" column="REVIEW_GOODCOUNT"/>
+		<result property="reviewRating" column="REVIEW_RATING"/>
+		<result property="reviewTasterating" column="REVIEW_TASTERATING"/>
+		<result property="reviewPricerating" column="REVIEW_PRICERATING"/>
+		<result property="reviewServicerating" column="REVIEW_SERVICERATING"/>
+		<result property="nickname" column="NICKNAME"/>
+		<result property="reviewCount" column="REVIEW_COUNT"/>
+		<result property="followerCount" column="FOLLOWER_COUNT"/>
+		<collection property="reviewImages">
+			<id property="imageId" column="IMAGE_ID"/>
+			<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+			<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectReviewList" parameterType="_int" resultMap="ReviewResultSet">
+		SELECT *
+		  FROM SELECT_REVIEW
+		 WHERE RES_ID = #{resId}
+	</select>
+</mapper>

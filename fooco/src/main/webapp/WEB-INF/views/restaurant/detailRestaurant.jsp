@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <!-- fontawesome -->
@@ -144,9 +144,8 @@
 								</div>
 								<div class="row">
 									<div class="col-2 mz-location">
-										<i class="fas fa-map-marker-alt"
-											style="color: rgb(204, 51, 98); font-size: 1.5rem;"></i> <span
-											style="font-family: 'bold'; font-size: 1.5rem;">인천</span>
+										<i class="fas fa-map-marker-alt" style="color: rgb(204, 51, 98); font-size: 1.5rem;"></i>
+										<span style="font-family: 'bold'; font-size: 1.5rem;">인천</span>
 									</div>
 									<div class="col-10 mz-address d-flex align-items-center">
 										<p style="font-family: 'medium'; font-size: 1rem; margin: 0;">인천시
@@ -177,7 +176,7 @@
 								<li class="nav-item mz-nav-item"><a class="nav-link active"
 									data-toggle="tab" href="#mz-detail">상세정보</a></li>
 								<li class="nav-item mz-nav-item"><a class="nav-link"
-									data-toggle="tab" href="#mz-review">리뷰</a></li>
+									data-toggle="tab" href="#mz-review" onclick="selectReviewList();" >리뷰</a></li>
 								<li class="nav-item mz-nav-item"><a class="nav-link"
 									data-toggle="tab" href="#mz-photo">사진</a></li>
 							</ul>
@@ -459,5 +458,26 @@
 		</div>
 	</section>
 	<footer></footer>
+	
+	<!-- ajax 통신 -->
+	<script>
+		function selectReviewList(){
+			var resId = 3;
+			
+			$.ajax({
+				url:'selectReviewList.do',
+				type:"GET",
+				data:{resId:resId},
+				success:function(data){
+					console.log(data);
+				},
+				error:function(request, status, errorData){
+					alert("error code:" + request.status + "\n" + 
+						  "message:" + request.responseText +
+						  "error:" + errorData);
+				}
+			})
+		}
+	</script>
 </body>
 </html>

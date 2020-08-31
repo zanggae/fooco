@@ -28,7 +28,13 @@
 </resultMap>
 
 
-
+<resultMap type="Follower" id="followerListResultSet">
+	<result property="memberId" column="MEMBER_ID"></result>
+	<result property="nickName" column="NICKNAME"></result>
+	<result property="renameName" column="RENAME_NAME"></result>
+	<result property="followerCount" column="FOLLOWER_COUNT"></result>
+	<result property="followingCount" column="FOLLOWING_COUNT"></result>	
+</resultMap>
 
 <!-- 팔로워 수 카운트 쿼리 -->
  <select id="selectOneFollowCount" parameterType="Member" resultType="_int">
@@ -51,10 +57,46 @@ FROM PROFILE_IMG
 WHERE MEMBER_ID = #{memberId}
 </select>
 
+<!-- 프로필 사진 변경 쿼리 -->
 <update id="updateMemberProfile" parameterType="Member">
 UPDATE PROFILE_IMG SET RENAME_NAME = #{renameName} WHERE MEMBER_ID = ${memberId}
 </update>
 
+<!-- 팔로워 조회 쿼리 -->
+<select id="selectFollower" parameterType="Member" resultMap="followerListResultSet">
+
+<![CDATA[
+SELECT M.MEMBER_ID
+        ,M.NICKNAME
+        ,PI.RENAME_NAME
+        ,(SELECT COUNT(*) FROM FOLLOW WHERE FOLLOWING_ID = M.MEMBER_ID) AS FOLLOWER_COUNT
+        ,(SELECT COUNT(*) FROM FOLLOW WHERE FOLLOWER_ID = M.MEMBER_ID) AS FOLLOWING_COUNT
+FROM MEMBER M
+LEFT JOIN PROFILE_IMG PI ON (M.MEMBER_ID = PI.MEMBER_ID)
+WHERE M.MEMBER_ID IN (SELECT FW.FOLLOWER_ID
+                        FROM FOLLOW FW
+                        LEFT JOIN MEMBER M ON (FW.FOLLOWING_ID = M.MEMBER_ID)
+                        WHERE MEMBER_ID = ${memberId})
+]]> 
+</select>
+
+<!-- 팔로잉 조회 쿼리 -->
+<select id="selectFollowing" parameterType="Member" resultMap="followerListResultSet">
+
+<![CDATA[
+SELECT M.MEMBER_ID
+        ,M.NICKNAME
+        ,PI.RENAME_NAME
+        ,(SELECT COUNT(*) FROM FOLLOW WHERE FOLLOWING_ID = M.MEMBER_ID) AS FOLLOWER_COUNT
+        ,(SELECT COUNT(*) FROM FOLLOW WHERE FOLLOWER_ID = M.MEMBER_ID) AS FOLLOWING_COUNT
+FROM MEMBER M
+LEFT JOIN PROFILE_IMG PI ON (M.MEMBER_ID = PI.MEMBER_ID)
+WHERE M.MEMBER_ID IN (SELECT FW.FOLLOWING_ID
+                        FROM FOLLOW FW
+                        LEFT JOIN MEMBER M ON (FW.FOLLOWER_ID = M.MEMBER_ID)
+                        WHERE MEMBER_ID = ${memberId})
+]]> 
+</select>
 
 
 </mapper>

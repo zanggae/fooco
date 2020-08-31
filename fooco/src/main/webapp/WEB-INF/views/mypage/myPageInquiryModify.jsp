@@ -4,25 +4,40 @@
 <html lang="ko">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="UTF-8">
+<!-- Required meta tags -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<!-- Bootstrap CSS -->
 <link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script
-   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
 <script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+<!-- 아이콘 -->
+<script src="https://kit.fontawesome.com/4b6b63d8f6.js"
+	crossorigin="anonymous"></script>
+
+
 <link
    href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css"
    rel="stylesheet">
 <script
    src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script src="/resources/js/summernote-ko-KR.js"></script>
-   <!-- fontawesome -->
-   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
+
 
 <!-- summernote script (밑부분에는 인식이 안되서 위에 올림) -->
 <script>
@@ -31,7 +46,7 @@ $(document).ready(function() {
    $('#summernote').summernote({
       
         height: 400,                     // 에디터 높이
-        width : 550,                     // 에디터 넓이
+        width : 400,                     // 에디터 넓이
         minHeight: 400,                      // 최소 높이
         maxHeight: 400,                      // 최대 높이
         focus: false,                       // 에디터 로딩후 포커스를 맞출지 여부
@@ -136,75 +151,79 @@ $('#summernote').summernote('redo');
 
 				<div class="col-7 main_content" style="padding:0;">
 					<div class="main_content_div shadow-sm">
-						            <div class="row">
-              <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F64B; 1:1문의</p>
-            </div>
-            <div class="inquiry_div shadow-sm">
+						<div class="row">
+							<p
+								style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F64B;
+								1:1문의</p>
+						</div>
+						<div class="inquiry_div shadow-sm">
 
-              <div class="col" align="center">
-                <form action="">
-                  <div class="row" style="margin-bottom: 0.7rem;">
-                    <div class="col-4">
-                      <p class="inquiry_font">문의 유형</p>
-                    </div>
-                    <div class="col-6" id="select_area1">
-                      <input class="form-control" style="width: 20rem;" type="text" value="음식점 문의" readonly>
-                    </div>
-                    <!-- 수정하기 버튼 누를 시 나오는 내용 -->
-                    <div class="col-6" id="select_area2" style="display: none;">
-                      <select class="form-control" style="width: 20rem;">
-                        <option selected value="">선택</option>
-                        <option value="1">음식점 문의</option>
-                        <option value="2">리뷰 문의</option>
-                        <option value="3">테마 문의</option>
-                        <option value="4">기타 문의</option>
-                      </select>
-                    </div>
-                  </div>
-  
-                  <div class="row" style="margin-bottom: 0.7rem;">
-                    <div class="col-4">
-                      <p class="inquiry_font">제목</p>
-                    </div>
-                    <div class="col-6">
-                      <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요"
-                      style="width: 20rem;" readonly>
-                    </div>
-                  </div>
-  					
-  					<!-- summernote추가 위해 변경 -->
-                  <div class="row" style="margin-bottom: 0.7rem;">
-                    <div class="col-4">
-                      <p class="inquiry_font">내용</p>
-                    </div>
-                    <br><br>
-                  </div>
-                   
-                   <textarea id="summernote" name="summernoteContent" class="form-control" readonly>
-                   </textarea>
-                  
+							<div class="col">
+								<form action="">
+									<div class="row" style="margin-bottom: 0.7rem;">
+										<div class="col-3" align="center">
+											<p class="inquiry_font">문의 유형</p>
+										</div>
+										<div class="col-9" id="select_area1">
+											<input class="form-control" style="width: 25rem;" type="text"
+												value="음식점 문의" readonly>
+										</div>
+										<!-- 수정하기 버튼 누를 시 나오는 내용 -->
+										<div class="col-9" id="select_area2" style="display: none;">
+											<select class="form-control" style="width: 25rem;">
+												<option selected value="">선택</option>
+												<option value="1">음식점 문의</option>
+												<option value="2">리뷰 문의</option>
+												<option value="3">테마 문의</option>
+												<option value="4">기타 문의</option>
+											</select>
+										</div>
+									</div>
 
-                
+									<div class="row" style="margin-bottom: 0.7rem;">
+										<div class="col-3" align="center">
+											<p class="inquiry_font">제목</p>
+										</div>
+										<div class="col-9">
+											<input type="text" class="form-control" id="title"
+												placeholder="제목을 입력하세요" style="width: 25rem;" readonly>
+										</div>
+									</div>
 
-                  <div class="row" style="margin-top: 2rem;">
-                    <div class="col" align="center" id="modifybtn">
-                      <button type="button" class="btn btn-primary btn-sm" onclick="change();">수정하기</button>&nbsp;
-                      <button type="button" class="btn btn-secondary btn-sm">삭제하기</button>
-                    </div>
-                    <div class="col" id="modifycompletebtn" align="center" style="display: none;">
-                      <input type="submit" class="btn btn-primary btn-sm" value="수정완료">&nbsp;
-                      <button type="button" class="btn btn-secondary btn-sm">취소</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
+									<!-- summernote추가 위해 변경 -->
+									<div class="row" style="margin-bottom: 0.7rem;">
+										<div class="col-3" align="center">
+											<p class="inquiry_font">내용</p>
+										</div>
+										<div class="col-9">
+										<textarea id="summernote" name="summernoteContent"
+										class="form-control" readonly> </textarea>
+										</div>
+									</div>
 
-					
+									<div class="row" style="margin-top: 2rem;">
+										<div class="col" align="center" id="modifybtn">
+											<button type="button" class="btn btn-primary btn-sm"
+												onclick="change();">수정하기</button>
+											&nbsp;
+											<button type="button" class="btn btn-secondary btn-sm">삭제하기</button>
+										</div>
+										<div class="col" id="modifycompletebtn" align="center"
+											style="display: none;">
+											<input type="submit" class="btn btn-primary btn-sm"
+												value="수정완료">&nbsp;
+											<button type="button" class="btn btn-secondary btn-sm">취소</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
 
-						
 
-					
+
+
+
+
 					</div>
 				</div>
 				<!-- 오른쪽 광고 -->
@@ -215,6 +234,15 @@ $('#summernote').summernote('redo');
 	</section>
 
 </body>
+
+
+
+
+
+
+
+
+
 
 <!-- 수정버튼 클릭 시 실행하는 script -->
 <script>

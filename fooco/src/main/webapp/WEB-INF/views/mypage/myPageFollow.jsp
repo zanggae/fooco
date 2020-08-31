@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,66 +128,35 @@
               </div>
 
               <div class="follow_div">
-
+              <!-- 팔로워가 없을 때  -->
+				<c:if test="${empty followerlist}">
+				<div>
+					팔로워가 없습니다 ㅠㅡㅠ
+				</div>
+				</c:if>			
+				<c:forEach var="follower" items="${followerlist }">
                 <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; margin-bottom: 0.5rem;">
                   <div class="col-1">
-                    <img class="follow_img" src="resources/logo/logo.png">
+                    <img class="follow_img" src="resources/ProFiles/${follower.renameName}">
                   </div>
                   <div class="col-6">
                     <div class="row" style="padding-left: 1rem;">
-                      <p class="follow_font">짱경남짱경남</p>
+                      <p class="follow_font">${follower.nickName}</p>
                     </div>
                     <div class="row">
                       <div class="col-5" style="padding-right: 0rem;">
-                        <p class="follow_font">팔로워 2111</p>
+                        <p class="follow_font">팔로워 ${follower.followerCount}</p>
                       </div>
                       <div class="col-6" style="padding-left: 0rem;">
-                        <p class="follow_font">팔로잉 2111</p>
+                        <p class="follow_font">팔로잉 ${follower.followingCount}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-
-               <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; margin-bottom: 0.5rem;">
-                  <div class="col-1">
-                    <img class="follow_img" src="resources/logo/logo.png">
-                  </div>
-                  <div class="col-6">
-                    <div class="row" style="padding-left: 1rem;">
-                      <p class="follow_font">짱경남짱경남</p>
-                    </div>
-                    <div class="row">
-                      <div class="col-5" style="padding-right: 0rem;">
-                        <p class="follow_font">팔로워 2111</p>
-                      </div>
-                      <div class="col-6" style="padding-left: 0rem;">
-                        <p class="follow_font">팔로잉 2111</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; margin-bottom: 0.5rem;">
-                  <div class="col-1">
-                    <img class="follow_img" src="resources/logo/logo.png">
-                  </div>
-                  <div class="col-6">
-                    <div class="row" style="padding-left: 1rem;">
-                      <p class="follow_font">짱경남짱경남</p>
-                    </div>
-                    <div class="row">
-                      <div class="col-5" style="padding-right: 0rem;">
-                        <p class="follow_font">팔로워 2111</p>
-                      </div>
-                      <div class="col-6" style="padding-left: 0rem;">
-                        <p class="follow_font">팔로잉 2111</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
+				</c:forEach>
               </div>
+
+
 
               <!-- 팔로잉 -->
               <div class="row" style="margin-top: 2rem;">
@@ -195,64 +165,32 @@
 
 
               <div class="follow_div">
-
+              <!-- 팔로잉이 없을 때  -->
+				<c:if test="${empty followinglist}">
+				<div>
+					팔로잉이 없습니다 ㅠㅡㅠ
+				</div>
+				</c:if>	
+				<c:forEach var="following" items="${followinglist }">
                 <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; margin-bottom: 0.5rem;">
                   <div class="col-1">
-                    <img class="follow_img" src="resources/logo/logo.png">
+                    <img class="follow_img" src="resources/ProFiles/${following.renameName}">
                   </div>
                   <div class="col-6">
                     <div class="row" style="padding-left: 1rem;">
-                      <p class="follow_font">짱경남짱경남</p>
+                      <p class="follow_font">${following.nickName}</p>
                     </div>
                     <div class="row">
                       <div class="col-5" style="padding-right: 0rem;">
-                        <p class="follow_font">팔로워 2111</p>
+                        <p class="follow_font">팔로워 ${following.followerCount}</p>
                       </div>
                       <div class="col-6" style="padding-left: 0rem;">
-                        <p class="follow_font">팔로잉 2111</p>
+                        <p class="follow_font">팔로잉 ${following.followingCount}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; margin-bottom: 0.5rem;">
-                  <div class="col-1">
-                    <img class="follow_img" src="resources/logo/logo.png">
-                  </div>
-                  <div class="col-6">
-                    <div class="row" style="padding-left: 1rem;">
-                      <p class="follow_font">짱경남짱경남</p>
-                    </div>
-                    <div class="row">
-                      <div class="col-5" style="padding-right: 0rem;">
-                        <p class="follow_font">팔로워 2111</p>
-                      </div>
-                      <div class="col-6" style="padding-left: 0rem;">
-                        <p class="follow_font">팔로잉 2111</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; margin-bottom: 0.5rem;">
-                  <div class="col-1">
-                    <img class="follow_img" src="resources/logo/logo.png">
-                  </div>
-                  <div class="col-6">
-                    <div class="row" style="padding-left: 1rem;">
-                      <p class="follow_font">짱경남짱경남</p>
-                    </div>
-                    <div class="row">
-                      <div class="col-5" style="padding-right: 0rem;">
-                        <p class="follow_font">팔로워 2111</p>
-                      </div>
-                      <div class="col-6" style="padding-left: 0rem;">
-                        <p class="follow_font">팔로잉 2111</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
+				</c:forEach>
               </div>
 						
 
