@@ -86,28 +86,28 @@
 
 <!-- ===================== 음식점 관련 resultMap ===================================== -->
 <resultMap type="Restaurant" id="RestaurantResultSet">
-	<id property="resId" column="BOARD_ID"/>
-      <result property="resCategoryId" column="#"/>
-      <result property="locationId" column="#"/>
-      <result property="resName" column="#"/>
-      <result property="resAddress" column="#"/>
-      <result property="resContent" column="#"/>
-      <result property="resViewCount" column="#"/> 
-      <result property="resTime" column="#"/>
-      <result property="resStatus" column="#"/>
-      <result property="resCreateDate" column="#"/>
-      <result property="resUpdateDate" column="#"/>       
-      <result property="resImageName" column="#"/> 
-      <result property="resImageFilepath" column="#"/>
-      <result property="locationName" column="#"/>
-      <result property="reviewId" column="#"/> 
-      <result property="reviewRatingAvg" column="#"/>
-      <result property="reviewProfileImageName" column="#"/>
-      <result property="reviewProfileImageFilepath" column="#"/> 
-      <result property="reviewNickname" column="#"/>
-      <result property="bookmarkCount" column="#"/>
-      <result property="reviewCount" column="#"/> 
-      <result property="resCategoryName" column="#"/>      
+	<id property="resId" column="RES_ID"/>
+      <result property="resCategoryId" column="RES_CATEGORY_ID"/>
+      <result property="locationId" column="LOCATION_ID"/>
+      <result property="resName" column="RES_NAME"/>
+      <result property="resAddress" column="RES_ADDRESS"/>
+      <result property="resContent" column="RES_CONTENT"/>
+      <result property="resViewCount" column="RES_VIEWCOUNT"/> 
+      <result property="resTime" column="RES_TIME"/>
+      <result property="resStatus" column="RES_STATUS"/>
+      <result property="resCreateDate" column="RES_CREATE_DATE"/>
+      <result property="resUpdateDate" column="RES_UPDATE_DATE"/>       
+      <result property="resImageName" column="RES_IMAGE_NAME"/> 
+      <result property="resImageFilepath" column="RES_IMAGE_FILEPATH"/>
+      <result property="locationName" column="LOCATION_NAME"/>
+      <result property="reviewId" column="REVIEW_ID"/> 
+      <result property="reviewRatingAvg" column="REVIEW_RATING"/>
+      <result property="reviewProfileImageName" column="REVIEW_PROFILE_IMAGE_NAME"/>
+      <result property="reviewProfileImageFilepath" column="REVIEW_PROFILE_IMAGE_FILEPATH"/> 
+      <result property="reviewNickname" column="REVIEW_NICKNAME"/>
+      <result property="bookmarkCount" column="BOOKMARK_COUNT"/>
+      <result property="reviewCount" column="REVIEW_COUNT"/> 
+      <result property="resCategoryName" column="RES_CATEGORY_NAME"/>      
 </resultMap>
 
 <!-- ============================ 회원 관련 쿼리문 작성 ============================  -->
