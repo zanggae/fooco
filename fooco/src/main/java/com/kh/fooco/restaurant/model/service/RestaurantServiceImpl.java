@@ -19,4 +19,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantDao.selectReviewList(resId);
 	}
 
+	@Override
+	public int getListCount(String location, String keyword) {
+		return restaurantDao.getListCount(location, keyword);
+	}
+
 }
