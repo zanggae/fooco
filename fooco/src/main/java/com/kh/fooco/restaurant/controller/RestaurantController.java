@@ -36,6 +36,8 @@ public class RestaurantController {
 	{
 		int currentPage = 1;
 		
+		System.out.println("location: " + location + ", keyword: " + keyword);
+		
 		if(page != null) {
 			currentPage = page;
 		}
@@ -43,7 +45,8 @@ public class RestaurantController {
 		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
 		PageInfo pi = new PageInfo();
 		
-		int howManyRestaurant = 0;
+		int howManyRestaurant = restaurantService.getListCount(location, keyword);
+		
 		
 		
 		

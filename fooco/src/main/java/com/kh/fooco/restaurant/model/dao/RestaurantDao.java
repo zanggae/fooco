@@ -17,5 +17,9 @@ public class RestaurantDao {
 	public ArrayList<Review> selectReviewList(int resId) {
 		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.selectReviewList", resId);
 	}
+
+	public int getListCount(String location, String keyword) {
+		return sqlSessionTemplate.selectOne("restaurantMapper.getListCount");
+	}
 	
 }
