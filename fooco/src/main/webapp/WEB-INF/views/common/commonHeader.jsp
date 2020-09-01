@@ -39,7 +39,8 @@
 			color:black;
 			font-size:16px;
 			padding:0px;
-			margin:0px
+			margin:0px;
+			box-shadow:none;
 		}
 		/* 모달 가로 넓게 */
 		#for_first_modal {
@@ -395,6 +396,7 @@
    <!-- 로그인 시 null처리 -->
   <script>
   	function loginbtn(){
+	//null처리
   		if($("#email_input").val()==""){
   			alert("이메일을 입력하세요");
   			 $("#email_input").focus();

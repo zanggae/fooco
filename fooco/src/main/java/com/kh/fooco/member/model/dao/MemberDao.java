@@ -79,6 +79,12 @@ public class MemberDao {
 		return sqlSessionTemplate.update("memberMapper.searchMemberPwd",m);
 	}
 
+	//닉네임 중복체크 메소드
+	public int chekchemailDup(String email) {
+		
+		return sqlSessionTemplate.selectOne("memberMapper.checkemailDup",email);
+	}
+
 
 
 	

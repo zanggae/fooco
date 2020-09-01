@@ -31,6 +31,8 @@ public interface MemberService {
 
 	ArrayList<Following> selectFollowing(Member m);
 
+	int chekchemailDup(String email);
+
 
 
 

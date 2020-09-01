@@ -2,6 +2,7 @@ package com.kh.fooco.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
@@ -111,18 +113,24 @@ public class MemberController {
 	
 	//08.18 로그인 - 지민
 	@RequestMapping(value="mlogin.do",method=RequestMethod.POST)
-	public String loginMember(Member m,Model model) {
+	public String loginMember(Member m,Model model,HttpServletResponse response) throws IOException{
+		
 		Member loginUser = memberService.loginMember(m);
 		
-		if(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
+		if(loginUser==null) {
+			System.out.println("일치하는 회원이 없음");
+			model.addAttribute("loginUser",null);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('아이디와 비밀번호를 다시 확인해주세요');</script>"); 
+			out.flush();
+		}else if(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			model.addAttribute("loginUser", loginUser);
-			System.out.println("로그인성공");
-			return "common/main";
-		}else {
-			System.out.println("로그인 실패");
-			throw new MemberException("로그인 실패");
+			System.out.println("로그인 성공");
+		}else{
+			 System.out.println("로그인 실패");
 		}
-		
+		return "common/main";	
 	}
 	
 	//0819 로그아웃 - 지민
@@ -244,10 +252,10 @@ public class MemberController {
 			boolean trueorfalse = memberService.checkNickName(nickName)==0? true:false;
 			
 			//gson boolean형태 안 먹기 떄문에 int형으로 바꿔서 넘기기
-			int chekchemail = memberService.checkNickName(nickName);
+			int chekchnickName = memberService.checkNickName(nickName);
 		
 		 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		 gson.toJson(chekchemail,response.getWriter());
+		 gson.toJson(chekchnickName,response.getWriter());
 		
 		}
 		
@@ -288,9 +296,8 @@ public class MemberController {
 				} catch (MessagingException e) {
 					e.printStackTrace();
 				}
-		/*
-		 * String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd()); //암호화된 비밀번호
-		 */				//임시 비밀번호로 DB업데이트 작업 시작
+		
+				//임시 비밀번호로 DB업데이트 작업 시작
 				m.setMemberPwd(dice); 
 				String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());	//암호화된 비밀번호
 				m.setMemberPwd(encPwd);
@@ -310,6 +317,20 @@ public class MemberController {
 				}
 			return "common/main";	
 			}
+		
+		//이메일 중복체크
+		@RequestMapping(value="checkemailDup.do")
+		public void checkEmailDup(String email,HttpServletResponse response) throws JsonIOException, IOException{
+		/* System.out.println("이메일 잘 가지고 오는지 확인  " + email); */
+			boolean trueorfalse = memberService.chekchemailDup(email)==0? true:false;
+			
+			//gson boolean형태 안 먹기 떄문에 int형으로 바꿔서 넘기기
+			int chekchemail = memberService.chekchemailDup(email);
+		
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			gson.toJson(chekchemail,response.getWriter());
+		
+		}
 		
 		
 

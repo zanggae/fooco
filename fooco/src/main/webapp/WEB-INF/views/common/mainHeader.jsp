@@ -33,7 +33,8 @@
 	color:black;
 	font-size:16px;
 	padding:0px;
-	margin:0px
+	margin:0px;
+	box-shadow:none;
 }
 /* 모달 가로 넓게 */
 #for_first_modal {
