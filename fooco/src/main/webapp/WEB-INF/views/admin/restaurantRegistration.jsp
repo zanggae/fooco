@@ -14,15 +14,73 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
   <title>Hello, world!</title>
-  <style>
+  <style>    
     .table td {
       vertical-align: middle;
-    }    
+    }
     label{
-      color: rgb(204, 51, 98);
+      font-weight: bold;
     }
     table tr td{
       padding-bottom: 1rem;
+    }
+
+    /* 사진이미지 */
+    #imgtest img{
+        margin-left: 25px;
+    }
+    /* 사진이미지 밑 글씨 */
+    #imgtest p{
+        margin-top: 5px;
+        margin-left: 75px;
+    }
+    /* input태그 css */
+    input{
+        border-radius: 3px;
+        border: 0.5px solid black;
+    }
+    /* 노란색 테두리 */
+    #background_{
+        border:8px solid  rgb(253, 215, 129);
+        border-radius: 30px;
+        background: white;
+    }
+    /* 사진테두리 */
+    #img_background{
+        margin-left: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top: 30px;
+        width: 25%;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+    /* 등록버튼 */
+    #postcodify_search_button{
+        border: 1px solid rgb(204, 51, 98);
+        background:rgb(204, 51, 98);
+        border-radius: 3px;
+        color: white;
+    }
+    #postcodify_search_button:hover{
+        background: rgb(253, 215, 129);
+        color:rgb(204, 51, 98);
+    }
+    /* 아이콘 */
+    .fa-sticky-note{
+        font-size: 40px;
+        margin-left: 55px;
+        position: absolute;
+    }
+    /* 메뉴 + 하는 버튼 */
+    #plus_btn{
+        border: none;
+        background:rgb(204, 51, 98);
+        color: white;
+        border-radius: 3px;
+    }
+    .menu_2{
+        display: none;
     }
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -34,35 +92,50 @@
   
   <div style="margin-left: 13%;">
     <div class="container" style="padding: 5%; padding-left: 5rem;">
-      <h2 style="font-family:'bold'">음식점 등록</h2> 
-		    
+      <i class="far fa-sticky-note"></i><h2 style="font-family:'bold'; margin-left: 100px; margin-bottom: 20px;">음식점 등록</h2>      
       <br>
       <div class="container" style="padding:0;">
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col">
             <form>
-              <div style="width:85%; background-color:lightgray; border-radius:1rem; padding:2rem; padding-top:0;" align="center">
-              <table>
+              <div id="background_" style="width:80%; border-radius:1rem; padding:2rem; padding-top:0; margin-left: 40px;">
+                <div id="imgtest">
+                    <div id="img_background"><img src="image/LOGO.png" style="width: 8rem; height: 10rem;"></div><br>
+                    <p>[음식점 사진]</p>
+                </div>
+              <table style="margin-left: 300px; margin-top: -260px;">
                 <tr>
                   <td>
-                    <img src="img/logo.png" style="width: 8rem; height: 8rem;">
                     <input type="file" style="display: none;">
                   </td>
                 </tr>
                 <tr>
-                  <td><label>가게이름</label></td>
+                  <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>가게이름</label></td>
                   <td><input type="text" name="resName"></td>
                 </tr>
                 <tr>
-                  <td><label>가게설명</label></td>
+                  <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>가게설명</label></td>
                   <td><input type="text" name="resContent"></td>
                 </tr>
                 <tr>
-                  <td><label>전화번호</label></td>
+                  <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>전화번호</label></td>
                   <td><input type="tel" name="resName"></td>
                 </tr>
                 <tr>
-                  <td><label>서비스</label></td>
+                  <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>메뉴1</label></td>
+                  <td><input type="text" name="resName"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>메뉴2</label></td>
+                  <td><input type="text" name="resName"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>메뉴3</label></td>
+                  <td><input type="text" name="resName"></td>
+                </tr>
+
+                <tr>
+                  <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>서비스</label></td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" name="resFilter">주차</td>
@@ -77,7 +150,7 @@
                   <td><input type="checkbox" name="resFilter">유아시설</td>
                 </tr> 
                 <tr>
-                  <td><label>음식점 카테고리</label></td>
+                  <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>음식점 카테고리</label></td>
                   <td>
                     <select>
                       <option>카테고리1</option>
@@ -87,11 +160,11 @@
                   </td>
                 </tr>
                 <tr>
-                  <td><label>맴버십</label></td>
+                  <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>맴버십</label></td>
                   <td><input type="radio" name="resMembership">일반맛집&nbsp; <input type="radio" name="resMembership">파트너맛집</td>
                 </tr>
                 <tr>
-                  <td><label>지역</label></td>
+                  <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>지역</label></td>
                   <td><select>
                     <option>카테고리1</option>
                     <option>카테고리2</option>
@@ -122,7 +195,7 @@
                 <script>
                   $(function(){
                     $("#postcodify_search_button").postcodifyPopUp();
-                  })
+                  })                 
                 </script>
                 
               </table>

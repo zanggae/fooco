@@ -535,6 +535,8 @@ public class AdminController {
 	public String test() {
 		return "admin/test";
 	}
+	
+
 }
 
 
