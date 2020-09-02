@@ -96,7 +96,8 @@
       <result property="resTime" column="RES_TIME"/>
       <result property="resStatus" column="RES_STATUS"/>
       <result property="resCreateDate" column="RES_CREATE_DATE"/>
-      <result property="resUpdateDate" column="RES_UPDATE_DATE"/>       
+      <result property="resUpdateDate" column="RES_UPDATE_DATE"/>  
+      <result property="resPhone" column="RES_PHONE"/>     
       <result property="resImageName" column="RES_IMAGE_NAME"/> 
       <result property="resImageFilepath" column="RES_IMAGE_FILEPATH"/>
       <result property="locationName" column="LOCATION_NAME"/>

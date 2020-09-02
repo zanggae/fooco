@@ -35,6 +35,7 @@ import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
@@ -520,6 +521,15 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping(value="registrationRestaurant.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView registrationRestaurant(ModelAndView mv, Restaurant r, String[] menu, String[] filter,
+			String post, String address1, String address2, Image i
+			,HttpServletRequest request,
+			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+		
+		
+		return mv;
+	}
 	@RequestMapping("restaurantRegistration.do")
 	public String restaurantRegistration() {
 		return "admin/restaurantRegistration";

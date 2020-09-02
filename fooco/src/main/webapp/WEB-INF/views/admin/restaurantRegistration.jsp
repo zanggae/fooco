@@ -97,10 +97,11 @@
       <div class="container" style="padding:0;">
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col">
-            <form>
+            <form action="registrationRestaurant.do" method="post" enctype="multipart/form-data">
               <div id="background_" style="width:80%; border-radius:1rem; padding:2rem; padding-top:0; margin-left: 40px;">
                 <div id="imgtest">
-                    <div id="img_background"><img src="image/LOGO.png" style="width: 8rem; height: 10rem;"></div><br>
+                	<input type="file" style="display: none" id="thumbnailChange" name="#" accept="image/*">
+                    <div id="img_background" onclick="thumbnail()"><img id="img" src="image/LOGO.png" style="width: 8rem; height: 10rem;"></div><br>
                     <p>[음식점 사진]</p>
                 </div>
               <table style="margin-left: 300px; margin-top: -260px;">
@@ -115,7 +116,7 @@
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>가게설명</label></td>
-                  <td><input type="text" name="resContent"></td>
+                  <td><textarea id="rContent" name="resContent" style="height: 100px !important;" readonly="readonly" onclick="modal()"></textarea></td>
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>전화번호</label></td>
@@ -123,31 +124,35 @@
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>메뉴1</label></td>
-                  <td><input type="text" name="resName"></td>
+                  <td><input type="text" name="menu"></td>
                 </tr>
                 <tr>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>메뉴2</label></td>
-                  <td><input type="text" name="resName"></td>
+                  <td><input type="text" name="menu"></td>
                 </tr>
                 <tr>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>메뉴3</label></td>
-                  <td><input type="text" name="resName"></td>
+                  <td><input type="text" name="menu"></td>
                 </tr>
 
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>서비스</label></td>
                 </tr>
                 <tr>
-                  <td><input type="checkbox" name="resFilter">주차</td>
-                  <td><input type="checkbox" name="resFilter">와이파이</td>
+                  <td><input type="checkbox" name="filter" value="1">주차</td>
+                  <td><input type="checkbox" name="filter" value="2">와이파이</td>
                 </tr>
                 <tr>
-                  <td><input type="checkbox" name="resFilter">룸</td>
-                  <td><input type="checkbox" name="resFilter">노키즈존</td>
+                  <td><input type="checkbox" name="filter" value="3">룸</td>
+                  <td><input type="checkbox" name="filter" value="4">노키즈존</td>
                 </tr>
                 <tr>
-                  <td><input type="checkbox" name="resFilter">야외좌석</td>
-                  <td><input type="checkbox" name="resFilter">유아시설</td>
+                  <td><input type="checkbox" name="filter" value="5">야외좌석</td>
+                  <td><input type="checkbox" name="filter" value="6">유아시설</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="filter" value="7" id="partner" style="display: none"></td>
+                  <td></td>
                 </tr> 
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>음식점 카테고리</label></td>
@@ -161,7 +166,7 @@
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>맴버십</label></td>
-                  <td><input type="radio" name="resMembership">일반맛집&nbsp; <input type="radio" name="resMembership">파트너맛집</td>
+                  <td><input type="radio" name="resMembership" onclick="partnerOff()">일반맛집&nbsp; <input type="radio" name="resMembership" onclick="partnerOn()">파트너맛집</td>
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>지역</label></td>
@@ -199,6 +204,7 @@
                 </script>
                 
               </table>
+              <button id="submit"style="display: none">등록</button>
             </div>
             </form>
           </div>          
@@ -211,9 +217,34 @@
       </div>
       <div align="center" style="width: 85%;">
         <button type="button" class="btn"
-          style="background:rgb(204, 51, 98); color: white; width:95px;">등록</button>
+          style="background:rgb(204, 51, 98); color: white; width:95px;" onclick="submit()">등록</button>
       </div>
-
+      
+	<!-- 모달 영역 -->
+	<button type="button" class="btn btn-primary" id="modalBtn" data-toggle="modal" data-target="#staticBackdrop" style="display: none">
+	  Launch static backdrop modal
+	</button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel">가게 설명</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <textarea rows="20" cols="53" style="resize: none" id="mContent"></textarea>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+	        <button type="button" class="btn btn-primary" onclick="contentUp()">설명등록</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
       
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -224,7 +255,78 @@
 
     </div>
   </div>
+	<!-- 프로필 +버튼 클릭 시 파일 변경 창 띄우기 -->
+<script>
+  function thumbnail() {
+    $(function () {
+      $("#thumbnailChange").click();
+    })
+  }
+</script>
 
+<!-- 프로필 사진 변경 시 이미지 미리보기 -->
+<script>
+	var sel_file;
+	$(document).ready(function(){
+		$("#thumbnailChange").on("change", handleImgFileSelect);
+	});
+
+	function handleImgFileSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+			
+			sel_file = f;
+			
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#img").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(f);
+		});
+	}
+
+</script>
+<script>
+	function modal(){
+		$("#modalBtn").click();
+	}
+	function contentUp(){		
+		var content = $("#mContent").val();
+		$("#rContent").val(content);
+		/* $("#mContent").val(""); */		
+		$("#close").click();
+	}
+	function partnerOn(){
+		$("#partner").prop("checked",true);
+	}
+	function partnerOff(){
+		$("#partner").prop("checked",false);
+	}
+	function submit(){
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		$("#submit").click();
+	}
+	
+</script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
