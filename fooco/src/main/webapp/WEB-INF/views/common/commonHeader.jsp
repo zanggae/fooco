@@ -230,7 +230,7 @@
                                     </c:if>                                   
 
                                     <a class="dropdown-item mh-dropdown-item" href="myPageInfo.do">지역 맛집</a>
-                                    <a class="dropdown-item mh-dropdown-item" href="theme.do">테마 맛집</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="themeMain.do">테마 맛집</a>
 
 
                                     <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
