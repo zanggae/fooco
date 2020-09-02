@@ -31,6 +31,14 @@ public interface MemberService {
 
 	ArrayList<Following> selectFollowing(Member m);
 
+	int checkNickNameDup(String nickName);
+
+	int updateMemberInfo(Member m);
+
+	int updateMemberWithdrawal(Member m);
+
+
+
 
 
 

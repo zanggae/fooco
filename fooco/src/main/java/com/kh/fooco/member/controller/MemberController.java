@@ -2,8 +2,11 @@ package com.kh.fooco.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -24,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -418,19 +422,19 @@ public class MemberController {
 			return renameFileName;
 		}
 		
-		private void deleteFile(String fileName, HttpServletRequest request) {
-			String root = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = root + "\\buploadFiles";
-			
-			File f = new File(savePath + "\\" + fileName);
-			if(f.exists()) {
-				f.delete(); // 그 경로안에 있는 파일을 지워주는 메소드
-			}
-			
-		}
+//		private void deleteFile(String fileName, HttpServletRequest request) {
+//			String root = request.getSession().getServletContext().getRealPath("resources");
+//			String savePath = root + "\\buploadFiles";
+//			
+//			File f = new File(savePath + "\\" + fileName);
+//			if(f.exists()) {
+//				f.delete(); // 그 경로안에 있는 파일을 지워주는 메소드
+//			}
+//			
+//		}
 		
 		
-		
+		// 팔로우 페이지 이동
 		@RequestMapping("follow.do")
 		public ModelAndView followpage(ModelAndView mv, Member m){
 			
@@ -453,9 +457,109 @@ public class MemberController {
 			return mv;
 		}
 		
+		
+		// 내정보 수정 시 비밀번호 확인 ajax
+		@RequestMapping("infoPwdCheck.do")
+		public void infoPwdCheck(HttpServletResponse response, Member m) throws IOException {
+			
+			Member loginUser = memberService.loginMember(m);
+			
+			System.out.println("넘어온 비밀번호 : " + m);
+			System.out.println("로그인 유저의 비밀번호 : " + loginUser.getMemberPwd());
+			
+			boolean isUserble = (bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) ? true : false;
+			
+			System.out.println("내정보 수정 블린값 : " + isUserble);
+			
+			PrintWriter out = response.getWriter();
+			out.print(isUserble);
+			out.flush();
+			out.close();
+		}
+		
+		// 내정보 수정 페이지 이동
+		@RequestMapping(value="infoCheck.do", method=RequestMethod.POST)
+		public String infomationModifyView() {
+			
+			return "mypage/myPageInfomationModify";
+		}
+			
+		
+		// 개인정보 수정
+		@RequestMapping(value="updateMember.do", method=RequestMethod.GET)
+		public ModelAndView updateMember(ModelAndView mv, Member m, 
+				@RequestParam("post") String post,
+				@RequestParam("address1") String address1,
+				@RequestParam("address2") String address2) {
+			
+			// 주소(우편번호, 도로명 주소, 상세주소) 
+			m.setAddress(post + "," + address1 + "," + address2);
+			
+			// 새 비밀번호 암호화
+			String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());
+			m.setMemberPwd(encPwd);
+			
+			System.out.println(m);
+			
+			int followCount = memberService.selectOneFollowCount(m);
+			int followingCount = memberService.selectOneFollowingCount(m);
+			String rename_name = memberService.selectOneProFile(m);
+			
+			int result = memberService.updateMemberInfo(m);
+			
+			if(result > 0) {
+				mv.addObject("loginUser", m);
+				mv.addObject("followCount",followCount);
+				mv.addObject("followingCount",followingCount);
+				mv.addObject("rename_name",rename_name);
+				mv.setViewName("mypage/myPageInfo");
+			} else {
+				throw new MemberException("내 정보 수정 실패");
+			}
+			
+			return mv;
+		}
+		
+		
+		// 닉네임 중복확인 ajax
+		@RequestMapping("dupNickName.do")
+		public void nickNameDuplicateCheck(HttpServletResponse response, String nickName) throws IOException {
+//			System.out.println(nickName);
+			boolean isUserble = memberService.checkNickNameDup(nickName) == 0 ? true : false;
+			
+//			System.out.println("isUserble = " + isUserble);
+			PrintWriter out = response.getWriter();
+			out.print(isUserble);
+			out.flush();
+			out.close();
+		}
+		
+		
+		
+		// 1:1문의 수정페이지 이동
 		@RequestMapping("inquiryes.do")
 		public String inquirypage() {
 			return "mypage/myPageInquiryModify";
+		}
+		
+		// 회원 탈퇴페이지 이동
+		@RequestMapping("myPageWithdrawal.do")
+		public String myPageWithdrawalView() {
+			return "mypage/myPageWithdrawal";
+		}
+		
+		// 회원탈퇴 후 메인페이지로 이동
+		@RequestMapping(value="WithdrawalComplete.do", method=RequestMethod.POST)
+		public ModelAndView WithdrawalComplete(ModelAndView mv, Member m, SessionStatus status) {
+			System.out.println(m); // 회원번호 확인용
+			int result = memberService.updateMemberWithdrawal(m);
+			
+			if(result > 0) {
+				status.setComplete(); // 회원탈퇴 후 메인페이지로 이동할 때 세션이 남아있는것을 방지
+				mv.setViewName("redirect:main.do");
+			}
+			
+			return mv;
 		}
 		
 }

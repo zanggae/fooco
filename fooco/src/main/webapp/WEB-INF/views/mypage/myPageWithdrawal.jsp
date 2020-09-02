@@ -84,13 +84,13 @@
               
               <div class="row shadow-sm withdrawal_div">
                 <div class="col" align="center">
-                  <form action="">
+                 <form action="WithdrawalComplete.do" method="post" id="infoPwdCheckForm1">
                     <div class="row" style="margin-bottom: 0.7rem;">
                       <div class="col-4">
                         <p class="withdrawal_font" style="margin-right: 2.4rem;">비밀번호</p>
                       </div>
                       <div class="col-6">
-                        <input type="password" class="form-control" style="width: 20rem;">
+                        <input type="password" class="form-control" id="memberPwd1" name="memberPwd" style="width: 20rem;">
                       </div>
                     </div>
                     <div class="row" style="margin-bottom: 0.7rem;">
@@ -98,36 +98,19 @@
                         <p class="withdrawal_font">비밀번호 확인</p>
                       </div>
                       <div class="col-6">
-                        <input type="password" class="form-control" style="width: 20rem;">
+                        <input type="password" class="form-control" id="memberPwd2" style="width: 20rem;">
                       </div>
                     </div>
-                    <div class="row" style="margin-bottom: 0.7rem;">
-                      <div class="col-4">
-                        <p class="withdrawal_font" style="margin-right: 2rem;">탈퇴 사유</p>
-                      </div>
-                      <div class="col-6">
-                        <select class="form-control" style="width: 20rem;">
-                          <option selected value="">선택</option>
-                          <option value="withdrawal1">탈퇴사유 1</option>
-                          <option value="withdrawal2">탈퇴사유 2</option>
-                          <option value="withdrawal3">탈퇴사유 3</option>
-                          <option value="withdrawal4">탈퇴사유 4</option>
-                        </select>
-                      </div>
-                    </div>
-              
+                    	<input type="hidden" name="memberId" value="${loginUser.memberId }">
+                    	<input type="hidden" id="email" name="email" value="${loginUser.email }">
                     <div class="row" style="margin-top: 2rem;">
                       <div class="col" align="center">
-                        <input type="submit" class="btn btn-secondary btn-sm" value="탈퇴완료" onclick="withdrawalcheck();">&nbsp;
+                      	<button type="button" id="withdrawalbtn" class="btn btn-secondary btn-sm">탈퇴완료</button>
                       </div>
                     </div>
                   </form>
                 </div>
               </div>
-
-					
-
-						
 
 					
 					</div>
@@ -147,6 +130,41 @@
     alert("그 동안 이용해주셔서 감사합니다.")
   }
 </script>
+
+<script>
+ // 비밀번호 확인 후 내정보 수정하기 이동하는 ajax
+  	$("#withdrawalbtn").click(function(){
+  		var memberPwd = $("#memberPwd1").val();
+  		var email = $("#email").val();
+  		$.ajax({
+  			url:"infoPwdCheck.do",
+  			data:{memberPwd:memberPwd,email:email},
+  			success:function(data){
+  				if(data == "true" &&  $("#memberPwd1").val() == $("#memberPwd2").val()){
+  					 alert("그 동안 이용해주셔서 감사합니다.")
+  					$("#infoPwdCheckForm1").submit();
+  				}else{
+  					alert("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.")
+  				}
+  			},
+  			error:function(request, status, errorData){
+  				alert("error code: " + request.status + "\n"
+  						+"message: " + request.responseText
+  						+"error: " + errorData);
+  			}
+  		})
+  	})
+  	
+  	
+// 엔터 방지 - 엔터를 누르면 자동 submit이 되기때문에 방지하기위한 함수
+$(document).keypress(function(e) {
+	if (e.keyCode == 13) 
+		e.preventDefault(); 
+	});
+
+
+  	
+  </script>
 
 
 </html>

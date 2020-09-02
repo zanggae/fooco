@@ -79,6 +79,22 @@ public class MemberDao {
 		return sqlSessionTemplate.update("memberMapper.searchMemberPwd",m);
 	}
 
+	public int checkNickNameDup(String nickName) {
+		
+		return sqlSessionTemplate.selectOne("mypageMapper.checkNickNameDup",nickName);
+	}
+
+	public int updateMemberInfo(Member m) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateMemberInfo",m);
+	}
+
+	public int updateMemberWithdrawal(Member m) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateMemberWithdrawal",m);
+	}
+
+
 
 
 	

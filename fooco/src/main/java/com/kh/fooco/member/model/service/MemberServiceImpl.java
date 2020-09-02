@@ -91,5 +91,28 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectFollowing(m);
 	}
 
+	//개인정보 수정페이지 닉네임 중복 확인 메소드
+	@Override
+	public int checkNickNameDup(String nickName) {
+		
+		return memberDao.checkNickNameDup(nickName);
+	}
+
+	// 개인정보 수정 메소드
+	@Override
+	public int updateMemberInfo(Member m) {
+		
+		return memberDao.updateMemberInfo(m);
+	}
+	
+	// 회원탈퇴 메소드
+	@Override
+	public int updateMemberWithdrawal(Member m) {
+		
+		return memberDao.updateMemberWithdrawal(m);
+	}
+
+
+
 	
 }

@@ -59,7 +59,7 @@ WHERE MEMBER_ID = #{memberId}
 
 <!-- 프로필 사진 변경 쿼리 -->
 <update id="updateMemberProfile" parameterType="Member">
-UPDATE PROFILE_IMG SET RENAME_NAME = #{renameName} WHERE MEMBER_ID = ${memberId}
+UPDATE PROFILE_IMG SET RENAME_NAME = #{renameName} WHERE MEMBER_ID = #{memberId}
 </update>
 
 <!-- 팔로워 조회 쿼리 -->
@@ -76,7 +76,7 @@ LEFT JOIN PROFILE_IMG PI ON (M.MEMBER_ID = PI.MEMBER_ID)
 WHERE M.MEMBER_ID IN (SELECT FW.FOLLOWER_ID
                         FROM FOLLOW FW
                         LEFT JOIN MEMBER M ON (FW.FOLLOWING_ID = M.MEMBER_ID)
-                        WHERE MEMBER_ID = ${memberId})
+                        WHERE MEMBER_ID = #{memberId})
 ]]> 
 </select>
 
@@ -94,9 +94,34 @@ LEFT JOIN PROFILE_IMG PI ON (M.MEMBER_ID = PI.MEMBER_ID)
 WHERE M.MEMBER_ID IN (SELECT FW.FOLLOWING_ID
                         FROM FOLLOW FW
                         LEFT JOIN MEMBER M ON (FW.FOLLOWER_ID = M.MEMBER_ID)
-                        WHERE MEMBER_ID = ${memberId})
+                        WHERE MEMBER_ID = #{memberId})
 ]]> 
 </select>
 
+
+<!-- 닉네임 중복 확인 쿼리 -->
+<select id="checkNickNameDup" parameterType="string" resultType="_int">
+SELECT COUNT(*)
+FROM MEMBER
+WHERE NICKNAME = #{nickName}
+</select>
+
+
+<!-- 내정보 수정 쿼리 -->
+<update id="updateMemberInfo" parameterType="Member">
+	UPDATE MEMBER
+	SET MEMBER_PWD=#{memberPwd}
+	, NICKNAME=#{nickName}
+	, PHONE=#{phone}
+	, ADDRESS=#{address}
+	WHERE MEMBER_ID = #{memberId}
+</update>
+
+<!-- 회원탈퇴 쿼리 -->
+<update id="updateMemberWithdrawal" parameterType="Member">
+	UPDATE MEMBER
+	SET MEMBER_STATUS = 'N'
+	WHERE MEMBER_ID = #{memberId}
+</update>
 
 </mapper>
