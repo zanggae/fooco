@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +100,12 @@
 	margin: 0;
 }
 
-
+   .guide{
+      display:none;
+      font-size:0.8rem;;
+   }
+   label.ok{color:green;}
+   label.error{color:red;}
 </style>
 
 <body>
@@ -116,110 +122,171 @@
 						<div class="row">
                 <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F440; 내 정보 수정</p>
               </div>
-
-					<div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem;">
-                  <div class="col-2"></div>
-                  <div class="col-8">
-                    <form action="">
+		
+					<div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem; padding-left:2rem;">
+                  <div class="col-12">
+                    <form action="updateMember.do" method="get" id="infoModifyForm">
+                    	<input type="hidden" name="memberId" value="${loginUser.memberId}">
                       <div class="row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>이름</span>
                         </div>
                         <div class="col-7">
-                          <input type="text" name="name">
+                          <input type="text" name="memberName" value="${loginUser.memberName }" readonly>
                         </div>
                       </div>
                       <div class="row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>이메일</span>
                         </div>
                         <div class="col-7">
-                          <input type="email" name="email">
+                          <input type="email" name="email" value="${loginUser.email }" readonly>
                         </div>
                       </div>
                       <div class="row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>닉네임</span>
                         </div>
-                        <div class="col-7">
-                          <input type="text" name="nickname">
+                        <div class="col-8">
+                          <input type="text" id="nickName" class="nickNames" name="nickName">
+                          <span style="font-size: 0.7rem;">3-6자의 한글만 사용 가능</span>
+                        
+						<label class="guide ok">이 닉네임은 사용 가능합니다.</label>
+						<label class="guide error">이 닉네임은 사용할 수 없습니다.</label>
+						<input type="hidden" id="nickNameDuplicateCheck" value="0">
                         </div>
                       </div>
                       <div class="row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>새 비밀번호</span>
                         </div>
-                        <div class="col-7">
-                          <input type="password" name="newpwd">
+                        <div class="col-8">
+                          <input type="password" id="userPwd1" name="memberPwd" required>
+                           <span style="font-size: 0.63rem;">8~16자의 영문자,숫자 사용하여 입력</span>
+              				<label id="resultPwd1"></label>
                         </div>
                       </div>
                       <div class="row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>새 비밀번호 확인</span>
                         </div>
                         <div class="col-7">
-                          <input type="password" name="checknewpwd">
+                          <input type="password" id="userPwd2" required>
+                          <label id="resultPwd2"></label>
                         </div>
                       </div>
                       <div class="row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>성별</span>
                         </div>
                         <div class="col-7">
-                          <input type="radio" id="male" name="gender" value="M" checked>
-                          <label for="male">남자</label>&nbsp;&nbsp;&nbsp;
-          
-                          <input type="radio" id="female" name="gender" value="F">
-                          <label for="female">여자</label>
+                          <input type="hidden" id="gender" name="gender" value="${loginUser.gender }">
+                          <span id="genderArea"></span>
                         </div>
                       </div>
                       <div class="row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>연락처</span>
                         </div>
                         <div class="col-7">
-                          <input type="tel" name="phone">
+                          <input type="tel" name="phone" value="${loginUser.phone }">
                         </div>
                       </div>
+                      
+                      <!-- address값이 null일때 -->
+                      <c:if test="${empty loginUser.address }">
                       <div class="row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>우편번호</span>
                         </div>
                         <div class="col-7">
                           <div class="row">
-                          <input type="text" name="post" style="width: 8rem;">&nbsp;
-                          <button type="button" class="btn btn-secondary btn-sm">검색</button>
+                          <input type="text" name="post" 
+						 	class="postcodify_postcode5" value="${post }" style="width: 8rem;">&nbsp;
+                          <button type="button" id="postcodify_search_button" class="btn btn-secondary btn-sm">검색</button>
                           </div>
                         </div>
                       </div>
                       <div class="row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>도로명 주소</span>
                         </div>
                         <div class="col-7">
-                          <input type="text" name="address1">
+                          <input type="text" name="address1"
+						 	      class="postcodify_address" value="${address1 }">
                         </div>
                       </div>
                       <div class="row" style="margin-bottom: 2rem;">
-                        <div class="col-5">
+                        <div class="col-4">
                           <span>상세주소</span>
                         </div>
                         <div class="col-7">
-                          <input type="text" name="address2">
+                          <input type="text" name="address2"
+						 		  class="postcodify_extra_info" value="${address2 }">
                         </div>
-                      </div>                   
+                      </div>
+                      </c:if>
+                      
+                      <!-- address값이 null이 아닐때 -->
+                      <c:if test="${!empty loginUser.address }">
+                     <c:forTokens var="addr" items="${loginUser.address }" delims="," varStatus="status">
+					 <c:if test="${status.index eq 0 }">
+                      <div class="row" style="margin-bottom: 1rem;">
+                        <div class="col-4">
+                          <span>우편번호</span>
+                        </div>
+                        <div class="col-7">
+                          <div class="row">
+                          <input type="text" name="post" 
+						 	class="postcodify_postcode5" value="${addr }" style="width: 8rem;">&nbsp;
+                          <button type="button" id="postcodify_search_button" class="btn btn-secondary btn-sm">검색</button>
+                          </div>
+                        </div>
+                      </div>
+                      </c:if>
+					 <c:if test="${status.index eq 1 }">
+                      <div class="row" style="margin-bottom: 1rem;">
+                        <div class="col-4">
+                          <span>도로명 주소</span>
+                        </div>
+                        <div class="col-7">
+                          <input type="text" name="address1"
+						 	      class="postcodify_address" value="${addr }">
+                        </div>
+                      </div>
+                      </c:if>
+					 <c:if test="${status.index eq 2 }">
+                      <div class="row" style="margin-bottom: 2rem;">
+                        <div class="col-4">
+                          <span>상세주소</span>
+                        </div>
+                        <div class="col-7">
+                          <input type="text" name="address2"
+						 		  class="postcodify_extra_info" value="${addr }">
+                        </div>
+                      </div>
+                      </c:if>
+                      </c:forTokens>
+                      </c:if>
+                      
+                      <!-- Postcodify를 로딩하자 -->
+				 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+				 <script>
+				 	$(function(){
+				 		$("#postcodify_search_button").postcodifyPopUp();
+				 	})
+				 </script>
+                      
+                                         
                       <div class="row" style="margin-bottom: 1rem;">
                         <div class="col" align="center">
-                          <input type="submit" class="btn btn-primary btn-sm" value="수정완료">&nbsp;
+                          <button type="button" class="btn btn-primary btn-sm" onclick="validate();">수정완료</button>&nbsp;
                         </div>
                       </div>
                     </form>
                   </div>
-                    <div class="col-2"></div>
+                   
                 </div>
-
-						
-
 					
 					</div>
 				</div>
@@ -232,6 +299,134 @@
 
 </body>
 
+<script>
+	$(function gender() {
+		var man = "남자";
+		var girl = "여자";
+
+		if ($("#gender").val() == "M") {
+			document.getElementById("genderArea").innerHTML = man;
+		} else {
+			document.getElementById("genderArea").innerHTML = girl;
+		}
+	})
+</script>
+
+<script>
+	  //정규표현식(비밀번호)
+	  $(function(){
+	     var FalseStyle = {"color":"red","font-size":"0.8rem","margin-bottom":"0rem"};
+	     var TrueStyle = {"color":"green","font-size":"0.8rem","margin-bottom":"0rem"};
+	
+	  //비밀번호 정규 표현식 : 8~16자의 영문자,숫자 + 비밀번호 일치 여부
+	  $("#userPwd1").change(function(){
+	    var regEx = /^[A-Za-z0-9]{8,16}$/;
+	    if(!regEx.test($("#userPwd1").val())){
+	      $("#resultPwd1").html("8~16자의 영문자,숫자 사용").css(FalseStyle);
+	      $(this).val('').focus();
+	    }else{
+	      $("#resultPwd1").html("비밀번호로 사용 가능합니다.").css(TrueStyle);
+	    }
+	  }).keyup(function(){
+	      if($(this).val()!=$('#userPwd2').val()&&$('#userPwd2').val()!=''){
+	          $('#resultPwd2').html('비밀번호가 일치하지 않습니다.').css(FalseStyle)
+	      }
+	      if($(this).val()==$('#userPwd2').val()&&$('#userPwd2').val()!=''){
+	          $('#resultPwd2').html('비밀번호가 일치합니다.').css(TrueStyle)
+	      }
+	  });
+	
+	  $('#userPwd2').change(function(){
+	      if($(this).val()!=$('#userPwd1').val()){
+	          $('#resultPwd2').html('비밀번호가 일치하지 않습니다').css(FalseStyle)
+	          $('#userPwd2').prop('value', '').focus();
+	      }else{
+	          $('#resultPwd2').html('비밀번호가 일치합니다.').css(TrueStyle)
+	      }
+	  }).keyup(function(){
+	      if($(this).val()==$('#userPwd1').val()&&$('#userPwd2').val()!=''){
+	          $('#resultPwd2').html('비밀번호가 일치합니다.').css(TrueStyle)
+	      }
+	      if($(this).val()!=$('#userPwd1').val()&&$(this).val()!=''){
+	          $('#resultPwd2').html('비밀번호가 일치하지 않습니다.').css(FalseStyle);
+	      }
+	  });
+	
+	     
+	  })
+</script>
+
+<script>
+
+// 닉네임 정규표현식
+$(function(){
+	$(".nickNames").change(function(){
+	      var regEx = /^[가-힣]{3,6}$/;
+	      if(!regEx.test($("#nickName").val())){
+	        $(this).val('').focus();
+	        $(".error").show();
+			$(".ok").hide();
+			$("#nickNameDuplicateCheck").val(0);
+	      }
+})
+})
+
+
+//닉네임 중복 확인
+$(function(){
+$("#nickName").on("keyup", function(){
+	
+	var nickName = $(this).val().trim();
+	
+	$.ajax({
+		url:"dupNickName.do",
+		data:{nickName:nickName},
+		success:function(data){
+		 	if(data == "true" && nickName != null){
+				$(".error").hide();
+				$(".ok").show();
+				$("#nickNameDuplicateCheck").val(1);
+			}else{
+				$(".error").show();
+				$(".ok").hide();
+				$("#nickNameDuplicateCheck").val(0);
+			}
+		},
+		error:function(request, status, errorData){
+			alert("error code: " + request.status + "\n"
+					+"message: " + request.responseText
+					+"error: " + errorData);
+		}
+	})
+})
+})
+</script>
+
+<script>
+// 조건 맞으면 submit
+function validate(){
+if($("#nickNameDuplicateCheck").val() == 0){
+	alert("사용 가능한 닉네임를 입력해 주세요.");
+	$("#nickName").focus();
+	return;
+} 
+if($("#userPwd1").val()==""){
+    alert("새 비밀번호를 입력하세요");
+    $("#userPwd1").focus();
+    return;
+  }
+if($("#userPwd1").val()!= $("#userPwd2").val()){
+    alert("새 비밀번호 확인해 주세요");
+    $("#userPwd2").focus();
+    return;
+  }  
+  
+	$("#infoModifyForm").submit();
+	alert("전송이 되었습니다.");
+
+}
+
+</script>
 
 
 </html>

@@ -219,8 +219,9 @@
 						<div class="col sr-content-input d-flex align-items-center">
 							<div class="sr-content-selectLocal input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text"><i
-										class="fas fa-map-marker-alt"></i></span>
+									<span class="input-group-text">
+										<i class="fas fa-map-marker-alt"></i>
+									</span>
 								</div>
 								<select class="form-control sr-content-input-local">
 									<option selected>전체</option>
@@ -233,8 +234,7 @@
 									<option>울산</option>
 								</select>
 							</div>
-							<input type="search" class="form-control"
-								placeholder="먹고 싶은 음식(한식, 중식, 분식)이나 맛집 이름을 입력하세요.">
+							<input type="search" class="form-control" placeholder="먹고 싶은 음식(한식, 중식, 분식)이나 맛집 이름을 입력하세요.">
 						</div>
 						<div
 							class="col sr-content-title d-flex flex-column justify-content-center">

@@ -24,17 +24,18 @@ public class Review implements Serializable {
 	private int reviewServicerating;
 	
 	// Review 부가 요소
-	private String nickname;
-	private int reviewCount;
-	private int followerCount;
-	private ArrayList<Image> reviewImages;
+	private String reviewProfileImageName;		// 리뷰어의 프로필사진이름
+	private String reviewProfileImageFilepath;	// 리뷰어의 프로필사진경로
+	private String nickname;				    // 리뷰어의 별칭
+	private int reviewCount;                    // 리뷰어의 리뷰 수
+	private int followerCount;                  // 리뷰어의 팔로워 수
+	private ArrayList<Image> reviewImages;      // 리뷰어가 첨부한 이미지들
 	
 	public Review() {}
-	
 	public Review(int reviewId, int resId, int memberId, Date reviewCreateDate, Date reviewUpdateDate,
 			String reviewContent, int reviewGoodcount, int reviewRating, int reviewTasterating, int reviewPricerating,
-			int reviewServicerating, String nickname, int reviewCount, int followerCount,
-			ArrayList<Image> reviewImages) {
+			int reviewServicerating, String reviewProfileImageName, String reviewProfileImageFilepath, String nickname,
+			int reviewCount, int followerCount, ArrayList<Image> reviewImages) {
 		super();
 		this.reviewId = reviewId;
 		this.resId = resId;
@@ -47,144 +48,127 @@ public class Review implements Serializable {
 		this.reviewTasterating = reviewTasterating;
 		this.reviewPricerating = reviewPricerating;
 		this.reviewServicerating = reviewServicerating;
+		this.reviewProfileImageName = reviewProfileImageName;
+		this.reviewProfileImageFilepath = reviewProfileImageFilepath;
 		this.nickname = nickname;
 		this.reviewCount = reviewCount;
 		this.followerCount = followerCount;
 		this.reviewImages = reviewImages;
 	}
-
+	
 	public int getReviewId() {
 		return reviewId;
 	}
-	
 	public void setReviewId(int reviewId) {
 		this.reviewId = reviewId;
 	}
-	
 	public int getResId() {
 		return resId;
 	}
-	
 	public void setResId(int resId) {
 		this.resId = resId;
 	}
-	
 	public int getMemberId() {
 		return memberId;
 	}
-	
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
 	}
-	
 	public Date getReviewCreateDate() {
 		return reviewCreateDate;
 	}
-	
 	public void setReviewCreateDate(Date reviewCreateDate) {
 		this.reviewCreateDate = reviewCreateDate;
 	}
-	
 	public Date getReviewUpdateDate() {
 		return reviewUpdateDate;
 	}
-	
 	public void setReviewUpdateDate(Date reviewUpdateDate) {
 		this.reviewUpdateDate = reviewUpdateDate;
 	}
-	
 	public String getReviewContent() {
 		return reviewContent;
 	}
-	
 	public void setReviewContent(String reviewContent) {
 		this.reviewContent = reviewContent;
 	}
-	
 	public int getReviewGoodcount() {
 		return reviewGoodcount;
 	}
-	
 	public void setReviewGoodcount(int reviewGoodcount) {
 		this.reviewGoodcount = reviewGoodcount;
 	}
-	
 	public int getReviewRating() {
 		return reviewRating;
 	}
-	
 	public void setReviewRating(int reviewRating) {
 		this.reviewRating = reviewRating;
 	}
-	
 	public int getReviewTasterating() {
 		return reviewTasterating;
 	}
-	
 	public void setReviewTasterating(int reviewTasterating) {
 		this.reviewTasterating = reviewTasterating;
 	}
-	
 	public int getReviewPricerating() {
 		return reviewPricerating;
 	}
-	
 	public void setReviewPricerating(int reviewPricerating) {
 		this.reviewPricerating = reviewPricerating;
 	}
-	
 	public int getReviewServicerating() {
 		return reviewServicerating;
 	}
-	
 	public void setReviewServicerating(int reviewServicerating) {
 		this.reviewServicerating = reviewServicerating;
 	}
-	
+	public String getReviewProfileImageName() {
+		return reviewProfileImageName;
+	}
+	public void setReviewProfileImageName(String reviewProfileImageName) {
+		this.reviewProfileImageName = reviewProfileImageName;
+	}
+	public String getReviewProfileImageFilepath() {
+		return reviewProfileImageFilepath;
+	}
+	public void setReviewProfileImageFilepath(String reviewProfileImageFilepath) {
+		this.reviewProfileImageFilepath = reviewProfileImageFilepath;
+	}
 	public String getNickname() {
 		return nickname;
 	}
-	
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	
 	public int getReviewCount() {
 		return reviewCount;
 	}
-	
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
 	}
-	
 	public int getFollowerCount() {
 		return followerCount;
 	}
-	
 	public void setFollowerCount(int followerCount) {
 		this.followerCount = followerCount;
 	}
-	
 	public ArrayList<Image> getReviewImages() {
 		return reviewImages;
 	}
-
 	public void setReviewImages(ArrayList<Image> reviewImages) {
 		this.reviewImages = reviewImages;
 	}
-
+	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Review [reviewId=").append(reviewId).append(", resId=").append(resId).append(", memberId=")
-				.append(memberId).append(", reviewCreateDate=").append(reviewCreateDate).append(", reviewUpdateDate=")
-				.append(reviewUpdateDate).append(", reviewContent=").append(reviewContent).append(", reviewGoodcount=")
-				.append(reviewGoodcount).append(", reviewRating=").append(reviewRating).append(", reviewTasterating=")
-				.append(reviewTasterating).append(", reviewPricerating=").append(reviewPricerating)
-				.append(", reviewServicerating=").append(reviewServicerating).append(", nickname=").append(nickname)
-				.append(", reviewCount=").append(reviewCount).append(", followerCount=").append(followerCount)
-				.append(", reviewImages=").append(reviewImages).append("]");
-		return builder.toString();
+		return "Review [reviewId=" + reviewId + ", resId=" + resId + ", memberId=" + memberId + ", reviewCreateDate="
+				+ reviewCreateDate + ", reviewUpdateDate=" + reviewUpdateDate + ", reviewContent=" + reviewContent
+				+ ", reviewGoodcount=" + reviewGoodcount + ", reviewRating=" + reviewRating + ", reviewTasterating="
+				+ reviewTasterating + ", reviewPricerating=" + reviewPricerating + ", reviewServicerating="
+				+ reviewServicerating + ", reviewProfileImageName=" + reviewProfileImageName
+				+ ", reviewProfileImageFilepath=" + reviewProfileImageFilepath + ", nickname=" + nickname
+				+ ", reviewCount=" + reviewCount + ", followerCount=" + followerCount + ", reviewImages=" + reviewImages
+				+ "]";
 	}
-
+	
 }
