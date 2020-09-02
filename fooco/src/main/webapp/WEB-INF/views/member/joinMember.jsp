@@ -713,7 +713,7 @@
           if ( ! jQuery('input[name="gender"]:checked').val() ) {
             alert('성별을 선택해주세요.');
             jQuery('input[name="gender"]').focus();
-            return false;
+            return false; 
           }
           if($("#terms_box").prop("checked")==false){
             alert("필수 약관에 동의 하셔야 합니다");
