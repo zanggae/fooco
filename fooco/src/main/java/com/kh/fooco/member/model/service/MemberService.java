@@ -37,6 +37,7 @@ public interface MemberService {
 
 	int updateMemberWithdrawal(Member m);
 
+	int chekchemailDup(String email);
 
 
 

@@ -79,6 +79,7 @@ public class MemberDao {
 		return sqlSessionTemplate.update("memberMapper.searchMemberPwd",m);
 	}
 
+
 	public int checkNickNameDup(String nickName) {
 		
 		return sqlSessionTemplate.selectOne("mypageMapper.checkNickNameDup",nickName);
@@ -92,6 +93,12 @@ public class MemberDao {
 	public int updateMemberWithdrawal(Member m) {
 		
 		return sqlSessionTemplate.update("mypageMapper.updateMemberWithdrawal",m);
+	}
+
+	//이메일 중복체크 메소드
+	public int chekchemailDup(String email) {
+		
+		return sqlSessionTemplate.selectOne("memberMapper.checkemailDup",email);
 	}
 
 

@@ -8,5 +8,7 @@ public interface RestaurantService {
 
 	ArrayList<Review> selectReviewList(int resId);
 
+	int getListCount(String location, String keyword);
+
 }
 

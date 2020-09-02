@@ -275,8 +275,6 @@
         	<!-- 1.gold 멤버십 -->
         	<c:forEach var="item" items="${membershiplist}" end="0">
         	<input type="hidden" name="membershipId1" id="membershipId1" value="${item.membershipId}">
-        	<input type="hidden" name="membership_name1" id="membership_name1" value="${item.membershipName}">
-        	<input type="hidden" name="membership_price1" id="membership_price1" value="${item.membershipPrice}">
         	</c:forEach>
         	<!-- 쿠폰정보 -->
         	<c:forEach var="item" items="${couponList}" end="0">
@@ -286,13 +284,22 @@
         	    <input type="hidden" name="buy_coupon3" id="buy_coupon3" value="${item.couponId}">  
     		</c:forEach> 
         	</form>
-        	<form id="mbuyFormSilver" action="buySilverMembership.do" method="post">
+        	
         	<!-- 2.silver 멤버십 -->
+        	<form id="mbuyFormSilver" action="buySilverMembership.do" method="post">
+        	<!-- 회원 정보 -->
+        	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.memberId}">
+        	<!-- 멤버십정보 -->
         	<c:forEach var="item" items="${membershiplist}" begin="1" end="1">
         	<input type="hidden" name="membershipId2" id="membershipId2" value="${item.membershipId}">
-        	<input type="hidden" name="membership_name2" id="membership_name2" value="${item.membershipName}">
-        	<input type="hidden" name="membership_price2" id="membership_price2" value="${item.membershipPrice}">
         	</c:forEach>  
+        	<!-- 쿠폰정보 -->
+        	<c:forEach var="item" items="${couponList}" end="0">
+        	    <input type="hidden" name="buy_coupon1" id="buy_coupon1" value="${item.couponId}">  
+    		</c:forEach> 
+    		<c:forEach var="item" items="${couponList}" begin="1" end="1">
+        	    <input type="hidden" name="buy_coupon2" id="buy_coupon2" value="${item.couponId}">  
+    		</c:forEach> 
         	</form>
     </section><br><br><br><br><br><br>
     <hr>
@@ -305,12 +312,24 @@
   	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <script>
     function requestPayGold(){
-    	$("#mbuyFormGold").submit();
-    	alert("결제성공");
+    	var loginUser = $("#buy_memberId");
+    	
+    	if(loginUser.val()==""){
+    		alert("로그인 후 이용 가능한  서비스입니다.");
+    	}else{
+    		$("#mbuyFormGold").submit();
+        	alert("결제성공");	
+    	}
     }
     function requestPaySilver(){
-    	$("#mbuyFormSilver").submit();
-    	alert("결제성공");
+    	var loginUser = $("#buy_memberId");
+    	
+    	if(loginUser.val()==""){
+    		alert("로그인 후 이용 가능한 서비스입니다.");
+    	}else{
+    		$("#mbuyFormSilver").submit();
+        	alert("결제성공");
+    	}
     }
     //결제!_! 결제 안되도록 우선 주석처리 해 둠!_! 결제 없이 바로 INSERT되도록 임시로 적용해놓음
     //1. gold 멤버십 구매

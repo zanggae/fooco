@@ -26,10 +26,15 @@ public class MemberShipDao {
 			return (ArrayList)sqlSessionTemplate.selectList("couponMapper.selectCoupon");
 		}
 
-	//결제 후 멤버십 insert
-	public int insertMembership(MemberShip membership) {
+	//결제 후 Gold멤버십 insert
+	public int insertGoldMembership(MemberShip membership) {
 		
-		return sqlSessionTemplate.insert("membershipMapper.insertMembership",membership);
+		return sqlSessionTemplate.insert("membershipMapper.insertGoldMembership",membership);
+	}
+	//결제 후 Silver멤버십 insert
+	public int insertSilverMembership(MemberShip membership) {
+		
+		return sqlSessionTemplate.insert("membershipMapper.insertSilverMembership",membership);
 	}
 
 	//결제 후 쿠폰 insert
@@ -41,6 +46,10 @@ public class MemberShipDao {
 	public int insertCoupon2(MemberShip membership) {
 		
 		return sqlSessionTemplate.insert("membershipMapper.insertCoupon2",membership);
+	}
+	public int insertCoupon3(MemberShip membership) {
+		
+		return sqlSessionTemplate.insert("membershipMapper.insertCoupon3",membership);
 	}
 
 }

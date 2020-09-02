@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="restaurantMapper">
-	<resultMap type="Review" id="ReviewResultSet">
-		<id property="reviewId" column="REVIEW_ID"/>
-		<result property="resId" column="RES_ID"/>
-		<result property="memberId" column="MEMBER_ID"/>
-		<result property="reviewCreateDate" column="REVIEW_CREATE_DATE"/>
-		<result property="reviewUpdateDate" column="REVIEW_UPDATE_DATE"/>
-		<result property="reviewContent" column="REVIEW_CONTENT"/>
-		<result property="reviewGoodcount" column="REVIEW_GOODCOUNT"/>
-		<result property="reviewRating" column="REVIEW_RATING"/>
-		<result property="reviewTasterating" column="REVIEW_TASTERATING"/>
-		<result property="reviewPricerating" column="REVIEW_PRICERATING"/>
-		<result property="reviewServicerating" column="REVIEW_SERVICERATING"/>
-		<result property="nickname" column="NICKNAME"/>
-		<result property="reviewCount" column="REVIEW_COUNT"/>
-		<result property="followerCount" column="FOLLOWER_COUNT"/>
-		<collection property="reviewImages">
-			<id property="imageId" column="IMAGE_ID"/>
-			<result property="imageNewName" column="IMAGE_NEW_NAME"/>
-			<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+	<resultMap type="Res" id="RestaurantResultSet">
+		<id property="resId" column="RES_ID" />
+		<result property="resCategoryId" column="RES_CATEGORY_ID" />
+		<result property="locationId" column="LOCATION_ID" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resAddress" column="RES_ADDRESS" />
+		<result property="resContent" column="RES_CONTENT" />
+		<result property="resViewCount" column="RES_VIEWCOUNT" />
+		<result property="resTime" column="RES_TIME" />
+		<result property="resStatus" column="RES_STATUS" />
+		<result property="resCreateDate" column="RES_CREATE_DATE" />
+		<result property="resUpdateDate" column="RES_UPDATE_DATE" />
+		<result property="reviewRating" column="REVIEW_RATING" />
+		<association property="resThumbailImage" javaType="Image">
+			<result property="imageId" column="RES_THUMBNAIL_ID" />
+			<result property="imageNewName" column="RES_THUMBNAIL_NAME" />
+			<result property="imageFilepath" column="RES_THUMBNAIL_PATH" />
+		</association>
+		<collection property="resLatestImages" ofType="Image">
+			<id property="imageId" column="RES_LATESTIMAGES_ID" />
+			<result property="imageNewName" column="RES_LATESTIMAGES_NAME" />
+			<result property="imageFilepath" column="RES_LATESTIMAGES_PATH" />
 		</collection>
+		<association property="bestReview" javaType="Review">
+			<result property="reviewId" column="REVIEW_ID" />
+			<result property="nickname" column="NICKNAME" />
+			<result property="reviewProfileImageName" column="REVIEW_PROFILE_IMAGE_NAME" />
+			<result property="reviewProfileImageFilepath" column="REVIEW_PROFILE_FILEPATH" />
+		</association>
 	</resultMap>
 	
-	<select id="selectReviewList" parameterType="_int" resultMap="ReviewResultSet">
-		SELECT *
-		  FROM SELECT_REVIEW
-		 WHERE RES_ID = #{resId}
+	<select id="abcd" resultMap="RestaurantResultSet">
 	</select>
 </mapper>

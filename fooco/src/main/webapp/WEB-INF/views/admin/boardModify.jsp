@@ -136,7 +136,11 @@
 
     </div>
   </div>
-	
+  <script>
+  	function goInquiryEdit(){
+  		location.href="boardEdit.do";	
+  	}
+  </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"

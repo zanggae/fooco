@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-        /* 헤더 네비게이션 바 */
+       /* 헤더 네비게이션 바 */
         .mainHeader {padding:0; background-color:rgb(253,215,129);}
         .logo {width:8rem; height:4.5rem;}
         .mh-navbar-brand {padding:0;}
@@ -18,7 +18,7 @@
         .mh-dropdown-item {font-family:'medium';}
         .header-menu-login {margin-right:0.3rem;}
         .header-menu-login:hover {text-decoration:none;}
-        .header-menu-btn {border:0.2rem solid rgb(204,51,98); width:2rem; height:2rem; border-radius:0.2rem;}
+        .header-menu-btn {border:0.2rem solid rgb(204,51,98); width:2rem; height:2rem; border-radius:0.2rem;} 
         
          /* 헤더 네비게이션 서브 */
         .mainSubHeader {padding:0; height:3rem; background-color:rgb(204,51,98);}
@@ -26,170 +26,170 @@
         .msh-items {color:white; font-size:1.1rem;}
         .nav-underline a:hover {color:rgb(253,215,129);}
         
-        /* 모달 기본 설정 */
-	.modal fade, .modal-content, .container {
-	margin: 0 auto;
-	padding: 0px;
-}
-/* ----------------------1.로그인 모달창----------------------- */
-/* 클릭 시 모달 창 띄우는 버튼 */
-#for_login_modal{
-	background:none;
-	border:none;
-	color:black;
-	font-size:16px;
-	padding:0px;
-	margin:0px
-}
-/* 모달 가로 넓게 */
-#for_first_modal {
-	width: 129%;
-}
-/* 모달 헤더(LOGIN) */
-#myModalLabel {
-	margin: 5 auto;
-	padding: 5px;
-	padding-left: 15px;
-	width: 210%;
-	height: 12px;
-	background: rgb(253, 215, 129);
-	color: rgb(204, 51, 98);
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-	font-weight: bold;
-	font-size: 50px;
-}
-/* 모달창 끄기(x표) */
-.close {
-	margin-right: 10px;
-	margin-top: 7px;
-}
-/* 세로선 */
-#forLine {
-	top: 0px;
-	bottom: 0px;
-	height: 250px;
-	border: none;
-	border-left: 1px solid lightgray;
-	margin-left: 60px;
-	margin-top: -40px;
-}
-/* input태그 */
-#for_first_modal input {
-	width: 90%;
-	margin-left: 50px;
-}
-/* hr태그 */
-#for_first_modal hr {
-	margin-left: 28px;
-	width: 107%;
-}
-/* 로그인 버튼 */
-#login_btn {
-	margin-left: 125px;
-	width: 80px;
-	height: 36px;
-	border: none;
-	border-radius: 3px;
-	color: white;
-	background: RGB(204, 51, 98);
-	/* font-weight: bold; */
-}
-#login_btn:hover {
-	border: 1px solid rgb(204, 51, 98);
-	background: rgb(253, 215, 129);
-	color: rgb(204, 51, 98);
-}
-/* 회원가입 버튼 */
-#JoinMember_btn {
-	margin-left: 54px;
-	width: 150px;
-	height: 36px;
-	border: none;
-	border-radius: 3px;
-	/* color: RGB(253, 215, 129); */
-	color: white;
-	background: rgb(204, 51, 98);
-	margin-top: 115px;
-	/* font-weight: bold; */
-}
-#JoinMember_btn:hover {
-	border: 1px solid rgb(204, 51, 98);
-	background: rgb(253, 215, 129);
-	color: rgb(204, 51, 98);
-}
-#naver_login_img{
-	margin-left:-60px;
-	margin-top:2px;
-	width:200px;
-	height:40px;
-}
-/* 이미지 사진 */
-#pwdimg {
-	margin-top: -20px;
-	margin-left: 59px;
-	position: absolute;
-	width: 45%;
-	height: 55%;
-}
-/* 비밀번호 찾기 */
-#toPwdSearch {
-	background: white;
-	border: none;
-	position: absolute;
-	margin-left: 53%;
-	font-size: 13px;
-	color: gray;
-}
-#toPwdSearch:hover {
-	text-decoration: underline;
-}
-/* ----------------------2.비밀번호 찾기 모달창----------------------- */
-/* 제목(Recovery Account) */
-#staticBackdropLabel {
-	margin: 5 auto;
-	padding: 5px;
-	padding-left: 15px;
-	color: rgb(204, 51, 98);
-	font-weight: bold;
-}
-#forh5 h5, #forh5 p, #email {
-	margin-left: 20px;
-}
-/* 이메일 입력창 */
-#emailchange {
-	margin-left:30px;
-	width: 400px;
-	height:40px;
-	border: 1px solid gray;
-	border-radius: 3px;
-}
-/* 비밀번호 찾기 버튼 */
-#SearchPwd_btn {
-	margin-left: 170px;
-	margin-top:20px;
-	width: 150px;
-	height: 36px;
-	border: none;
-	border-radius: 3px;
-	color: white;
-	background: rgb(204, 51, 98);
-}
-#SearchPwd_btn:hover {
-	border: 1px solid rgb(204, 51, 98);
-	background: rgb(253, 215, 129);
-	color: rgb(204, 51, 98);
-}
-/* 취소하기 버튼 */
-#SearchPwd_reset_btn {
-	margin-left: 88%;
-	background: white;
-	border: none;
-}
-#SearchPwd_reset_btn:hover {
-	text-decoration: underline;
-}
+         /* 모달 기본 설정 */
+		.modal fade, .modal-content, .container {
+			margin: 0 auto;
+			padding: 0px;
+		}
+		/* 1. 로그인 모달창 */
+		/* 클릭 시 모달 창 띄우는 버튼 */
+		#for_login_modal{
+			background:none;
+			border:none;
+			color:black;
+			font-size:16px;
+			padding:0px;
+			margin:0px;
+			box-shadow:none;
+		}
+		/* 모달 가로 넓게 */
+		#for_first_modal {
+			width: 129%;
+		}
+		/* 모달 헤더(LOGIN) */
+		#myModalLabel {
+			margin: 5 auto;
+			padding: 5px;
+			padding-left: 15px;
+			width: 210%;
+			height: 12px;
+			background: rgb(253, 215, 129);
+			color: rgb(204, 51, 98);
+			border-top-left-radius: 3px;
+			border-top-right-radius: 3px;
+			font-weight: bold;
+			font-size: 50px;
+		}
+		/* 모달창 끄기(x표) */
+		.close {
+			margin-right: 10px;
+			margin-top: 7px;
+		}
+		/* 세로선 */
+		#forLine {
+			top: 0px;
+			bottom: 0px;
+			height: 250px;
+			border: none;
+			border-left: 1px solid lightgray;
+			margin-left: 60px;
+			margin-top: -40px;
+		}
+		/* input태그 */
+		#for_first_modal input {
+			width: 90%;
+			margin-left: 50px;
+		}
+		/* hr태그 */
+		#for_first_modal hr {
+			margin-left: 28px;
+			width: 107%;
+		}
+		/* 로그인 버튼 */
+		#login_btn {
+			margin-left: 125px;
+			width: 80px;
+			height: 36px;
+			border: none;
+			border-radius: 3px;
+			color: white;
+			background: RGB(204, 51, 98);
+		}
+		#login_btn:hover {
+			border: 1px solid rgb(204, 51, 98);
+			background: rgb(253, 215, 129);
+			color: rgb(204, 51, 98);
+		}
+		/* 회원가입 버튼 */
+		#JoinMember_btn {
+			margin-left: 54px;
+			width: 150px;
+			height: 36px;
+			border: none;
+			border-radius: 3px;
+			color: white;
+			background: rgb(204, 51, 98);
+			margin-top: 115px;
+		}
+		#JoinMember_btn:hover {
+			border: 1px solid rgb(204, 51, 98);
+			background: rgb(253, 215, 129);
+			color: rgb(204, 51, 98);
+		}
+		#naver_login_img{
+			margin-left:-60px;
+			margin-top:2px;
+			width:200px;
+			height:40px;
+		}
+		/* 이미지 사진 */
+		#pwdimg {
+			margin-top: -20px;
+			margin-left: 59px;
+			position: absolute;
+			width: 45%;
+			height: 55%;
+		}
+		/* 비밀번호 찾기 */
+		#toPwdSearch {
+			background: white;
+			border: none;
+			position: absolute;
+			margin-left: 53%;
+			font-size: 13px;
+			color: gray;
+		}
+		#toPwdSearch:hover {
+			text-decoration: underline;
+		}
+		/* ----------------------2.비밀번호 찾기 모달창----------------------- */
+		/* 제목(Recovery Account) */
+		#staticBackdropLabel {
+			margin: 5 auto;
+			padding: 5px;
+			padding-left: 15px;
+			color: rgb(204, 51, 98);
+			font-weight: bold;
+		}
+		#forh5 h5, #forh5 p {
+			margin-left: 20px;
+		}
+		/* 이메일 입력창 */
+		#emailchange {
+			margin-left:30px;
+			width: 400px;
+			height:40px;
+			border: 1px solid gray;
+			border-radius: 3px;
+		}
+		/* 비밀번호 찾기 버튼 */
+		#SearchPwd_btn {
+			margin-left: 170px;
+			margin-top:20px;
+			width: 150px;
+			height: 36px;
+			border: none;
+			border-radius: 3px;
+			color: white;
+			background: rgb(204, 51, 98);
+		}
+		#SearchPwd_btn:hover {
+			border: 1px solid rgb(204, 51, 98);
+			background: rgb(253, 215, 129);
+			color: rgb(204, 51, 98);
+		}
+		/* 취소하기 버튼 */
+		#SearchPwd_reset_btn {
+			margin-left: 88%;
+			background: white;
+			border: none;
+		}
+		#SearchPwd_reset_btn:hover {
+			text-decoration: underline;
+		}
+ 
 
+        
 </style>
 </head>
 <body>
@@ -197,7 +197,7 @@
 
             <nav class="navbar navbar-expand-xl shadow-sm mainHeader">
                 <div class="container d-flex justify-content-between">
-                    <a class="navbar-brand mh-navbar-brand" href="#">
+                    <a class="navbar-brand mh-navbar-brand" href="goMain.do">
                         <img class="logo" src="resources/logo/logo.png">
                     </a>
                     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarsExample07">
@@ -292,7 +292,7 @@
               <div class="w-100"></div>
               <div class="col">
                 <input type="text" name="email" placeholder="이메일" id="email_input" required><span style="line-height: 30px;"></span>
-                <input type="password" name="memberPwd" placeholder="비밀번호" id="pwd_input" required><span style="line-height: 50px;"></span>
+                <input type="password" name="memberPwd" placeholder="비밀번호" id="pwd_input" required><span style="line-height: 50px;"></span> 
                 <button id="login_btn" onclick="loginbtn();">LOGIN</button>
                 <hr>
                 <!-- 네이버 로그인 창으로 이동 -->
@@ -396,6 +396,7 @@
    <!-- 로그인 시 null처리 -->
   <script>
   	function loginbtn(){
+	//null처리
   		if($("#email_input").val()==""){
   			alert("이메일을 입력하세요");
   			 $("#email_input").focus();

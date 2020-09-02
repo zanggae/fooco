@@ -101,6 +101,7 @@ public class AdminController {
 		}		
 	}
 	
+	
 	// 회원관리 페이지로 이동
 	@RequestMapping("memberManagement.do")
 	public ModelAndView memberManagement(ModelAndView mv,
@@ -479,23 +480,23 @@ public class AdminController {
 	@RequestMapping("restaurantEdit.do")
 	public ModelAndView restaurantEdit(ModelAndView mv,Search search,
 			@RequestParam(value="page", required=false) Integer page) {
+		System.out.println(search);
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
 		
-//		int currentPage = 1;
-//		if(page != null) {
-//			currentPage = page;
-//		}
-//		
-//		int rCount = adminService.selectOneRestaurantCount(search);
-//		
-//		PageInfo pi = getPageInfo(currentPage, rCount);
-//		
-//		ArrayList<Restaurant> r = adminService.selectListRestaurantAdmin(search,pi);
-//		
-//		
-//		mv.addObject("search",search);
-//		mv.addObject("restaurantList", r);
-//		mv.addObject("pi",pi);
-//		mv.addObject("rCount",rCount);
+		int rCount = adminService.selectOneRestaurantCount(search);
+		
+		PageInfo pi = getPageInfo(currentPage, rCount);
+		
+		ArrayList<Restaurant> r = adminService.selectListRestaurantAdmin(search,pi);
+		
+		
+		mv.addObject("search",search);
+		mv.addObject("restaurantList", r);
+		mv.addObject("pi",pi);
+		mv.addObject("rCount",rCount);
 		mv.setViewName("admin/restaurantEdit");
 		
 		return mv;
@@ -505,13 +506,13 @@ public class AdminController {
 	@RequestMapping("deleteRestaurant.do")
 	public ModelAndView deleteRestaurant(ModelAndView mv, Restaurant r) {
 		
-//		int result = adminService.deleteRestaurant(r);
+		int result = adminService.deleteRestaurant(r);
 		
-//		if(result>0) {
+		if(result>0) {
 		mv.setViewName("redirect:restaurantEdit.do");
-//		}else {
-//			throw new BoardException("음식점 삭제 실패!");
-//		}
+		}else {
+			throw new BoardException("음식점 삭제 실패!");
+		}
 		
 		return mv;
 	}

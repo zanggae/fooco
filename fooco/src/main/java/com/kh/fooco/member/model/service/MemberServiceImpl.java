@@ -113,6 +113,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
+	//이메일 중복체크 메소드 - 지민
+	@Override
+	public int chekchemailDup(String email) {
+		
+		return memberDao.chekchemailDup(email);
+	}
+
 
 	
 }
