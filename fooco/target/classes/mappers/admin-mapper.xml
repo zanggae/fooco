@@ -310,4 +310,26 @@
 <update id="deleteRestaurant" parameterType="Restaurant">
 	UPDATE RESTAURANT SET RES_STATUS = 'N' WHERE RES_ID=#{resId}
 </update>
+
+<insert id="insertRestaurantMenu" parameterType="string">
+	INSERT INTO BESTMENU VALUES(SEQ_BESTMENU.NEXTVAL,SEQ_RESTAURANT.CURRVAL,#{me})
+</insert>
+
+<insert id="insertRestaurantFilter" parameterType="string">
+	INSERT INTO FILTER_CATEGORY VALUES(SEQ_RESTAURANT.CURRVAL,#{filter})
+</insert>
+
+<insert id="insertRestaurant" parameterType="Restaurant">
+	INSERT INTO RESTAURANT VALUES(SEQ_RESTAURANT.NEXTVAL,#{resCategoryId},#{locationId}
+		,#{resName},#{resAddress},#{resContent},0,#{resTime},'Y',SYSDATE,SYSDATE,#{resPhone})
+</insert>
+
+<insert id="insertRestaurantImage" parameterType="Image">
+	INSERT ALL
+	   	INTO IMAGE VALUES(SEQ_IMAGE_YE.NEXTVAL,#{imageOriginName},#{imageNewName},#{imageFilepath},SYSDATE,0,'Y',0)
+	   	INTO RES_IMAGE VALUES(SEQ_IMAGE_YE.CURRVAL,SEQ_RESTAURANT.CURRVAL)
+   	SELECT *
+   	FROM DUAL
+</insert>
+
 </mapper>

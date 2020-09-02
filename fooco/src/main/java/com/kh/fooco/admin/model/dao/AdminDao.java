@@ -12,6 +12,7 @@ import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
@@ -156,6 +157,22 @@ public class AdminDao {
 
 	public int deleteRestaurant(Restaurant r) {
 		return sqlSessionTemplate.update("adminMapper.deleteRestaurant", r);
+	}
+
+	public int insertRestaurantMenu(String me) {
+		return sqlSessionTemplate.insert("adminMapper.insertRestaurantMenu", me);
+	}
+
+	public int insertRestaurantFilter(String filter) {
+		return sqlSessionTemplate.insert("adminMapper.insertRestaurantFilter", filter);
+	}
+
+	public int insertRestaurant(Restaurant r) {
+		return sqlSessionTemplate.insert("adminMapper.insertRestaurant", r);
+	}
+
+	public int insertRestaurantImage(Image i) {
+		return sqlSessionTemplate.insert("adminMapper.insertRestaurantImage", i);
 	}
 
 	

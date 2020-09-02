@@ -100,7 +100,7 @@
             <form action="registrationRestaurant.do" method="post" enctype="multipart/form-data">
               <div id="background_" style="width:80%; border-radius:1rem; padding:2rem; padding-top:0; margin-left: 40px;">
                 <div id="imgtest">
-                	<input type="file" style="display: none" id="thumbnailChange" name="#" accept="image/*">
+                	<input type="file" style="display: none" id="thumbnailChange" name="uploadFile" accept="image/*">
                     <div id="img_background" onclick="thumbnail()"><img id="img" src="image/LOGO.png" style="width: 8rem; height: 10rem;"></div><br>
                     <p>[음식점 사진]</p>
                 </div>
@@ -120,7 +120,11 @@
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>전화번호</label></td>
-                  <td><input type="tel" name="resName"></td>
+                  <td><input type="tel" name="resPhone"></td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>영업시간</label></td>
+                  <td><input type="text" name="resTime"></td>
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>메뉴1</label></td>
@@ -157,10 +161,18 @@
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>음식점 카테고리</label></td>
                   <td>
-                    <select>
-                      <option>카테고리1</option>
-                      <option>카테고리2</option>
-                      <option>카테고리3</option>
+                    <select name="resCategoryId"> 
+                      <option value="0" selected="selected">선택</option>                
+                      <option value="1">한식</option>
+                      <option value="2">분식</option>
+                      <option value="3">카페,디저트</option>
+                      <option value="4">돈까스,회,일식</option>
+                      <option value="5">치킨</option>
+                      <option value="6">피자</option>
+                      <option value="7">아시안,양식</option>
+                      <option value="8">중식</option>
+                      <option value="9">족발,보쌈</option>
+                      <option value="10">주점</option>
                     </select>
                   </td>
                 </tr>
@@ -170,10 +182,16 @@
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>지역</label></td>
-                  <td><select>
-                    <option>카테고리1</option>
-                    <option>카테고리2</option>
-                    <option>카테고리3</option>
+                  <td><select name="locationId">
+                    <option value="0" selected="selected">선택</option>
+                    <option value="1">서울</option>
+                    <option value="2">인천</option>
+                    <option value="3">부산</option>
+                    <option value="4">대구</option>
+                    <option value="5">광주</option>
+                    <option value="6">대전</option>
+                    <option value="7">울산</option>
+                    <option value="8">제주</option>
                   </select></td>
                 </tr>
 

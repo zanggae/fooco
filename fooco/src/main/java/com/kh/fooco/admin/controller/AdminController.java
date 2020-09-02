@@ -522,10 +522,42 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="registrationRestaurant.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView registrationRestaurant(ModelAndView mv, Restaurant r, String[] menu, String[] filter,
+	public ModelAndView registrationRestaurant(ModelAndView mv, Restaurant r, String menu, String filter,
 			String post, String address1, String address2, Image i
 			,HttpServletRequest request,
 			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+		int menuResult = 0;
+		int filterResult = 0;
+		int result = 0;
+		int imageResult = 0;
+		r.setResAddress(post + "," + address1 + "," + address2);
+		result = adminService.insertRestaurant(r);
+		
+		if(!file.getOriginalFilename().equals("")) {
+			String root = request.getSession().getServletContext().getRealPath("resources");			
+			String savePath = root + "\\buploadFiles";
+			
+			String renameFileName = saveFile(file,request);
+			
+			i.setImageOriginName(file.getOriginalFilename());
+			i.setImageNewName(renameFileName);
+			i.setImageFilepath(savePath);
+			
+			imageResult = adminService.insertRestaurantImage(i);
+		}
+		
+		
+		
+		String[] menu1 = menu.split(",");		
+		for(String me : menu1) {
+			menuResult = adminService.insertRestaurantMenu(me);
+		}
+		String[] filter1 = filter.split(",");		
+		for(String fi : filter1) {
+			filterResult = adminService.insertRestaurantFilter(fi);
+		}
+		
+		
 		
 		
 		return mv;
