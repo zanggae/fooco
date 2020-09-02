@@ -19,6 +19,11 @@ public interface MemberService {
 
 	String searchPwdMember(Member m);
 
+	int chekchemailDup(String email);
+
+
+	// ================================== MyPage 동원 ===========================================
+
 	int selectOneFollowCount(Member m);
 
 	int selectOneFollowingCount(Member m);
@@ -36,13 +41,6 @@ public interface MemberService {
 	int updateMemberInfo(Member m);
 
 	int updateMemberWithdrawal(Member m);
-
-	int chekchemailDup(String email);
-
-
-
-
-
 	
 
 }
