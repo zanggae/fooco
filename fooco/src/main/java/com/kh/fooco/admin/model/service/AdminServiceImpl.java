@@ -11,6 +11,7 @@ import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
@@ -36,10 +37,15 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public int insertVisitorCount(String maxCount) {
-		return adminDao.insertVisitorCount(maxCount);
+	public int insertVisitorCount() {
+		return adminDao.insertVisitorCount();
 	}
 
+	@Override
+	public int insertVisitorCount1() {
+		return adminDao.insertVisitorCount1();
+	}
+	
 	@Override
 	public int updateVisitorCount() {
 		return adminDao.updateVisitorCount();
@@ -159,5 +165,27 @@ public class AdminServiceImpl implements AdminService{
 	public int deleteRestaurant(Restaurant r) {
 		return adminDao.deleteRestaurant(r);
 	}
+
+	@Override
+	public int insertRestaurantMenu(String me) {
+		return adminDao.insertRestaurantMenu(me);
+	}
+
+	@Override
+	public int insertRestaurantFilter(String fi) {
+		return adminDao.insertRestaurantFilter(fi);
+	}
+
+	@Override
+	public int insertRestaurant(Restaurant r) {
+		return adminDao.insertRestaurant(r);
+	}
+
+	@Override
+	public int insertRestaurantImage(Image i) {
+		return adminDao.insertRestaurantImage(i);
+	}
+
+	
 
 }

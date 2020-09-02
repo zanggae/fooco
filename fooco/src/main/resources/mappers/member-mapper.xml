@@ -63,6 +63,12 @@
 	UPDATE MEMBER SET MEMBER_PWD=#{memberPwd} WHERE EMAIL=#{email}
 </update>
 
+<!-- 이메일 중복체크 -->
+<select id="checkemailDup" parameterType="string" resultType="_int">
+	SELECT COUNT(*)
+	FROM SELECT_MEMBER
+	WHERE EMAIL=#{email}
+</select>
 
 
 

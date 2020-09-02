@@ -27,11 +27,17 @@ public class MemberShipServiceImpl implements MemberShipService{
 			return memberShipDao.selectCouponList();
 	}
 
-	//결제 후 멤버십 insert 메소드
+	//결제 후 골드멤버십 insert 메소드
 	@Override
-	public int insertMembership(MemberShip membership) {
+	public int insertGoldMembership(MemberShip membership) {
 		
-		return memberShipDao.insertMembership(membership);
+		return memberShipDao.insertGoldMembership(membership);
+	}
+	//결제 후 실버 멤버십 insert 메소드
+	@Override
+	public int insertSilverMembership(MemberShip membership) {
+		
+		return memberShipDao.insertSilverMembership(membership);
 	}
 
 	//결제 후 쿠폰1 insert 메소드
@@ -45,5 +51,11 @@ public class MemberShipServiceImpl implements MemberShipService{
 		
 		return memberShipDao.insertCoupon2(membership);
 	}
+	@Override
+	public int insertCoupon3(MemberShip membership) {
+		
+		return memberShipDao.insertCoupon3(membership);
+	}
+	
 
 }

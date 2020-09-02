@@ -50,6 +50,12 @@
 
 
         /* 메인 검색 */
+        .input-group-text {background:white; border-top-right-radius:0; border-bottom-right-radius:0;}
+        .sr-content-input-local {width:8rem; border-top-left-radius:0; border-bottom-left-radius:0; font-family:'medium';}
+        .sr-content-input-local > option {font-family:'medium'; text-align-last:center;}
+        select {text-align:center; text-align-last:center;}
+        .selectLocation {width:8em;}
+        .fa-map-marker-alt {color:rgb(204,51,98); font-size:1.3rem;}
         .mainSearch {height:23rem; background-color:rgb(204,51,98); display:flex; justify-content:center; align-items:center;}
         .ms-container {display:flex; justify-content:center; align-items:center;}
         .ms-title-col {text-align:center; vertical-align:middle; margin-bottom:1.5rem;}
@@ -93,7 +99,7 @@
 	 $(function(){
 	  /* visit이라는 키의 쿠키가 없으면 쿠키 생성 후 방문자수 증가  */
 	  if(getCookie("visit")!=undefined){		  
-	     	alert(getCookie("visit"));
+	     	/* alert(getCookie("visit")); */
 	     	/* document.cookie = "visit=John; max-age=0"; */
 	     	
 	  }else{
@@ -141,12 +147,49 @@
                         <div class="col ms-title-col">
                             <span class="ms-title" style="font-family:'heavy'">진짜 맛집을 알려줄게!</span>
                         </div>
-                        <div class="col ms-input-col">
-                            <input type="search" class="form-control">
-                        </div>
+						<div class="input-group input-group-lg">													
+							<div class="selectLocation d-flex">
+								<div class="input-group-prepend">
+									<span class="input-group-text">
+										<i class="fas fa-map-marker-alt"></i>
+									</span>
+								</div>
+								<select class="form-control sr-content-input-local" id="select-local">
+									<option selected value="all">전체</option>
+									<option value="seoul">서울</option>
+									<option value="incheon">인천</option>
+									<option value="busan">부산</option>
+									<option value="daegu">대구</option>
+									<option value="gwangju">광주</option>
+									<option value="daejeon">대전</option>
+									<option value="ulsan">울산</option>
+									<option value="jeju">제주</option>
+								</select>
+							</div>
+							<div class="col ms-input-col">
+								<input type="search" class="form-control" id="select-keyword">
+							</div>
+						</div>
                     </div>
                 </div>
             </div>
+            
+            <!-- select option을 선택하면 -->
+            <script>
+            	var select = document.getElementById("select-local");
+            	
+            	select.onchange = function(){
+            		var option = select.options[select.selectedIndex].value;
+            		console.log(option);   
+            	}  	
+            	
+            	var search = document.getElementById("select-keyword");
+            	
+            	search.onchange = function(){
+            		var keyword = search.value;
+            	}
+        
+            </script>
 
 
             <!-- 메인 지역 맛집 -->
@@ -160,7 +203,7 @@
                         <div class="col ml-list-col">
                             <div class="row ml-list-row">
                                 <div class="col-8 d-flex flex-row flex-nowrap ml-scroll">
-                                    <a href="#" class="card shadow-sm ml-list">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch('seoul')">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/seoul_logo.png">
                                         </div>
@@ -168,7 +211,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">서 울</span>
                                         </div> 
                                     </a>
-                                    <a href="#" class="card shadow-sm ml-list">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch('incheon')">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/incheon_logo.png">
                                         </div>
@@ -176,7 +219,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">인 천</span>
                                         </div> 
                                     </a> 
-                                    <a href="#" class="card shadow-sm ml-list">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch('busan')">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/busan_logo.png">
                                         </div>
@@ -184,7 +227,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">부 산</span>
                                         </div> 
                                     </a> 
-                                    <a href="#" class="card shadow-sm ml-list">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch('daegu')">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/daegu_logo.png">
                                         </div>
@@ -192,7 +235,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">대 구</span>
                                         </div> 
                                     </a> 
-                                    <a href="#" class="card shadow-sm ml-list">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch('gwangju')">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/gwangju_logo.png">
                                         </div>
@@ -200,7 +243,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">광 주</span>
                                         </div> 
                                     </a>
-                                    <a href="#" class="card shadow-sm ml-list">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch(daejeon)">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/daejeon_logo.png">
                                         </div>
@@ -208,7 +251,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">대 전</span>
                                         </div> 
                                     </a> 
-                                    <a href="#" class="card shadow-sm ml-list">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch('ulsan');">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/ulsan_logo.png">
                                         </div>
@@ -216,7 +259,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">울 산</span>
                                         </div> 
                                     </a>    
-                                    <a href="#" class="card shadow-sm ml-list">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch('jeju')">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/jeju_logo.png">
                                         </div>
@@ -238,6 +281,17 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- 지역 버튼을 누르면 -->
+            <script>
+            	function goSearch(location){
+            		var keyword = "all";
+            		
+            		console.log(location, keyword);
+            		
+            		window.location.href = "goSearchedRestaurant.do?location="+location+"&keyword="+keyword;
+            	};
+            </script>
 
 
             <!-- 메인 테마 맛집 -->

@@ -39,12 +39,11 @@ public class MemberShipController {
 	
 	//결제 + 골드멤버십 insert
 	@RequestMapping("buyGoldMembership.do")
-	public String insertMembership(MemberShip membership) {
-		System.out.println("뜨나");
+	public String insertGoldMembership(MemberShip membership) {
 		System.out.println("membership:" + membership);	
 		
 		//insert작업
-		int result = memberShipService.insertMembership(membership);
+		int result = memberShipService.insertGoldMembership(membership);
 	    int result2 = memberShipService.insertCoupon1(membership);
 	    int result3= memberShipService.insertCoupon2(membership);
 		 
@@ -64,7 +63,17 @@ public class MemberShipController {
 	//결제 + 실버멤버십 insert
 	@RequestMapping("buySilverMembership.do")
 	public String insertSilverMembership(MemberShip membership) {
-		System.out.println("silver 멤버십 매핑 잘 되어오나요");
-		return "membership/membershipInfo";
+		System.out.println("잘오는건 맞나");
+		System.out.println("membership:" + membership);
+		
+		
+		 int result = memberShipService.insertSilverMembership(membership); int
+		 result2 = memberShipService.insertCoupon1(membership); 
+		 int result3= memberShipService.insertCoupon3(membership);
+		 
+		 if(result>0) { System.out.println("insert성공"); return
+		 "membership/membershipInfo"; }else { System.out.println("insert실패"); throw
+		 new MemberShipException("멤버십 등록 실패"); }
+	
 	}
 }

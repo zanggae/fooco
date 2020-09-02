@@ -38,18 +38,26 @@
       <div class="container">
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col-5">
-          	<c:if test="${search.category eq 0 }">
+          	<c:if test="${empty search.category}">
           		<h4>음식점(${rCount })</h4> 
           	</c:if>
-          	<c:if test="${search.category ne 0 }"> 
-	            <h4>${search.category} : "${search.search }"(${rCount })</h4>            
+          	<c:if test="${!empty search.category }"> 
+	            <c:if test="${search.category eq 1}"> 
+	            	<h4>맛집명 : "${search.search }" (${rCount })</h4>            
+          		</c:if> 
+          		<c:if test="${search.category eq 2}"> 
+	            	<h4>지역 : "${search.search }" (${rCount })</h4>            
+          		</c:if>
+          		<c:if test="${search.category eq 3}"> 
+	            	<h4>카테고리 : "${search.search }" (${rCount })</h4>            
+          		</c:if>       
           	</c:if>
           </div>
           <div class="col-7">
             <form class="d-none d-md-inline-block form-inline float-right ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            	<input type="hidden" name="search" id="search">
-            	<input type="hidden" name="category" id="category">
-            	<input type="hidden" name="page" id="page" value="${page }">
+            	<input type="hidden" name="search" id="search" value="${search.search}">
+            	<input type="hidden" name="category" id="category" value="${search.category}">
+            	<input type="hidden" name="page" id="page" value="${pi.currentPage }">
               <div class="input-group">
               	<select class="float-right form-control" id="searchCategory">
 	              <option selected value="0">선택</option>
@@ -65,8 +73,20 @@
                   <i class="fas fa-search"></i></button>
                   <script>
                   	function searchOnclick(){
-                  		$("#search").val($("#searchContent").val());
-                  		$("#category").val($("#searchCategory").val());
+                  		if($("#searchContent").val() != ""){
+                  			$("#search").val($("#searchContent").val());                  			
+                  		}else{
+                  			/* alert($("#search").val()); */
+                  		}
+                  		if($("#searchCategory").val() != 0){
+	                  		$("#category").val($("#searchCategory").val());                  			                 			
+                  		}else{
+                  			/* alert($("#category").val()); */
+                  		}
+                  		var page = $("#page").val();
+                  		var search = $("#search").val();
+                  		var category = $("#category").val();
+                  		location.href="restaurantEdit.do?search="+search+"&category="+category+"&page="+page;
                   	}
                   </script>
               </div>
@@ -89,7 +109,7 @@
                   </tr>
                 </thead>
                 <tbody>
-               	<c:if test="${empty memberList }">
+               	<c:if test="${empty restaurantList }">
 	              	<tr align="center">
 	              		<td colspan="7">조회된 음식점이 없습니다.</td>
 	              	</tr>
@@ -113,24 +133,53 @@
 	                  </tr>
                   	</c:forEach>
                 </c:if>
-                  <tr>
-                    <td align="center">
-                      <img src="img/logo.png" width="60" height="60">
-                    </td>
-                    <td>
-                      서정완(와니비)<br>
-                      wjddhkswoddl@naver.com
-                    </td>
-                    <td>12-458264</td>
-                    <td>gold</td>
-                    <td>2020-05-14</td>
-                    <td>2020-05-14</td>
-                    <td>
-                      <button type="button" class="btn btn-primary" value="1" onclick="restaurantDelete(this)"
-                        style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
-                          class="fas fa-trash-alt"></i></button>
-                    </td>
-                  </tr>
+                                  <!-- 페이징 처리부분 -->
+					<tr align="center" height="20">
+						<td colspan="7">
+					<!-- [이전] -->
+							<c:if test="${pi.currentPage eq 1 }">
+								[이전]&nbsp;
+							</c:if>
+							<c:if test="${pi.currentPage gt 1 }">
+								<script>
+									function rListBack(){
+										$("#page").val(${pi.currentPage -1});
+										searchOnclick();
+									}									
+								</script>
+								<a href="#" onclick="rListBack()">[이전]</a>
+							</c:if>
+					<!-- [번호들] -->
+							<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+								<c:if test="${p eq pi.currentPage }">
+									<font color="red" size="4"><b>[${p}]</b></font>
+								</c:if>
+								<c:if test="${p ne pi.currentPage }">
+									<script>
+										function rListCheck(page1){
+											var page = $(page1).attr('value');
+											$("#page").val(page);
+											searchOnclick();
+										}									
+									</script>									
+									<a href="#" onclick="rListCheck(this)" value="${p}">${p}</a>
+								</c:if>
+							</c:forEach>
+					<!-- [이후] -->
+							<c:if test="${pi.currentPage eq pi.maxPage }">
+								&nbsp;[이후]
+							</c:if>
+							<c:if test="${pi.currentPage lt pi.maxPage }">
+								<script>
+									function rListAfter(){
+										$("#page").val(${pi.currentPage + 1 });
+										searchOnclick();
+									}									
+								</script>
+								<a href="#" onclick="rListAfter()">[이후]</a>
+							</c:if>				
+						</td>		
+					</tr> 
                 </tbody>
               </table>
             </div>
@@ -144,8 +193,10 @@
 
       <script>
         function restaurantDelete(id){
+        	if(confirm("음식점을 삭제하시겠습니까?")){
          	var rId = $(id).val();
-         	location.href="deleteRestaurant.do?resId="+rId;
+         	location.href="deleteRestaurant.do?resId="+rId;	
+        	}
         }
       </script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

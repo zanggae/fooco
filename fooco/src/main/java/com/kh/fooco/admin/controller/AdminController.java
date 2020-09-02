@@ -35,6 +35,7 @@ import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
@@ -88,10 +89,13 @@ public class AdminController {
 		if(vc == null) {
 			String maxCount = adminService.selectvisitorMaxCount();
 			
-//			System.out.println("maxCount" + maxCount);
+			System.out.println("maxCount" + maxCount);
+			if(maxCount == null) {
+				int result = adminService.insertVisitorCount1();
+			}else {
+				int result = adminService.insertVisitorCount();				
+			}
 			
-			
-			int result = adminService.insertVisitorCount(maxCount);
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson("성공", response.getWriter());
 		}else {
@@ -100,6 +104,7 @@ public class AdminController {
 			gson.toJson("성공", response.getWriter());		
 		}		
 	}
+	
 	
 	// 회원관리 페이지로 이동
 	@RequestMapping("memberManagement.do")
@@ -479,23 +484,23 @@ public class AdminController {
 	@RequestMapping("restaurantEdit.do")
 	public ModelAndView restaurantEdit(ModelAndView mv,Search search,
 			@RequestParam(value="page", required=false) Integer page) {
+		System.out.println(search);
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
 		
-//		int currentPage = 1;
-//		if(page != null) {
-//			currentPage = page;
-//		}
-//		
-//		int rCount = adminService.selectOneRestaurantCount(search);
-//		
-//		PageInfo pi = getPageInfo(currentPage, rCount);
-//		
-//		ArrayList<Restaurant> r = adminService.selectListRestaurantAdmin(search,pi);
-//		
-//		
-//		mv.addObject("search",search);
-//		mv.addObject("restaurantList", r);
-//		mv.addObject("pi",pi);
-//		mv.addObject("rCount",rCount);
+		int rCount = adminService.selectOneRestaurantCount(search);
+		
+		PageInfo pi = getPageInfo(currentPage, rCount);
+		
+		ArrayList<Restaurant> r = adminService.selectListRestaurantAdmin(search,pi);
+		
+		
+		mv.addObject("search",search);
+		mv.addObject("restaurantList", r);
+		mv.addObject("pi",pi);
+		mv.addObject("rCount",rCount);
 		mv.setViewName("admin/restaurantEdit");
 		
 		return mv;
@@ -505,17 +510,58 @@ public class AdminController {
 	@RequestMapping("deleteRestaurant.do")
 	public ModelAndView deleteRestaurant(ModelAndView mv, Restaurant r) {
 		
-//		int result = adminService.deleteRestaurant(r);
+		int result = adminService.deleteRestaurant(r);
 		
-//		if(result>0) {
+		if(result>0) {
 		mv.setViewName("redirect:restaurantEdit.do");
-//		}else {
-//			throw new BoardException("음식점 삭제 실패!");
-//		}
+		}else {
+			throw new BoardException("음식점 삭제 실패!");
+		}
 		
 		return mv;
 	}
 	
+	@RequestMapping(value="registrationRestaurant.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView registrationRestaurant(ModelAndView mv, Restaurant r, String menu, String filter,
+			String post, String address1, String address2, Image i
+			,HttpServletRequest request,
+			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+		int menuResult = 0;
+		int filterResult = 0;
+		int result = 0;
+		int imageResult = 0;
+		r.setResAddress(post + "," + address1 + "," + address2);
+		result = adminService.insertRestaurant(r);
+		
+		if(!file.getOriginalFilename().equals("")) {
+			String root = request.getSession().getServletContext().getRealPath("resources");			
+			String savePath = root + "\\buploadFiles";
+			
+			String renameFileName = saveFile(file,request);
+			
+			i.setImageOriginName(file.getOriginalFilename());
+			i.setImageNewName(renameFileName);
+			i.setImageFilepath(savePath);
+			
+			imageResult = adminService.insertRestaurantImage(i);
+		}
+		
+		
+		
+		String[] menu1 = menu.split(",");		
+		for(String me : menu1) {
+			menuResult = adminService.insertRestaurantMenu(me);
+		}
+		String[] filter1 = filter.split(",");		
+		for(String fi : filter1) {
+			filterResult = adminService.insertRestaurantFilter(fi);
+		}
+		
+		
+		
+		
+		return mv;
+	}
 	@RequestMapping("restaurantRegistration.do")
 	public String restaurantRegistration() {
 		return "admin/restaurantRegistration";
@@ -534,6 +580,8 @@ public class AdminController {
 	public String test() {
 		return "admin/test";
 	}
+	
+
 }
 
 

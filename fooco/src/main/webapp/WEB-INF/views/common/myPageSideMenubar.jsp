@@ -177,13 +177,13 @@ a {
 			</div>
 			<div class="row menubar_group">
 				<div class="row menubar_group_title">
-					<a href="#"><span style="font-family: 'bold';">&#x1F64B;
+					<a href="inquiryes.do"><span style="font-family: 'bold';">&#x1F64B;
 							1:1문의</span></a>
 				</div>
 			</div>
 			<div class="row menubar_group" style="margin-bottom: 0;">
 				<div class="row menubar_group_title ">
-					<a href="#"><span style="font-family: 'bold';">&#x1F632;
+					<a href="myPageWithdrawal.do"><span style="font-family: 'bold';">&#x1F632;
 							회원탈퇴</span></a>
 				</div>
 			</div>
@@ -194,6 +194,7 @@ a {
 
 
 	<!-- 내정보 수정 시 비밀번호 확인하는 Modal -->
+	<form action="infoCheck.do" method="post" id="infoPwdCheckForm">
 	<div class="modal fade" id="pwdmodal" tabindex="-1"
 		aria-labelledby="pwdModalLabel" aria-hidden="true" style="top: 15rem;">
 		<div class="modal-dialog modal-md">
@@ -215,19 +216,56 @@ a {
 						<span style="font-family: 'medium';">회원님의 정보를 보호하기 위해 비밀번호를
 							다시 확인합니다.</span>
 						<div style="margin-top: 1.4rem; margin-bottom: 0.7rem;">
-							<input type="password" placeholder="비밀번호"
+							<input type="password" id="memberPwd" name="memberPwd" placeholder="비밀번호"
 								style="width: 26rem; height: 2.5rem;">
 						</div>
+							<input type="hidden" id="email" name="email" value="${loginUser.email }">
 						<div>
-							<button class="btn btn-primary btn-sm check_btn">확인</button>
+							<button type="button" id="checkbtn" class="btn btn-primary btn-sm check_btn">확인</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</form>
 
 
 </body>
+
+ <script>
+ // 비밀번호 확인 후 내정보 수정하기 이동하는 ajax
+  	$("#checkbtn").click(function(){
+  		var memberPwd = $("#memberPwd").val();
+  		var email = $("#email").val();
+  		$.ajax({
+  			url:"infoPwdCheck.do",
+  			data:{memberPwd:memberPwd,email:email},
+  			success:function(data){
+  				if(data == "true"){
+  					$("#infoPwdCheckForm").submit();
+  				}else{
+  					alert("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.....")
+  				}
+  			},
+  			error:function(request, status, errorData){
+  				alert("error code: " + request.status + "\n"
+  						+"message: " + request.responseText
+  						+"error: " + errorData);
+  			}
+  		})
+  	})
+  	
+  	
+// 엔터 방지 - 엔터를 누르면 자동 submit이 되기때문에 방지하기위한 함수
+$(document).keypress(function(e) {
+	if (e.keyCode == 13) 
+		e.preventDefault(); 
+	});
+
+
+  	
+  </script>
+
 
 </html>

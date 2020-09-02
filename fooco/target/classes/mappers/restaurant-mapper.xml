@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="restaurantMapper">
+	<resultMap type="Res" id="RestaurantResultSet">
+		<id property="resId" column="RES_ID" />
+		<result property="resCategoryId" column="RES_CATEGORY_ID" />
+		<result property="locationId" column="LOCATION_ID" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resAddress" column="RES_ADDRESS" />
+		<result property="resContent" column="RES_CONTENT" />
+		<result property="resViewCount" column="RES_VIEWCOUNT" />
+		<result property="resTime" column="RES_TIME" />
+		<result property="resStatus" column="RES_STATUS" />
+		<result property="resCreateDate" column="RES_CREATE_DATE" />
+		<result property="resUpdateDate" column="RES_UPDATE_DATE" />
+		<result property="reviewRating" column="REVIEW_RATING" />
+		<association property="resThumbailImage" javaType="Image">
+			<result property="imageId" column="RES_THUMBNAIL_ID" />
+			<result property="imageNewName" column="RES_THUMBNAIL_NAME" />
+			<result property="imageFilepath" column="RES_THUMBNAIL_PATH" />
+		</association>
+		<collection property="resLatestImages" ofType="Image">
+			<id property="imageId" column="RES_LATESTIMAGES_ID" />
+			<result property="imageNewName" column="RES_LATESTIMAGES_NAME" />
+			<result property="imageFilepath" column="RES_LATESTIMAGES_PATH" />
+		</collection>
+		<association property="bestReview" javaType="Review">
+			<result property="reviewId" column="REVIEW_ID" />
+			<result property="nickname" column="NICKNAME" />
+			<result property="reviewProfileImageName" column="REVIEW_PROFILE_IMAGE_NAME" />
+			<result property="reviewProfileImageFilepath" column="REVIEW_PROFILE_FILEPATH" />
+		</association>
+	</resultMap>
+	
+	<select id="abcd" resultMap="RestaurantResultSet">
+	</select>
+</mapper>

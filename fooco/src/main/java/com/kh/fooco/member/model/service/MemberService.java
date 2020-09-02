@@ -1,6 +1,10 @@
 package com.kh.fooco.member.model.service;
 
+import java.util.ArrayList;
+
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.member.model.vo.Follower;
+import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 
 public interface MemberService {
@@ -11,10 +15,14 @@ public interface MemberService {
 
 	int checkNickName(String nickName);
 
-
 	int searchMemberPwd(Member m);
 
 	String searchPwdMember(Member m);
+
+	int chekchemailDup(String email);
+
+
+	// ================================== MyPage 동원 ===========================================
 
 	int selectOneFollowCount(Member m);
 
@@ -24,9 +32,15 @@ public interface MemberService {
 
 	int updateMemberProfile(Member m);
 
+	ArrayList<Follower> selectFollower(Member m);
 
+	ArrayList<Following> selectFollowing(Member m);
 
+	int checkNickNameDup(String nickName);
 
+	int updateMemberInfo(Member m);
+
+	int updateMemberWithdrawal(Member m);
 	
 
 }

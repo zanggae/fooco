@@ -1,9 +1,13 @@
 package com.kh.fooco.member.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fooco.member.model.vo.Follower;
+import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 
 
@@ -30,6 +34,41 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("memberMapper.checkNickName",nickName);
 	}
 	
+
+	public String searchPwdMember(Member m) {
+		
+		return sqlSessionTemplate.selectOne("memberMapper.searchPwdMember",m);
+	}
+	
+	public int searchMemberPwd(Member m) {
+		
+		return sqlSessionTemplate.update("memberMapper.searchMemberPwd",m);
+	}
+
+	//이메일 중복체크 메소드
+	public int chekchemailDup(String email) {
+		
+		return sqlSessionTemplate.selectOne("memberMapper.checkemailDup",email);
+	}
+
+
+	// ================================== MyPage 동원 ===========================================
+
+	public int checkNickNameDup(String nickName) {
+		
+		return sqlSessionTemplate.selectOne("mypageMapper.checkNickNameDup",nickName);
+	}
+
+	public int updateMemberInfo(Member m) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateMemberInfo",m);
+	}
+
+	public int updateMemberWithdrawal(Member m) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateMemberWithdrawal",m);
+	}
+
 	// 팔로워 수 카운트 메소드
 	public int selectOneFollowCount(Member m) {
 		
@@ -53,18 +92,19 @@ public class MemberDao {
 		return sqlSessionTemplate.update("mypageMapper.updateMemberProfile",m);
 	}
 
-	public String searchPwdMember(Member m) {
-		
-		return sqlSessionTemplate.selectOne("memberMapper.searchPwdMember",m);
-	}
+	// 팔로우 페이지 팔로워 메소드
+	public ArrayList<Follower> selectFollower(Member m) {
 	
-	public int searchMemberPwd(Member m) {
-		
-		return sqlSessionTemplate.update("memberMapper.searchMemberPwd",m);
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectFollower",m);
 	}
 
-
+	// 팔로우 페이지 팔로잉 메소드
+	public ArrayList<Following> selectFollowing(Member m) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectFollowing",m);
+	}
+	
+	
 	
 
-	
 }

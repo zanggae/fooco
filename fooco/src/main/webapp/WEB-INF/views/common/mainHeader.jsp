@@ -33,7 +33,8 @@
 	color:black;
 	font-size:16px;
 	padding:0px;
-	margin:0px
+	margin:0px;
+	box-shadow:none;
 }
 /* 모달 가로 넓게 */
 #for_first_modal {
@@ -191,7 +192,7 @@
 
             <nav class="navbar navbar-expand-xl shadow-sm mainHeader">
                 <div class="container d-flex justify-content-between">
-                    <a class="navbar-brand mh-navbar-brand" href="#">
+                    <a class="navbar-brand mh-navbar-brand" href="goMain.do">
                         <img class="logo" src="resources/logo/logo.png">
                     </a>
                     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarsExample07">
@@ -223,9 +224,12 @@
                                     <a class="dropdown-item mh-dropdown-item" href="${mypage}">마이페이지</a> 
                                     </c:if>                                   
 
-                                    <a class="dropdown-item mh-dropdown-item" href="myPageInfo.do">지역 맛집</a>
+
+                                    <!-- <a class="dropdown-item mh-dropdown-item" href="myPageInfo.do">지역 맛집</a> -->
                                     <a class="dropdown-item mh-dropdown-item" href="themeMain.do">테마 맛집</a>
 
+                                    <a class="dropdown-item mh-dropdown-item" href="goSearchedRestaurant.do">지역 맛집</a>
+                                
 
                                     <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
