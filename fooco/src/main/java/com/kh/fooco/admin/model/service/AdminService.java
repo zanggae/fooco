@@ -19,7 +19,7 @@ public interface AdminService {
 
 	MembershipCount selectOneMembershipCount();
 
-	int insertVisitorCount(String maxCount);
+	int insertVisitorCount();
 
 	int updateVisitorCount();
 
@@ -68,6 +68,8 @@ public interface AdminService {
 	int selectOneRestaurantCount(Search search);
 
 	int deleteRestaurant(Restaurant r);
+
+	int insertVisitorCount1();
 
 	
 }

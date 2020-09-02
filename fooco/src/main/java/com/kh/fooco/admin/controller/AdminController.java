@@ -88,10 +88,13 @@ public class AdminController {
 		if(vc == null) {
 			String maxCount = adminService.selectvisitorMaxCount();
 			
-//			System.out.println("maxCount" + maxCount);
+			System.out.println("maxCount" + maxCount);
+			if(maxCount == null) {
+				int result = adminService.insertVisitorCount1();
+			}else {
+				int result = adminService.insertVisitorCount();				
+			}
 			
-			
-			int result = adminService.insertVisitorCount(maxCount);
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			gson.toJson("성공", response.getWriter());
 		}else {

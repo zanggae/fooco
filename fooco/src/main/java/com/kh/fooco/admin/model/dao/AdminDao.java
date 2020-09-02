@@ -37,8 +37,12 @@ public class AdminDao {
 	}
 	
 	// 첫 방문시 생성
-	public int insertVisitorCount(String maxCount) {
-		return sqlSessionTemplate.insert("adminMapper.insertVisitorCount",maxCount);
+	public int insertVisitorCount() {
+		return sqlSessionTemplate.insert("adminMapper.insertVisitorCount");
+	}
+	
+	public int insertVisitorCount1() {
+		return sqlSessionTemplate.insert("adminMapper.insertVisitorCount1");
 	}
 	
 	// 방문시 업데이트
@@ -153,6 +157,8 @@ public class AdminDao {
 	public int deleteRestaurant(Restaurant r) {
 		return sqlSessionTemplate.update("adminMapper.deleteRestaurant", r);
 	}
+
+	
 
 
 }

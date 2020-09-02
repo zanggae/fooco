@@ -136,15 +136,12 @@
 </select>
 
 <!-- 첫 방문시 튜플 생성  -->
-<insert id="insertVisitorCount" parameterType="string">
-	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,
-	<if test="value ==null">
-		1
-	</if>
-	<if test="value !=null">
-		(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC)
-	</if>
-	,0,0)
+<insert id="insertVisitorCount">
+	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC),0,0)
+</insert>
+
+<insert id="insertVisitorCount1">
+	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,1,0,0)
 </insert>
 
 <!-- 2번째 이후 업데이트 -->
