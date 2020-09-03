@@ -284,12 +284,8 @@
             
             <!-- 지역 버튼을 누르면 -->
             <script>
-            	function goSearch(location){
-            		var keyword = "all";
-            		
-            		console.log(location, keyword);
-            		
-            		window.location.href = "goSearchedRestaurant.do?location="+location+"&keyword="+keyword;
+            	function goSearch(locationId){
+            		window.location.href = "goSearchedRestaurant.do?locationId="+locationId;
             	};
             </script>
 
