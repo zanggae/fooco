@@ -114,7 +114,7 @@
 				<div class="col-7 main_content">
 					<div class="main_content_div shadow-sm">
 						<div class="row">
-              <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F618; 나의 활동 - 체크인 수정</p>
+              <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F618; 나의 활동 - 체크인 등록</p>
             </div>
 					
             <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem; padding-bottom: 1rem;">
@@ -123,8 +123,8 @@
                 <form action="">
                   <div style="margin-left: 3rem;">
                     <div class="row" style="margin-bottom: 1rem;">
-                      <label class="checkin_label">방문 식당 이미지</label>
-                      <input type="text" name="visitRestaurant">
+                      <label class="checkin_label">방문 식당 검색</label>
+                      <input type="text" name="visitRestaurant" style="margin-left: 1.1rem;">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
                         data-target="#exampleModal">

@@ -398,7 +398,7 @@ public class MemberController {
 		}
 		
 		
-		
+		// 변경 파일을 ProFiles폴더에 저장하는 메소드
 		private String saveFile(MultipartFile file, HttpServletRequest request) {
 			
 			// webapp 경로
@@ -580,6 +580,34 @@ public class MemberController {
 			}
 			
 			return mv;
+		}
+		
+		
+		// 체크인 페이지 이동
+		@RequestMapping("myPageCheckin.do")
+		public String myPageCheckinView() {
+			return "mypage/myPageCheckin";
+		}
+		
+		// 체크인 등록 페이지 이동
+		@RequestMapping("CheckinRegister.do")
+		public String myPageCheckinRegisterView() {
+			return "mypage/myPageCheckinRegister";
+		}
+		
+		
+		@RequestMapping("selectRes.do")
+		public void myPageSelectRes(HttpServletResponse response, String restitle) throws IOException {
+
+//			Res res = memberService.selectListRestaurant();
+//			System.out.println(nickName);
+//			boolean isUserble = memberService.checkNickNameDup(nickName) == 0 ? true : false;
+			
+//			System.out.println("isUserble = " + isUserble);
+			PrintWriter out = response.getWriter();
+//			out.print(isUserble);
+			out.flush();
+			out.close();
 		}
 		
 }
