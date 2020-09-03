@@ -92,7 +92,7 @@
   
   <div style="margin-left: 13%;">
     <div class="container" style="padding: 5%; padding-left: 5rem;">
-      <i class="far fa-sticky-note"></i><h2 style="font-family:'bold'; margin-left: 100px; margin-bottom: 20px;">음식점 등록</h2>      
+      <i class="far fa-sticky-note"></i><h2 style="font-family:'bold'; margin-left: 100px; margin-bottom: 20px;">음식점 수정</h2>      
       <br>
       <div class="container" style="padding:0;">
         <div class="row" style="margin-bottom: 1rem;">
@@ -106,39 +106,33 @@
                 </div>
               <table style="margin-left: 300px; margin-top: -260px;">
                 <tr>
-                  <td>
-                    <input type="file" style="display: none;">
-                  </td>
-                </tr>
-                <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>가게이름</label></td>
-                  <td><input type="text" name="resName"></td>
+                  <td><input type="text" name="resName" id="resName"></td>
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>가게설명</label></td>
-                  <td><textarea id="rContent" name="resContent" style="height: 100px !important;" readonly="readonly" onclick="modal()"></textarea></td>
+                  <td><textarea id="rContent" name="resContent" style="height: 100px !important; resize: none" readonly="readonly" onclick="modal()"></textarea></td>
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>전화번호</label></td>
-                  <td><input type="tel" name="resPhone"></td>
+                  <td><input type="tel" name="resPhone" id="resPhone" placeholder="예)031-1234-1234"></td>
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>영업시간</label></td>
-                  <td><input type="text" name="resTime"></td>
+                  <td><input type="text" name="resTime" id="resTime" placeholder="예)12:00~22:00"></td>
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>메뉴1</label></td>
-                  <td><input type="text" name="menu"></td>
+                  <td><input type="text" name="menu" id="menu1"></td>
                 </tr>
                 <tr>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>메뉴2</label></td>
-                  <td><input type="text" name="menu"></td>
+                  <td><input type="text" name="menu" id="menu2"></td>
                 </tr>
                 <tr>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>메뉴3</label></td>
-                  <td><input type="text" name="menu"></td>
-                </tr>
-
+                  <td><input type="text" name="menu" id="menu3"></td>
+                </tr>				
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>서비스</label></td>
                 </tr>
@@ -161,7 +155,7 @@
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>음식점 카테고리</label></td>
                   <td>
-                    <select name="resCategoryId"> 
+                    <select name="resCategoryId" id="resCategoryId"> 
                       <option value="0" selected="selected">선택</option>                
                       <option value="1">한식</option>
                       <option value="2">분식</option>
@@ -182,7 +176,7 @@
                 </tr>
                 <tr>
                   <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>지역</label></td>
-                  <td><select name="locationId">
+                  <td><select name="locationId" id="locationId">
                     <option value="0" selected="selected">선택</option>
                     <option value="1">서울</option>
                     <option value="2">인천</option>
@@ -198,19 +192,19 @@
                 <tr>
                   <td><label>우편번호</label></td>                  
                   <td>
-                    <input type="text" name="post" 
-                       class="postcodify_postcode5" value="" size="6">
+                    <input type="text" name="post" id="post"
+                       class="postcodify_postcode5" value="" size="6" readonly="readonly">
                      <button type="button" id="postcodify_search_button">검색</button>
                   </td>
                 </tr>
                 <tr>
                   <td><label>도로명 주소</label></td>
-                  <td><input type="text" name="address1"
+                  <td><input type="text" name="address1" readonly="readonly"
                         class="postcodify_address" value=""></td>
                 </tr>
                 <tr>
                   <td><label>상세 주소</label></td>
-                  <td><input type="text" name="address2"
+                  <td><input type="text" name="address2" readonly="readonly"
                       class="postcodify_extra_info" value=""></td>
                 </tr>
                 <!-- Postcodify를 로딩하자 -->
@@ -273,7 +267,7 @@
 
     </div>
   </div>
-	<!-- 프로필 +버튼 클릭 시 파일 변경 창 띄우기 -->
+	<!-- 이미지 영역 누르면 파일 변경 창 띄우기 -->
 <script>
   function thumbnail() {
     $(function () {
@@ -308,40 +302,99 @@
 			reader.readAsDataURL(f);
 		});
 	}
-
 </script>
 <script>
+	$(function(){
+		$("#resPhone").change(function(){
+			var regExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
+			if(!regExp.test($("#resPhone").val())){
+	               	alert("전화번호는 (2,3글자)-(3,4글자)-(4글자)형식으로 입력되어야 합니다.");
+	               $(this).val('').focus();
+	             }
+		})
+		$("#resTime").change(function(){
+			var regExp = /^\d{2}:\d{2}~\d{2}:\d{2}$/;
+			if(!regExp.test($("#resTime").val())){
+	               	alert("영업시간은 00:00~00:00 형식으로 입력되어야 합니다.");
+	               $(this).val('').focus();
+	             }
+		})
+	})
+	/* 가게설명 textarea누르면 모달창 열림 */
 	function modal(){
 		$("#modalBtn").click();
 	}
+	/* 가게설명 모달안에 내용입력 후 버튼 누르면 가게설명 textarea에 내용입력 */
 	function contentUp(){		
 		var content = $("#mContent").val();
 		$("#rContent").val(content);
 		/* $("#mContent").val(""); */		
 		$("#close").click();
 	}
+	
+	/* 맴버십 유무로 필터에 숨겨져있는 맴버십체크박스의 체크유무 */
 	function partnerOn(){
 		$("#partner").prop("checked",true);
-	}
+	}	
 	function partnerOff(){
 		$("#partner").prop("checked",false);
 	}
+	
+	/* submit전에 정보 입력 체크 */
 	function submit(){
+		var fileCheck = $("#thumbnailChange").val();
+		if(!fileCheck){
+			alert("파일을 첨부하시오");
+			return;
+		}
+		if($("#resName").val()==""){
+            alert("가게이름을 입력하세요");
+            $("#resName").focus();
+            return;
+       }
+		if($("#rContent").val()==""){
+            alert("가게설명을 입력하세요");
+            return;
+       }
+		if($("#resPhone").val()==""){
+            alert("전화번호를 입력하세요");
+            $("#resPhone").focus();
+            return;
+       }
+		if($("#resTime").val()==""){
+            alert("영업시간을 입력하세요");
+            $("#resTime").focus();
+            return;
+       }
+		/* if($("#menu1").val()=="" || $("#menu2").val()=="" || $("#menu3").val()==""){
+            alert("매뉴를 3가지 전부 입력해주세요");
+            return;
+       } */
+		if($("#resCategoryId").val()==0){
+            alert("음식점 카테고리를 선택해 주세요");
+            $("#resCategoryId").focus();
+            return;
+       }		
+		if($(':radio[name="resMembership"]:checked').length < 1){
+		    alert('맴버십을 선택해주세요.');
+		    document.frm.test[0].focus();
+		    return false;
+		}
+		if($("#locationId").val()==0){
+            alert("지역을 선택해 주세요");
+            $("#locationId").focus();
+            return;
+       }
+       
+		if($("#post").val()==""){
+            alert("주소를 입력해 주세요");
+            return;
+       }
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		$("#submit").click();
+		if(confirm("음식점을 등록 하시겠습니까?")){
+			$("#submit").click();			
+		}
 	}
 	
 </script>
