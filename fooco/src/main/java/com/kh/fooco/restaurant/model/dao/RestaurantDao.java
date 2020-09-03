@@ -1,10 +1,15 @@
 package com.kh.fooco.restaurant.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.kh.fooco.common.model.vo.PageInfo;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 @Repository("restaurantDao")
 public class RestaurantDao {
@@ -15,6 +20,15 @@ public class RestaurantDao {
 	
 	public int getListCount(HashMap<String, Object> searchParameter) {
 		return sqlSessionTemplate.selectOne("restaurantMapper.getListCount", searchParameter);
+	}
+
+
+	public ArrayList<Restaurant> getList(HashMap<String, Object> searchParameter, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getList", searchParameter, rowBounds);
 	}
 	
 }

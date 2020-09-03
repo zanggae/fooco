@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="restaurantMapper">
+
 	<resultMap type="Res" id="RestaurantMap">
 		<id property="resId" column="RES_ID"/>
 		<result property="resCategoryId" column="RES_CATEGORY_ID"/>
@@ -18,6 +19,30 @@
 		<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
 		<result property="resReviewCount" column="REVIEW_COUNT"/>
 		<result property="resViewCount" column="RES_VIEWCOUNT"/>
+		<association property="resThumbnailImage" column="resId" javaType="Image" select="getRestaurantThumbnail"/>
+		<association property="bestReview" column="resId" javaType="Review" select="getRestaurantBestReview"/>
+		<collection property="resLatestImages" column="resId" javaType="java.util.ArrayList" ofType="Image"/>
+	</resultMap>
+	
+	<resultMap type="Review" id="ReviewMap">
+		<id property="reviewId" column="REVIEW_ID"/>
+		<result property="resId" column="RES_ID"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="reviewCreateDate" column="REVIEW_CREATE_DATE"/>
+		<result property="reviewUpdateDate" column="REVIEW_UPDATE_DATE"/>
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="reviewGoodcount" column="REVIEW_GOODCOUNT"/>
+		<result property="reviewRating" column="REVIEW_RATING"/>
+		<result property="reviewTasterating" column="REVIEW_TASTERATING"/>
+		<result property="reviewPricerating" column="REVIEW_PRICERATING"/>
+		<result property="reviewServicerating" column="REVIEW_SERVICERATING"/>
+		<result property="nickname" column="NICKNAME"/>
+		<result property="reviewerProfileId" column="REVIEWER_PROFILE_ID"/>
+		<result property="reviewerProfileImg" column="REVIEWER_PROFILE_IMG"/>
+		<result property="reviewerProfilePath" column="REVIEWER_PROFILE_PATH"/>
+		<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
+		<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
+		<collection property="revieweImages" column="reviewId" javaType="java.util.ArrayList" ofType="Image"/>
 	</resultMap>
 	
 	<resultMap type="Option" id="OptionMap">
@@ -34,6 +59,17 @@
 		<collection property="infoOption" resultMap="OptionMap"></collection>
 	</resultMap>
 	
+	<resultMap type="Image" id="ImageMap">
+		<id property="imageId" column="IMAGE_ID"/>
+		<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
+		<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+		<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+		<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
+		<result property="imageLevel" column="IMAGE_LEVEL"/>
+		<result property="imageStatus" column="IMAGE_STATUS"/>
+		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>
+	</resultMap>
+	
 	<select id="getListCount" parameterType="hashmap" resultType="_int">
 		SELECT COUNT(*)
 		  FROM SELECT_RES SR
@@ -46,4 +82,18 @@
 		  	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%'    
 		  </if>  
 	</select>
+	
+	<select id="getRestaurantThumbnail">
+		SELECT R.RES_ID, I.IMAGE_ID, I.IMAGE_NEW_NAME, I.IMAGE_FILEPATH
+		  FROM RESTAURANT R
+		  LEFT OUTER JOIN RES_IMAGE RI ON (R.RES_ID = RI.RES_ID)
+		  LEFT OUTER JOIN IMAGE I ON (RI.IMAGE_ID = I.IMAGE_ID);
+		 WHERE R.RES_ID = #{resId}
+	</select>
+	
+	<select id="getRestaurantBestReview">
+		SELECT SB.*
+		  FROM SELECT_BESTREVIEW SB
+	</select>
+	
 </mapper>
