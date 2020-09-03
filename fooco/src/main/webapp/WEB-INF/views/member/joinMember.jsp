@@ -15,13 +15,14 @@
     <title>JOIN US</title>
 
     <style>
-            /* 폰트 */
+        /* 폰트 */
         @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
         @font-face {font-family: 'medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff'); font-weight: normal; font-style: normal;}
         @font-face {font-family: 'heavy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff'); font-weight: bold; font-style: normal;}
         @font-face {font-family: 'light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: normal; font-style: normal;}
         * {font-family:'light';}
-      /* 공통사항 */
+        
+      	/* 공통사항 */
       html{
         margin: 0 auto;
         padding:0px;
@@ -208,10 +209,12 @@
                   <option value="google.com">gmail.com</option>
                   <option value="hanmail.net">hanmail.net</option>
                   <option value="selfEmail" id="selfEmail">직접 입력</option>
-                </select>&nbsp;
-                <input type="button" value="본인 인증" id="identity_confirm_btn" onclick="identity_confirm();">
-                <label id="resultEmail"></label>
-              </td>
+                </select>&nbsp;</td>
+                <td><input type="button" value="본인 인증" id="identity_confirm_btn" onclick="identity_confirm();"></td>
+               	<td><input type="button" value="중복 확인" id="emaildup_btn" onclick="emaildupCheck();"></td>
+               	<input type="hidden" name="foremailCheck" value="noemailCheck"> <!-- 중복체크 안했을 떄 -->
+                <td><label id="resultEmail"></label></td>
+              
             </tr>
             <tr>
               <td><li type="square"><label>인증번호 입력</label></li></td>
@@ -527,7 +530,7 @@
           $("#nickName").change(function(){
             var regEx = /^[가-힣]{3,6}$/;
             if(!regEx.test($("#nickName").val())){
-              $("#resultNickName").html("닉네임은 한글로 3자이상 6자 이하어야 합니다").css(FalseStyle);
+              $("#resultNickName").html("닉네임은 한글로 3자이상 6자 이하여야 합니다").css(FalseStyle);
               $(this).val('').focus();
             }else{
               $("#resultNickName").html("확인되었습니다.").css(TrueStyle);
@@ -536,16 +539,16 @@
 
         //비밀번호 정규 표현식 : 8~16자의 영문자,숫자 + 비밀번호 일치 여부
         $("#userPwd1").change(function(){
-          var regEx = /^[A-Za-z0-9]{8,16}$/;
+          var regEx = /(?=.*\d)(?=.*[a-z]).{8,16}/;
           if(!regEx.test($("#userPwd1").val())){
-            $("#resultPwd1").html("8~16자의 영문자,숫자 사용").css(FalseStyle);
+            $("#resultPwd1").html("8~16자의 문자,숫자 사용").css(FalseStyle);
             $(this).val('').focus();
           }else{
             $("#resultPwd1").html("비밀번호로 사용 가능합니다.").css(TrueStyle);
           }
         }).keyup(function(){
             if($(this).val()!=$('#userPwd2').val()&&$('#userPwd2').val()!=''){
-                $('#resultPwd2').html('비밀번호가 일치하지 않습니다.').css(styleFalse)
+                $('#resultPwd2').html('비밀번호가 일치하지 않습니다.').css('color','red');
             }
             if($(this).val()==$('#userPwd2').val()&&$('#userPwd2').val()!=''){
                 $('#resultPwd2').html('비밀번호가 일치합니다.').css(styleTrue)
@@ -599,7 +602,11 @@
       	/* 닉네임 중복체크 */
         $("#nickName").on("change",function(){
           var nickName = $("#nickName").val().trim();
-
+          
+          if(nickName.length<3){
+				alert("최소 한글 3자 이상이어야 합니다.");
+				$("#nickName").focus();
+          }else{
           $.ajax({
 				url:"checkNickName.do"
 				,type:"post"
@@ -618,7 +625,40 @@
 							+"error: " + errorData);
 				}
           })
+        }
         }) 
+        /* 이메일중복체크 */
+        function emaildupCheck(){
+        	var email1 = $("#email");
+            var email2 = "";
+
+            if($("#selfSiteName").prop("disabled")==true){
+              email2 = $("#selectEmail");     //선택이메일
+            }else{
+              email2 = $("#selfSiteName");    //직접입력 이메일
+            }
+            
+      		$.ajax({
+      			url:"checkemailDup.do"
+      			,type:"post"
+      			,data:{email:email1.val()+'@'+email2.val()}
+      			,success:function(data){
+      				console.log("성공");
+      				console.log("data값:"+data);
+      				if(data==0){	//true=0					
+						alert("사용하실 수 있는 이메일입니다.");
+					}else{ //flase=1
+						alert("이미 존재하는 이메일입니다.");
+						$("#email").val("");
+					}
+      			},error:function(request,status,errorData){
+					alert("error code:" + request.status + "\n"
+							+"message: " +request.responseText
+							+"error: " + errorData);
+				}
+      		})
+      	}
+        
       </script>
       
 
@@ -655,6 +695,11 @@
               $("#checkEmailnum").focus();
               return;
             }
+          if($("#foremailCheck").val()=="noemailCheck"){
+        	  alert("이메일 중복 확인 버튼을 클릭해주세요");
+        	  $("#emaildup_btn").focus();	//이게 되나?
+        	return;
+          }
           if($("#nickName").val()==""){
             alert("닉네임을 입력하세요");
             $("#nickName").focus();
@@ -789,29 +834,10 @@
 				alert("맞지 않는 번호입니다.")
 				$('#checkEmailnum').val("");
 			}
-
-           
           }
-          
-
-
-        
       </script>
       
-
-      <!--추가할 것-->
-      <!--이메일 관련(인증), 닉네임 중복 확인 AJAX, Submit-->
-      <!-- 0822 닉네임 중복 확인 AJAX만 처리 하면 끝 -->
-      
-      
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
-   <script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <!-- fontawesome -->

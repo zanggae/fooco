@@ -35,30 +35,13 @@
 <style>
 
 /* 페이지 전체 */
-.mypage_container {
-	padding: 0 !important;
-	margin-top: 3rem !important;
-}
-
-.myPage-row {
-	margin: 0;
-}
+.mypage_container {padding: 0 !important; margin-top: 3rem !important;}
+.myPage-row {margin: 0;}
 
 /* 가운데 내용 */
-.main_content {
-	margin: 0;
-	padding: 0;
-}
-
-.main_content_div {
-	background: lightgray;
-	border-radius: 0.5rem;
-	padding: 1rem;
-}
-
-.main_content .row {
-	margin: 0;
-}
+.main_content {margin: 0; padding: 0;}
+.main_content_div {background: lightgray; border-radius: 0.5rem; padding: 1rem;}
+.main_content .row {margin: 0;}
 
 
 </style>
@@ -78,10 +61,10 @@
 						<div class="row center_title">
 							<p
 								style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F618;
-								나의 활동</p>
+								나의 활동 </p>
 						</div>
 
-					
+						
 
 						
 

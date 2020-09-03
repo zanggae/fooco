@@ -18,11 +18,20 @@
 	FROM MEMBERSHIP
 </select>
 
-<!-- 결제 후 멤버십 insert -->
-<insert id="insertMembership" parameterType="Membership">
+<!-- 결제 후 Gold멤버십 insert -->
+<insert id="insertGoldMembership" parameterType="Membership">
     	INSERT ALL
     	INTO MEMBERSHIP_LIST VALUES(SEQ_MEMBERSHIPLISTID.NEXTVAL,#{buy_memberId},#{membershipId1},SYSDATE,SYSDATE+(INTERVAL '1' YEAR),DEFAULT)
     	INTO PAYMENT_LIST VALUES(SEQ_PAYMENTLISTID.NEXTVAL,#{membershipId1},#{buy_memberId},SYSDATE)
+    	SELECT *
+    	FROM DUAL 
+</insert>
+
+<!-- 결제 후 Silver멤버십 insert -->
+<insert id="insertSilverMembership" parameterType="Membership">
+    	INSERT ALL
+    	INTO MEMBERSHIP_LIST VALUES(SEQ_MEMBERSHIPLISTID.NEXTVAL,#{buy_memberId},#{membershipId2},SYSDATE,SYSDATE+(INTERVAL '6' MONTH),DEFAULT)
+    	INTO PAYMENT_LIST VALUES(SEQ_PAYMENTLISTID.NEXTVAL,#{membershipId2},#{buy_memberId},SYSDATE)
     	SELECT *
     	FROM DUAL 
 </insert>
@@ -33,5 +42,9 @@
 <insert id="insertCoupon2" parameterType="Membership">
       INSERT INTO COUPON_LIST VALUES(SEQ_COUPONLISTID.NEXTVAL,#{buy_coupon3},SEQ_MEMBERSHIPLISTID.CURRVAL,SYSDATE,SYSDATE+(INTERVAL '1' YEAR),DEFAULT)
 </insert>
+<insert id="insertCoupon3" parameterType="Membership">
+      INSERT INTO COUPON_LIST VALUES(SEQ_COUPONLISTID.NEXTVAL,#{buy_coupon2},SEQ_MEMBERSHIPLISTID.CURRVAL,SYSDATE,SYSDATE+(INTERVAL '6' MONTH),DEFAULT)
+</insert>
+
   
 </mapper>

@@ -9,12 +9,16 @@ public interface MemberShipService {
 
 	ArrayList<MemberShip> selectMembershipList(MemberShip membership);
 
-	int insertMembership(MemberShip membership);
+	int insertGoldMembership(MemberShip membership);
 
 	ArrayList<Coupon> selectCouponList();
 
 	int insertCoupon1(MemberShip membership);
 
 	int insertCoupon2(MemberShip membership);
+
+	int insertSilverMembership(MemberShip membership);
+
+	int insertCoupon3(MemberShip membership);
 
 }

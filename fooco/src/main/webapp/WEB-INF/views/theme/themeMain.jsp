@@ -49,7 +49,7 @@
       .text3{font-size: 2rem; font-weight: bolder;color: rgb(204, 51, 98);}
       .img1{text-align: center; width: 22rem; height: 16rem;opacity: 0.7; z-index: 0; border: solid black 0.18rem;border-radius: 5%;}
       .text4{font-size: 1.2rem; font-family:'bold'; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate( -50%, -50% );}
-      #heart{position: absolute; color: red; z-index: 100; top:12rem; left: 19rem; font-size: 3rem;}
+      /* #heart{position: absolute; color: red; z-index: 100; top:12rem; left: 19rem; font-size: 3rem;} */
       #position{margin-left: 11rem; width: 50.5rem; text-align: center;}	
 
       /* 메인 푸터 */
@@ -72,45 +72,105 @@
                           <div class="search"> 
                           <br>
                           <div class="input-group mb-3">
-                           <input type="text" class="form-control" placeholder="테마 검색하기"  
+                          <form id="searchForm" action="/theme/themeSearch" method="get">
+                           <input type="text" name="keyword" id="keyword"
+           
+                           class="form-control" placeholder="테마 검색하기"  
                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                           <button type="button" class="btn btn-warning"><i class="fas fa-search"></i></button>
+                           <button type="submit" id="searchBtn" class="btn btn-warning"><i class="fas fa-search"></i></button>
+                        	</form>
                          </div>
                        </div>
                      </div>
                       </div>
                     </div>
                 </div>
-            
-          
-
-              <div class="container">
-            <div class="bottom">
-             <h1 class="text3">'혼밥' 검색결과</h1>
-            </div>
-            <br>
-          <div class="row row-cols-2" id="position">
-		<c:forEach var="t" items="${theme }">
-		 <c:url var="themeSearch" value="themeSearch.do">
-            <c:param name="themeId" value="${t.themeId }"/>
-            </c:url>
-           
-          <div class="col" style="margin-bottom: 2rem;"><img src="${contextPath }/resources/restaurantImage/${theme.imageNewName}" class="img1" ><div class="text4">${t.themeTitle }</div>
-          
-          <i class="fas fa-heart" id="heart"></i>
-         </div> 
-         </c:forEach>
-         </div>
+                
+                
+                <div class="container">
+                <div class="bottom">
+                  <h1 class="text3">추천테마</h1>
+                </div>
+                <br>
+                <div class="row row-cols-2" id="position">
+              	<c:forEach var="t" items="${theme }">
+              	<c:url var="themeMain" value="themeMain.do">
+              		<c:param name="themeId" value="${t.themeId}"/>
+              	</c:url>
+                  <div class="col" style="margin-bottom: 2.5rem;">
+                  <img src="${path}/resources/restaurantImage/
+                  ${t.imageOriginName }" class="img1">
+                
+                    <div class="text4">${t.themeTitle }</div>
+                    <a class="heart">
+                    <img id="heart" src="">
+                    </a>
+                  </div>
+                  </c:forEach> 
+                  </div>
+                </div>
         
-        </div>
+        
         </section>
 
         <footer>
 
           
         </footer>
+      <script>
+    	var searchForm = $("#searchForm");
+   		
+    	$("searchForm button").on("click",function(e){
+    		if(!searchForm.find("input[name='keyword']").val()){
+    			alert("검색어를 입력하세요");
+    			return false;
+    		}
+    		
+    		e.preventDefault();
+    		
+    		searchForm.submit();
+    	});
       
       
+      </script>
+      
+      <script>
+      	$(document).ready(function(){
+      		var heartval =${heart};
+      		
+      		if(heartval > 0){
+      			console.log(heartval);
+      			$("#heart").prop("src", "/resources/images/like2.png");
+      			$(".heart").prop('name',heartval)
+      		}
+      		else{
+      			console.log(heartval);
+      			$("#heart").prop("src","/resources/images/like1.png");
+      			$(".heart").prop('name',heartval)
+      		}
+      	
+      		$(".heart").on("click",function() {
+      			var that = $(".heart");
+      			
+      			var sendData = {'themeId' : '${Theme.themeId}', 'heart' :  that.prop('name')};
+      			$.ajax({
+      				url:'/theme/heart',
+      				type : 'POST',
+      				data : sendData,
+      				success : function(data){
+      					that.prop('name',data);
+      					if(data==1){
+      						$("#heart").prop("src","/resources/images/like2.png");
+      					}
+      					else{
+      						$("#heart").prop("src","/resources/images/like1.png");
+      					}
+      				}
+      			});
+      		});
+      	});
+      
+      </script>
 
    
 
