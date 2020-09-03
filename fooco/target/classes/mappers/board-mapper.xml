@@ -30,9 +30,8 @@
    	<result property="imageStatus" column="IMAGE_STATUS"/>
    	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>    	  
 </resultMap>
-<resultMap type="Member" id="memberListResultSet">
-	<id property="memberId" column="MEMBER_ID"/>
-	</resultMap>
+
+
 
 
 	
@@ -62,7 +61,7 @@
 		
 	<insert id="inquiryInsert" parameterType="InsertBoard">
 	INSERT ALL
-    	INTO BOARD VALUES(SEQ_BOARDID.NEXTVAL,3,21,#{boardTitle},'내용내용내용',0,SYSDATE,SYSDATE,'Y',NULL,#{summernoteContent})
+    	INTO BOARD VALUES(SEQ_BOARDID.NEXTVAL,3,#{boardWriter},#{boardTitle},'내용내용내용',0,SYSDATE,SYSDATE,'Y',NULL,#{summernoteContent})
     	INTO INQUIRY VALUES(SEQ_BOARDID.CURRVAL,#{inquiryCode},NULL,'N',NULL)
     	SELECT *
     	FROM DUAL

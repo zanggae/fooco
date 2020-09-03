@@ -120,10 +120,13 @@ public class BoardController {
    //1:1 문의 등록
    @RequestMapping(value="inquiryInsert.do",method= {RequestMethod.GET,RequestMethod.POST})
 
-   public String inquiryInsert(InsertBoard b, HttpSession session, HttpServletRequest request) {
+   public String inquiryInsert(InsertBoard b, HttpSession session ) {
 	 
-    
-         int result = boardService.inquiryInsert(b);
+	 int loginId =  ((Member) session.getAttribute("loginUser")).getMemberId();
+	   b.setBoardWriter(loginId);
+	   System.out.println(b);
+	   
+	   int result = boardService.inquiryInsert(b);
          
          
 //     	@RequestMapping(value="login.do",method=RequestMethod.POST)

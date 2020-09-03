@@ -581,5 +581,23 @@ public class MemberController {
 			
 			return mv;
 		}
+
 		
+		
+		
+		
+		
+// ================================== MyList 영은 ===========================================
+		
+		
+		@RequestMapping("mylist.do")
+		public String mylist() {
+			return "mypage/myPageMylist";
+		}
+		
+		
+		@RequestMapping("mylistRegist.do")
+		public String mylistRegist() {
+			return "mypage/mylistRegist";
+		}
 }
