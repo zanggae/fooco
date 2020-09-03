@@ -28,19 +28,27 @@
 
 
 
-		<!-- 테마 메인 -->
-<select id="selectListTheme" resultMap="ThemeResultSet" parameterType="ThemeSearch">
+<!-- 테마 메인 조회 쿼리-->
+<select id="selectListTheme" resultMap="ThemeResultSet" >
 	SELECT
 	THEME_ID,THEME_TITLE,RES_ID,IMAGE_ID,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH,
 	RANK() OVER (ORDER BY THEME_COUNT DESC) AS COUNT
 	FROM SELECT_THEME
-	<if test="keyword != null">
-	AND TEME_TITLE LIKE '%'||#{keyword}||'%'
-	</if>
+	
+</select>
+
+<!-- 검색한 테마 조회 -->
+<select id="searchListTheme" parameterType="string" resultMap="ThemeResultSet">
+	SELECT
+	THEME_ID,THEME_TITLE,RES_ID,IMAGE_ID,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH
+	FROM SELECT_THEME
+	WHERE THEME_TITLE LIKE '%'||#{searchTheme}||'%' ORDER BY THEME_TITLE
 
 </select>
 
-			<!-- 테마 즐겨찾기 -->
+
+
+<!-- 테마 즐겨찾기 쿼리-->
 <insert id="insertThemeLike">
 	INSERT INTO THEME_BOOKMARK (MEMBER_NO, THEME_NO)
 	VALUES(#{memberNo}, #{themeNo))
