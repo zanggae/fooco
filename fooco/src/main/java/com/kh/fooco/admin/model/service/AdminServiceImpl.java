@@ -186,6 +186,21 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.insertRestaurantImage(i);
 	}
 
+	@Override
+	public Restaurant selectOneRestaurant(Restaurant restaurant) {
+		return adminDao.selectOneRestaurant(restaurant);
+	}
+
+	@Override
+	public ArrayList<String> selectListRestaurantFilter(Restaurant restaurant) {
+		return adminDao.selectListRestaurantFilter(restaurant);
+	}
+
+	@Override
+	public ArrayList<String> selectListRestaurantMenu(Restaurant restaurant) {
+		return adminDao.selectListRestaurantMenu(restaurant);
+	}
+
 	
 
 }
