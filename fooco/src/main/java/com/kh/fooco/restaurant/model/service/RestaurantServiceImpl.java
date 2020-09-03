@@ -1,6 +1,7 @@
 package com.kh.fooco.restaurant.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 	private RestaurantDao restaurantDao;
 
 	@Override
-	public ArrayList<Review> selectReviewList(int resId) {
-		return restaurantDao.selectReviewList(resId);
+	public int getListCount(HashMap<String, Object> searchParameter) {
+		return restaurantDao.getListCount(searchParameter);
 	}
 
-	@Override
-	public int getListCount(String location, String keyword) {
-		return restaurantDao.getListCount(location, keyword);
-	}
+
 
 }

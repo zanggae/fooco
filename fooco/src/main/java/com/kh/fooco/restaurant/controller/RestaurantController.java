@@ -1,21 +1,17 @@
 package com.kh.fooco.restaurant.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.service.RestaurantService;
+import com.kh.fooco.restaurant.model.vo.Option;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
-import com.kh.fooco.restaurant.model.vo.Review;
 
 @Controller
 public class RestaurantController {
@@ -31,24 +27,25 @@ public class RestaurantController {
 	@RequestMapping("goSearchedRestaurant.do")
 	public ModelAndView goSearchedRestaurant(ModelAndView mv
 									 , @RequestParam(value="page", required=false) Integer page
-									 , @RequestParam(value="location", required=false) String location
-									 , @RequestParam(value="keyword", required=false) String keyword)
+									 , @RequestParam(value="sort", required=false) String sort
+									 , @RequestParam(value="option", required=false) ArrayList<Option> option
+									 , @RequestParam(value="keyword", required=false) String keyword
+									 , @RequestParam(value="location", required=false) Integer location
+									 , @RequestParam(value="category", required=false) ArrayList category)
 	{
-		int currentPage = 1;
 		
 		System.out.println("location: " + location + ", keyword: " + keyword);
 		
-		if(page != null) {
-			currentPage = page;
-		}
+		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
+		searchParameter.put("location", location);
+		searchParameter.put("keyword", keyword);
+		searchParameter.put("sort", sort);
 		
+		int howManyRestaurant = restaurantService.getListCount(searchParameter);
+		System.out.println(howManyRestaurant);
+
 		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
-		PageInfo pi = new PageInfo();
-		
-		int howManyRestaurant = restaurantService.getListCount(location, keyword);
-		
-		
-		
+	
 		
 		
 		mv.setViewName("restaurant/searchedRestaurant");
@@ -60,14 +57,5 @@ public class RestaurantController {
 		return "restaurant/detailRestaurant";
 	}
 	
-	@RequestMapping("selectReviewList.do")
-	public String selectReviewList(int resId, HttpServletResponse response) throws IOException {
-		
-		ArrayList<Review> result = restaurantService.selectReviewList(resId);
-		
-		System.out.println(result);
-	
-		return "restaurant/restaurantReview";
-	}
 	
 }
