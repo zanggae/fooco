@@ -92,7 +92,7 @@
   
   <div style="margin-left: 13%;">
     <div class="container" style="padding: 5%; padding-left: 5rem;">
-      <i class="far fa-sticky-note"></i><h2 style="font-family:'bold'; margin-left: 100px; margin-bottom: 20px;">음식점 등록</h2>      
+      <i class="far fa-sticky-note"></i><h2 style="font-family:'bold'; margin-left: 100px; margin-bottom: 20px;">음식점 수정</h2>      
       <br>
       <div class="container" style="padding:0;">
         <div class="row" style="margin-bottom: 1rem;">
@@ -392,8 +392,9 @@
        }
 		
 		
-		
-		$("#submit").click();
+		if(confirm("음식점을 등록 하시겠습니까?")){
+			$("#submit").click();			
+		}
 	}
 	
 </script>

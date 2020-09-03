@@ -175,6 +175,18 @@ public class AdminDao {
 		return sqlSessionTemplate.insert("adminMapper.insertRestaurantImage", i);
 	}
 
+	public Restaurant selectOneRestaurant(Restaurant restaurant) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectOneRestaurant",restaurant);
+	}
+
+	public ArrayList<String> selectListRestaurantFilter(Restaurant restaurant) {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListRestaurantFilter",restaurant);
+	}
+
+	public ArrayList<String> selectListRestaurantMenu(Restaurant restaurant) {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListRestaurantMenu",restaurant);
+	}
+
 	
 
 

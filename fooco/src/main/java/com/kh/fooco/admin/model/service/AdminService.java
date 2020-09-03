@@ -80,5 +80,11 @@ public interface AdminService {
 
 	int insertRestaurantImage(Image i);
 
+	Restaurant selectOneRestaurant(Restaurant restaurant);
+
+	ArrayList<String> selectListRestaurantFilter(Restaurant restaurant);
+
+	ArrayList<String> selectListRestaurantMenu(Restaurant restaurant);
+
 	
 }

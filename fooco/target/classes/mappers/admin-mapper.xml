@@ -332,4 +332,16 @@
    	FROM DUAL
 </insert>
 
+<select id="selectOneRestaurant" parameterType="Restaurant" resultMap="RestaurantResultSet">
+	SELECT * FROM SELECT_RESTAURANT WHERE RES_ID = #{resId}
+</select>
+
+<select id="selectListRestaurantFilter" parameterType="Restaurant" resultType="string">
+	SELECT FILTER_ID FROM FILTER_CATEGORY WHERE RES_ID=#{resId}
+</select>
+
+<select id="selectListRestaurantMenu" parameterType="Restaurant" resultType="string">
+	SELECT BESTMENU_NAME FROM BESTMENU WHERE RES_ID=#{resId}
+</select>
+
 </mapper>
