@@ -24,12 +24,12 @@ public class Review implements Serializable {
 	private int reviewServicerating;
 	
 	// Review 부가 요소
-	private String reviewProfileImageName;		// 리뷰어의 프로필사진이름
-	private String reviewProfileImageFilepath;	// 리뷰어의 프로필사진경로
-	private String nickname;				    // 리뷰어의 별칭
-	private int reviewCount;                    // 리뷰어의 리뷰 수
-	private int followerCount;                  // 리뷰어의 팔로워 수
-	private ArrayList<Image> reviewImages;      // 리뷰어가 첨부한 이미지들
+	private String reviewProfileImageName;		
+	private String reviewProfileImageFilepath;	
+	private String nickname;				
+	private int reviewCount;                    
+	private int followerCount;               
+	private ArrayList<Image> reviewImages;    
 	
 	public Review() {}
 	public Review(int reviewId, int resId, int memberId, Date reviewCreateDate, Date reviewUpdateDate,
