@@ -29,8 +29,8 @@ public class Res implements Serializable {
 	private int resReviewCount;               // 맛집 리뷰 수
 	
 	private Image resThumbnailImage;          // 맛집 썸네일 이미지
-	private ArrayList<Image> resLatestImages; // 맛집 사진
 	private Review bestReview;		 	      // 베스트 리뷰
+	private ArrayList<Image> resLatestImages; // 맛집 사진
 	
 	public Res() {}
 	
