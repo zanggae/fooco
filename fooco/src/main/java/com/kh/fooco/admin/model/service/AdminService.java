@@ -7,6 +7,7 @@ import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
@@ -19,7 +20,7 @@ public interface AdminService {
 
 	MembershipCount selectOneMembershipCount();
 
-	int insertVisitorCount(String maxCount);
+	int insertVisitorCount();
 
 	int updateVisitorCount();
 
@@ -68,6 +69,16 @@ public interface AdminService {
 	int selectOneRestaurantCount(Search search);
 
 	int deleteRestaurant(Restaurant r);
+
+	int insertVisitorCount1();
+
+	int insertRestaurantMenu(String me);
+
+	int insertRestaurantFilter(String fi);
+
+	int insertRestaurant(Restaurant r);
+
+	int insertRestaurantImage(Image i);
 
 	
 }

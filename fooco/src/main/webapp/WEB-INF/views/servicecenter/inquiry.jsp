@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="ko">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -209,11 +209,11 @@
 
 
             <br><br>
-
+			
             <input type="submit" value="등록하기" class="btn btn-warning" id="none" style="margin-left:51rem; width: 7rem;">
             </form>
         </div>
-
+		
 
         <!--container 끝-->
     </section>

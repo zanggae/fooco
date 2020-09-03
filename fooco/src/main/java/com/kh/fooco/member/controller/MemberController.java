@@ -581,6 +581,7 @@ public class MemberController {
 			
 			return mv;
 		}
+
 		
 		
 		// 체크인 페이지 이동
@@ -610,4 +611,21 @@ public class MemberController {
 			out.close();
 		}
 		
+		
+		
+		
+// ================================== MyList 영은 ===========================================
+		
+		
+		@RequestMapping("mylist.do")
+		public String mylist() {
+			return "mypage/myPageMylist";
+		}
+		
+		
+		@RequestMapping("mylistRegist.do")
+		public String mylistRegist() {
+			return "mypage/mylistRegist";
+		}
+
 }
