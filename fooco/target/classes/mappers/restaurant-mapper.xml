@@ -114,23 +114,6 @@
 		 </if>  
 	</select>
 	
-	<select id="getRestaurantThumbnail" parameterType="_int">
-		SELECT *
-		  FROM SELECT_RES_THUMBAIL
-	</select>
-	
-	<select id="getRestaurantBestReview" parameterType="_int" resultMap="ReviewMap">
-		SELECT SB.*
-		  FROM SELECT_BESTREVIEW SB
-		 WHERE RES_ID = #{resId}
-	</select>
-	
-	<select id="getRestaurantLatestImages" parameterType="_int" resultMap="ImageMap">
-		SELECT SL.*
-		  FROM SELECT_RES_LATEST_IMAGES SL
-		 WHERE SL.RES_ID = #{resId}
-	</select>
-	
 	<select id="getList" parameterType="hashmap" resultMap="RestaurantMap">
 		SELECT SR.*, SO.*, RT.*, BR.*, LI.*
 		  FROM SELECT_RES SR
