@@ -19,9 +19,40 @@
 		<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
 		<result property="resReviewCount" column="REVIEW_COUNT"/>
 		<result property="resViewCount" column="RES_VIEWCOUNT"/>
-		<association property="resThumbnailImage" column="resId" javaType="Image" select="getRestaurantThumbnail"/>
-		<association property="bestReview" column="resId" javaType="Review" select="getRestaurantBestReview"/>
-		<collection property="resLatestImages" column="resId" javaType="java.util.ArrayList" ofType="Image" select="getRestaurantLatestImages"/>
+		<association property="resThumbnailImage" column="resId" javaType="Image">
+			<id property="imageId" column="RES_THUMBNAIL_ID"/>
+			<result property="imageNewName" column="RES_THUMBNAIL_IMG"/>
+			<result property="imageFilepath" column="RES_THUMBNAIL_PATH"/>
+		</association>
+		<association property="bestReview"  column="resId" javaType="Review">
+			<id property="reviewId" column="REVIEW_ID"/>
+			<result property="resId" column="RES_ID"/>
+			<result property="memberId" column="MEMBER_ID"/>
+			<result property="reviewCreateDate" column="REVIEW_CREATE_DATE"/>
+			<result property="reviewUpdateDate" column="REVIEW_UPDATE_DATE"/>
+			<result property="reviewContent" column="REVIEW_CONTENT"/>
+			<result property="reviewGoodcount" column="REVIEW_GOODCOUNT"/>
+			<result property="reviewRating" column="REVIEW_RATING"/>
+			<result property="reviewTasterating" column="REVIEW_TASTERATING"/>
+			<result property="reviewPricerating" column="REVIEW_PRICERATING"/>
+			<result property="reviewServicerating" column="REVIEW_SERVICERATING"/>
+			<result property="nickname" column="NICKNAME"/>
+			<result property="reviewerProfileId" column="REVIEWER_PROFILE_ID"/>
+			<result property="reviewerProfileImg" column="REVIEWER_PROFILE_IMG"/>
+			<result property="reviewerProfilePath" column="REVIEWER_PROFILE_PATH"/>
+			<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
+			<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
+		</association>
+		<collection property="resLatestImages" column="resId" ofType="Image">
+			<id property="imageId" column="IMAGE_ID"/>
+			<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+			<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+		</collection>
+		<collection property="resOptions" column="resId" ofType="Option">
+			<id property="resId" column="RES_ID"/>
+			<id property="optionId" column="FILTER_ID"/>
+			<result property="optionName" column="FILTER_NAME"/> 
+		</collection>
 	</resultMap>
 	
 	<resultMap type="Review" id="ReviewMap">
@@ -43,7 +74,6 @@
 		<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
 		<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
 		<collection property="revieweImages" column="reviewId" javaType="java.util.ArrayList" ofType="Image"/>
-		<collection property="resOptions" column="resId" javaType="java.util.ArrayList" ofType="Option"/>
 	</resultMap>
 	
 	<resultMap type="Option" id="OptionMap">
@@ -84,31 +114,13 @@
 		 </if>  
 	</select>
 	
-	<select id="getRestaurantThumbnail" parameterType="_int" resultMap="ImageMap">
-		SELECT R.RES_ID, I.IMAGE_ID, I.IMAGE_NEW_NAME, I.IMAGE_FILEPATH
-		  FROM RESTAURANT R
-		  LEFT OUTER JOIN RES_IMAGE RI ON (R.RES_ID = RI.RES_ID)
-		  LEFT OUTER JOIN IMAGE I ON (RI.IMAGE_ID = I.IMAGE_ID);
-		 WHERE R.RES_ID = #{resId}
-	</select>
-	
-	<select id="getRestaurantBestReview" parameterType="_int" resultMap="ReviewMap">
-		SELECT SB.*
-		  FROM SELECT_BESTREVIEW SB
-		 WHERE RES_ID = #{resId}
-	</select>
-	
-	<select id="getRestaurantLatestImages" parameterType="_int" resultMap="ImageMap">
-		SELECT SL.*
-		  FROM SELECT_RES_LATEST_IMAGES SL
-		 WHERE SL.RES_ID = #{resId}
-	</select>
-	
 	<select id="getList" parameterType="hashmap" resultMap="RestaurantMap">
-		SELECT SR.*
+		SELECT SR.*, SO.*, RT.*, BR.*, LI.*
 		  FROM SELECT_RES SR
 		  LEFT OUTER JOIN SELECT_OPTION SO ON (SR.RES_ID = SO.RES_ID)
-		  LEFT OUTER JOIN 
+		  LEFT OUTER JOIN SELECT_RES_THUMBNAIL RT ON (SR.RES_ID = RT.RES_ID)
+		  LEFT OUTER JOIN SELECT_BESTREVIEW BR ON (SR.RES_ID = BR.RES_ID)
+		  LEFT OUTER JOIN SELECT_RES_LATEST_IMAGES LI ON (SR.RES_ID = LI.RES_ID)
 		 WHERE SR.RES_STATUS = 'Y'
 		 <if test="locationId != 0">
 		 	AND SR.LOCATION_ID = #{locationId}
