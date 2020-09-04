@@ -15,6 +15,7 @@ import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService{
@@ -229,6 +230,31 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int updateRestaurant(Restaurant r) {
 		return adminDao.updateRestaurant(r);
+	}
+
+	@Override
+	public int selectOneThemeCount(ThemeAdmin ta) {
+		return adminDao.selectOneThemeCount(ta);
+	}
+
+	@Override
+	public ArrayList<ThemeAdmin> selectListTheme(ThemeAdmin ta, PageInfo pi) {
+		return adminDao.selectListTheme(ta, pi);
+	}
+
+	@Override
+	public int deleteTheme(ThemeAdmin ta) {
+		return adminDao.deleteTheme(ta);
+	}
+
+	@Override
+	public int deleteThemeBM(ThemeAdmin ta) {
+		return adminDao.deleteThemeBM(ta);
+	}
+
+	@Override
+	public int deleteThemeR(ThemeAdmin ta) {
+		return adminDao.deleteThemeR(ta);
 	}
 
 	

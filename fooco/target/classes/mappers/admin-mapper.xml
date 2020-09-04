@@ -111,6 +111,17 @@
       <result property="resCategoryName" column="RES_CATEGORY_NAME"/>      
 </resultMap>
 
+<!-- ============================ 테마 관련 resultMap ================================ -->
+<resultMap type="ThemeAdmin" id="ThemeResultSet">
+	<id property="themeId" column="THEME_ID"/>
+      <result property="themeTitle" column="THEME_TITLE"/>
+      <result property="themeUploadDate" column="THEME_UPLOAD_DATE"/>
+      <result property="themeModifyDate" column="THEME_MODIFY_DATE"/>
+      <result property="themeWriter" column="MEMBER_NO"/>
+      <result property="themeCount" column="THEME_COUNT"/>
+      <result property="themeImageName" column="RES_IMAGE_NAME"/>       
+</resultMap>
+
 <!-- ============================ 회원 관련 쿼리문 작성 ============================  -->
 
 <!-- 방문자수 조회 -->
@@ -377,4 +388,39 @@
 		RES_UPDATE_DATE =SYSDATE, RES_PHONE =#{resPhone}
 	WHERE RES_ID=#{resId}
 </update>
+
+
+<!-- ========================= 테마 ===================================================== -->
+<select id="selectOneThemeCount" parameterType="ThemeAdmin" resultType="_int">
+	SELECT COUNT(*) FROM SELECT_THEME_ADMIN 
+	<where>
+		<if test="themeTitle != null">
+			THEME_TITLE LIKE '%'||#{themeTitle}||'%'
+		</if>
+	</where>
+</select>
+
+<select id="selectListTheme" parameterType="ThemeAdmin" resultMap="ThemeResultSet">
+	SELECT * FROM SELECT_THEME_ADMIN 
+	<where>
+		<if test="themeTitle != null">
+			THEME_TITLE LIKE '%'||#{themeTitle}||'%'
+		</if>
+	</where>
+</select>
+
+<delete id="deleteTheme" parameterType="ThemeAdmin">
+	DELETE FROM THEME
+  	WHERE THEME_NO=#{themeId}
+</delete>
+
+<delete id="deleteThemeBM" parameterType="ThemeAdmin">
+	DELETE FROM THEME_BOOKMARK
+  	WHERE THEME_NO=#{themeId}
+</delete>
+
+<delete id="deleteThemeR" parameterType="ThemeAdmin">
+	DELETE FROM THEME_RES
+  	WHERE THEME_NO=#{themeId}
+</delete>
 </mapper>

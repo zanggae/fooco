@@ -39,6 +39,7 @@ import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @Controller
 public class AdminController {
@@ -690,9 +691,52 @@ public class AdminController {
 	}
 	
 	@RequestMapping("themeEdit.do")
-	public String themeEdit() {
-		return "admin/themeEdit";
+	public ModelAndView themeEdit(ModelAndView mv,ThemeAdmin ta,
+			@RequestParam(value="page", required=false) Integer page) {
+		String search = ta.getThemeTitle();
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		System.out.println(ta);
+		int tCount = adminService.selectOneThemeCount(ta);
+		
+		PageInfo pi = getPageInfo(currentPage, tCount);
+		
+		
+		System.out.println(tCount);
+		ArrayList<ThemeAdmin> tList = adminService.selectListTheme(ta, pi);
+		System.out.println(tList);
+		
+		mv.addObject("search",search);
+		mv.addObject("pi",pi);
+		mv.addObject("tList",tList);
+		mv.addObject("tCount", tCount);
+		mv.setViewName("admin/themeEdit");
+		return mv;
 	}
+	
+	@RequestMapping("deleteTheme.do")
+	public ModelAndView deleteTheme(ModelAndView mv, ThemeAdmin ta) {
+		
+		// 우선 즐겨찾기와 맛집이 있는지 먼저 조회 후 있으면 지우고 아니면 안지우고 하자
+		
+		// 테마 즐겨찾기 지우기
+		int resultBM = adminService.deleteThemeBM(ta);
+		// 테마 맛집 지우기
+		int resultR = adminService.deleteThemeR(ta);
+		// 테마 지우기		
+		int result = adminService.deleteTheme(ta);
+		
+		if(result>0) {
+			mv.setViewName("redirect:themeEdit.do");
+		}else {
+			throw new BoardException("테마 삭제 실패!");
+		}
+		
+		return mv;
+	}
+	
 	@RequestMapping("test.do")
 	public String test() {
 		return "admin/test";
