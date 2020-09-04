@@ -344,8 +344,9 @@
         
         	<c:if test="${!empty loginUser }"><button id="gomembershiplist" onclick="gomembershiplist();">나의 멤버십 조회 ></button></c:if>
 
-        
-        
+
+        </div>
+>
         	<form id="mbuyFormGold" action="buyGoldMembership.do" method="post">
 	        <!-- 회원 정보 -->
         	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.memberId}">

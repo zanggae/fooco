@@ -19,6 +19,7 @@ public class Restaurant implements Serializable {
 	private String resStatus;		// 맛집상태
 	private Date resCreateDate;		// 맛집등록일
 	private Date resUpdateDate;		// 맛집수정일
+	private String resPhone;		// 맛집전화번호
 	
 	// 조회할 때 추가적으로 필요한 멤버 변수
 	private String resImageName;				// 맛집썸네일이미지이름
@@ -39,8 +40,8 @@ public class Restaurant implements Serializable {
 
 	public Restaurant(int resId, int resCategoryId, int locationId, String resName, String resAddress,
 			String resContent, int resViewCount, String resTime, String resStatus, Date resCreateDate,
-			Date resUpdateDate, String resImageName, String resImageFilepath, String locationName, int reviewId,
-			int reviewRatingAvg, String reviewProfileImageName, String reviewProfileImageFilepath,
+			Date resUpdateDate, String resPhone, String resImageName, String resImageFilepath, String locationName,
+			int reviewId, int reviewRatingAvg, String reviewProfileImageName, String reviewProfileImageFilepath,
 			String reviewNickname, int bookmarkCount, int reviewCount, String resCategoryName) {
 		super();
 		this.resId = resId;
@@ -54,6 +55,7 @@ public class Restaurant implements Serializable {
 		this.resStatus = resStatus;
 		this.resCreateDate = resCreateDate;
 		this.resUpdateDate = resUpdateDate;
+		this.resPhone = resPhone;
 		this.resImageName = resImageName;
 		this.resImageFilepath = resImageFilepath;
 		this.locationName = locationName;
@@ -155,6 +157,14 @@ public class Restaurant implements Serializable {
 		this.resUpdateDate = resUpdateDate;
 	}
 
+	public String getResPhone() {
+		return resPhone;
+	}
+
+	public void setResPhone(String resPhone) {
+		this.resPhone = resPhone;
+	}
+
 	public String getResImageName() {
 		return resImageName;
 	}
@@ -243,17 +253,23 @@ public class Restaurant implements Serializable {
 		this.resCategoryName = resCategoryName;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "Restaurant [resId=" + resId + ", resCategoryId=" + resCategoryId + ", locationId=" + locationId
 				+ ", resName=" + resName + ", resAddress=" + resAddress + ", resContent=" + resContent
 				+ ", resViewCount=" + resViewCount + ", resTime=" + resTime + ", resStatus=" + resStatus
-				+ ", resCreateDate=" + resCreateDate + ", resUpdateDate=" + resUpdateDate + ", resImageName="
-				+ resImageName + ", resImageFilepath=" + resImageFilepath + ", locationName=" + locationName
-				+ ", reviewId=" + reviewId + ", reviewRatingAvg=" + reviewRatingAvg + ", reviewProfileImageName="
-				+ reviewProfileImageName + ", reviewProfileImageFilepath=" + reviewProfileImageFilepath
-				+ ", reviewNickname=" + reviewNickname + ", bookmarkCount=" + bookmarkCount + ", reviewCount="
-				+ reviewCount + ", resCategoryName=" + resCategoryName + "]";
+				+ ", resCreateDate=" + resCreateDate + ", resUpdateDate=" + resUpdateDate + ", resPhone=" + resPhone
+				+ ", resImageName=" + resImageName + ", resImageFilepath=" + resImageFilepath + ", locationName="
+				+ locationName + ", reviewId=" + reviewId + ", reviewRatingAvg=" + reviewRatingAvg
+				+ ", reviewProfileImageName=" + reviewProfileImageName + ", reviewProfileImageFilepath="
+				+ reviewProfileImageFilepath + ", reviewNickname=" + reviewNickname + ", bookmarkCount=" + bookmarkCount
+				+ ", reviewCount=" + reviewCount + ", resCategoryName=" + resCategoryName + "]";
 	}
+
+	
 	
 }

@@ -24,18 +24,20 @@ public class Review implements Serializable {
 	private int reviewServicerating;
 	
 	// Review 부가 요소
-	private String reviewProfileImageName;		// 리뷰어의 프로필사진이름
-	private String reviewProfileImageFilepath;	// 리뷰어의 프로필사진경로
-	private String nickname;				    // 리뷰어의 별칭
-	private int reviewCount;                    // 리뷰어의 리뷰 수
-	private int followerCount;                  // 리뷰어의 팔로워 수
-	private ArrayList<Image> reviewImages;      // 리뷰어가 첨부한 이미지들
+	private String nickname;
+	private int reviewerProfileId;
+	private String reviewerProfileImg;
+	private String reviewerProfilePath;
+	private int reviewerReviewCount;
+	private int reviewerFollowerCount;          
+	private ArrayList<Image> reviewImages;
 	
 	public Review() {}
 	public Review(int reviewId, int resId, int memberId, Date reviewCreateDate, Date reviewUpdateDate,
 			String reviewContent, int reviewGoodcount, int reviewRating, int reviewTasterating, int reviewPricerating,
-			int reviewServicerating, String reviewProfileImageName, String reviewProfileImageFilepath, String nickname,
-			int reviewCount, int followerCount, ArrayList<Image> reviewImages) {
+			int reviewServicerating, String nickname, int reviewerProfileId, String reviewerProfileImg,
+			String reviewerProfilePath, int reviewerReviewCount, int reviewerFollowerCount,
+			ArrayList<Image> reviewImages) {
 		super();
 		this.reviewId = reviewId;
 		this.resId = resId;
@@ -48,14 +50,14 @@ public class Review implements Serializable {
 		this.reviewTasterating = reviewTasterating;
 		this.reviewPricerating = reviewPricerating;
 		this.reviewServicerating = reviewServicerating;
-		this.reviewProfileImageName = reviewProfileImageName;
-		this.reviewProfileImageFilepath = reviewProfileImageFilepath;
 		this.nickname = nickname;
-		this.reviewCount = reviewCount;
-		this.followerCount = followerCount;
+		this.reviewerProfileId = reviewerProfileId;
+		this.reviewerProfileImg = reviewerProfileImg;
+		this.reviewerProfilePath = reviewerProfilePath;
+		this.reviewerReviewCount = reviewerReviewCount;
+		this.reviewerFollowerCount = reviewerFollowerCount;
 		this.reviewImages = reviewImages;
 	}
-	
 	public int getReviewId() {
 		return reviewId;
 	}
@@ -122,35 +124,41 @@ public class Review implements Serializable {
 	public void setReviewServicerating(int reviewServicerating) {
 		this.reviewServicerating = reviewServicerating;
 	}
-	public String getReviewProfileImageName() {
-		return reviewProfileImageName;
-	}
-	public void setReviewProfileImageName(String reviewProfileImageName) {
-		this.reviewProfileImageName = reviewProfileImageName;
-	}
-	public String getReviewProfileImageFilepath() {
-		return reviewProfileImageFilepath;
-	}
-	public void setReviewProfileImageFilepath(String reviewProfileImageFilepath) {
-		this.reviewProfileImageFilepath = reviewProfileImageFilepath;
-	}
 	public String getNickname() {
 		return nickname;
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public int getReviewCount() {
-		return reviewCount;
+	public int getReviewerProfileId() {
+		return reviewerProfileId;
 	}
-	public void setReviewCount(int reviewCount) {
-		this.reviewCount = reviewCount;
+	public void setReviewerProfileId(int reviewerProfileId) {
+		this.reviewerProfileId = reviewerProfileId;
 	}
-	public int getFollowerCount() {
-		return followerCount;
+	public String getReviewerProfileImg() {
+		return reviewerProfileImg;
 	}
-	public void setFollowerCount(int followerCount) {
-		this.followerCount = followerCount;
+	public void setReviewerProfileImg(String reviewerProfileImg) {
+		this.reviewerProfileImg = reviewerProfileImg;
+	}
+	public String getReviewerProfilePath() {
+		return reviewerProfilePath;
+	}
+	public void setReviewerProfilePath(String reviewerProfilePath) {
+		this.reviewerProfilePath = reviewerProfilePath;
+	}
+	public int getReviewerReviewCount() {
+		return reviewerReviewCount;
+	}
+	public void setReviewerReviewCount(int reviewerReviewCount) {
+		this.reviewerReviewCount = reviewerReviewCount;
+	}
+	public int getReviewerFollowerCount() {
+		return reviewerFollowerCount;
+	}
+	public void setReviewerFollowerCount(int reviewerFollowerCount) {
+		this.reviewerFollowerCount = reviewerFollowerCount;
 	}
 	public ArrayList<Image> getReviewImages() {
 		return reviewImages;
@@ -158,17 +166,16 @@ public class Review implements Serializable {
 	public void setReviewImages(ArrayList<Image> reviewImages) {
 		this.reviewImages = reviewImages;
 	}
-	
 	@Override
 	public String toString() {
 		return "Review [reviewId=" + reviewId + ", resId=" + resId + ", memberId=" + memberId + ", reviewCreateDate="
 				+ reviewCreateDate + ", reviewUpdateDate=" + reviewUpdateDate + ", reviewContent=" + reviewContent
 				+ ", reviewGoodcount=" + reviewGoodcount + ", reviewRating=" + reviewRating + ", reviewTasterating="
 				+ reviewTasterating + ", reviewPricerating=" + reviewPricerating + ", reviewServicerating="
-				+ reviewServicerating + ", reviewProfileImageName=" + reviewProfileImageName
-				+ ", reviewProfileImageFilepath=" + reviewProfileImageFilepath + ", nickname=" + nickname
-				+ ", reviewCount=" + reviewCount + ", followerCount=" + followerCount + ", reviewImages=" + reviewImages
-				+ "]";
-	}
+				+ reviewServicerating + ", nickname=" + nickname + ", reviewerProfileId=" + reviewerProfileId
+				+ ", reviewerProfileImg=" + reviewerProfileImg + ", reviewerProfilePath=" + reviewerProfilePath
+				+ ", reviewerReviewCount=" + reviewerReviewCount + ", reviewerFollowerCount=" + reviewerFollowerCount
+				+ ", reviewImages=" + reviewImages + "]";
+	}    
 	
 }

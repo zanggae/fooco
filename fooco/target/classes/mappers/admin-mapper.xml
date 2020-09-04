@@ -96,7 +96,8 @@
       <result property="resTime" column="RES_TIME"/>
       <result property="resStatus" column="RES_STATUS"/>
       <result property="resCreateDate" column="RES_CREATE_DATE"/>
-      <result property="resUpdateDate" column="RES_UPDATE_DATE"/>       
+      <result property="resUpdateDate" column="RES_UPDATE_DATE"/>  
+      <result property="resPhone" column="RES_PHONE"/>     
       <result property="resImageName" column="RES_IMAGE_NAME"/> 
       <result property="resImageFilepath" column="RES_IMAGE_FILEPATH"/>
       <result property="locationName" column="LOCATION_NAME"/>
@@ -136,15 +137,12 @@
 </select>
 
 <!-- 첫 방문시 튜플 생성  -->
-<insert id="insertVisitorCount" parameterType="string">
-	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,
-	<if test="value ==null">
-		1
-	</if>
-	<if test="value !=null">
-		(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC)
-	</if>
-	,0,0)
+<insert id="insertVisitorCount">
+	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,(SELECT MAX(STATIC_T_COUNT)+1 FROM STATIC),0,0)
+</insert>
+
+<insert id="insertVisitorCount1">
+	INSERT INTO STATIC VALUES(SEQ_STATIC.NEXTVAL,SYSDATE,1,1,0,0)
 </insert>
 
 <!-- 2번째 이후 업데이트 -->
@@ -312,4 +310,38 @@
 <update id="deleteRestaurant" parameterType="Restaurant">
 	UPDATE RESTAURANT SET RES_STATUS = 'N' WHERE RES_ID=#{resId}
 </update>
+
+<insert id="insertRestaurantMenu" parameterType="string">
+	INSERT INTO BESTMENU VALUES(SEQ_BESTMENU.NEXTVAL,SEQ_RESTAURANT.CURRVAL,#{me})
+</insert>
+
+<insert id="insertRestaurantFilter" parameterType="string">
+	INSERT INTO FILTER_CATEGORY VALUES(SEQ_RESTAURANT.CURRVAL,#{filter})
+</insert>
+
+<insert id="insertRestaurant" parameterType="Restaurant">
+	INSERT INTO RESTAURANT VALUES(SEQ_RESTAURANT.NEXTVAL,#{resCategoryId},#{locationId}
+		,#{resName},#{resAddress},#{resContent},0,#{resTime},'Y',SYSDATE,SYSDATE,#{resPhone})
+</insert>
+
+<insert id="insertRestaurantImage" parameterType="Image">
+	INSERT ALL
+	   	INTO IMAGE VALUES(SEQ_IMAGE_YE.NEXTVAL,#{imageOriginName},#{imageNewName},#{imageFilepath},SYSDATE,0,'Y',0)
+	   	INTO RES_IMAGE VALUES(SEQ_IMAGE_YE.CURRVAL,SEQ_RESTAURANT.CURRVAL)
+   	SELECT *
+   	FROM DUAL
+</insert>
+
+<select id="selectOneRestaurant" parameterType="Restaurant" resultMap="RestaurantResultSet">
+	SELECT * FROM SELECT_RESTAURANT WHERE RES_ID = #{resId}
+</select>
+
+<select id="selectListRestaurantFilter" parameterType="Restaurant" resultType="string">
+	SELECT FILTER_ID FROM FILTER_CATEGORY WHERE RES_ID=#{resId}
+</select>
+
+<select id="selectListRestaurantMenu" parameterType="Restaurant" resultType="string">
+	SELECT BESTMENU_NAME FROM BESTMENU WHERE RES_ID=#{resId}
+</select>
+
 </mapper>

@@ -1,14 +1,17 @@
 package com.kh.fooco.restaurant.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.kh.fooco.common.model.vo.PageInfo;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.restaurant.model.vo.Review;
 
 public interface RestaurantService {
 
-	ArrayList<Review> selectReviewList(int resId);
+	int getListCount(HashMap<String, Object> searchParameter);
 
-	int getListCount(String location, String keyword);
+	ArrayList<Restaurant> getList(HashMap<String, Object> searchParameter, PageInfo pi);
 
 }
 
