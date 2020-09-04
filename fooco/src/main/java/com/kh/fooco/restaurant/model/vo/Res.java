@@ -30,14 +30,15 @@ public class Res implements Serializable {
 	
 	private Image resThumbnailImage;          // 맛집 썸네일 이미지
 	private Review bestReview;		 	      // 베스트 리뷰
+	private ArrayList<Option> resOptions;     // 
 	private ArrayList<Image> resLatestImages; // 맛집 사진
 	
 	public Res() {}
-	
 	public Res(int resId, int resCategoryId, String resCategoryName, int locationId, String locationName,
 			String resName, String resAddress, String resContent, int resViewCount, String resTime, String resStatus,
 			Date resCreateDate, Date resUpdateDate, int reviewRating, int resBookmarkCount, int resReviewCount,
-			Image resThumbnailImage, ArrayList<Image> resLatestImages, Review bestReview) {
+			Image resThumbnailImage, Review bestReview, ArrayList<Option> resOptions,
+			ArrayList<Image> resLatestImages) {
 		super();
 		this.resId = resId;
 		this.resCategoryId = resCategoryId;
@@ -56,10 +57,10 @@ public class Res implements Serializable {
 		this.resBookmarkCount = resBookmarkCount;
 		this.resReviewCount = resReviewCount;
 		this.resThumbnailImage = resThumbnailImage;
-		this.resLatestImages = resLatestImages;
 		this.bestReview = bestReview;
+		this.resOptions = resOptions;
+		this.resLatestImages = resLatestImages;
 	}
-	
 	public int getResId() {
 		return resId;
 	}
@@ -162,19 +163,24 @@ public class Res implements Serializable {
 	public void setResThumbnailImage(Image resThumbnailImage) {
 		this.resThumbnailImage = resThumbnailImage;
 	}
-	public ArrayList<Image> getResLatestImages() {
-		return resLatestImages;
-	}
-	public void setResLatestImages(ArrayList<Image> resLatestImages) {
-		this.resLatestImages = resLatestImages;
-	}
 	public Review getBestReview() {
 		return bestReview;
 	}
 	public void setBestReview(Review bestReview) {
 		this.bestReview = bestReview;
 	}
-	
+	public ArrayList<Option> getResOptions() {
+		return resOptions;
+	}
+	public void setResOptions(ArrayList<Option> resOptions) {
+		this.resOptions = resOptions;
+	}
+	public ArrayList<Image> getResLatestImages() {
+		return resLatestImages;
+	}
+	public void setResLatestImages(ArrayList<Image> resLatestImages) {
+		this.resLatestImages = resLatestImages;
+	}
 	@Override
 	public String toString() {
 		return "Res [resId=" + resId + ", resCategoryId=" + resCategoryId + ", resCategoryName=" + resCategoryName
@@ -183,7 +189,8 @@ public class Res implements Serializable {
 				+ ", resTime=" + resTime + ", resStatus=" + resStatus + ", resCreateDate=" + resCreateDate
 				+ ", resUpdateDate=" + resUpdateDate + ", reviewRating=" + reviewRating + ", resBookmarkCount="
 				+ resBookmarkCount + ", resReviewCount=" + resReviewCount + ", resThumbnailImage=" + resThumbnailImage
-				+ ", resLatestImages=" + resLatestImages + ", bestReview=" + bestReview + "]";
+				+ ", bestReview=" + bestReview + ", resOptions=" + resOptions + ", resLatestImages=" + resLatestImages
+				+ "]";
 	}
 	
 }

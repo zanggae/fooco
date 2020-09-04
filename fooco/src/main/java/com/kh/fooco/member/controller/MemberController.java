@@ -122,14 +122,14 @@ public class MemberController {
 		
 		if(loginUser==null) {
 			System.out.println("일치하는 회원이 없음");
-			model.addAttribute("loginUser",null);
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('아이디와 비밀번호를 다시 확인해주세요');</script>"); 
-			out.flush();
+			 response.setContentType("text/html; charset=UTF-8"); 
+			 PrintWriter out = response.getWriter();
+			 out.println("<script>alert('아이디와 비밀번호를 다시 확인해주세요'); history.go(-1);</script>"); 
+			 out.flush();		 
 		}else if(bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			model.addAttribute("loginUser", loginUser);
 			System.out.println("로그인 성공");
+			return "common/main";
 		}else{
 			 System.out.println("로그인 실패");
 		}
@@ -210,13 +210,10 @@ public class MemberController {
 			Random r = new Random();
 			int dice = r.nextInt(4589362) + 49311;	//이메일로 받는 인증코드 부분(난수)
 			
-//			String setfrom = "ekfzma1004@gmail.com";		//보내는 사람
+			String setfrom = "fooco@gmail.com";		//보내는 사람
 			String tomail = request.getParameter("email"); //받는 사람
 			String title = "Fooco 인증 메일입니다";				//메일제목
-			String content = 
-					System.getProperty("line.separator")+
-					System.getProperty("line.separaotr")+
-					"안녕하세요! Fooco입니다."+
+			String content = "안녕하세요! Fooco입니다."+
 					System.getProperty("line.separator")+
 					System.getProperty("line.separator")+
 					"인증번호는 " + dice+ "입니다"+
@@ -228,11 +225,11 @@ public class MemberController {
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
 				
-//				 messageHelper.setFrom(setfrom); 	// 보내는사람 생략하면 정상작동을 안함
+				 messageHelper.setFrom(setfrom); 	// 보내는사람 생략하면 정상작동을 안함
 	             messageHelper.setTo(tomail); 		// 받는사람 이메일
 	             messageHelper.setSubject(title); 	// 메일제목은 생략가능
 	             messageHelper.setText(content); 	// 메일 내용
-	             
+	            
 	             mailSender.send(message);
 	             System.out.println("이메일 전송됨!_!");
 				
@@ -278,9 +275,7 @@ public class MemberController {
 				
 				String tomail = request.getParameter("emailchange"); //받는 사람
 				String title = "[Fooco]임시 비밀번호가 발급되었습니다";	//메일제목
-				String content = System.getProperty("line.separator")+
-						System.getProperty("line.separaotr")+
-						"안녕하세요! Fooco입니다."+
+				String content ="안녕하세요! Fooco입니다."+
 						System.getProperty("line.separator")+
 						System.getProperty("line.separator")+
 						"임시비밀번호는 " + dice+ "입니다"+
@@ -582,6 +577,8 @@ public class MemberController {
 			return mv;
 		}
 
+		
+		
 		
 		
 		

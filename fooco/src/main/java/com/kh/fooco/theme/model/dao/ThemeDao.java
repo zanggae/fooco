@@ -17,10 +17,10 @@ public class ThemeDao {
 	 SqlSessionTemplate sqlSessionTemplate;
 
 	public ArrayList<Theme> selectListTheme() {
-		return (ArrayList)sqlSessionTemplate.selectList("themeMapper.selectListTheme");
+		return(ArrayList)sqlSessionTemplate.selectList("themeMapper.selectListTheme");
 	}
-
 	
+
 	public void updateThemeLike(int themeId) {
 		sqlSessionTemplate.update("themeMapper.updateThemeLike",themeId);
 	}
@@ -35,7 +35,13 @@ public class ThemeDao {
 		
 		return sqlSessionTemplate.selectOne("themeMapper.getThemeLike",tb);
 	}
-	
+
+
+	public ArrayList<Theme> searchListTheme(String searchTheme) {
+		return (ArrayList)sqlSessionTemplate.selectList("themeMapper.searchListTheme",searchTheme);
+	}
+
+
 	
 }
 

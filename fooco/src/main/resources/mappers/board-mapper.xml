@@ -32,40 +32,37 @@
 </resultMap>
 
 
+<!-- 공지사항 조회 쿼리 -->
+<select id="selectListNotice" resultMap="BoardResultSet">
+	SELECT BOARD_TITLE, BOARD_CREATE_DATE, BOARD_ID
+	FROM SELECT_BOARD
+	WHERE CATEGORY_NO = 1
+	ORDER BY BOARD_ID DESC
+</select>
 
+<!-- FAQ 조회 쿼리 -->
+<select id="selectListFAQ" resultMap="BoardResultSet">
+	SELECT BOARD_TITLE, ANSWER_CONTENT
+	FROM SELECT_BOARD
+	WHERE CATEGORY_NO = 2
+	ORDER BY BOARD_ID DESC 
+</select>
 
-	
-	<select id="selectListNotice" resultMap="BoardResultSet">
-		SELECT BOARD_TITLE, BOARD_CREATE_DATE, BOARD_ID
-		FROM SELECT_BOARD
-		WHERE CATEGORY_NO = 1
-		ORDER BY BOARD_ID DESC
-	</select>
-
-	<select id="selectListFAQ" resultMap="BoardResultSet">
-		SELECT BOARD_TITLE, ANSWER_CONTENT
-		FROM SELECT_BOARD
-		WHERE CATEGORY_NO = 2
-		ORDER BY BOARD_ID DESC 
-	
-	</select>
-	
-	<select id="selectNoticeDetail" parameterType="_int" resultMap="BoardResultSet">
-		SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_CREATE_DATE
-		FROM SELECT_BOARD
-		WHERE CATEGORY_NO = 1 AND BOARD_ID=#{boardId}
-	</select>
-		
-		
-
-		
-	<insert id="inquiryInsert" parameterType="InsertBoard">
+<!-- 공지사항 상세보기 쿼리 -->
+<select id="selectNoticeDetail" parameterType="_int" resultMap="BoardResultSet">
+	SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_CREATE_DATE
+	FROM SELECT_BOARD
+	WHERE CATEGORY_NO = 1 AND BOARD_ID=#{boardId}
+</select>
+<!-- 1:1문의 등록 쿼리 -->			
+<insert id="inquiryInsert" parameterType="InsertBoard">
 	INSERT ALL
-    	INTO BOARD VALUES(SEQ_BOARDID.NEXTVAL,3,#{boardWriter},#{boardTitle},'내용내용내용',0,SYSDATE,SYSDATE,'Y',NULL,#{summernoteContent})
-    	INTO INQUIRY VALUES(SEQ_BOARDID.CURRVAL,#{inquiryCode},NULL,'N',NULL)
-    	SELECT *
-    	FROM DUAL
-	</insert>
+    INTO BOARD VALUES(SEQ_BOARDID.NEXTVAL,3,#{boardWriter},#{boardTitle},'내용내용내용',0,SYSDATE,SYSDATE,'Y',NULL,#{summernoteContent})
+    INTO INQUIRY VALUES(SEQ_BOARDID.CURRVAL,#{inquiryCode},NULL,'N',NULL)
+    SELECT *
+    FROM DUAL
+</insert>
+
 </mapper>
 
 

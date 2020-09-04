@@ -29,27 +29,32 @@ public class RestaurantController {
 	
 	@RequestMapping("goSearchedRestaurant.do")
 	public ModelAndView goSearchedRestaurant(ModelAndView mv
-									 , @RequestParam(value="page", required=false) Integer page
-									 , @RequestParam(value="sort", required=false) String sort
-									 , @RequestParam(value="option", required=false) ArrayList<Option> option
-									 , @RequestParam(value="keyword", required=false) String keyword
-									 , @RequestParam(value="location", required=false) Integer location)
+									 , @RequestParam(value="page", required=false, defaultValue="1") Integer page
+									 , @RequestParam(value="options", required=false) ArrayList<Option> options
+									 , @RequestParam(value="keyword", required=false, defaultValue="all") String keyword
+									 , @RequestParam(value="locationId", required=false, defaultValue="0") Integer locationId
+									 , @RequestParam(value="sortType", required=false, defaultValue="highrating") String sortType)
 	{		
-		int currentPage = 1;
-		if(page != null) {
-			currentPage = page;
-		}
+		int currentPage = page;
+		
+		System.out.println("page: " + page + ", keyword: " + keyword + ", locationId: " + locationId + ", sortType: " + sortType + ", options: " + options);
 		
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
-		searchParameter.put("location", location);
+		searchParameter.put("options", options);
 		searchParameter.put("keyword", keyword);
-		searchParameter.put("sort", sort);
+		searchParameter.put("options", options);
+		searchParameter.put("sortType", sortType);
+		searchParameter.put("locationId", locationId);
 		
 		int howManyRestaurant = restaurantService.getListCount(searchParameter);
+		System.out.println(howManyRestaurant);
 		
 		PageInfo pi = getPageInfo(currentPage, howManyRestaurant);
 		
-		ArrayList<Restaurant> list = restaurantService.getList(searchParameter, pi);
+		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
+		list = restaurantService.getList(searchParameter, pi);
+		
+		System.out.println(list);
 	
 		
 		
