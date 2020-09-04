@@ -344,4 +344,37 @@
 	SELECT BESTMENU_NAME FROM BESTMENU WHERE RES_ID=#{resId}
 </select>
 
+<delete id="deleteRestaurantMenu" parameterType="Restaurant">
+	DELETE FROM BESTMENU
+  	WHERE RES_ID=#{resId}
+</delete>
+
+<delete id="deleteRestaurantFilter" parameterType="Restaurant">
+	DELETE FROM FILTER_CATEGORY
+  	WHERE RES_ID=#{resId}
+</delete>
+
+<insert id="updateRestaurantMenu" parameterType="hashmap">
+	INSERT INTO BESTMENU VALUES(SEQ_BESTMENU.NEXTVAL,#{rId},#{me})
+</insert>
+
+<insert id="updateRestaurantFilter" parameterType="hashmap">
+	INSERT INTO FILTER_CATEGORY VALUES(#{rId},#{filter})
+</insert>
+
+<update id="updateRestaurantImage" parameterType="hashmap">
+	UPDATE (SELECT * FROM IMAGE I LEFT JOIN RES_IMAGE R ON (I.IMAGE_ID = R.IMAGE_ID)) 
+	SET IMAGE_ORIGIN_NAME = #{oName}
+    , IMAGE_NEW_NAME = #{nName}
+    , IMAGE_CREATE_DATE = SYSDATE
+    WHERE RES_ID=#{rId}
+</update>
+
+<update id="updateRestaurant" parameterType="Restaurant">
+	UPDATE RESTAURANT 
+	SET RES_CATEGORY_ID =#{resCategoryId}, LOCATION_ID =#{locationId}, RES_NAME =#{resName},
+		RES_ADDRESS =#{resAddress}, RES_CONTENT =#{resContent}, RES_TIME =#{resTime},
+		RES_UPDATE_DATE =SYSDATE, RES_PHONE =#{resPhone}
+	WHERE RES_ID=#{resId}
+</update>
 </mapper>

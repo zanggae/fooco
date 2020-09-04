@@ -242,7 +242,7 @@
         }
 		function goModify(id){
 			var resId = $(id).attr('value');
-			alert(resId);
+			/* alert(resId); */
         	location.href="detailRestaurantAdmin.do?resId="+resId;
         }
       </script>

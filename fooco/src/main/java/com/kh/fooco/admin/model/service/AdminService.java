@@ -86,5 +86,17 @@ public interface AdminService {
 
 	ArrayList<String> selectListRestaurantMenu(Restaurant restaurant);
 
+	int deleteRestaurantMenu(Restaurant r);
+
+	int deleteRestaurantFilter(Restaurant r);
+
+	int updateRestaurantMenu(String me, int rId);
+
+	int updateRestaurantFilter(String fi, int rId);
+
+	int updateRestaurantImage(Image i, int rId);
+
+	int updateRestaurant(Restaurant r);
+
 	
 }

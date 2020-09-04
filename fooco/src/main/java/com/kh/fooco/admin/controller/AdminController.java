@@ -584,7 +584,7 @@ public class AdminController {
 	public ModelAndView detailRestaurantAdmin(ModelAndView mv, Restaurant restaurant) {
 		
 		Restaurant r = adminService.selectOneRestaurant(restaurant);
-//		System.out.println("음식점 조회 : "+r);
+		System.out.println("음식점 조회 : "+r);
 		ArrayList<String> filter = adminService.selectListRestaurantFilter(restaurant);
 //		System.out.println("필터조회 : "+filter);
 		ArrayList<String> menu = adminService.selectListRestaurantMenu(restaurant);
@@ -606,10 +606,83 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping(value="registrationModifyAdmin.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView registrationModifyAdmin(ModelAndView mv, Restaurant r
+			,@RequestParam(value="menu", required=false) String menu
+			,@RequestParam(value="filter", required=false) String filter
+			, String post, String address1, String address2, Image i
+			,HttpServletRequest request,
+			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+		int menuResult = 0;
+		int filterResult = 0;
+		int result = 0;
+		int imageResult = 0;
+		int rId = r.getResId();
+		r.setResAddress(post + "," + address1 + "," + address2); 
+		 result = adminService.updateRestaurant(r);
+		 if(result >0) {
+			 
+		 }else {
+			 throw new BoardException("음식점 등록 실패!");
+		 }
+		
+		
+		// 파일 업로드 유무 판단해서 있으면 기존의 파일 삭제후 새로은 파일로 업데이트
+		String imageNewName="";
+		if(!file.getOriginalFilename().equals("")) {
+			if(i.getImageNewName() != null) {
+				deleteFile(i.getImageNewName(), request);				
+			}
+			
+			String renameFileName = saveFile(file,request);
+			 
+			i.setImageOriginName(file.getOriginalFilename());
+			i.setImageNewName(renameFileName);
+			
+			imageResult = adminService.updateRestaurantImage(i, rId);
+			
+			if(imageResult >0) {
+				
+			}else {
+				throw new BoardException("음식점 사진 등록 실패!");
+			}
+		}
+		
+		// 기존의 bestmenu 삭제
+		int dMenu = adminService.deleteRestaurantMenu(r);
+		// 업데이트된 bestmenu 생성
+		String[] menu1 = menu.split(",");		
+		for(String me : menu1) {
+			menuResult = adminService.updateRestaurantMenu(me,rId);
+		}	
+		if(menuResult <0) {
+			throw new BoardException("음식점 베스트매뉴 등록 실패!");			 
+		}
+		
+		// 기존의 필터 삭제
+		int dFilter = adminService.deleteRestaurantFilter(r);
+		// 업데이트된 필터 생성
+		if(filter !=null) {
+			String[] filter1 = filter.split(",");		
+			for(String fi : filter1) {
+				filterResult = adminService.updateRestaurantFilter(fi,rId);
+			}						
+		}
+		if(filterResult <0) {
+			throw new BoardException("음식점 필터 등록 실패!");			 
+		}
+		
+		mv.addObject("resId", rId);
+		mv.setViewName("redirect:detailRestaurantAdmin.do");
+		
+		return mv;
+	}
+	
 	@RequestMapping("restaurantRegistration.do")
 	public String restaurantRegistration() {
 		return "admin/restaurantRegistration";
 	}
+	
 	
 	@RequestMapping("boardRegistration.do")
 	public String boardRegistration() {

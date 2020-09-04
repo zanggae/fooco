@@ -97,11 +97,13 @@
       <div class="container" style="padding:0;">
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col">
-            <form action="registrationRestaurant.do" method="post" enctype="multipart/form-data">
+            <form action="registrationModifyAdmin.do" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="imageNewName" value="${restaurant.resImageName}">
+            <input type="hidden" name="resId" value="${restaurant.resId}">
               <div id="background_" style="width:80%; border-radius:1rem; padding:2rem; padding-top:0; margin-left: 40px;">
                 <div id="imgtest">
                 	<input type="file" style="display: none" id="thumbnailChange" name="uploadFile" accept="image/*">
-                    <div id="img_background" onclick="thumbnail()"><img id="img" src="${restaurant.resImageFilepath}/${restaurant.resImageName}" style="width: 8rem; height: 10rem;"></div><br>
+                    <div id="img_background" onclick="thumbnail()"><img id="img" src="resources/buploadFiles/${restaurant.resImageName}" style="width: 8rem; height: 10rem;"></div><br>
                     <p>[음식점 사진]</p>
                 </div>
               <table style="margin-left: 300px; margin-top: -260px;">
@@ -240,7 +242,7 @@
       </div>
       <div align="center" style="width: 85%;">
         <button type="button" class="btn"
-          style="background:rgb(204, 51, 98); color: white; width:95px;" onclick="submit()">등록</button>
+          style="background:rgb(204, 51, 98); color: white; width:95px;" onclick="submit()">수정하기</button>
       </div>
       
 	<!-- 모달 영역 -->
@@ -353,11 +355,7 @@
 	
 	/* submit전에 정보 입력 체크 */
 	function submit(){
-		var fileCheck = $("#thumbnailChange").val();
-		if(!fileCheck){
-			alert("파일을 첨부하시오");
-			return;
-		}
+		
 		if($("#resName").val()==""){
             alert("가게이름을 입력하세요");
             $("#resName").focus();
@@ -403,7 +401,7 @@
        }
 		
 		
-		if(confirm("음식점을 등록 하시겠습니까?")){
+		if(confirm("음식점을 수정 하시겠습니까?")){
 			$("#submit").click();			
 		}
 	}

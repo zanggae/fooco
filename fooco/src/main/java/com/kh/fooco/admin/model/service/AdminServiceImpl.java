@@ -201,6 +201,36 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectListRestaurantMenu(restaurant);
 	}
 
+	@Override
+	public int deleteRestaurantMenu(Restaurant r) {
+		return adminDao.deleteRestaurantMenu(r);
+	}
+
+	@Override
+	public int deleteRestaurantFilter(Restaurant r) {
+		return adminDao.deleteRestaurantFilter(r);
+	}
+
+	@Override
+	public int updateRestaurantMenu(String me, int rId) {
+		return adminDao.updateRestaurantMenu(me, rId);
+	}
+
+	@Override
+	public int updateRestaurantFilter(String fi, int rId) {
+		return adminDao.updateRestaurantFilter(fi, rId);
+	}
+
+	@Override
+	public int updateRestaurantImage(Image i, int rId) {
+		return adminDao.updateRestaurantImage(i, rId);
+	}
+
+	@Override
+	public int updateRestaurant(Restaurant r) {
+		return adminDao.updateRestaurant(r);
+	}
+
 	
 
 }
