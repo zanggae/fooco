@@ -76,4 +76,19 @@ public class MemberShipController {
 		 new MemberShipException("멤버십 등록 실패"); }
 	
 	}
+	
+	//멤버십 조회
+	@RequestMapping("goMembershipList.do")
+	public ModelAndView goMembershiplist(ModelAndView mv, String memberId) {
+		System.out.println("회원번호 잘 넘어오는지 :" + memberId);
+		
+		ArrayList<MemberShip> m = memberShipService.selectforMembership(memberId);
+		
+		System.out.println("db에서 결과 잘 받아오는지 m: " +m);
+		
+		mv.addObject("m", m);
+		mv.setViewName("membership/membershiplist");
+
+		return mv;
+	}
 }

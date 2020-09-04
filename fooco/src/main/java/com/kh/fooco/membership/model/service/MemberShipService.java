@@ -21,4 +21,7 @@ public interface MemberShipService {
 
 	int insertCoupon3(MemberShip membership);
 
+	ArrayList<MemberShip> selectforMembership(String memberId);
+
+
 }

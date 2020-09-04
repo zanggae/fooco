@@ -99,7 +99,7 @@
             border-top: 1px solid white;
             width: 100px;
             margin-top: -20px;
-            margin-left: 400px; 
+            margin-left: 412px; 
         }
         #second_area_right span{
             margin-left: 20%;
@@ -208,7 +208,61 @@
         #membership_area2 p:nth-of-type(5),#membership_area2 p:nth-of-type(6){
             font-size: 13px;
         }
-        
+        /* 멤버십 조회 버튼 */
+        #gomembershiplist{
+        	margin-left:45%;
+        	height:35px;
+        	border: 1px solid rgb(204, 51, 98);
+       		color:rgb(204, 51, 98);
+        	border-radius: 3px;
+        	font-weight: bold;
+        	background: white;
+        	box-shadow: 6px 6px 6px rgb(217,217,217);
+        }
+        #gomembershiplist:hover{
+        	color:rgb(204, 51, 98);
+        }
+        #howtouse{
+            text-align: center;
+        } 
+        #howtouse1{
+        	width:250px;
+            box-shadow: 6px 6px 6px rgb(215,215,215);
+            display: inline-block;
+            border-radius: 4px;
+            margin-left:-10px;
+        }
+        #howtouse2{
+        	width:250px;
+            box-shadow: 6px 6px 6px rgb(215,215,215);
+            display: inline-block;
+            border-radius: 4px;
+            margin-left:10px;
+        }
+        #howtouse3{ 
+        	width:250px;
+            box-shadow: 6px 6px 6px rgb(215,215,215);
+            display: inline-block;
+            border-radius: 4px;
+            margin-left:10px;
+        }
+        #howtouse img{
+			width:200px;   
+			height:150px; 
+			margin-bottom:30px;    
+        } 
+ 		#howtouse p:nth-of-type(1){
+ 			font-family:bold;
+ 			font-size:18px;
+ 		}
+ 		#howtouse p:nth-of-type(2){
+			color:gray;
+ 			font-size:13px;
+ 		}
+ 		#howtouseimg1{
+ 			width:200px;
+ 			margin-left:40px;
+ 		}
     </style>
 
 </head>
@@ -231,12 +285,12 @@
         <div class="container">
             <div class="row">
               <div class="col" id="second_area_left">  
-                <img src="image/DiningBackground.jpg">
+                <img src="resources/etcimage/membershipInfoimg1.jpg">
               </div>
               <div class="col" id="second_area_right">
                 <div id="for_line1"></div><div id="for_freecoupon"><p>무료쿠폰</p></div><div id="for_line2"></div>
-                <span><img src="image/PlateCoupon.png" id="first_img"></span>
-                <span><img src="image/DrinkCoupon.png" id="second_img"></span><br>
+                <span><img src="resources/etcimage/membershipInfoimg2.png" id="first_img"></span>
+                <span><img src="resources/etcimage/membershipInfoimg3.png" id="second_img"></span><br>
                 <span>음식할인쿠폰</span><br>
                 <span>최대 ￦10,000까지 이용가능</span>
                 <span>무료음료쿠폰</span>
@@ -246,8 +300,8 @@
         </div><br><br><br>
         <!--멤버십 선택 영역-->
         <div id="membership_area">
-            <h3>SELECT YOUR MEMBERSHIP</h3>
-            <h3>⋁</h3><br><br>
+            <h3 style="font-family:bold;">SELECT YOUR MEMBERSHIP</h3>
+            <h3><i class="fas fa-caret-down"></i></h3><br><br>
             <span id="membership_area1">
                 <p></p>
                 <p>SILVER MEMBERSHIP</p>
@@ -266,8 +320,33 @@
                 <p>혜택2. 무료음료쿠폰</p>
                 <button onclick="requestPayGold()">구매하기</button>
             </span>
+        </div><br><br><br><br><br><br><br><br><br><br>
+		
+		<!--쓰는방법 소개 영역-->
+        <div id="howtouse">
+        	<h5 style="font-family:bold;"><i class="far fa-kiss-beam"></i>&nbsp;&nbsp;완전 쉬운 Fooco 멤버십 사용방법!&nbsp;&nbsp;<i class="far fa-grin-squint"></i></h5><br><br>
+            <span id="howtouse1">
+                <img src="resources/etcimage/membershiplistimg1.png">
+                <p>Step 1</p>
+                <p>Fooco와 파트너 맛집을 찾는다 </p>
+            </span>
+            <span id="howtouse2">
+                <img src="resources/etcimage/membershiplistimg2.png" id="howtouseimg1">
+                <p>Step 2</p>
+                <p>이메일로 발송받은 쿠폰으로 맛있게 먹는다</p>
+            </span>
+            <span id="howtouse3">
+                <img src="resources/etcimage/membershiplistimg3.png">
+                <p>Step 3</p>
+                <p>받은 쿠폰을 보여주면 끝!</p>
+            </span>
+        </div><br><br><br><br><br><br><br><br>
+        
+        	<c:if test="${!empty loginUser }"><button id="gomembershiplist" onclick="gomembershiplist();">나의 멤버십 조회 ></button></c:if>
+
 
         </div>
+>
         	<form id="mbuyFormGold" action="buyGoldMembership.do" method="post">
 	        <!-- 회원 정보 -->
         	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.memberId}">
@@ -301,6 +380,7 @@
         	    <input type="hidden" name="buy_coupon2" id="buy_coupon2" value="${item.couponId}">  
     		</c:forEach> 
         	</form>
+
     </section><br><br><br><br><br><br>
     <hr>
     
@@ -400,6 +480,14 @@
           });
         } */
     
+	</script>
+	
+	<!-- 멤버십 조회 페이지로 넘어가는 script -->
+	<script>
+	 function gomembershiplist(){
+		 var memberId = $("#buy_memberId").val();
+		 location.href="goMembershipList.do?memberId="+memberId;
+	 }
 	</script>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
