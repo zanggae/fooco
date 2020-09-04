@@ -56,6 +56,11 @@ public class MemberShipServiceImpl implements MemberShipService{
 		
 		return memberShipDao.insertCoupon3(membership);
 	}
-	
+	//해당 회원 멤버십 조회
+	@Override
+	public ArrayList<MemberShip> selectforMembership(String memberId) {
+		
+		return memberShipDao.selectforMembership(memberId);
+	}
 
 }

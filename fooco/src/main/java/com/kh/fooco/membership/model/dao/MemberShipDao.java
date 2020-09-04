@@ -52,4 +52,10 @@ public class MemberShipDao {
 		return sqlSessionTemplate.insert("membershipMapper.insertCoupon3",membership);
 	}
 
+	//해당 회원 멤버십 select
+	public ArrayList<MemberShip> selectforMembership(String memberId) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("membershipMapper.selectforMembership",memberId);
+	}
+
 }

@@ -54,7 +54,7 @@
       }
       /* 회원가입 양식 테이블 */
       #Join_InputT{
-        width:800px; 
+        width:820px; 
         vertical-align: middle;
         border-collapse: collapse;
       }
@@ -69,6 +69,7 @@
       #selfSiteName{
         border: 1px solid gray;
         border-radius: 3px;
+        width:120px;
       }
       /* 버튼CSS */
       /* 1.인증번호 확인 버튼 */
@@ -84,7 +85,6 @@
       }
       /* 2.본인인증 버튼 */
       #identity_confirm_btn{
-      	/* display:none; */
         border: 1px solid rgb(204, 51, 98);
         color:rgb(204, 51, 98);
         border-radius: 3px;
@@ -94,7 +94,20 @@
       #identity_confirm_btn:hover{
         background: rgb(253, 215, 129);
       }
-      /* 3.가입하기 버튼 */
+      /* 3.이메일 중복체크 버튼 */
+      #emaildup_btn{
+      	border: 1px solid rgb(204, 51, 98);
+        color: white;
+        border-radius: 3px;
+        font-weight: bold;
+        background: rgb(204, 51, 98);
+      }
+      #emaildup_btn:hover{
+      	border: 1px solid rgb(204, 51, 98);
+        background: rgb(253, 215, 129);
+        color:rgb(204, 51, 98);;
+      }
+      /* 4.가입하기 버튼 */
       #Join_btn{
         margin-left: 45%;
         width:110px;
@@ -192,12 +205,12 @@
         <form id="joinForm" action="insertMember.do" method="post">
           <table align="center" id="Join_InputT">
             <tr>
-              <td><label><li type="square">이름</li></label></td>
-              <td><input type="text" id="userName" name="memberName" required></td>
+              <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>이름</label></td>
+              <td width="10"><input type="text" id="userName" name="memberName" required></td>
               <td><label id="resultName"></label></td>
             </tr>
             <tr>
-              <td><label><li type="square">이메일</li></label></td>
+              <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>이메일</label></td>
               <td><input type="text" id="email" name="emailfront" required></td>
               <td>
                 <span style="font-size: 17px;">@</span>&nbsp;
@@ -209,15 +222,14 @@
                   <option value="google.com">gmail.com</option>
                   <option value="hanmail.net">hanmail.net</option>
                   <option value="selfEmail" id="selfEmail">직접 입력</option>
-                </select>&nbsp;</td>
-                <td><input type="button" value="본인 인증" id="identity_confirm_btn" onclick="identity_confirm();"></td>
-               	<td><input type="button" value="중복 확인" id="emaildup_btn" onclick="emaildupCheck();"></td>
-               	<input type="hidden" name="foremailCheck" value="noemailCheck"> <!-- 중복체크 안했을 떄 -->
-                <td><label id="resultEmail"></label></td>
-              
+                </select>&nbsp;
+                <input type="button" value="본인 인증" id="identity_confirm_btn" onclick="identity_confirm();">&nbsp;
+                <input type="button" value="중복 확인" id="emaildup_btn" onclick="emaildupCheck();">
+                <label id="resultEmail"></label>
+                </td>
             </tr>
             <tr>
-              <td><li type="square"><label>인증번호 입력</label></li></td>
+              <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>인증번호 입력</label></td>
               <td><input type="text" name="checkEmail" id="checkEmailnum"></td>  <!--인증번호 입력하는 input태그-->
               <td><input type="button" value="확인" id="comfirm_btn" onclick="checkEmailbtn();">
                   &nbsp;<label id="resultEmailCheck" style="font-size: 12px;"></label>
@@ -225,7 +237,7 @@
 
             </tr>
             <tr>
-              <td><label><li type="square">닉네임</li></label></td>
+              <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>닉네임</label></td>
               <td><input type="text" id="nickName" name="nickName" required></td>
               <td>
                 <span>3-7자의 한글만 사용 가능</span>
@@ -234,7 +246,7 @@
               </td>
             </tr>
             <tr>
-              <td><label><li type="square">비밀번호</li></label></td>
+              <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>비밀번호</label></td>
               <td><input type="password" id="userPwd1" name="memberPwd" required></td>
               <td>
               <span>8~16자의 영문자,숫자 사용하여 입력</span>
@@ -242,12 +254,12 @@
               </td>
             </tr>
             <tr>
-              <td><label><li type="square">비밀번호 확인</li></label></td>
+              <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>비밀번호 확인</label></td>
               <td><input type="password" id="userPwd2" required></td>
               <td><label id="resultPwd2"></label></td>
             </tr>
             <tr>
-              <td><label><li type="square">성별</li></label></td>
+              <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>성별</label></td>
               <td>
                 <input type="radio" value="M" name="gender">남
                 <input type="radio" value="F" name="gender">여
@@ -255,7 +267,7 @@
               <td></td>
             </tr>
             <tr>
-              <td><label><li type="square">약관동의</li></label></td>
+              <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>약관동의</label></td>
               <td><input type="checkbox" id="terms_box"><label>약관에 동의 합니다</label></td>
               <td><button type="button" class="btn btn-primary" id="for_terms_modal" data-toggle="modal" data-target="#exampleModal">이용약관 보기</button></td>
             </tr>
@@ -599,13 +611,16 @@
 
       <!-- 중복체크 영역-->
       <script>
-      	/* 닉네임 중복체크 */
+      checkEamilDup=""; 	//이메일 중복체크 했는 지 안했는지
+      
+      	/* 1. 닉네임 중복체크 */
         $("#nickName").on("change",function(){
           var nickName = $("#nickName").val().trim();
+          var regEx = /^[가-힣]{3,6}$/;
           
-          if(nickName.length<3){
-				alert("최소 한글 3자 이상이어야 합니다.");
-				$("#nickName").focus();
+          if(!regEx.test($("#nickName").val())){
+			alert("닉네임은 한글로만 3자이상 6자 이하여야 합니다");
+			$("#nickName").focus();
           }else{
           $.ajax({
 				url:"checkNickName.do"
@@ -627,7 +642,7 @@
           })
         }
         }) 
-        /* 이메일중복체크 */
+        /* 2. 이메일중복체크 */
         function emaildupCheck(){
         	var email1 = $("#email");
             var email2 = "";
@@ -643,8 +658,9 @@
       			,type:"post"
       			,data:{email:email1.val()+'@'+email2.val()}
       			,success:function(data){
-      				console.log("성공");
+      				console.log("이메일 중복 체크 성공");
       				console.log("data값:"+data);
+      				checkEamilDup = "done";
       				if(data==0){	//true=0					
 						alert("사용하실 수 있는 이메일입니다.");
 					}else{ //flase=1
@@ -659,11 +675,8 @@
       		})
       	}
         
-      </script>
-      
-
       <!--회원 가입 중 새로고침 막기-->
-      <script>
+      
         $(function(){
           window.onkeydown = function(){
             if(event.keyCode==116){
@@ -675,11 +688,9 @@
             }
           }
         })
-      </script>
        
       <!--각 항목 입력했는 지 체크-->
-      <script>
-        function validate(){
+        function validate(){ 
           if($("#userName").val()==""){
                alert("이름을 입력하세요");
                $("#userName").focus();
@@ -695,9 +706,8 @@
               $("#checkEmailnum").focus();
               return;
             }
-          if($("#foremailCheck").val()=="noemailCheck"){
+          if(checkEamilDup!="done"){
         	  alert("이메일 중복 확인 버튼을 클릭해주세요");
-        	  $("#emaildup_btn").focus();	//이게 되나?
         	return;
           }
           if($("#nickName").val()==""){
@@ -799,7 +809,7 @@
   				alert("이미 완료되었습니다");
   				return;
   			}
-  			//이메일이 입력되었는가 -> 잘먹고
+  			//이메일이 입력되었는가 
 			if($("#email").val()==""){
 				alert("먼저 이메일을 입력해주세요");
 				return;
