@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.service.RestaurantService;
-import com.kh.fooco.restaurant.model.vo.Option;
+import com.kh.fooco.restaurant.model.vo.Filter;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 @Controller
@@ -29,21 +29,22 @@ public class RestaurantController {
 	
 	@RequestMapping("goSearchedRestaurant.do")
 	public ModelAndView goSearchedRestaurant(ModelAndView mv
+									 , @RequestParam(value="options", required=false) ArrayList<Filter> filters
+									 , @RequestParam(value="category", required=false) ArrayList<Integer> categories
 									 , @RequestParam(value="page", required=false, defaultValue="1") Integer page
-									 , @RequestParam(value="options", required=false) ArrayList<Option> options
 									 , @RequestParam(value="keyword", required=false, defaultValue="all") String keyword
 									 , @RequestParam(value="locationId", required=false, defaultValue="0") Integer locationId
 									 , @RequestParam(value="sortType", required=false, defaultValue="highrating") String sortType)
 	{		
 		int currentPage = page;
 		
-		System.out.println("page: " + page + ", keyword: " + keyword + ", locationId: " + locationId + ", sortType: " + sortType + ", options: " + options);
+		System.out.println("page: " + page + ", keyword: " + keyword + ", locationId: " + locationId + ", sortType: " + sortType + ", filters: " + filters + ", categories: " + categories);
 		
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
-		searchParameter.put("options", options);
+		searchParameter.put("filters", filters);
 		searchParameter.put("keyword", keyword);
-		searchParameter.put("options", options);
 		searchParameter.put("sortType", sortType);
+		searchParameter.put("categories", categories);
 		searchParameter.put("locationId", locationId);
 		
 		int howManyRestaurant = restaurantService.getListCount(searchParameter);
@@ -51,10 +52,10 @@ public class RestaurantController {
 		
 		PageInfo pi = getPageInfo(currentPage, howManyRestaurant);
 		
-		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
-		list = restaurantService.getList(searchParameter, pi);
-		
-		System.out.println(list);
+//		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
+//		list = restaurantService.getList(searchParameter, pi);
+//		
+//		System.out.println(list);
 	
 		
 		

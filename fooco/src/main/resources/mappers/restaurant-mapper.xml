@@ -19,40 +19,11 @@
 		<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
 		<result property="resReviewCount" column="REVIEW_COUNT"/>
 		<result property="resViewCount" column="RES_VIEWCOUNT"/>
-		<association property="resThumbnailImage" column="resId" javaType="Image">
-			<id property="imageId" column="RES_THUMBNAIL_ID"/>
-			<result property="imageNewName" column="RES_THUMBNAIL_IMG"/>
-			<result property="imageFilepath" column="RES_THUMBNAIL_PATH"/>
-		</association>
-		<association property="bestReview"  column="resId" javaType="Review">
-			<id property="reviewId" column="REVIEW_ID"/>
-			<result property="resId" column="RES_ID"/>
-			<result property="memberId" column="MEMBER_ID"/>
-			<result property="reviewCreateDate" column="REVIEW_CREATE_DATE"/>
-			<result property="reviewUpdateDate" column="REVIEW_UPDATE_DATE"/>
-			<result property="reviewContent" column="REVIEW_CONTENT"/>
-			<result property="reviewGoodcount" column="REVIEW_GOODCOUNT"/>
-			<result property="reviewRating" column="REVIEW_RATING"/>
-			<result property="reviewTasterating" column="REVIEW_TASTERATING"/>
-			<result property="reviewPricerating" column="REVIEW_PRICERATING"/>
-			<result property="reviewServicerating" column="REVIEW_SERVICERATING"/>
-			<result property="nickname" column="NICKNAME"/>
-			<result property="reviewerProfileId" column="REVIEWER_PROFILE_ID"/>
-			<result property="reviewerProfileImg" column="REVIEWER_PROFILE_IMG"/>
-			<result property="reviewerProfilePath" column="REVIEWER_PROFILE_PATH"/>
-			<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
-			<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
-		</association>
-		<collection property="resLatestImages" column="resId" ofType="Image">
-			<id property="imageId" column="IMAGE_ID"/>
-			<result property="imageNewName" column="IMAGE_NEW_NAME"/>
-			<result property="imageFilepath" column="IMAGE_FILEPATH"/>
-		</collection>
-		<collection property="resOptions" column="resId" ofType="Option">
-			<id property="resId" column="RES_ID"/>
-			<id property="optionId" column="FILTER_ID"/>
-			<result property="optionName" column="FILTER_NAME"/> 
-		</collection>
+		<association property="resThumbnailImage" column="resId" javaType="Image" select="getResThumbnailImage"/>
+		<association property="bestReview"  column="resId" javaType="Review"/>
+		<collection property="bestmenus" column="resId" javaType="java.util.ArrayList" ofType="Bestmenu" select="getBestmenus"/>
+		<collection property="resLatestImages" column="resId" javaType="java.util.ArrayList" ofType="Image" select="getResLatestImages"/>
+		<collection property="resFilters" column="resId" javaType="java.util.ArrayList" ofType="Filter" select="getResFilters"/>
 	</resultMap>
 	
 	<resultMap type="Review" id="ReviewMap">
@@ -76,10 +47,10 @@
 		<collection property="revieweImages" column="reviewId" javaType="java.util.ArrayList" ofType="Image"/>
 	</resultMap>
 	
-	<resultMap type="Option" id="OptionMap">
+	<resultMap type="Filter" id="FilterMap">
 		<id property="resId" column="RES_ID"/>
-		<id property="optionId" column="FILTER_ID"/>
-		<result property="optionName" column="FILTER_NAME"/>
+		<id property="filterId" column="FILTER_ID"/>
+		<result property="filterName" column="FILTER_NAME"/>
 	</resultMap>
 	
 	<resultMap type="Info" id="InfoMap">
@@ -87,7 +58,13 @@
 		<result property="infoCategoryName" column="RES_CATEGORY_NAME"/>
 		<result property="infoBestMenu" column="BESTMENU_NAME"/>
 		<result property="infoOperatingTime" column="RES_TIME"/>
-		<collection property="infoOption" resultMap="OptionMap"></collection>
+		<collection property="infoFilter" resultMap="FilterMap"/>
+	</resultMap>
+	
+	<resultMap type="Bestmenu" id="BestmenuMap">
+		<id property="bestmenuId" column="BESTMENU_ID"/>
+		<result property="resId" column="RES_ID"/>
+		<result property="bestmenuName" column="BESTMENU_NAME"/>
 	</resultMap>
 	
 	<resultMap type="Image" id="ImageMap">
@@ -102,48 +79,32 @@
 	</resultMap>
 	
 	<select id="getListCount" parameterType="hashmap" resultType="_int">
-		SELECT COUNT(*)
-		  FROM SELECT_RES SR
-		  LEFT OUTER JOIN BESTMENU BM ON (SR.RES_ID = BM.RES_ID)
-		 WHERE SR.RES_STATUS = 'Y'
-		 <if test="locationId!=0">
+		SELECT    COUNT(DISTINCT SR.RES_ID)
+		FROM      SELECT_RES SR
+		LEFT JOIN SELECT_FILTER SF ON (SR.RES_ID = SF.RES_ID)
+		LEFT JOIN BESTMENU BM ON (SR.RES_ID = BM.RES_ID)
+		WHERE     RES_STATUS = 'Y'
+		<if test="locationId!=0">
 		 	AND SR.LOCATION_ID = #{locationId}
-		 </if>
-		 <if test="!'all'.equals(keyword)">
+		</if>
+		<if test="categories!=null">
+			AND SR.RES_CATEGORY_ID IN
+			<foreach collection="categories" item="category" index="index" separator="," open="(" close=")">
+		 		#{category}
+		 	</foreach>
+		</if>
+		<if test="filters!=null">
+			AND SF.FILTER_ID IN
+			<foreach collection="filters" item="filter" index="index" separator="," open="(" close=")">
+		 		#{filter}
+		 	</foreach>
+		</if>
+		<if test="!'all'.equals(keyword)">
 		 	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%'    
-		 </if>  
+		</if>
 	</select>
 	
 	<select id="getList" parameterType="hashmap" resultMap="RestaurantMap">
-		SELECT SR.*, SO.*, RT.*, BR.*, LI.*
-		  FROM SELECT_RES SR
-		  LEFT OUTER JOIN SELECT_OPTION SO ON (SR.RES_ID = SO.RES_ID)
-		  LEFT OUTER JOIN SELECT_RES_THUMBNAIL RT ON (SR.RES_ID = RT.RES_ID)
-		  LEFT OUTER JOIN SELECT_BESTREVIEW BR ON (SR.RES_ID = BR.RES_ID)
-		  LEFT OUTER JOIN SELECT_RES_LATEST_IMAGES LI ON (SR.RES_ID = LI.RES_ID)
-		 WHERE SR.RES_STATUS = 'Y'
-		 <if test="locationId != 0">
-		 	AND SR.LOCATION_ID = #{locationId}
-		 </if>
-		 <if test="!'all'.equals(keyword)">
-		 	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%'    
-		 </if>
-		 <if test="option!=null">
-		 	<foreach collection="options" item="option" index="index" separator="," open="(" close=")">
-		 		AND SO.FILTER_ID = #{option.value}
-		 	</foreach>
-		 </if>
-		 <choose>
-		 	<when test="'highrating'.equals(sortType)">
-		 		ORDER BY SR.REVIEW_RATING DESC
-		 	</when>
-		 	<when test="'highReviewCount'.equals(sortType)">
-		 		ORDER BY SR.REVIEW_COUNT DESC
-		 	</when>
-		 	<when test="'highViewCount'.equals(sortType)">
-		 		ORDER BY SR.RES_VIEWCOUNT DESC
-		 	</when>
-		 </choose>
+		SELECT SR.RES_ID, 
 	</select>
-	
 </mapper>

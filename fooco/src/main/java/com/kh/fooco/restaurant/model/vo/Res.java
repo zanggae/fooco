@@ -30,14 +30,15 @@ public class Res implements Serializable {
 	
 	private Image resThumbnailImage;          // 맛집 썸네일 이미지
 	private Review bestReview;		 	      // 베스트 리뷰
-	private ArrayList<Option> resOptions;     // 
+	private ArrayList<Bestmenu> bestmenus;     // 베스트 메뉴
+	private ArrayList<Filter> resFilters;     // 필터
 	private ArrayList<Image> resLatestImages; // 맛집 사진
 	
 	public Res() {}
 	public Res(int resId, int resCategoryId, String resCategoryName, int locationId, String locationName,
 			String resName, String resAddress, String resContent, int resViewCount, String resTime, String resStatus,
 			Date resCreateDate, Date resUpdateDate, int reviewRating, int resBookmarkCount, int resReviewCount,
-			Image resThumbnailImage, Review bestReview, ArrayList<Option> resOptions,
+			Image resThumbnailImage, Review bestReview, ArrayList<Bestmenu> bestmenus, ArrayList<Filter> resFilters,
 			ArrayList<Image> resLatestImages) {
 		super();
 		this.resId = resId;
@@ -58,7 +59,8 @@ public class Res implements Serializable {
 		this.resReviewCount = resReviewCount;
 		this.resThumbnailImage = resThumbnailImage;
 		this.bestReview = bestReview;
-		this.resOptions = resOptions;
+		this.bestmenus = bestmenus;
+		this.resFilters = resFilters;
 		this.resLatestImages = resLatestImages;
 	}
 	public int getResId() {
@@ -169,11 +171,17 @@ public class Res implements Serializable {
 	public void setBestReview(Review bestReview) {
 		this.bestReview = bestReview;
 	}
-	public ArrayList<Option> getResOptions() {
-		return resOptions;
+	public ArrayList<Bestmenu> getBestmenus() {
+		return bestmenus;
 	}
-	public void setResOptions(ArrayList<Option> resOptions) {
-		this.resOptions = resOptions;
+	public void setBestmenus(ArrayList<Bestmenu> bestmenus) {
+		this.bestmenus = bestmenus;
+	}
+	public ArrayList<Filter> getResFilters() {
+		return resFilters;
+	}
+	public void setResFilters(ArrayList<Filter> resFilters) {
+		this.resFilters = resFilters;
 	}
 	public ArrayList<Image> getResLatestImages() {
 		return resLatestImages;
@@ -189,8 +197,8 @@ public class Res implements Serializable {
 				+ ", resTime=" + resTime + ", resStatus=" + resStatus + ", resCreateDate=" + resCreateDate
 				+ ", resUpdateDate=" + resUpdateDate + ", reviewRating=" + reviewRating + ", resBookmarkCount="
 				+ resBookmarkCount + ", resReviewCount=" + resReviewCount + ", resThumbnailImage=" + resThumbnailImage
-				+ ", bestReview=" + bestReview + ", resOptions=" + resOptions + ", resLatestImages=" + resLatestImages
-				+ "]";
+				+ ", bestReview=" + bestReview + ", bestmenus=" + bestmenus + ", resFilters=" + resFilters
+				+ ", resLatestImages=" + resLatestImages + "]";
 	}
 	
 }
