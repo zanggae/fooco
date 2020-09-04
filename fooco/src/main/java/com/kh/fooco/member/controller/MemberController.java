@@ -43,7 +43,9 @@ import com.kh.fooco.member.model.service.MemberService;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.naver.NaverLoginBO;
+import com.kh.fooco.theme.model.vo.Theme;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -593,8 +595,23 @@ public class MemberController {
 		}
 		
 		
-		@RequestMapping("mylistRegist.do")
-		public String mylistRegist() {
-			return "mypage/mylistRegist";
+		
+		
+		//마이리스트 등록 오른쪽 검색
+		@RequestMapping("mylistRegist.do")	
+		public ModelAndView mylistRegist(ModelAndView mv,
+				@RequestParam(value="searchRes", required=false)String searchRes) {
+			
+			ArrayList<Mylist> mylist = new ArrayList<Mylist>();
+			
+			mylist = memberService.searchListRes(searchRes);
+			System.out.println("db갔다온 후 mylist" + mylist);
+			
+			mv.addObject("mylist", mylist);
+			mv.addObject("searchRes",searchRes);
+			mv.setViewName("mypage/mylistRegist");	
+			return mv;
 		}
+		
+	
 }

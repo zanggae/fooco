@@ -128,9 +128,7 @@
                 <br>
                 <div class="row row-cols-2" id="position">
               	<c:forEach var="t" items="${theme }">
-              	<c:url var="themeMain" value="themeMain.do">
               	
-              	</c:url>
                   <div class="col" style="margin-bottom: 2.5rem;">
                   <img src="resources/restaurantImage_ye/${t.imageOriginName}" class="img1" >
                     <div class="text4"><a href="${themeDetail }" class="titlefont">${t.themeTitle }</a></div>

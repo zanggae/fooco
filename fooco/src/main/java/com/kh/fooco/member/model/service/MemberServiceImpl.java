@@ -9,6 +9,7 @@ import com.kh.fooco.member.model.dao.MemberDao;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.member.model.vo.Mylist;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -128,6 +129,23 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.updateMemberProfile(m);
 	}
+	
+	
+	
+	// ================================== Mylist 영은==========================================
+
+	//마이리스트 등록 검색 
+	@Override
+	public ArrayList<Mylist> searchListRes(String searchRes) {
+		return memberDao.searchListRes(searchRes);
+	}
+
+	@Override
+	public Mylist selectmylist(int mlId1) {
+		return memberDao.selectmylist(mlId1);
+	}
+
+
 	
 	
 }
