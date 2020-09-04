@@ -40,6 +40,7 @@ public class RestaurantController {
 		
 		System.out.println("page: " + page + ", keyword: " + keyword + ", locationId: " + locationId + ", sortType: " + sortType + ", filters: " + filters + ", categories: " + categories);
 		
+		// 
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
 		searchParameter.put("filters", filters);
 		searchParameter.put("keyword", keyword);
@@ -52,13 +53,20 @@ public class RestaurantController {
 		
 		PageInfo pi = getPageInfo(currentPage, howManyRestaurant);
 		
-//		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
-//		list = restaurantService.getList(searchParameter, pi);
-//		
-//		System.out.println(list);
+		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
+		list = restaurantService.getList(searchParameter, pi);
 	
+		System.out.println(list);
+		String location = convertLocation(locationId);
+		if("all".equals(keyword)) {
+			keyword = "전체";
+		}
+		System.out.println("location: " + location + ", keyword: " + keyword);
 		
-		
+		mv.addObject("pi", pi);
+		mv.addObject("list", list);
+		mv.addObject("location", location);
+		mv.addObject("keyword", keyword);
 		mv.setViewName("restaurant/searchedRestaurant");
 		return mv;
 	}
@@ -69,5 +77,24 @@ public class RestaurantController {
 		return "restaurant/detailRestaurant";
 	}
 	
+	public String convertLocation(int locationId) {
+		
+		String location = "";
+		
+		switch(locationId) {
+			case 0: location = "전체"; break;
+			case 1: location = "서울"; break;
+			case 2: location = "인천"; break;
+			case 3: location = "부산"; break;
+			case 4: location = "대구"; break;
+			case 5: location = "광주"; break;
+			case 6: location = "대전"; break;
+			case 7: location = "울산"; break;
+			case 8: location = "제주"; break;
+			case 9: location = "그외"; break;
+		};
+		
+		return location;
+	}
 	
 }
