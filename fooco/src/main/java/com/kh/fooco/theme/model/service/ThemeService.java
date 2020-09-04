@@ -7,8 +7,6 @@ import com.kh.fooco.theme.model.vo.ThemeBookmark;
 
 public interface ThemeService {
 
-	ArrayList<Theme> selectListTheme();
-
 
 	int getThemeLike(ThemeBookmark tb);
 
@@ -17,5 +15,11 @@ public interface ThemeService {
 
 
 	void insertThemeLike(ThemeBookmark tb);
+
+
+	ArrayList<Theme> selectListTheme();
+
+
+	ArrayList<Theme> searchListTheme(String searchTheme);
 
 }

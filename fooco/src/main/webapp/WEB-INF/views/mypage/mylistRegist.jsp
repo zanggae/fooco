@@ -77,7 +77,7 @@
       <br>
       <form id="mylistForm" action="mylistInsert.do" method="get">
         <div class="form-group row" style="margin-left: 8rem; font-size: 1.2rem;">
-          <label for="inputEmail3" class="col-sm-3 col-form-label">마이리스트 제목</label>
+          <label for="inputEmail3" class="col-sm-3 col-form-label" name="">마이리스트 제목</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" style="width: 35rem; border:1px solid black; box-shadow: none;">
           </div>
