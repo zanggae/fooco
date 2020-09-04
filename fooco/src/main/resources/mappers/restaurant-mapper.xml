@@ -19,9 +19,14 @@
 		<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
 		<result property="resReviewCount" column="REVIEW_COUNT"/>
 		<result property="resViewCount" column="RES_VIEWCOUNT"/>
-		<association property="resThumbnailImage" column="resId" javaType="Image" select="getRestaurantThumbnail"/>
-		<association property="bestReview" column="resId" javaType="Review" select="getRestaurantBestReview"/>
+		<association property="resThumbnailImage" column="resId" javaType="Image">
+			<result property="imageId" column="RES_THUMBNAIL_ID"/>
+			<result property="imageNewName" column="RES_THUMBNAIL_IMG"/>
+			<result property="imageFilepath" column="RES_THUMBNAIL_PATH"/>
+		</association>
+		<association property="bestReview"  column="resId" javaType="Review"/>
 		<collection property="resLatestImages" column="resId" javaType="java.util.ArrayList" ofType="Image" select="getRestaurantLatestImages"/>
+		<collection property="resOptions" column="resId" javaType="java.util.ArrayList" ofType="Option"/>
 	</resultMap>
 	
 	<resultMap type="Review" id="ReviewMap">
@@ -43,7 +48,6 @@
 		<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
 		<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
 		<collection property="revieweImages" column="reviewId" javaType="java.util.ArrayList" ofType="Image"/>
-		<collection property="resOptions" column="resId" javaType="java.util.ArrayList" ofType="Option"/>
 	</resultMap>
 	
 	<resultMap type="Option" id="OptionMap">
@@ -84,12 +88,9 @@
 		 </if>  
 	</select>
 	
-	<select id="getRestaurantThumbnail" parameterType="_int" resultMap="ImageMap">
-		SELECT R.RES_ID, I.IMAGE_ID, I.IMAGE_NEW_NAME, I.IMAGE_FILEPATH
-		  FROM RESTAURANT R
-		  LEFT OUTER JOIN RES_IMAGE RI ON (R.RES_ID = RI.RES_ID)
-		  LEFT OUTER JOIN IMAGE I ON (RI.IMAGE_ID = I.IMAGE_ID);
-		 WHERE R.RES_ID = #{resId}
+	<select id="getRestaurantThumbnail" parameterType="_int">
+		SELECT *
+		  FROM SELECT_RES_THUMBAIL
 	</select>
 	
 	<select id="getRestaurantBestReview" parameterType="_int" resultMap="ReviewMap">
@@ -105,10 +106,10 @@
 	</select>
 	
 	<select id="getList" parameterType="hashmap" resultMap="RestaurantMap">
-		SELECT SR.*
+		SELECT SR.*, RT.*
 		  FROM SELECT_RES SR
 		  LEFT OUTER JOIN SELECT_OPTION SO ON (SR.RES_ID = SO.RES_ID)
-		  LEFT OUTER JOIN 
+		  LEFT OUTER JOIN SELECT_RES_THUMBNAIL RT ON (SR.RES_ID = RT.RES_ID)
 		 WHERE SR.RES_STATUS = 'Y'
 		 <if test="locationId != 0">
 		 	AND SR.LOCATION_ID = #{locationId}
