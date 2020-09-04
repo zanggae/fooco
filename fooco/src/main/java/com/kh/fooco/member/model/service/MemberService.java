@@ -6,6 +6,7 @@ import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.member.model.vo.Mylist;
 
 public interface MemberService {
 
@@ -41,6 +42,14 @@ public interface MemberService {
 	int updateMemberInfo(Member m);
 
 	int updateMemberWithdrawal(Member m);
+	
+	
+	// ================================== Mylist 영은 ===========================================
+
+
+	ArrayList<Mylist> searchListRes(String searchRes);
+
+	Mylist selectmylist(int mlId1);
 	
 
 }
