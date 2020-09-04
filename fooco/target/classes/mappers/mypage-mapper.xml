@@ -44,7 +44,7 @@
 	<result property="resAddress" column="RES_ADDRESS"/>
 	<result property="resStatus" column="RES_STATUS"/>
 	<result property="imageId" column="IMAGE_ID"/>
-	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
+	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/> 
 	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
 	<result property="filePath" column="IMAGE_FILEPATH"/>
 	<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
@@ -150,6 +150,26 @@ WHERE NICKNAME = #{nickName}
 	SET MEMBER_STATUS = 'N'
 	WHERE MEMBER_ID = #{memberId}
 </update>
+
+
+
+<!-- mylist 영은 -->
+
+<!-- mylist등록 검색결과 쿼리 -->
+<select id="searchListRes" parameterType="string" resultMap="mylistResultSet">
+	SELECT
+	RES_ID,RES_NAME,RES_ID,RES_ADDRESS,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH,ML_ID
+	FROM SELECT_MYLIST
+	WHERE RES_NAME LIKE '%'||#{searchRes}||'%' ORDER BY RES_NAME
+</select>
+
+<!-- mylist 검색결과 추가  쿼리 -->
+<select id="selectmylist" parameterType="int" resultMap="mylistResultSet">
+	SELECT 
+	RES_ID,RES_NAME,RES_ID,RES_ADDRESS,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH,ML_ID
+	FROM SELECT_MYLIST
+	WHERE MI_ID =#{mlId1}
+</select>
 
 
 

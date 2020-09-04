@@ -19,7 +19,7 @@ public class Theme implements Serializable{
 	private Date themeModifyDate;					//테마 수정날짜
 	private int memberNo;							//회원번호
 	private int themeCount;							//테마 조회수
-	private int themeBookmarkCount;						//테마 즐겨찾기 수 
+	private int themeBookmarkCount;					//테마 즐겨찾기 수 
 	
 	//테마 즐겨찾기
 	private int themeBookmarkId;					//테마 즐겨찾기 번호 			

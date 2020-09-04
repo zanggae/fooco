@@ -26,7 +26,6 @@ import com.kh.fooco.theme.model.exception.ThemeException;
 import com.kh.fooco.theme.model.service.ThemeService;
 import com.kh.fooco.theme.model.vo.Theme;
 import com.kh.fooco.theme.model.vo.ThemeBookmark;
-import com.kh.fooco.theme.model.vo.ThemeSearch;
 
 @Controller
 public class ThemeController {
@@ -34,7 +33,6 @@ public class ThemeController {
 	private ThemeService themeService;
 	
 	//테마메인, 검색
-	
 	@RequestMapping("themeMain.do")
 	public ModelAndView themeMain( ModelAndView mv,
 			@RequestParam(value="searchTheme", required=false) String searchTheme) {
@@ -62,16 +60,10 @@ public class ThemeController {
 		
 	}
 			
-	
-	
 	 @RequestMapping("themeDetail.do")
 	   public String themeDetail() {
 		   return "theme/themeDetail";
 	   }
-	
-	
-
-	
 	
 	
 	

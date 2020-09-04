@@ -204,7 +204,7 @@
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <h5 class="modal-title" id="exampleModalLabel">음식점</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -231,8 +231,7 @@
 				var redId = $(this).parents().children("td").eq(0).text();
 				$("#detailBtn").attr("value",redId);
 				$("#modifyBtn").attr("value",redId);				
-				$("#goModal").click();
-					/* location.href="selectBoardOneAdmin.do?boardId="+boardId; */
+				$("#goModal").click();					
 			})
 		})
 		function goDetail(id){
@@ -242,7 +241,7 @@
         }
 		function goModify(id){
 			var resId = $(id).attr('value');
-			alert(resId);
+			/* alert(resId); */
         	location.href="detailRestaurantAdmin.do?resId="+resId;
         }
       </script>

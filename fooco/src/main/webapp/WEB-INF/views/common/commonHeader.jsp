@@ -258,7 +258,7 @@
                 <div class="container msh-container">
                     <div class="nav nav-underline d-flex justify-content-around">
                         <a class="nav-link msh-items" style="font-family:'medium'" href="goSearchedRestaurant.do">지역 맛집</a>
-                        <a class="nav-link msh-items" style="font-family:'medium'" href="#">테마 맛집</a>
+                        <a class="nav-link msh-items" style="font-family:'medium'" href="themeMain.do">테마 맛집</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="goMembershipInfo.do">멤버십</a>
                         <a class="nav-link msh-items" style="font-family:'medium'" href="serviceCenterMain.do">고객센터</a>
                     </div>
