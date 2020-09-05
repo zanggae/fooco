@@ -201,7 +201,7 @@ WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
 </select>
 
 
-<!------------------------------------------ mylist 영은 ------------------------------------------>
+<!-- mylist 영은 -->
 
 <!-- mylist등록 검색결과 쿼리 -->
 <select id="searchListRes" parameterType="string" resultMap="mylistResultSet">
