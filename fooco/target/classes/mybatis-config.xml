@@ -27,6 +27,7 @@
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Filter" alias="Filter"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Info" alias="Info"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Bestmenu" alias="Bestmenu"/>
+		<typeAlias type="com.kh.fooco.restaurant.model.vo.ResImage" alias="ResImage"/>
 	</typeAliases>
 	
 	<mappers>

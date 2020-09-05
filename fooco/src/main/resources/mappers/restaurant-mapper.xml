@@ -19,7 +19,7 @@
 		<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
 		<result property="resReviewCount" column="REVIEW_COUNT"/>
 		<result property="resViewCount" column="RES_VIEWCOUNT"/>
-		<association property="resThumbnailImage" column="resId" javaType="Image" select="getResThumbnailImage"/>
+		<association property="resThumbnailImage" column="resId" select="getResThumbnailImage"/>
 		<association property="bestReview"  column="resId" javaType="Review"/>
 		<collection property="bestmenus" column="resId" javaType="java.util.ArrayList" ofType="Bestmenu" select="getBestmenus"/>
 		<collection property="resLatestImages" column="resId" javaType="java.util.ArrayList" ofType="Image" select="getResLatestImages"/>
@@ -76,6 +76,18 @@
 		<result property="imageLevel" column="IMAGE_LEVEL"/>
 		<result property="imageStatus" column="IMAGE_STATUS"/>
 		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>
+	</resultMap>
+	
+	<resultMap type="ResImage" id="ResImageMap">
+		<result property="resId" column="RES_ID"/>
+		<result property="imageId" column="IMAGE_ID"/>
+		<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
+		<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+		<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+		<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
+		<result property="imageLevel" column="IMAGE_LEVEL"/>
+		<result property="imageStatus" column="IMAGE_STATUS"/>
+		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>	
 	</resultMap>
 	
 	<select id="getListCount" parameterType="hashmap" resultType="_int">
@@ -139,6 +151,12 @@
 		 		ORDER BY SR.RES_VIEWCOUNT DESC
 		 	</when>
 		</choose>
+	</select>
+	
+	<select id="getResThumbnailImage" resultMap="ResImageMap">
+		SELECT ST.*
+		FROM   SELECT_RES_THUMBNAIL ST
+		WHERE  ST.RES_ID = #{resId}
 	</select>
 
 </mapper>
