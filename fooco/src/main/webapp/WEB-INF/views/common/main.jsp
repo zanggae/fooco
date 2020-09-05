@@ -155,15 +155,15 @@
 									</span>
 								</div>
 								<select class="form-control sr-content-input-local" id="select-local">
-									<option selected value="all">전체</option>
-									<option value="seoul">서울</option>
-									<option value="incheon">인천</option>
-									<option value="busan">부산</option>
-									<option value="daegu">대구</option>
-									<option value="gwangju">광주</option>
-									<option value="daejeon">대전</option>
-									<option value="ulsan">울산</option>
-									<option value="jeju">제주</option>
+									<option selected value="0">전체</option>
+									<option value="1">서울</option>
+									<option value="2">인천</option>
+									<option value="3">부산</option>
+									<option value="4">대구</option>
+									<option value="5">광주</option>
+									<option value="6">대전</option>
+									<option value="7">울산</option>
+									<option value="8">제주</option>
 								</select>
 							</div>
 							<div class="col ms-input-col">
@@ -187,8 +187,7 @@
             	
             	search.onchange = function(){
             		var keyword = search.value;
-            	}
-        
+            	}        
             </script>
 
 
@@ -203,7 +202,7 @@
                         <div class="col ml-list-col">
                             <div class="row ml-list-row">
                                 <div class="col-8 d-flex flex-row flex-nowrap ml-scroll">
-                                    <a class="card shadow-sm ml-list" onclick="goSearch('seoul')">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch(1)">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/seoul_logo.png">
                                         </div>
@@ -211,7 +210,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">서 울</span>
                                         </div> 
                                     </a>
-                                    <a class="card shadow-sm ml-list" onclick="goSearch('incheon')">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch(2)">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/incheon_logo.png">
                                         </div>
@@ -219,7 +218,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">인 천</span>
                                         </div> 
                                     </a> 
-                                    <a class="card shadow-sm ml-list" onclick="goSearch('busan')">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch(3)">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/busan_logo.png">
                                         </div>
@@ -227,7 +226,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">부 산</span>
                                         </div> 
                                     </a> 
-                                    <a class="card shadow-sm ml-list" onclick="goSearch('daegu')">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch(4)">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/daegu_logo.png">
                                         </div>
@@ -235,7 +234,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">대 구</span>
                                         </div> 
                                     </a> 
-                                    <a class="card shadow-sm ml-list" onclick="goSearch('gwangju')">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch(5)">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/gwangju_logo.png">
                                         </div>
@@ -243,7 +242,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">광 주</span>
                                         </div> 
                                     </a>
-                                    <a class="card shadow-sm ml-list" onclick="goSearch(daejeon)">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch(6)">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/daejeon_logo.png">
                                         </div>
@@ -251,7 +250,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">대 전</span>
                                         </div> 
                                     </a> 
-                                    <a class="card shadow-sm ml-list" onclick="goSearch('ulsan');">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch(7);">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/ulsan_logo.png">
                                         </div>
@@ -259,7 +258,7 @@
                                             <span class="card-title ml-card-title" style="font-family:'bold'">울 산</span>
                                         </div> 
                                     </a>    
-                                    <a class="card shadow-sm ml-list" onclick="goSearch('jeju')">
+                                    <a class="card shadow-sm ml-list" onclick="goSearch(8)">
                                         <div class="ml-logo-div">
                                             <image class="ml-logo" src="resources/locationlogo/jeju_logo.png">
                                         </div>
@@ -273,7 +272,7 @@
                                         <input type="button" value="&#x1F68C; 그 외 지역 찾아보기" class="form-control ml-button shadow-sm">
                                     </div>
                                     <div class="ml-button-div">
-                                        <input type="button" value="&#x1F685; 전체 지역 찾아보기" class="form-control ml-button shadow-sm">
+                                        <input type="button" value="&#x1F685; 전체 지역 찾아보기" onclick="goSearch(0)" class="form-control ml-button shadow-sm">
                                     </div>
                                 </div>
                             </div>
@@ -284,15 +283,11 @@
             
             <!-- 지역 버튼을 누르면 -->
             <script>
-            	function goSearch(location){
-            		var keyword = "all";
-            		
-            		console.log(location, keyword);
-            		
-            		window.location.href = "goSearchedRestaurant.do?location="+location+"&keyword="+keyword;
+            	function goSearch(locationId){
+            		window.location.href = "goSearchedRestaurant.do?locationId="+locationId;
             	};
             </script>
-
+            
 
             <!-- 메인 테마 맛집 -->
             <div class="mainTheme">

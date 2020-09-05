@@ -6,7 +6,10 @@ import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
+
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+
+import com.kh.fooco.member.model.vo.Mylist;
 
 public interface MemberService {
 
@@ -50,6 +53,14 @@ public interface MemberService {
 	int selectOneCheckInCount(Member m);
 
 	ArrayList<Restaurant> selectListRestaurant(String restitle);
+	
+	
+	// ================================== Mylist 영은 ===========================================
+
+
+	ArrayList<Mylist> searchListRes(String searchRes);
+
+	Mylist selectmylist(int mlId1);
 	
 
 }

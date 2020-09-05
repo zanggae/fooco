@@ -18,7 +18,9 @@
     .table td {
       vertical-align: middle;
     }
-
+	.mBtn{
+		width: 200px; background:rgb(253, 215, 129) !important; color:rgb(204, 51, 98) !important;	border: 0px solid black !important;
+	}
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
@@ -96,7 +98,7 @@
         <div class="card mb-4">
           <div class="card-body">
             <div class="table-responsive mt-3">
-              <table class="table table-hover">
+              <table class="table table-hover" id="restaurantTable">
                 <thead>
                   <tr>
                     <th></th>
@@ -111,12 +113,13 @@
                 <tbody>
                	<c:if test="${empty restaurantList }">
 	              	<tr align="center">
-	              		<td colspan="7">조회된 음식점이 없습니다.</td>
+	              		<th colspan="7">조회된 음식점이 없습니다.</th>
 	              	</tr>
                 </c:if>
                 <c:if test="${!empty restaurantList }">
 	               	<c:forEach var="r" items="${restaurantList }">
 	                  <tr>
+	                  	<td style="display: none">${r.resId}</td>
 	                    <td align="center">
 	                      <img src="${r.resImageFilepath}/${r.resImageName}" width="60" height="60">
 	                    </td>
@@ -135,7 +138,7 @@
                 </c:if>
                                   <!-- 페이징 처리부분 -->
 					<tr align="center" height="20">
-						<td colspan="7">
+						<th colspan="7">
 					<!-- [이전] -->
 							<c:if test="${pi.currentPage eq 1 }">
 								[이전]&nbsp;
@@ -178,7 +181,7 @@
 								</script>
 								<a href="#" onclick="rListAfter()">[이후]</a>
 							</c:if>				
-						</td>		
+						</th>		
 					</tr> 
                 </tbody>
               </table>
@@ -190,13 +193,56 @@
       <button type="button" class="btn float-right mr-3" onclick="location.href='restaurantRegistration.do'"
         style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:95px;">등록</button>
 
-
+	<!-- 이동 모달 영역 -->
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none" id="goModal">
+	  Launch demo modal
+	</button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">음식점</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" align="center">
+	       <button type="button" class="btn btn-primary mBtn" id="detailBtn" onclick="goDetail(this)">상세페이지 보기</button>
+	       <button type="button" class="btn btn-primary mBtn" id="modifyBtn" onclick="goModify(this)">수정하기</button>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
       <script>
         function restaurantDelete(id){
         	if(confirm("음식점을 삭제하시겠습니까?")){
          	var rId = $(id).val();
          	location.href="deleteRestaurant.do?resId="+rId;	
         	}
+        }
+        $(function(){
+			$("#restaurantTable").find("td").click(function(){
+				var redId = $(this).parents().children("td").eq(0).text();
+				$("#detailBtn").attr("value",redId);
+				$("#modifyBtn").attr("value",redId);				
+				$("#goModal").click();					
+			})
+		})
+		function goDetail(id){
+        	var resId = $(id).attr('value');
+        	alert(resId);
+        	/* location.href="goDetailRestaurant.do?resId="+resId; */
+        }
+		function goModify(id){
+			var resId = $(id).attr('value');
+			/* alert(resId); */
+        	location.href="detailRestaurantAdmin.do?resId="+resId;
         }
       </script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

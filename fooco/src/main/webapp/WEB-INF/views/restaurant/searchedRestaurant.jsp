@@ -7,13 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-<!-- fontawesome -->
-<script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
+
 <title>Insert title here</title>
 <style>
 	/* 폰트 */
@@ -117,19 +111,16 @@
 							<span class="sr-filter-title">정렬</span>
 							<div class="sr-filter-group">
 								<div class="custom-control custom-radio">
-									<input id="credit" name="paymentMethod" type="radio"
-										class="custom-control-input" checked required> <label
-										class="custom-control-label" for="credit">평점 높은 순</label>
+									<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+									<label class="custom-control-label" for="credit">평점 높은 순</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input id="debit" name="paymentMethod" type="radio"
-										class="custom-control-input" required> <label
-										class="custom-control-label" for="debit">리뷰 많은 순</label>
+									<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+									<label class="custom-control-label" for="debit">리뷰 많은 순</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input id="paypal" name="paymentMethod" type="radio"
-										class="custom-control-input" required> <label
-										class="custom-control-label" for="paypal">조회수 많은 순</label>
+									<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+									<label class="custom-control-label" for="paypal">조회수 많은 순</label>
 								</div>
 							</div>
 						</div>
@@ -149,28 +140,24 @@
 									<label class="custom-control-label" for="cafe">카페·디저트</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="japanese"> <label class="custom-control-label"
-										for="japanese">돈까스·회·일식</label>
+									<input type="checkbox" class="custom-control-input" id="japanese">
+									<label class="custom-control-label" for="japanese">돈까스·회·일식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="chicken"> <label class="custom-control-label"
-										for="chicken">치킨</label>
+									<input type="checkbox" class="custom-control-input" id="chicken">
+									<label class="custom-control-label" for="chicken">치킨</label>
 								</div>
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" class="custom-control-input" id="pizza">
 									<label class="custom-control-label" for="pizza">피자</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="global-food"> <label class="custom-control-label"
-										for="global-food">아시안·양식</label>
+									<input type="checkbox" class="custom-control-input" id="global-food">
+									<label class="custom-control-label" for="global-food">아시안·양식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="chinese"> <label class="custom-control-label"
-										for="chinese">중식</label>
+									<input type="checkbox" class="custom-control-input" id="chinese">
+									<label class="custom-control-label" for="chinese">중식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" class="custom-control-input" id="jokbo">
@@ -182,33 +169,32 @@
 							<span class="sr-filter-title">기타</span>
 							<div class="sr-filter-group">
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="parking"> <label class="custom-control-label"
-										for="parking">주차</label>
+									<input type="checkbox" class="custom-control-input" id="parking">
+									<label class="custom-control-label" for="parking">주차</label>
 								</div>
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" class="custom-control-input" id="wifi">
 									<label class="custom-control-label" for="wifi">와이파이</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="indoor-room"> <label class="custom-control-label"
-										for="indoor-room">룸</label>
+									<input type="checkbox" class="custom-control-input" id="indoor-room">
+									<label class="custom-control-label" for="indoor-room">룸</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="no-kids-zone"> <label class="custom-control-label"
-										for="no-kids-zone">노키즈존</label>
+									<input type="checkbox" class="custom-control-input" id="no-kids-zone">
+									<label class="custom-control-label" for="no-kids-zone">노키즈존</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="outdoor-chair"> <label
-										class="custom-control-label" for="outdoor-chair">야외좌석</label>
+									<input type="checkbox" class="custom-control-input" id="outdoor-chair">
+									<label class="custom-control-label" for="outdoor-chair">야외좌석</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input"
-										id="baby-facility"> <label
-										class="custom-control-label" for="baby-facility">유아시설</label>
+									<input type="checkbox" class="custom-control-input" id="baby-facility">
+									<label class="custom-control-label" for="baby-facility">유아시설</label>
+								</div>
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="partner-restaurant">
+									<label class="custom-control-label" for="partner-restaurant">파트너 맛집</label>
 								</div>
 							</div>
 						</div>
@@ -232,22 +218,20 @@
 									<option>광주</option>
 									<option>대전</option>
 									<option>울산</option>
+									<option>그 외</option>
 								</select>
 							</div>
 							<input type="search" class="form-control" placeholder="먹고 싶은 음식(한식, 중식, 분식)이나 맛집 이름을 입력하세요.">
 						</div>
-						<div
-							class="col sr-content-title d-flex flex-column justify-content-center">
-							<p style="font-family: 'medium'; color: rgb(204, 51, 98);">인천</p>
-							<p style="font-family: 'bold'; font-size: 1.5rem;">'양식'으로 검색한
-								결과</p>
+						<div class="col sr-content-title d-flex flex-column justify-content-center">
+							<p style="font-family: 'medium'; color: rgb(204, 51, 98);">${location}</p>
+							<p style="font-family: 'bold'; font-size: 1.5rem;">'${keyword}'(으)로 검색한 결과</p>
 						</div>
 						<div class="col sr-content-list">
-							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail();">
+							<c:forEach var="res" items="${list}">
+							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${resId});">
 								<div class="col-4 sr-mz-img-col">
-									<div
-										class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end"
-										style="background-image: url('resThumb/restaurant1.jpg');">
+									<div class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end" style="background-image: url('resThumb/restaurant1.jpg');">
 										<p>
 											<i class="fas fa-heart bookmarkheart"></i>
 										</p>
@@ -256,16 +240,16 @@
 								<div class="col-8 sr-mz-content">
 									<div class="row sr-mz-titleRating">
 										<div class="col-9 sr-mz-title">
-											<span style="font-family: 'bold'; font-size: 1.5rem;">스테이크</span>
+											<span style="font-family: 'bold'; font-size: 1.5rem; color:black;">${res.resName}</span>
 										</div>
 										<div class="col-3 sr-mz-rating">
-											<span><i class="fas fa-star"></i>4.9</span>
+											<span><i class="fas fa-star"></i>${res.reviewRating}</span>
 										</div>
 									</div>
 									<div class="row sr-mz-address d-flex align-items-center">
-										<i class="fas fa-map-marker-alt"></i> <span
-											style="font-family: 'medium'; font-size: 1rem;">인천</span> <span
-											style="font-size: 0.8rem;">인천시 남동구 서창동 661-3</span>
+										<i class="fas fa-map-marker-alt"></i>
+										<span style="font-family: 'medium'; font-size: 1rem;">${res.locationName}</span>
+										<span style="font-size: 0.8rem;">${res.resAddress}</span>
 									</div>
 									<div class="row">
 										<div class="row" class="sr-mz-bestReview">
@@ -281,329 +265,33 @@
 													<span class="badge badge-pill">best</span> <span
 														style="font-family: 'medium'">와니</span>
 												</div>
-												<div class="row sr-mz-bestReivew-content"
-													style="font-size: 0.8rem;">
-													<span>한번도 안 먹어본 사람은 있어도 한번만 먹은 사람은 없다는 거쥐~ 안 먹어본 사람은
-														조용~!</span>
+												<div class="row sr-mz-bestReivew-content" style="font-size: 0.8rem;">
+													<span>굿굿</span>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div
-										class="row sr-mz-viewWishBookmark d-flex justify-content-end align-items-center">
-										<i class="fas fa-eye"></i> <span>3,201</span> <i
-											class="fas fa-heart"></i> <span>677</span> <i
-											class="fas fa-pencil-alt"></i> <span>79</span>
+									<div class="row sr-mz-viewWishBookmark d-flex justify-content-end align-items-center">
+										<i class="fas fa-eye"></i> <span>${res.resViewCount}</span>
+										<i class="fas fa-heart"></i> <span>${res.resBookmarkCount}</span>
+										<i class="fas fa-pencil-alt"></i> <span>${res.resReviewCount}</span>
 									</div>
 								</div>
 							</div>
-							<div class="row sr-mz shadow-sm">
-								<div class="col-4 sr-mz-img-col">
-									<div
-										class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end"
-										style="background-image: url('resThumb/restaurant2.jpg');">
-										<p>
-											<i class="fas fa-heart bookmarkheart"></i>
-										</p>
-									</div>
-								</div>
-								<div class="col-8 sr-mz-content">
-									<div class="row sr-mz-titleRating">
-										<div class="col-9 sr-mz-title">
-											<span style="font-family: 'bold'; font-size: 1.5rem;">샐러드</span>
-										</div>
-										<div class="col-3 sr-mz-rating">
-											<span><i class="fas fa-star"></i>4.9</span>
-										</div>
-									</div>
-									<div class="row sr-mz-address d-flex align-items-center">
-										<i class="fas fa-map-marker-alt"></i> <span
-											style="font-family: 'medium'; font-size: 1rem;">인천</span> <span
-											style="font-size: 0.8rem;">인천시 남동구 서창동 661-3</span>
-									</div>
-									<div class="row">
-										<div class="row" class="sr-mz-bestReview">
-											<div
-												class="col-2 sr-mz-bestReview-profile d-flex justify-content-center align-items-center">
-												<div class="sr-mz-bestReview-profile-div">
-													<img src="profile/luffy.jpg" class="userProfile" />
-												</div>
-											</div>
-											<div class="col-10 sr-mz-bestReview-content-div">
-												<div class="row sr-mz-bestReivew-nickname"
-													style="font-size: 0.8rem;">
-													<span class="badge badge-pill">best</span> <span
-														style="font-family: 'medium'">와니</span>
-												</div>
-												<div class="row sr-mz-bestReivew-content"
-													style="font-size: 0.8rem;">
-													<span>한번도 안 먹어본 사람은 있어도 한번만 먹은 사람은 없다는 거쥐~ 안 먹어본 사람은
-														조용~!</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div
-										class="row sr-mz-viewWishBookmark d-flex justify-content-end align-items-center">
-										<i class="fas fa-eye"></i> <span>3,201</span> <i
-											class="fas fa-heart"></i> <span>677</span> <i
-											class="fas fa-pencil-alt"></i> <span>79</span>
-									</div>
-								</div>
-							</div>
-							<div class="row sr-mz shadow-sm">
-								<div class="col-4 sr-mz-img-col">
-									<div
-										class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end"
-										style="background-image: url('resThumb/restaurant3.jpg');">
-										<p>
-											<i class="fas fa-heart bookmarkheart"></i>
-										</p>
-									</div>
-								</div>
-								<div class="col-8 sr-mz-content">
-									<div class="row sr-mz-titleRating">
-										<div class="col-9 sr-mz-title">
-											<span style="font-family: 'bold'; font-size: 1.5rem;">후르트볼</span>
-										</div>
-										<div class="col-3 sr-mz-rating">
-											<span><i class="fas fa-star"></i>4.9</span>
-										</div>
-									</div>
-									<div class="row sr-mz-address d-flex align-items-center">
-										<i class="fas fa-map-marker-alt"></i> <span
-											style="font-family: 'medium'; font-size: 1rem;">인천</span> <span
-											style="font-size: 0.8rem;">인천시 남동구 서창동 661-3</span>
-									</div>
-									<div class="row">
-										<div class="row" class="sr-mz-bestReview">
-											<div
-												class="col-2 sr-mz-bestReview-profile d-flex justify-content-center align-items-center">
-												<div class="sr-mz-bestReview-profile-div">
-													<img src="profile/luffy.jpg" class="userProfile" />
-												</div>
-											</div>
-											<div class="col-10 sr-mz-bestReview-content-div">
-												<div class="row sr-mz-bestReivew-nickname"
-													style="font-size: 0.8rem;">
-													<span class="badge badge-pill">best</span> <span
-														style="font-family: 'medium'">와니</span>
-												</div>
-												<div class="row sr-mz-bestReivew-content"
-													style="font-size: 0.8rem;">
-													<span>한번도 안 먹어본 사람은 있어도 한번만 먹은 사람은 없다는 거쥐~ 안 먹어본 사람은
-														조용~!</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div
-										class="row sr-mz-viewWishBookmark d-flex justify-content-end align-items-center">
-										<i class="fas fa-eye"></i> <span>3,201</span> <i
-											class="fas fa-heart"></i> <span>677</span> <i
-											class="fas fa-pencil-alt"></i> <span>79</span>
-									</div>
-								</div>
-							</div>
-							<div class="row sr-mz shadow-sm">
-								<div class="col-4 sr-mz-img-col">
-									<div
-										class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end"
-										style="background-image: url('resThumb/restaurant4.jpg');">
-										<p>
-											<i class="fas fa-heart bookmarkheart"></i>
-										</p>
-									</div>
-								</div>
-								<div class="col-8 sr-mz-content">
-									<div class="row sr-mz-titleRating">
-										<div class="col-9 sr-mz-title">
-											<span style="font-family: 'bold'; font-size: 1.5rem;">수제
-												햄버거</span>
-										</div>
-										<div class="col-3 sr-mz-rating">
-											<span><i class="fas fa-star"></i>4.9</span>
-										</div>
-									</div>
-									<div class="row sr-mz-address d-flex align-items-center">
-										<i class="fas fa-map-marker-alt"></i> <span
-											style="font-family: 'medium'; font-size: 1rem;">인천</span> <span
-											style="font-size: 0.8rem;">인천시 남동구 서창동 661-3</span>
-									</div>
-									<div class="row">
-										<div class="row" class="sr-mz-bestReview">
-											<div
-												class="col-2 sr-mz-bestReview-profile d-flex justify-content-center align-items-center">
-												<div class="sr-mz-bestReview-profile-div">
-													<img src="profile/luffy.jpg" class="userProfile" />
-												</div>
-											</div>
-											<div class="col-10 sr-mz-bestReview-content-div">
-												<div class="row sr-mz-bestReivew-nickname"
-													style="font-size: 0.8rem;">
-													<span class="badge badge-pill">best</span> <span
-														style="font-family: 'medium'">와니</span>
-												</div>
-												<div class="row sr-mz-bestReivew-content"
-													style="font-size: 0.8rem;">
-													<span>한번도 안 먹어본 사람은 있어도 한번만 먹은 사람은 없다는 거쥐~ 안 먹어본 사람은
-														조용~!</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div
-										class="row sr-mz-viewWishBookmark d-flex justify-content-end align-items-center">
-										<i class="fas fa-eye"></i> <span>3,201</span> <i
-											class="fas fa-heart"></i> <span>677</span> <i
-											class="fas fa-pencil-alt"></i> <span>79</span>
-									</div>
-								</div>
-							</div>
-							<div class="row sr-mz shadow-sm">
-								<div class="col-4 sr-mz-img-col">
-									<div
-										class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end"
-										style="background-image: url('resThumb/restaurant5.jpg');">
-										<p>
-											<i class="fas fa-heart bookmarkheart"></i>
-										</p>
-									</div>
-								</div>
-								<div class="col-8 sr-mz-content">
-									<div class="row sr-mz-titleRating">
-										<div class="col-9 sr-mz-title">
-											<span style="font-family: 'bold'; font-size: 1.5rem;">마라탕</span>
-										</div>
-										<div class="col-3 sr-mz-rating">
-											<span><i class="fas fa-star"></i>4.9</span>
-										</div>
-									</div>
-									<div class="row sr-mz-address d-flex align-items-center">
-										<i class="fas fa-map-marker-alt"></i> <span
-											style="font-family: 'medium'; font-size: 1rem;">인천</span> <span
-											style="font-size: 0.8rem;">인천시 남동구 서창동 661-3</span>
-									</div>
-									<div class="row">
-										<div class="row" class="sr-mz-bestReview">
-											<div
-												class="col-2 sr-mz-bestReview-profile d-flex justify-content-center align-items-center">
-												<div class="sr-mz-bestReview-profile-div">
-													<img src="profile/luffy.jpg" class="userProfile" />
-												</div>
-											</div>
-											<div class="col-10 sr-mz-bestReview-content-div">
-												<div class="row sr-mz-bestReivew-nickname"
-													style="font-size: 0.8rem;">
-													<span class="badge badge-pill">best</span> <span
-														style="font-family: 'medium'">와니</span>
-												</div>
-												<div class="row sr-mz-bestReivew-content"
-													style="font-size: 0.8rem;">
-													<span>한번도 안 먹어본 사람은 있어도 한번만 먹은 사람은 없다는 거쥐~ 안 먹어본 사람은
-														조용~!</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div
-										class="row sr-mz-viewWishBookmark d-flex justify-content-end align-items-center">
-										<i class="fas fa-eye"></i> <span>3,201</span> <i
-											class="fas fa-heart"></i> <span>677</span> <i
-											class="fas fa-pencil-alt"></i> <span>79</span>
-									</div>
-								</div>
-							</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
 				<div class="col-3 sr-recommend">
 					<div class="row row-cols-1 sr-recommend-div">
-						<div class="col sr-ad-col"></div>
+						<div class="col sr-ad-col">
+							<jsp:include page="restaurantAd.jsp"/>
+						</div>
 						<div class="col sr-recommend-col">
-							<div class="row sr-recommend-title-row">
-								<p style="font-family: 'bold';">나도 비슷한 거 있는데...</p>
-							</div>
-							<div class="row row-cols-2 sr-recommend-content-row">
-								<div class="col sr-recommend-boundary">
-									<div class="row row-cols-1 sr-recommend-card shadow-sm">
-										<div class="col sr-recommend-card-img">
-											<img src="resThumb/restaurant1.jpg"
-												style="border-radius: 0.2rem;"></img>
-										</div>
-										<div class="col sr-recommend-card-content">
-											<div class="row sr-recommend-card-title">
-												<span
-													style="font-size: 0.9rem; line-height: 0.9rem; font-family: 'bold';">진짜
-													맛있는 스테이크</span>
-											</div>
-											<div class="row sr-recommend-card-rating">
-												<span style="color: #F4E04E;"><i class="fas fa-star"></i>4.9</span>
-											</div>
-											<div
-												class="row sr-recommend-card-location d-flex align-items-center">
-												<i class="fas fa-map-marker-alt"
-													style="font-size: 0.8rem; margin-right: 0.2rem;"></i> <span
-													style="font-family: 'medium'; font-size: 0.8rem;">인천</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col sr-recommend-boundary">
-									<div class="row row-cols-1 sr-recommend-card shadow-sm">
-										<div class="col sr-recommend-card-img">
-											<img src="resThumb/restaurant1.jpg"
-												style="border-radius: 0.2rem;"></img>
-										</div>
-										<div class="col sr-recommend-card-content">
-											<div class="row sr-recommend-card-title">
-												<span
-													style="font-size: 0.9rem; line-height: 0.9rem; font-family: 'bold';">진짜
-													맛있는 스테이크</span>
-											</div>
-											<div class="row sr-recommend-card-rating">
-												<span style="color: #F4E04E;"><i class="fas fa-star"></i>4.9</span>
-											</div>
-											<div
-												class="row sr-recommend-card-location d-flex align-items-center">
-												<i class="fas fa-map-marker-alt"
-													style="font-size: 0.8rem; margin-right: 0.2rem;"></i> <span
-													style="font-family: 'medium'; font-size: 0.8rem;">인천</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col sr-recommend-boundary">
-									<div class="row row-cols-1 sr-recommend-card shadow-sm">
-										<div class="col sr-recommend-card-img">
-											<img src="resThumb/restaurant1.jpg"
-												style="border-radius: 0.2rem;"></img>
-										</div>
-										<div class="col sr-recommend-card-content">
-											<div class="row sr-recommend-card-title">
-												<span
-													style="font-size: 0.9rem; line-height: 0.9rem; font-family: 'bold';">진짜
-													맛있는 스테이크</span>
-											</div>
-											<div class="row sr-recommend-card-rating">
-												<span style="color: #F4E04E;"><i class="fas fa-star"></i>4.9</span>
-											</div>
-											<div
-												class="row sr-recommend-card-location d-flex align-items-center">
-												<i class="fas fa-map-marker-alt"
-													style="font-size: 0.8rem; margin-right: 0.2rem;"></i> <span
-													style="font-family: 'medium'; font-size: 0.8rem;">인천</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							<jsp:include page="recommendedRestaurant.jsp"/>
 						</div>
 						<div class="col sr-partner-col">
-							<div class="row sr-partner-title-row">
-								<p style="font-family: 'bold';">FOOCO 멤버십이라면</p>
-							</div>
-							<div class="row row-cols-3"></div>
+							<jsp:include page="partnerRestaurant.jsp"/>
 						</div>
 					</div>
 				</div>
@@ -615,9 +303,16 @@
 	</footer>
 	
 	<script>
-		function goDetail() {
+		function goDetail(resId) {
 			location.href="goDetailRestaurant.do";
 		}
 	</script>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<!-- fontawesome -->
+	<script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
 </body>
 </html>

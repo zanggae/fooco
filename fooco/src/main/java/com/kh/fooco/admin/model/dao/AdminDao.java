@@ -1,6 +1,7 @@
 package com.kh.fooco.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,6 +17,7 @@ import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @Repository("adminDao")
 public class AdminDao {
@@ -173,6 +175,77 @@ public class AdminDao {
 
 	public int insertRestaurantImage(Image i) {
 		return sqlSessionTemplate.insert("adminMapper.insertRestaurantImage", i);
+	}
+
+	public Restaurant selectOneRestaurant(Restaurant restaurant) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectOneRestaurant",restaurant);
+	}
+
+	public ArrayList<String> selectListRestaurantFilter(Restaurant restaurant) {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListRestaurantFilter",restaurant);
+	}
+
+	public ArrayList<String> selectListRestaurantMenu(Restaurant restaurant) {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListRestaurantMenu",restaurant);
+	}
+
+	public int deleteRestaurantMenu(Restaurant r) {
+		return sqlSessionTemplate.delete("adminMapper.deleteRestaurantMenu",r);
+	}
+
+	public int deleteRestaurantFilter(Restaurant r) {
+		return sqlSessionTemplate.delete("adminMapper.deleteRestaurantFilter",r);
+	}
+
+	public int updateRestaurantMenu(String me, int rId) {
+		HashMap<String, Object> updateParameter = new HashMap<String, Object>();
+		updateParameter.put("me", me);
+		updateParameter.put("rId", rId);
+		return sqlSessionTemplate.insert("adminMapper.updateRestaurantMenu",updateParameter);
+	}
+
+	public int updateRestaurantFilter(String fi, int rId) {
+		HashMap<String, Object> updateParameter = new HashMap<String, Object>();
+		updateParameter.put("filter", fi);
+		updateParameter.put("rId", rId);
+		return sqlSessionTemplate.insert("adminMapper.updateRestaurantFilter",updateParameter);
+	}
+
+	public int updateRestaurantImage(Image i, int rId) {
+		String nName = i.getImageNewName();
+		String oName = i.getImageOriginName();
+		HashMap<String, Object> updateParameter = new HashMap<String, Object>();
+		updateParameter.put("rId", rId);
+		updateParameter.put("nName", nName);
+		updateParameter.put("oName", oName);
+		System.out.println(updateParameter);
+		return sqlSessionTemplate.update("adminMapper.updateRestaurantImage",updateParameter);
+	}
+
+	public int updateRestaurant(Restaurant r) {
+		return sqlSessionTemplate.update("adminMapper.updateRestaurant", r);
+	}
+
+	public int selectOneThemeCount(ThemeAdmin ta) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectOneThemeCount",ta);
+	}
+
+	public ArrayList<ThemeAdmin> selectListTheme(ThemeAdmin ta, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());		
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListTheme",ta);
+	}
+
+	public int deleteTheme(ThemeAdmin ta) {
+		return sqlSessionTemplate.delete("adminMapper.deleteTheme",ta);
+	}
+
+	public int deleteThemeBM(ThemeAdmin ta) {
+		return sqlSessionTemplate.delete("adminMapper.deleteThemeBM",ta);
+	}
+
+	public int deleteThemeR(ThemeAdmin ta) {
+		return sqlSessionTemplate.delete("adminMapper.deleteThemeR",ta);
 	}
 
 	

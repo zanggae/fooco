@@ -202,7 +202,7 @@
     <div class="text1" style="font-size: 1.3rem; color: black;font-weight: bold;">로그인</div>
   </div>
   <div class="middle"></div>
-  <div class="text2">혼밥은 역시 초밥 Best7</div>
+  <div class="text2">${theme.themeTitle}</div>
   <div id="test">
     <div class="container">
       <br><br><br>

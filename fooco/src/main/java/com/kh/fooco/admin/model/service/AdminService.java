@@ -11,6 +11,7 @@ import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 public interface AdminService {
 
@@ -79,6 +80,34 @@ public interface AdminService {
 	int insertRestaurant(Restaurant r);
 
 	int insertRestaurantImage(Image i);
+
+	Restaurant selectOneRestaurant(Restaurant restaurant);
+
+	ArrayList<String> selectListRestaurantFilter(Restaurant restaurant);
+
+	ArrayList<String> selectListRestaurantMenu(Restaurant restaurant);
+
+	int deleteRestaurantMenu(Restaurant r);
+
+	int deleteRestaurantFilter(Restaurant r);
+
+	int updateRestaurantMenu(String me, int rId);
+
+	int updateRestaurantFilter(String fi, int rId);
+
+	int updateRestaurantImage(Image i, int rId);
+
+	int updateRestaurant(Restaurant r);
+
+	int selectOneThemeCount(ThemeAdmin ta);
+
+	ArrayList<ThemeAdmin> selectListTheme(ThemeAdmin ta, PageInfo pi);
+
+	int deleteTheme(ThemeAdmin ta);
+
+	int deleteThemeBM(ThemeAdmin ta);
+
+	int deleteThemeR(ThemeAdmin ta);
 
 	
 }

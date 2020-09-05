@@ -37,6 +37,7 @@
 </resultMap>
 
 
+
 <resultMap type="Restaurant" id="restaurantListResultSet">
 		<id property="resId" column="RES_ID" />
 		<result property="resCategoryId" column="RES_CATEGORY_ID" />
@@ -52,6 +53,33 @@
 		<result property="resPhone" column="RES_PHONE"/>
 		<result property="resImageName" column="RES_IMAGE_NAME"/>
 </resultMap>
+
+<!-- Mylist 영은 -->
+<resultMap type="Mylist" id="mylistResultSet">
+	<id property="resId" column="RES_ID"/>
+	<result property="resName" column="RES_NAME"/>
+	<result property="resAddress" column="RES_ADDRESS"/>
+	<result property="resStatus" column="RES_STATUS"/>
+	<result property="imageId" column="IMAGE_ID"/>
+	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/> 
+	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+	<result property="filePath" column="IMAGE_FILEPATH"/>
+	<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
+	<result property="imageLevel" column="IMAGE_LEVEL"/>
+	<result property="imageStatus" column="IMAGE_STATUS"/>
+	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>
+	<result property="mlId" column="ML_ID"/>
+	<result property="mlTitle" column="ML_TITLE"/>
+	<result property="mlUploadDate" column="ML_UPLOAD_DATE"/>
+	<result property="modifyDate" column="ML_MODIFY_DATE"/>
+	<result property="recommendationTheme" column="RECOMMENDATION_THEME"/>
+	<result property="approveTheme" column="APPROVE_THEME"/>
+	<result property="memberId" column="MEMBER_ID"/>
+	
+</resultMap>
+
+	
+
 
 <!-- 팔로워 수 카운트 쿼리 -->
  <select id="selectOneFollowCount" parameterType="Member" resultType="_int">
@@ -163,6 +191,7 @@ WHERE NICKNAME = #{nickName}
 </update>
 
 
+
 <!-- 체크인 등록 페이지에서 음식점 조회 쿼리 -->
 <select id="selectListRestaurant" parameterType="string" resultMap="restaurantListResultSet">
 SELECT RES_ID, RES_NAME, RES_ADDRESS, RES_IMAGE_NAME 
@@ -170,5 +199,27 @@ FROM SELECT_RESTAURANT
 WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
 
 </select>
+
+
+<!------------------------------------------ mylist 영은 ------------------------------------------>
+
+<!-- mylist등록 검색결과 쿼리 -->
+<select id="searchListRes" parameterType="string" resultMap="mylistResultSet">
+	SELECT
+	RES_ID,RES_NAME,RES_ID,RES_ADDRESS,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH,ML_ID
+	FROM SELECT_MYLIST
+	WHERE RES_NAME LIKE '%'||#{searchRes}||'%' ORDER BY RES_NAME
+</select>
+
+<!-- mylist 검색결과 추가  쿼리 -->
+<select id="selectmylist" parameterType="int" resultMap="mylistResultSet">
+	SELECT 
+	RES_ID,RES_NAME,RES_ID,RES_ADDRESS,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH,ML_ID
+	FROM SELECT_MYLIST
+	WHERE MI_ID =#{mlId1}
+</select>
+
+
+
 
 </mapper>

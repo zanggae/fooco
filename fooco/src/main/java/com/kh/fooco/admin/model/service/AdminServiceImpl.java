@@ -15,6 +15,7 @@ import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService{
@@ -184,6 +185,76 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int insertRestaurantImage(Image i) {
 		return adminDao.insertRestaurantImage(i);
+	}
+
+	@Override
+	public Restaurant selectOneRestaurant(Restaurant restaurant) {
+		return adminDao.selectOneRestaurant(restaurant);
+	}
+
+	@Override
+	public ArrayList<String> selectListRestaurantFilter(Restaurant restaurant) {
+		return adminDao.selectListRestaurantFilter(restaurant);
+	}
+
+	@Override
+	public ArrayList<String> selectListRestaurantMenu(Restaurant restaurant) {
+		return adminDao.selectListRestaurantMenu(restaurant);
+	}
+
+	@Override
+	public int deleteRestaurantMenu(Restaurant r) {
+		return adminDao.deleteRestaurantMenu(r);
+	}
+
+	@Override
+	public int deleteRestaurantFilter(Restaurant r) {
+		return adminDao.deleteRestaurantFilter(r);
+	}
+
+	@Override
+	public int updateRestaurantMenu(String me, int rId) {
+		return adminDao.updateRestaurantMenu(me, rId);
+	}
+
+	@Override
+	public int updateRestaurantFilter(String fi, int rId) {
+		return adminDao.updateRestaurantFilter(fi, rId);
+	}
+
+	@Override
+	public int updateRestaurantImage(Image i, int rId) {
+		return adminDao.updateRestaurantImage(i, rId);
+	}
+
+	@Override
+	public int updateRestaurant(Restaurant r) {
+		return adminDao.updateRestaurant(r);
+	}
+
+	@Override
+	public int selectOneThemeCount(ThemeAdmin ta) {
+		return adminDao.selectOneThemeCount(ta);
+	}
+
+	@Override
+	public ArrayList<ThemeAdmin> selectListTheme(ThemeAdmin ta, PageInfo pi) {
+		return adminDao.selectListTheme(ta, pi);
+	}
+
+	@Override
+	public int deleteTheme(ThemeAdmin ta) {
+		return adminDao.deleteTheme(ta);
+	}
+
+	@Override
+	public int deleteThemeBM(ThemeAdmin ta) {
+		return adminDao.deleteThemeBM(ta);
+	}
+
+	@Override
+	public int deleteThemeR(ThemeAdmin ta) {
+		return adminDao.deleteThemeR(ta);
 	}
 
 	

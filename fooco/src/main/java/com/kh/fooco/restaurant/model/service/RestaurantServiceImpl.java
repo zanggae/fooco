@@ -1,11 +1,14 @@
 package com.kh.fooco.restaurant.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.dao.RestaurantDao;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.restaurant.model.vo.Review;
 
 @Service("restaurantService")
@@ -15,13 +18,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 	private RestaurantDao restaurantDao;
 
 	@Override
-	public ArrayList<Review> selectReviewList(int resId) {
-		return restaurantDao.selectReviewList(resId);
+	public int getListCount(HashMap<String, Object> searchParameter) {
+		return restaurantDao.getListCount(searchParameter);
 	}
 
 	@Override
-	public int getListCount(String location, String keyword) {
-		return restaurantDao.getListCount(location, keyword);
+	public ArrayList<Restaurant> getList(HashMap<String, Object> searchParameter, PageInfo pi) {
+		return restaurantDao.getList(searchParameter, pi);
 	}
+
+
 
 }
