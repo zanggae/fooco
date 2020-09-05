@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.service.RestaurantService;
 import com.kh.fooco.restaurant.model.vo.Filter;
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 @Controller
@@ -73,9 +75,19 @@ public class RestaurantController {
 	
 
 	@RequestMapping("goDetailRestaurant.do")
-	public String goDetailRestaurant() {
-		return "restaurant/detailRestaurant";
+	public ModelAndView goDetailRestaurant(ModelAndView mv, @RequestParam(value="resId") Integer resId)
+	{
+		System.out.println(resId);
+		Res restaurant = restaurantService.getRestaurantDetail(resId);
+		Info info = restaurantService.getRestaurantInfo(resId);
+
+		mv.addObject("res", restaurant);
+		mv.addObject("info", info);
+		mv.setViewName("restaurant/detailRestaurant");
+		return mv;
 	}
+	
+	
 	
 	public String convertLocation(int locationId) {
 		

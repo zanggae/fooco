@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,34 +23,32 @@
 			<div class="row">
 				<span style="font-family: 'bold';" class="mz-moreInfo-title">구분</span>
 			</div>
-			<div class="row" class="mz-moreInfo-">일식</div>
+			<div class="row" class="mz-moreInfo-">${info.infoCategoryName}</div>
 		</div>
 		<div class="row d-block">
 			<div class="row">
 				<span style="font-family: 'bold';" class="mz-moreInfo-title">대표메뉴</span>
 			</div>
-			<div class="row">푸에르테</div>
+			<c:forEach var="bestmenu" items="${info.bestmenu}">
+				<div class="row">${bestmenu.bestmenuName}</div>
+			</c:forEach>
 		</div>
 		<div class="row d-block">
 			<div class="row">
 				<span style="font-family: 'bold';" class="mz-moreInfo-title">영업시간</span>
 			</div>
-			<div class="row">10:00~11:00</div>
+			<div class="row">${info.infoOperatingTime}</div>
 		</div>
 		<div class="row d-block">
 			<div class="row">
 				<span style="font-family: 'bold';" class="mz-moreInfo-title">옵션</span>
 			</div>
 			<div class="row row-cols-2 mz-moreInfo-option-row">
-				<div class="col d-flex align-items-center">
-					<i class="far fa-check-square"></i>WI-FI
-				</div>
-				<div class="col d-flex align-items-center">
-					<i class="far fa-check-square"></i>룸
-				</div>
-				<div class="col d-flex align-items-center">
-					<i class="far fa-check-square"></i>야외좌석
-				</div>
+				<c:forEach var="filter" items="${info.infoFilter}">
+					<div class="col d-flex align-items-center">
+						<i class="far fa-check-square"></i>${filter.filterName}
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
