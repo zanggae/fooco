@@ -9,6 +9,7 @@ import com.kh.fooco.member.model.dao.MemberDao;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -127,6 +128,34 @@ public class MemberServiceImpl implements MemberService{
 	public int updateMemberProfile(Member m) {
 		
 		return memberDao.updateMemberProfile(m);
+	}
+	
+	// 나의활동 리뷰 수 메소드
+	@Override
+	public int selectOneReviewCount(Member m) {
+		
+		return memberDao.selectOneReviewCount(m);
+	}
+
+	// 나의활동 마이리스트 수 메소드
+	@Override
+	public int selectOneMyListCount(Member m) {
+		
+		return memberDao.selectOneMyListCount(m);
+	}
+
+	// 나의활동 체크인 수 메소드
+	@Override
+	public int selectOneCheckInCount(Member m) {
+		
+		return memberDao.selectOneCheckInCount(m);
+	}
+	
+	// 체크인 등록 페이지에서 음식점 조회
+	@Override
+	public ArrayList<Restaurant> selectListRestaurant(String restitle) {
+		
+		return memberDao.selectListRestaurant(restitle);
 	}
 	
 	

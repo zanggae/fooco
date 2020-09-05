@@ -36,6 +36,23 @@
 	<result property="followingCount" column="FOLLOWING_COUNT"></result>	
 </resultMap>
 
+
+<resultMap type="Restaurant" id="restaurantListResultSet">
+		<id property="resId" column="RES_ID" />
+		<result property="resCategoryId" column="RES_CATEGORY_ID" />
+		<result property="locationId" column="LOCATION_ID" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resAddress" column="RES_ADDRESS" />
+		<result property="resContent" column="RES_CONTENT" />
+		<result property="resViewCount" column="RES_VIEWCOUNT" />
+		<result property="resTime" column="RES_TIME" />
+		<result property="resStatus" column="RES_STATUS" />
+		<result property="resCreateDate" column="RES_CREATE_DATE" />
+		<result property="resUpdateDate" column="RES_UPDATE_DATE" />
+		<result property="resPhone" column="RES_PHONE"/>
+		<result property="resImageName" column="RES_IMAGE_NAME"/>
+</resultMap>
+
 <!-- 팔로워 수 카운트 쿼리 -->
  <select id="selectOneFollowCount" parameterType="Member" resultType="_int">
 SELECT COUNT(*)
@@ -49,6 +66,27 @@ SELECT COUNT(*)
 FROM FOLLOW
 WHERE FOLLOWER_ID = #{memberId}
 </select> 
+
+<!-- 리뷰 수 카운트 쿼리 -->
+<select id="selectOneReviewCount" parameterType="Member" resultType="_int">
+SELECT COUNT(*)
+FROM REVIEW
+WHERE MEMBER_ID = #{memberId}
+</select>
+
+<!-- 마이리스트 수 카운트 쿼리 -->
+<select id="selectOneMyListCount" parameterType="Member" resultType="_int">
+SELECT COUNT(*)
+FROM MYLIST
+WHERE MEMBER_ID = #{memberId}
+</select>
+
+<!-- 체크인 수 카운트 쿼리 -->
+<select id="selectOneCheckInCount" parameterType="Member" resultType="_int">
+SELECT COUNT(*)
+FROM CHECKIN
+WHERE MEMBER_ID = #{memberId}
+</select>
 
 <!-- 프로필 사진 조회 쿼리 -->
 <select id="selectOneProFile" parameterType="Member" resultType="string">
@@ -123,5 +161,14 @@ WHERE NICKNAME = #{nickName}
 	SET MEMBER_STATUS = 'N'
 	WHERE MEMBER_ID = #{memberId}
 </update>
+
+
+<!-- 체크인 등록 페이지에서 음식점 조회 쿼리 -->
+<select id="selectListRestaurant" parameterType="string" resultMap="restaurantListResultSet">
+SELECT RES_ID, RES_NAME, RES_ADDRESS, RES_IMAGE_NAME 
+FROM SELECT_RESTAURANT 
+WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
+
+</select>
 
 </mapper>
