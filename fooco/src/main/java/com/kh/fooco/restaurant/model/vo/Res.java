@@ -38,7 +38,7 @@ public class Res implements Serializable {
 	public Res(int resId, int resCategoryId, String resCategoryName, int locationId, String locationName,
 			String resName, String resAddress, String resContent, int resViewCount, String resTime, String resStatus,
 			Date resCreateDate, Date resUpdateDate, int reviewRating, int resBookmarkCount, int resReviewCount,
-			Image resThumbnailImage, Review bestReview, ArrayList<Bestmenu> bestmenus, ArrayList<Filter> resFilters,
+			ResImage resThumbnailImage, Review bestReview, ArrayList<Bestmenu> bestmenus, ArrayList<Filter> resFilters,
 			ArrayList<Image> resLatestImages) {
 		super();
 		this.resId = resId;
@@ -159,10 +159,10 @@ public class Res implements Serializable {
 	public void setResReviewCount(int resReviewCount) {
 		this.resReviewCount = resReviewCount;
 	}
-	public Image getResThumbnailImage() {
+	public ResImage getResThumbnailImage() {
 		return resThumbnailImage;
 	}
-	public void setResThumbnailImage(Image resThumbnailImage) {
+	public void setResThumbnailImage(ResImage resThumbnailImage) {
 		this.resThumbnailImage = resThumbnailImage;
 	}
 	public Review getBestReview() {
