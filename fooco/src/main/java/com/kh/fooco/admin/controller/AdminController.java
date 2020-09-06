@@ -13,6 +13,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -734,6 +735,51 @@ public class AdminController {
 			throw new BoardException("테마 삭제 실패!");
 		}
 		
+		return mv;
+	}
+	
+	@RequestMapping("themeRegistration.do")
+	public String themeRegistration() {
+		return "admin/themeRegistration";
+	}
+	
+	// 테마등록 음식점검색 ajax
+	@RequestMapping("searchRestaurantAdmin.do")
+	public void searchRestaurantAdmin(HttpServletResponse response, Search search) throws JsonIOException, IOException {
+		response.setContentType("application/json;charset=utf-8");
+		
+		ArrayList<Restaurant> tr = adminService.selectListRestaurantAdminTheme(search);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("restaurant", tr);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(result , response.getWriter());
+		
+	}
+	
+	@RequestMapping(value="restaurantThemeAdmin.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView restaurantThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, ThemeAdmin ta) {
+		int themeRListResult = 0;
+		
+		int themeWriter = 1;
+//		Member loginUser = (Member)session.getAttribute("loginUser");
+//		themeWriter = loginUser.getMemberId();				
+		
+		
+		
+		System.out.println(ta);
+		
+		ta.setThemeWriter(themeWriter);
+		
+		int result = adminService.insertTheme(ta);
+		
+		String[] tRL = themeRList.split(",");		
+		for(String th : tRL) {
+			themeRListResult = adminService.insertThemeRestaurant(th);
+		}
+		
+		mv.setViewName("redirect:themeEdit.do");
 		return mv;
 	}
 	

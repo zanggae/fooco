@@ -248,6 +248,18 @@ public class AdminDao {
 		return sqlSessionTemplate.delete("adminMapper.deleteThemeR",ta);
 	}
 
+	public ArrayList<Restaurant> selectListRestaurantAdminTheme(Search search) {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListRestaurantAdminTheme",search);
+	}
+
+	public int insertTheme(ThemeAdmin ta) {
+		return sqlSessionTemplate.insert("adminMapper.insertTheme",ta);
+	}
+
+	public int insertThemeRestaurant(String theme) {
+		return sqlSessionTemplate.insert("adminMapper.insertThemeRestaurant",theme);
+	}
+
 	
 
 

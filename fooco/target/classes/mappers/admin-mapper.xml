@@ -411,7 +411,7 @@
 
 <delete id="deleteTheme" parameterType="ThemeAdmin">
 	DELETE FROM THEME
-  	WHERE THEME_NO=#{themeId}
+  	WHERE THEME_ID=#{themeId}
 </delete>
 
 <delete id="deleteThemeBM" parameterType="ThemeAdmin">
@@ -421,6 +421,18 @@
 
 <delete id="deleteThemeR" parameterType="ThemeAdmin">
 	DELETE FROM THEME_RES
-  	WHERE THEME_NO=#{themeId}
+  	WHERE THEME_ID=#{themeId}
 </delete>
+
+<select id="selectListRestaurantAdminTheme" parameterType="Search" resultMap="RestaurantResultSet">
+	SELECT * FROM SELECT_RESTAURANT WHERE RES_STATUS='Y' AND RES_NAME LIKE '%'||#{search}||'%'
+</select>
+
+<insert id="insertTheme" parameterType="ThemeAdmin">
+	INSERT INTO THEME VALUES(SEQ_THEME.NEXTVAL,#{themeTitle},SYSDATE,SYSDATE,#{themeWriter},0)
+</insert>
+
+<insert id="insertThemeRestaurant" parameterType="string">
+	INSERT INTO THEME_RES VALUES(SEQ_THEME.CURRVAL,#{theme})
+</insert>
 </mapper>

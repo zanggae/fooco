@@ -109,5 +109,11 @@ public interface AdminService {
 
 	int deleteThemeR(ThemeAdmin ta);
 
+	ArrayList<Restaurant> selectListRestaurantAdminTheme(Search search);
+
+	int insertTheme(ThemeAdmin ta);
+
+	int insertThemeRestaurant(String th);
+
 	
 }
