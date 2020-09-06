@@ -101,7 +101,8 @@
       <result property="resImageName" column="RES_IMAGE_NAME"/> 
       <result property="resImageFilepath" column="RES_IMAGE_FILEPATH"/>
       <result property="locationName" column="LOCATION_NAME"/>
-      <result property="reviewId" column="REVIEW_ID"/> 
+      <result property="reviewId" column="REVIEW_ID"/>
+      <result property="reviewContent" column="REVIEW_CONTENT"/>
       <result property="reviewRatingAvg" column="REVIEW_RATING"/>
       <result property="reviewProfileImageName" column="REVIEW_PROFILE_IMAGE_NAME"/>
       <result property="reviewProfileImageFilepath" column="REVIEW_PROFILE_IMAGE_FILEPATH"/> 
