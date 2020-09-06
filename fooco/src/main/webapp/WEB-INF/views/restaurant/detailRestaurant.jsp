@@ -99,7 +99,7 @@
 				<nav class="breadcrumb-nav">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">HOME</a></li>
-						<li class="breadcrumb-item active" aria-current="page">검색 결과</li>
+						<li class="breadcrumb-item active" aria-current="page">${res.resName}</li>
 					</ol>
 				</nav>
 			</div>
@@ -140,27 +140,25 @@
 						<div class="row mz-content-top">
 							<div class="col-8">
 								<div class="row mz-title">
-									<span style="font-family: 'heavy'; font-size: 2.5rem;">경남스시</span>
+									<span style="font-family: 'heavy'; font-size: 2.5rem;">${res.resName}</span>
 								</div>
 								<div class="row">
 									<div class="col-2 mz-location">
 										<i class="fas fa-map-marker-alt" style="color: rgb(204, 51, 98); font-size: 1.5rem;"></i>
-										<span style="font-family: 'bold'; font-size: 1.5rem;">인천</span>
+										<span style="font-family: 'bold'; font-size: 1.5rem;">${res.locationName}</span>
 									</div>
 									<div class="col-10 mz-address d-flex align-items-center">
-										<p style="font-family: 'medium'; font-size: 1rem; margin: 0;">인천시
-											남동구 서창동 661-3</p>
+										<p style="font-family: 'medium'; font-size: 1rem; margin: 0;">${res.resAddress}</p>
 									</div>
 								</div>
 								<div class="row mz-explanation">
-									<span style="font-size: 0.9rem;">수년간 자체 연구를 통해 개발한 그릴과
-										숙성 기술로 차별화된 스테이크를 제공하는 정통 아메리칸 스테이크 하우스</span>
+									<span style="font-size: 0.9rem;">${res.resContent}</span>
 								</div>
 							</div>
 							<div class="col-4 d-flex align-items-start flex-column">
 								<div class="ml-auto mb-auto mz-rating">
 									<span style="font-family: 'heavy'; font-size: 2.5rem;"><i
-										class="fas fa-star"></i>4.9</span>
+										class="fas fa-star"></i>${res.reviewRating}</span>
 								</div>
 								<div class="ml-auto mz-buttons d-flex">
 									<input type="button" value="&#x1F495; 즐겨찾기" class="form-control mz-bookmark-button shadow-sm"
@@ -173,12 +171,9 @@
 						</div>
 						<div class="row mz-content-bottom">
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
-								<li class="nav-item mz-nav-item"><a class="nav-link active"
-									data-toggle="tab" href="#mz-detail">상세정보</a></li>
-								<li class="nav-item mz-nav-item"><a class="nav-link"
-									data-toggle="tab" href="#mz-review" onclick="selectReviewList();" >리뷰</a></li>
-								<li class="nav-item mz-nav-item"><a class="nav-link"
-									data-toggle="tab" href="#mz-photo">사진</a></li>
+								<li class="nav-item mz-nav-item"><a class="nav-link active" data-toggle="tab" href="#mz-detail">상세정보</a></li>
+								<li class="nav-item mz-nav-item"><a class="nav-link" data-toggle="tab" href="#mz-review" onclick="goDetailReview(${res.resId})">리뷰</a></li>
+								<li class="nav-item mz-nav-item"><a class="nav-link" data-toggle="tab" href="#mz-photo" onclick="goDetailPhoto(${res.resId})">사진</a></li>
 							</ul>
 						</div>
 					</div>
@@ -211,7 +206,12 @@
 				</div>
 			</div>
 		</div>
-
+		
+		<script>
+			function goDetailInfo(resId) {
+				window.location.href="goDetailInfo.do?resId=" + resId;
+			}
+		</script>
 
 
 		<!-- 리뷰 작성하기 모달 -->
@@ -458,26 +458,5 @@
 		</div>
 	</section>
 	<footer></footer>
-	
-	<!-- ajax 통신 -->
-	<script>
-		function selectReviewList(){
-			var resId = 3;
-			
-			$.ajax({
-				url:'selectReviewList.do',
-				type:"GET",
-				data:{resId:resId},
-				success:function(data){
-					console.log(data);
-				},
-				error:function(request, status, errorData){
-					alert("error code:" + request.status + "\n" + 
-						  "message:" + request.responseText +
-						  "error:" + errorData);
-				}
-			})
-		}
-	</script>
 </body>
 </html>

@@ -257,6 +257,31 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.deleteThemeR(ta);
 	}
 
+	@Override
+	public ArrayList<Restaurant> selectListRestaurantAdminTheme(Search search) {
+		return adminDao.selectListRestaurantAdminTheme(search);
+	}
+
+	@Override
+	public int insertTheme(ThemeAdmin ta) {
+		return adminDao.insertTheme(ta);
+	}
+
+	@Override
+	public int insertThemeRestaurant(String th) {
+		return adminDao.insertThemeRestaurant(th);
+	}
+
+	@Override
+	public ThemeAdmin selectOneTheme(ThemeAdmin ta) {
+		return adminDao.selectOneTheme(ta);
+	}
+
+	@Override
+	public ArrayList<Restaurant> selectListThemeRestaurant(ThemeAdmin ta) {
+		return adminDao.selectListThemeRestaurant(ta);
+	}
+
 	
 
 }

@@ -10,9 +10,7 @@ public class Filter implements Serializable{
 	private int filterId;
 	private String filterName;
 	
-	public Filter() {
-		super();
-	}
+	public Filter() {}
 	public Filter(int resId, int filterId, String filterName) {
 		super();
 		this.resId = resId;

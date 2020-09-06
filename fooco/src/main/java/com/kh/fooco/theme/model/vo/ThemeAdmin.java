@@ -9,7 +9,7 @@ public class ThemeAdmin implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -3304158408924026211L;
-	private int themeId;				// 테마 이이디
+	private int themeId;				// 테마 아이디
 	private String themeTitle;			// 테마 제목
 	private Date themeUploadDate;		// 테마 생성날짜
 	private Date themeModifyDate;		// 테마 수정날짜

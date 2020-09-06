@@ -43,6 +43,8 @@ import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.Theme;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -638,6 +640,8 @@ public class MemberController {
 		}
 		
 
+		
+		
 // ================================== MyList 영은 ===========================================
 		
 		
@@ -646,23 +650,36 @@ public class MemberController {
 			return "mypage/myPageMylist";
 		}
 		
+		@RequestMapping("mylistRegist.do")
+		public String mylistRegist() {
+			return "mypage/mylistRegist";
+		}
 		
-		
-		
-		//마이리스트 등록 오른쪽 검색
-		@RequestMapping("mylistRegist.do")	
-		public ModelAndView mylistRegist(ModelAndView mv,
-				@RequestParam(value="searchRes", required=false)String searchRes) {
+		@RequestMapping(value="insertMylist.do", method= {RequestMethod.GET,RequestMethod.POST})
+		public ModelAndView restaurantThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, String themeTitle) {
+			int themeRListResult = 0;
 			
-			ArrayList<Mylist> mylist = new ArrayList<Mylist>();
+			int themeWriter = 81;
+//			Member loginUser = (Member)session.getAttribute("loginUser");
+//			themeWriter = loginUser.getMemberId();				
 			
-			mylist = memberService.searchListRes(searchRes);
-			System.out.println("db갔다온 후 mylist" + mylist);
 			
-			mv.addObject("mylist", mylist);
-			mv.addObject("searchRes",searchRes);
-			mv.setViewName("mypage/mylistRegist");	
+			
+			System.out.println(themeTitle);
+			
+			
+			int result = memberService.insertMylist(themeTitle, themeWriter);
+			
+			String[] tRL = themeRList.split(",");		
+			for(String th : tRL) {
+				themeRListResult = memberService.insertMylistRes(th);
+			}
+			
+			mv.setViewName("redirect:inquiryRegistrationFin.do");
 			return mv;
 		}
+		
+		
+		
 
 }

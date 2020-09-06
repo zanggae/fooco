@@ -3,7 +3,7 @@
 <mapper namespace="restaurantMapper">
 
 	<resultMap type="Res" id="RestaurantMap">
-		<id property="resId" column="RES_ID"/>
+		<id property="resId" column="RES_ID" jdbcType="INTEGER"/>
 		<result property="resCategoryId" column="RES_CATEGORY_ID"/>
 		<result property="resCategoryName" column="RES_CATEGORY_NAME"/>
 		<result property="locationId" column="LOCATION_ID"/>
@@ -19,12 +19,30 @@
 		<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
 		<result property="resReviewCount" column="REVIEW_COUNT"/>
 		<result property="resViewCount" column="RES_VIEWCOUNT"/>
-		<association property="resThumbnailImage" column="resId" select="getResThumbnailImage"/>
-		<association property="bestReview"  column="resId" javaType="Review"/>
-		<collection property="bestmenus" column="resId" javaType="java.util.ArrayList" ofType="Bestmenu" select="getBestmenus"/>
-		<collection property="resLatestImages" column="resId" javaType="java.util.ArrayList" ofType="Image" select="getResLatestImages"/>
-		<collection property="resFilters" column="resId" javaType="java.util.ArrayList" ofType="Filter" select="getResFilters"/>
+		<association property="resThumbnailImage" column="RES_ID" javaType="ResImage" select="getResThumbnailImage"/>
+		<association property="bestReview"  column="RES_ID" javaType="Review" select="getBestReview"/>
+		<collection property="resLatestImages" column="RES_ID" ofType="Image" select="getResLatestImages"/>
 	</resultMap>
+	
+	<select id="getResThumbnailImage" resultMap="ResImageMap">
+		SELECT    R.RES_ID, I.*
+		FROM      IMAGE I
+		LEFT JOIN RES_IMAGE RI ON (I.IMAGE_ID = RI.IMAGE_ID)
+		LEFT JOIN RESTAURANT R ON (R.RES_ID = RI.RES_ID)
+		WHERE     R.RES_ID = #{resId}
+	</select>
+	
+	<select id="getBestReview" resultMap="ReviewMap">
+		SELECT  BR.*
+		FROM    SELECT_BESTREVIEW BR
+		WHERE   BR.RES_ID = #{resId}
+	</select>
+	
+	<select id="getResLatestImages" resultMap="ImageMap">
+		SELECT LI.*
+		FROM   SELECT_RES_LATEST_IMAGES LI
+		WHERE  LI.RES_ID = #{resId}
+	</select>
 	
 	<resultMap type="Review" id="ReviewMap">
 		<id property="reviewId" column="REVIEW_ID"/>
@@ -44,27 +62,21 @@
 		<result property="reviewerProfilePath" column="REVIEWER_PROFILE_PATH"/>
 		<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
 		<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
-		<collection property="revieweImages" column="reviewId" javaType="java.util.ArrayList" ofType="Image"/>
-	</resultMap>
-	
-	<resultMap type="Filter" id="FilterMap">
-		<id property="resId" column="RES_ID"/>
-		<id property="filterId" column="FILTER_ID"/>
-		<result property="filterName" column="FILTER_NAME"/>
+		<collection property="reviewImages" column="REVIEW_ID" ofType="Image"/>
 	</resultMap>
 	
 	<resultMap type="Info" id="InfoMap">
 		<id property="resId" column="RES_ID"/>
 		<result property="infoCategoryName" column="RES_CATEGORY_NAME"/>
-		<result property="infoBestMenu" column="BESTMENU_NAME"/>
 		<result property="infoOperatingTime" column="RES_TIME"/>
-		<collection property="infoFilter" resultMap="FilterMap"/>
-	</resultMap>
-	
-	<resultMap type="Bestmenu" id="BestmenuMap">
-		<id property="bestmenuId" column="BESTMENU_ID"/>
-		<result property="resId" column="RES_ID"/>
-		<result property="bestmenuName" column="BESTMENU_NAME"/>
+		<collection property="infoFilter" ofType="Filter">
+			<id property="filterId" column="FILTER_ID"/>
+			<result property="filterName" column="FILTER_NAME"/>
+		</collection>
+		<collection property="bestmenu" ofType="Bestmenu">
+			<id property="bestmenuId" column="BESTMENU_ID"/>
+			<result property="bestmenuName" column="BESTMENU_NAME"/>
+		</collection>
 	</resultMap>
 	
 	<resultMap type="Image" id="ImageMap">
@@ -153,10 +165,20 @@
 		</choose>
 	</select>
 	
-	<select id="getResThumbnailImage" resultMap="ResImageMap">
-		SELECT ST.*
-		FROM   SELECT_RES_THUMBNAIL ST
-		WHERE  ST.RES_ID = #{resId}
+	<select id="getRestaurantDetail" parameterType="_int" resultMap="RestaurantMap">
+		SELECT R.RES_ID, R.RES_NAME, R.LOCATION_NAME, R.RES_ADDRESS, R.REVIEW_RATING, R.RES_CONTENT
+    	FROM   SELECT_RES R
+		WHERE  R.RES_ID = #{resId}
 	</select>
 
+	<select id="getRestaurantInfo" parameterType="_int" resultMap="InfoMap">
+		SELECT    R.RES_ID, R.RES_CATEGORY_NAME, R.RES_TIME
+				  ,BM.BESTMENU_ID, BM.BESTMENU_NAME
+				  ,F.FILTER_ID, F.FILTER_NAME
+		FROM      SELECT_RES R
+		LEFT JOIN BESTMENU BM ON (R.RES_ID = BM.RES_ID)
+		LEFT JOIN FILTER_CATEGORY FC ON (R.RES_ID = FC.RES_ID)
+		LEFT JOIN FILTER F ON (FC.FILTER_ID = F.FILTER_ID)
+		WHERE     R.RES_ID = #{resId}
+	</select>
 </mapper>

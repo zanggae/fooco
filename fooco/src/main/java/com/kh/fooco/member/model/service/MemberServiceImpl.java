@@ -12,6 +12,7 @@ import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
 
 @Service("memberService")
@@ -181,6 +182,18 @@ public class MemberServiceImpl implements MemberService{
 	public Mylist selectmylist(int mlId1) {
 		return memberDao.selectmylist(mlId1);
 	}
+
+	@Override
+	public int insertMylist(String themeTitle, int themeWriter) {
+		return memberDao.insertMylist(themeTitle, themeWriter);
+	}
+
+	@Override
+	public int insertMylistRes(String th) {
+		return memberDao.insertMylistRes(th);
+	}
+
+	
 
 
 

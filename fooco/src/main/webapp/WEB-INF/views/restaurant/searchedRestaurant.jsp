@@ -229,7 +229,7 @@
 						</div>
 						<div class="col sr-content-list">
 							<c:forEach var="res" items="${list}">
-							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${resId});">
+							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${res.resId});">
 								<div class="col-4 sr-mz-img-col">
 									<div class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end" style="background-image: url('resThumb/restaurant1.jpg');">
 										<p>
@@ -304,8 +304,8 @@
 	
 	<script>
 		function goDetail(resId) {
-			location.href="goDetailRestaurant.do";
-		}
+			window.location.href="goDetailRestaurant.do?resId=" + resId;
+		};
 	</script>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

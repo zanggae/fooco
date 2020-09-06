@@ -9,7 +9,7 @@ import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 
 import com.kh.fooco.restaurant.model.vo.Restaurant;
-
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
 
 public interface MemberService {
@@ -64,6 +64,9 @@ public interface MemberService {
 
 	Mylist selectmylist(int mlId1);
 
+	int insertMylist(String themeTitle, int themeWriter);
+
+	int insertMylistRes(String th);
 	
 
 }
