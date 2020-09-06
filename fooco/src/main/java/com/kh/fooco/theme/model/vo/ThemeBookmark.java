@@ -12,6 +12,7 @@ public class ThemeBookmark implements Serializable{
 	private int memberNo;
 	private int themeNo;
 	private String bookmarkLike;
+	
 	public ThemeBookmark() {
 		super();
 	}

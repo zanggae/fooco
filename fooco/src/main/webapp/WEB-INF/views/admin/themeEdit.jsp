@@ -163,7 +163,7 @@
       </div>
 
       <button type="button" class="btn float-right mr-3"
-        style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:95px;">등록</button>
+        style="background:rgb(253, 215, 129); color:rgb(204, 51, 98); width:95px;" onclick="insertTheme()">등록</button>
 
 	<!-- 이동 모달 영역 -->
 	<!-- Button trigger modal -->
@@ -201,7 +201,7 @@
         $(function(){
 			$("#themeTable").find("td").click(function(){
 				var themeId = $(this).parents().children("td").eq(0).text();
-				alert(themeId)
+				/* alert(themeId) */
 				$("#detailBtn").attr("value",themeId);
 				$("#modifyBtn").attr("value",themeId);				
 				$("#goModal").click();					
@@ -215,8 +215,11 @@
 		function goModify(id){
 			var themeId = $(id).attr('value');
 			/* alert(themeId); */
-        	/* location.href="detailRestaurantAdmin.do?themeId="+themeId; */
+        	location.href="loadThemeModifyPage.do?themeId="+themeId;
         }
+		function insertTheme(){
+			location.href="themeRegistration.do";
+		}
       </script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

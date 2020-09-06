@@ -1,6 +1,7 @@
 package com.kh.fooco.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
 
 
@@ -145,6 +147,18 @@ public class MemberDao {
 		Mylist ret = sqlSessionTemplate.selectOne("mypageMapper.selectmylist",mlId1);
 		System.out.println("쿼리 실행 후 Mylist : " + ret);
 		return ret;
+	}
+
+	public int insertMylist(String themeTitle, int themeWriter) {
+		HashMap<String, Object> updateParameter = new HashMap<String, Object>();
+		updateParameter.put("themeTitle", themeTitle);
+		updateParameter.put("themeWriter", themeWriter);
+		
+		return sqlSessionTemplate.insert("mypageMapper.insertMylist",updateParameter);
+	}
+
+	public int insertMylistRes(String theme) {
+		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
 	}
 	
 
