@@ -3,6 +3,7 @@
 <configuration>
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
+		<setting name="returnInstanceForEmptyRow" value="true"/>
 	</settings>
 	
 	<typeAliases>	
@@ -24,8 +25,10 @@
 		<typeAlias type="com.kh.fooco.common.model.vo.Image" alias="Image"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.Mylist" alias="Mylist"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Res" alias="Res"/>
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.Option" alias="Option"/>
+		<typeAlias type="com.kh.fooco.restaurant.model.vo.Filter" alias="Filter"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Info" alias="Info"/>
+		<typeAlias type="com.kh.fooco.restaurant.model.vo.Bestmenu" alias="Bestmenu"/>
+		<typeAlias type="com.kh.fooco.restaurant.model.vo.ResImage" alias="ResImage"/>
 	</typeAliases>
 	
 	<mappers>

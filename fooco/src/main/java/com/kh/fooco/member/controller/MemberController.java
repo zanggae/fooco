@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -32,7 +30,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
@@ -45,6 +42,7 @@ import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.naver.NaverLoginBO;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.Theme;
 
 @SessionAttributes("loginUser")
@@ -343,6 +341,9 @@ public class MemberController {
 			
 			int followCount = memberService.selectOneFollowCount(m);
 			int followingCount = memberService.selectOneFollowingCount(m);
+			int reviewCount = memberService.selectOneReviewCount(m);
+			int mylistCount = memberService.selectOneMyListCount(m);		
+			int checkinCount = memberService.selectOneCheckInCount(m);
 			String rename_name = memberService.selectOneProFile(m);
 			
 			System.out.println("팔로워 수 : " + followCount);
@@ -350,6 +351,9 @@ public class MemberController {
 			
 			mv.addObject("followCount",followCount);
 			mv.addObject("followingCount",followingCount);
+			mv.addObject("reviewCount",reviewCount);
+			mv.addObject("mylistCount",mylistCount);
+			mv.addObject("checkinCount",checkinCount);
 			mv.addObject("rename_name",rename_name);
 			mv.setViewName("mypage/myPageInfo");
 			
@@ -375,6 +379,9 @@ public class MemberController {
 			
 			int followCount = memberService.selectOneFollowCount(m);
 			int followingCount = memberService.selectOneFollowingCount(m);
+			int reviewCount = memberService.selectOneReviewCount(m);
+			int mylistCount = memberService.selectOneMyListCount(m);		
+			int checkinCount = memberService.selectOneCheckInCount(m);
 			String rename_name = memberService.selectOneProFile(m);
 			
 			System.out.println(m);
@@ -382,6 +389,9 @@ public class MemberController {
 			
 			mv.addObject("followCount",followCount);
 			mv.addObject("followingCount",followingCount);
+			mv.addObject("reviewCount",reviewCount);
+			mv.addObject("mylistCount",mylistCount);
+			mv.addObject("checkinCount",checkinCount);
 			mv.addObject("rename_name",rename_name);
 			mv.setViewName("mypage/myPageInfo");
 			
@@ -395,7 +405,7 @@ public class MemberController {
 		}
 		
 		
-		
+		// 변경 파일을 ProFiles폴더에 저장하는 메소드
 		private String saveFile(MultipartFile file, HttpServletRequest request) {
 			
 			// webapp 경로
@@ -520,6 +530,9 @@ public class MemberController {
 			
 			int followCount = memberService.selectOneFollowCount(m);
 			int followingCount = memberService.selectOneFollowingCount(m);
+			int reviewCount = memberService.selectOneReviewCount(m);
+			int mylistCount = memberService.selectOneMyListCount(m);		
+			int checkinCount = memberService.selectOneCheckInCount(m);
 			String rename_name = memberService.selectOneProFile(m);
 			
 			int result = memberService.updateMemberInfo(m);
@@ -528,6 +541,9 @@ public class MemberController {
 				mv.addObject("loginUser", m);
 				mv.addObject("followCount",followCount);
 				mv.addObject("followingCount",followingCount);
+				mv.addObject("reviewCount",reviewCount);
+				mv.addObject("mylistCount",mylistCount);
+				mv.addObject("checkinCount",checkinCount);
 				mv.addObject("rename_name",rename_name);
 				mv.setViewName("mypage/myPageInfo");
 			} else {
@@ -581,11 +597,31 @@ public class MemberController {
 
 		
 		
+		// 체크인 페이지 이동
+		@RequestMapping("myPageCheckin.do")
+		public String myPageCheckinView() {
+			return "mypage/myPageCheckin";
+		}
 		
+		// 체크인 등록 페이지 이동
+		@RequestMapping("CheckinRegister.do")
+		public String myPageCheckinRegisterView() {
+			return "mypage/myPageCheckinRegister";
+		}
 		
+		// 체크인 등록페이지 음식점 조회 ajax
+		@RequestMapping("selectRes.do")
+		public void myPageSelectRes(HttpServletResponse response, String restitle) throws JsonIOException, IOException {
+			response.setContentType("application/json;charset=utf-8");
+			
+			System.out.println(restitle);
+			ArrayList<Restaurant> res = memberService.selectListRestaurant(restitle);
+			new Gson().toJson(res, response.getWriter());
+			System.out.println(res);
+			
+		}
 		
-		
-		
+
 // ================================== MyList 영은 ===========================================
 		
 		
@@ -612,6 +648,5 @@ public class MemberController {
 			mv.setViewName("mypage/mylistRegist");	
 			return mv;
 		}
-		
-	
+
 }

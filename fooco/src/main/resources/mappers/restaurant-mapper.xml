@@ -3,7 +3,7 @@
 <mapper namespace="restaurantMapper">
 
 	<resultMap type="Res" id="RestaurantMap">
-		<id property="resId" column="RES_ID"/>
+		<id property="resId" column="RES_ID" jdbcType="INTEGER"/>
 		<result property="resCategoryId" column="RES_CATEGORY_ID"/>
 		<result property="resCategoryName" column="RES_CATEGORY_NAME"/>
 		<result property="locationId" column="LOCATION_ID"/>
@@ -19,41 +19,30 @@
 		<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
 		<result property="resReviewCount" column="REVIEW_COUNT"/>
 		<result property="resViewCount" column="RES_VIEWCOUNT"/>
-		<association property="resThumbnailImage" column="resId" javaType="Image">
-			<id property="imageId" column="RES_THUMBNAIL_ID"/>
-			<result property="imageNewName" column="RES_THUMBNAIL_IMG"/>
-			<result property="imageFilepath" column="RES_THUMBNAIL_PATH"/>
-		</association>
-		<association property="bestReview"  column="resId" javaType="Review">
-			<id property="reviewId" column="REVIEW_ID"/>
-			<result property="resId" column="RES_ID"/>
-			<result property="memberId" column="MEMBER_ID"/>
-			<result property="reviewCreateDate" column="REVIEW_CREATE_DATE"/>
-			<result property="reviewUpdateDate" column="REVIEW_UPDATE_DATE"/>
-			<result property="reviewContent" column="REVIEW_CONTENT"/>
-			<result property="reviewGoodcount" column="REVIEW_GOODCOUNT"/>
-			<result property="reviewRating" column="REVIEW_RATING"/>
-			<result property="reviewTasterating" column="REVIEW_TASTERATING"/>
-			<result property="reviewPricerating" column="REVIEW_PRICERATING"/>
-			<result property="reviewServicerating" column="REVIEW_SERVICERATING"/>
-			<result property="nickname" column="NICKNAME"/>
-			<result property="reviewerProfileId" column="REVIEWER_PROFILE_ID"/>
-			<result property="reviewerProfileImg" column="REVIEWER_PROFILE_IMG"/>
-			<result property="reviewerProfilePath" column="REVIEWER_PROFILE_PATH"/>
-			<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
-			<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
-		</association>
-		<collection property="resLatestImages" column="resId" ofType="Image">
-			<id property="imageId" column="IMAGE_ID"/>
-			<result property="imageNewName" column="IMAGE_NEW_NAME"/>
-			<result property="imageFilepath" column="IMAGE_FILEPATH"/>
-		</collection>
-		<collection property="resOptions" column="resId" ofType="Option">
-			<id property="resId" column="RES_ID"/>
-			<id property="optionId" column="FILTER_ID"/>
-			<result property="optionName" column="FILTER_NAME"/> 
-		</collection>
+		<association property="resThumbnailImage" column="RES_ID" javaType="ResImage" select="getResThumbnailImage"/>
+		<association property="bestReview"  column="RES_ID" javaType="Review" select="getBestReview"/>
+		<collection property="resLatestImages" column="RES_ID" ofType="Image" select="getResLatestImages"/>
 	</resultMap>
+	
+	<select id="getResThumbnailImage" resultMap="ResImageMap">
+		SELECT    R.RES_ID, I.*
+		FROM      IMAGE I
+		LEFT JOIN RES_IMAGE RI ON (I.IMAGE_ID = RI.IMAGE_ID)
+		LEFT JOIN RESTAURANT R ON (R.RES_ID = RI.RES_ID)
+		WHERE     R.RES_ID = #{resId}
+	</select>
+	
+	<select id="getBestReview" resultMap="ReviewMap">
+		SELECT  BR.*
+		FROM    SELECT_BESTREVIEW BR
+		WHERE   BR.RES_ID = #{resId}
+	</select>
+	
+	<select id="getResLatestImages" resultMap="ImageMap">
+		SELECT LI.*
+		FROM   SELECT_RES_LATEST_IMAGES LI
+		WHERE  LI.RES_ID = #{resId}
+	</select>
 	
 	<resultMap type="Review" id="ReviewMap">
 		<id property="reviewId" column="REVIEW_ID"/>
@@ -73,21 +62,21 @@
 		<result property="reviewerProfilePath" column="REVIEWER_PROFILE_PATH"/>
 		<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
 		<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
-		<collection property="revieweImages" column="reviewId" javaType="java.util.ArrayList" ofType="Image"/>
-	</resultMap>
-	
-	<resultMap type="Option" id="OptionMap">
-		<id property="resId" column="RES_ID"/>
-		<id property="optionId" column="FILTER_ID"/>
-		<result property="optionName" column="FILTER_NAME"/>
+		<collection property="reviewImages" column="REVIEW_ID" ofType="Image"/>
 	</resultMap>
 	
 	<resultMap type="Info" id="InfoMap">
 		<id property="resId" column="RES_ID"/>
 		<result property="infoCategoryName" column="RES_CATEGORY_NAME"/>
-		<result property="infoBestMenu" column="BESTMENU_NAME"/>
 		<result property="infoOperatingTime" column="RES_TIME"/>
-		<collection property="infoOption" resultMap="OptionMap"></collection>
+		<collection property="infoFilter" ofType="Filter">
+			<id property="filterId" column="FILTER_ID"/>
+			<result property="filterName" column="FILTER_NAME"/>
+		</collection>
+		<collection property="bestmenu" ofType="Bestmenu">
+			<id property="bestmenuId" column="BESTMENU_ID"/>
+			<result property="bestmenuName" column="BESTMENU_NAME"/>
+		</collection>
 	</resultMap>
 	
 	<resultMap type="Image" id="ImageMap">
@@ -101,40 +90,70 @@
 		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>
 	</resultMap>
 	
+	<resultMap type="ResImage" id="ResImageMap">
+		<result property="resId" column="RES_ID"/>
+		<result property="imageId" column="IMAGE_ID"/>
+		<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
+		<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+		<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+		<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
+		<result property="imageLevel" column="IMAGE_LEVEL"/>
+		<result property="imageStatus" column="IMAGE_STATUS"/>
+		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>	
+	</resultMap>
+	
 	<select id="getListCount" parameterType="hashmap" resultType="_int">
-		SELECT COUNT(*)
-		  FROM SELECT_RES SR
-		  LEFT OUTER JOIN BESTMENU BM ON (SR.RES_ID = BM.RES_ID)
-		 WHERE SR.RES_STATUS = 'Y'
-		 <if test="locationId!=0">
+		SELECT    COUNT(DISTINCT SR.RES_ID)
+		FROM      SELECT_RES SR
+		LEFT JOIN SELECT_FILTER SF ON (SR.RES_ID = SF.RES_ID)
+		LEFT JOIN BESTMENU BM ON (SR.RES_ID = BM.RES_ID)
+		WHERE     RES_STATUS = 'Y'
+		<if test="locationId!=0">
 		 	AND SR.LOCATION_ID = #{locationId}
-		 </if>
-		 <if test="!'all'.equals(keyword)">
+		</if>
+		<if test="categories!=null">
+			AND SR.RES_CATEGORY_ID IN
+			<foreach collection="categories" item="category" index="index" separator="," open="(" close=")">
+		 		#{category}
+		 	</foreach>
+		</if>
+		<if test="filters!=null">
+			AND SF.FILTER_ID IN
+			<foreach collection="filters" item="filter" index="index" separator="," open="(" close=")">
+		 		#{filter}
+		 	</foreach>
+		</if>
+		<if test="!'all'.equals(keyword)">
 		 	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%'    
-		 </if>  
+		</if>
 	</select>
 	
 	<select id="getList" parameterType="hashmap" resultMap="RestaurantMap">
-		SELECT SR.*, SO.*, RT.*, BR.*, LI.*
-		  FROM SELECT_RES SR
-		  LEFT OUTER JOIN SELECT_OPTION SO ON (SR.RES_ID = SO.RES_ID)
-		  LEFT OUTER JOIN SELECT_RES_THUMBNAIL RT ON (SR.RES_ID = RT.RES_ID)
-		  LEFT OUTER JOIN SELECT_BESTREVIEW BR ON (SR.RES_ID = BR.RES_ID)
-		  LEFT OUTER JOIN SELECT_RES_LATEST_IMAGES LI ON (SR.RES_ID = LI.RES_ID)
-		 WHERE SR.RES_STATUS = 'Y'
-		 <if test="locationId != 0">
+		SELECT    DISTINCT SR.RES_ID, SR.RES_NAME, SR.REVIEW_RATING, SR.LOCATION_NAME, SR.RES_ADDRESS, SR.RES_VIEWCOUNT, SR.BOOKMARK_COUNT, SR.REVIEW_COUNT
+		FROM      SELECT_RES SR
+		LEFT JOIN SELECT_FILTER SF ON (SR.RES_ID = SF.RES_ID)
+		LEFT JOIN BESTMENU BM ON (SR.RES_ID = BM.RES_ID)
+		WHERE     SR.RES_STATUS = 'Y'
+		<if test="locationId!=0">
 		 	AND SR.LOCATION_ID = #{locationId}
-		 </if>
-		 <if test="!'all'.equals(keyword)">
-		 	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%'    
-		 </if>
-		 <if test="option!=null">
-		 	<foreach collection="options" item="option" index="index" separator="," open="(" close=")">
-		 		AND SO.FILTER_ID = #{option.value}
+		</if>
+		<if test="categories!=null">
+			AND SR.RES_CATEGORY_ID IN
+			<foreach collection="categories" item="category" index="index" separator="," open="(" close=")">
+		 		#{category}
 		 	</foreach>
-		 </if>
-		 <choose>
-		 	<when test="'highrating'.equals(sortType)">
+		</if>
+		<if test="filters!=null">
+			AND SF.FILTER_ID IN
+			<foreach collection="filters" item="filter" index="index" separator="," open="(" close=")">
+		 		#{filter}
+		 	</foreach>
+		</if>
+		<if test="!'all'.equals(keyword)">
+		 	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%'    
+		</if>
+		<choose>
+			<when test="'highrating'.equals(sortType)">
 		 		ORDER BY SR.REVIEW_RATING DESC
 		 	</when>
 		 	<when test="'highReviewCount'.equals(sortType)">
@@ -143,7 +162,23 @@
 		 	<when test="'highViewCount'.equals(sortType)">
 		 		ORDER BY SR.RES_VIEWCOUNT DESC
 		 	</when>
-		 </choose>
+		</choose>
 	</select>
 	
+	<select id="getRestaurantDetail" parameterType="_int" resultMap="RestaurantMap">
+		SELECT R.RES_ID, R.RES_NAME, R.LOCATION_NAME, R.RES_ADDRESS, R.REVIEW_RATING, R.RES_CONTENT
+    	FROM   SELECT_RES R
+		WHERE  R.RES_ID = #{resId}
+	</select>
+
+	<select id="getRestaurantInfo" parameterType="_int" resultMap="InfoMap">
+		SELECT    R.RES_ID, R.RES_CATEGORY_NAME, R.RES_TIME
+				  ,BM.BESTMENU_ID, BM.BESTMENU_NAME
+				  ,F.FILTER_ID, F.FILTER_NAME
+		FROM      SELECT_RES R
+		LEFT JOIN BESTMENU BM ON (R.RES_ID = BM.RES_ID)
+		LEFT JOIN FILTER_CATEGORY FC ON (R.RES_ID = FC.RES_ID)
+		LEFT JOIN FILTER F ON (FC.FILTER_ID = F.FILTER_ID)
+		WHERE     R.RES_ID = #{resId}
+	</select>
 </mapper>

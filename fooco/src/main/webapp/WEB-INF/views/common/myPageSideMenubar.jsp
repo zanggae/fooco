@@ -138,9 +138,13 @@ a {
 				<c:url var="follow" value="follow.do">
 					<c:param name="memberId" value="${loginUser.memberId }"/>
 				</c:url>
+				<c:url var="checkin" value="myPageCheckin.do">
+					<c:param name="memberId" value="${loginUser.memberId }"/>
+				</c:url>
+				
 					<a href="${follow }">
 						<p>팔로우</p>
-					</a> <a href="#">
+					</a> <a href="${checkin}">
 						<p>체크인</p>
 					</a> <a href="#">
 						<p>마이리뷰</p>
