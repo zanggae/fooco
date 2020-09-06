@@ -161,7 +161,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectListRestaurant(restitle);
 	}
 	
-	// 체크인 등록 페이지에서 체크인 값 입력
+	// 체크인 등록 페이지에서 체크인 테이블 입력 작업
 	@Override
 	public int insertCheckin(Checkin ck) {
 		
