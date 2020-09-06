@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
@@ -130,6 +131,11 @@ public class MemberDao {
 		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectListRestaurant", restitle);
 	}
 	
+	// 체크인 등록 페이지에서 체크인 테이블 입력 작업
+	public int insertCheckin(Checkin ck) {
+		
+		return sqlSessionTemplate.insert("mypageMapper.insertCheckin",ck);
+	}
 	
 	
 	
@@ -146,7 +152,7 @@ public class MemberDao {
 		System.out.println("쿼리 실행 후 Mylist : " + ret);
 		return ret;
 	}
-	
+
 
 	
 

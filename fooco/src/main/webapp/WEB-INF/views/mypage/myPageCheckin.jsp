@@ -185,6 +185,7 @@
                     <img src="img/갈비3.jpg" style="width: 10rem; height: 7rem; margin:0rem;">
                   </div>
                 </div>
+                
               </div>
 
                <div class="checkin_div shadow-sm">

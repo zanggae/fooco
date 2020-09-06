@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.fooco.member.model.dao.MemberDao;
+import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
@@ -160,7 +161,13 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectListRestaurant(restitle);
 	}
 	
-	
+	// 체크인 등록 페이지에서 체크인 값 입력
+	@Override
+	public int insertCheckin(Checkin ck) {
+		
+		return memberDao.insertCheckin(ck);
+	}
+
 	
 	// ================================== Mylist 영은==========================================
 
@@ -174,6 +181,7 @@ public class MemberServiceImpl implements MemberService{
 	public Mylist selectmylist(int mlId1) {
 		return memberDao.selectmylist(mlId1);
 	}
+
 
 
 	

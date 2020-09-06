@@ -122,13 +122,13 @@
             <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem; padding-bottom: 1rem;">
               <div class="col-1"></div>
               <div class="col-10">
-                <form action="">
+                <form action="myPageCheckinRegister.do" method="get">
                   <div style="margin-left: 3rem;">
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">방문 식당 검색</label>
                       <input type="text" id="restitle" style="margin-left: 1.1rem;">
                       <!-- checkinId를 체크인 객체에 넘겨주기 위해 -->
-                      <input type="hidden" name="checkinId">
+                      <input type="hidden" name="memberId" value="${loginUser.memberId }">
                      <!-- resId를 체크인 객체에 넘겨주기 위해 -->
                       <input type="hidden" id="resId" name="resId">
                       <!-- Button trigger modal -->
@@ -156,12 +156,12 @@
     
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">날짜</label>
-                      <input type="date" name="visitDate">
+                      <input type="date" name="checkinVisitDate">
                     </div>
     
                     <div class="row" style="margin-bottom: 1.3rem;">
                       <label class="checkin_label">내용</label>
-                      <textarea cols="50" rows="10" style="resize: none;"></textarea>
+                      <textarea cols="50" rows="10" style="resize: none;" name="checkinContent"></textarea>
                     </div>
     				
     				<div class="row">

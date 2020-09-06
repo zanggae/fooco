@@ -25,7 +25,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,13 +36,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
+import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
-import com.kh.fooco.theme.model.vo.Theme;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -607,6 +606,23 @@ public class MemberController {
 		@RequestMapping("CheckinRegister.do")
 		public String myPageCheckinRegisterView() {
 			return "mypage/myPageCheckinRegister";
+		}
+		
+		// 체크인 등록 페이지에서 등록버튼 클릭 시
+		@RequestMapping(value="myPageCheckinRegister.do", method=RequestMethod.GET)
+		public ModelAndView myPageCheckinRegister(HttpServletRequest request, ModelAndView mv, Checkin ck,
+				@RequestParam(value="profile", required=false) MultipartFile file1,
+				@RequestParam(value="profile", required=false) MultipartFile file2,
+				@RequestParam(value="profile", required=false) MultipartFile file3) {
+			System.out.println("클릭페이지 : " + ck);
+			
+			// 체크인 테이블 인서트
+			int result = memberService.insertCheckin(ck);
+			// 체크인 이미지 테이블 인서트
+			
+			
+			
+			return mv;
 		}
 		
 		// 체크인 등록페이지 음식점 조회 ajax

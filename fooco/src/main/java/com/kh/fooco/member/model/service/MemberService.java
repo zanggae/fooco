@@ -3,6 +3,7 @@ package com.kh.fooco.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
@@ -54,6 +55,7 @@ public interface MemberService {
 
 	ArrayList<Restaurant> selectListRestaurant(String restitle);
 	
+	int insertCheckin(Checkin ck);
 	
 	// ================================== Mylist 영은 ===========================================
 
@@ -61,6 +63,7 @@ public interface MemberService {
 	ArrayList<Mylist> searchListRes(String searchRes);
 
 	Mylist selectmylist(int mlId1);
+
 	
 
 }
