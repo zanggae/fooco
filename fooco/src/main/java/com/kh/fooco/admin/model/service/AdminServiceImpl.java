@@ -272,6 +272,16 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.insertThemeRestaurant(th);
 	}
 
+	@Override
+	public ThemeAdmin selectOneTheme(ThemeAdmin ta) {
+		return adminDao.selectOneTheme(ta);
+	}
+
+	@Override
+	public ArrayList<Restaurant> selectListThemeRestaurant(ThemeAdmin ta) {
+		return adminDao.selectListThemeRestaurant(ta);
+	}
+
 	
 
 }

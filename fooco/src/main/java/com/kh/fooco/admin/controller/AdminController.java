@@ -783,6 +783,19 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping("loadThemeModifyPage.do")
+	public ModelAndView loadThemeModifyPage(ModelAndView mv, ThemeAdmin ta) {
+		
+		ThemeAdmin themeAdmin = adminService.selectOneTheme(ta);
+		
+		ArrayList<Restaurant> themeRList = adminService.selectListThemeRestaurant(ta);
+		System.out.println(themeRList);
+		
+		mv.addObject("ta", themeAdmin);
+		mv.addObject("themeRList", themeRList);
+		mv.setViewName("admin/themeModify");
+		return mv;
+	}
 	@RequestMapping("test.do")
 	public String test() {
 		return "admin/test";

@@ -103,12 +103,12 @@
     </script>
     <div style="text-align: center;">
       <br><br>
-      <h3>테마 만들기</h3>
+      <h3>테마 수정</h3>
       <br>
         <div class="form-group row" style="margin-left: 8rem; font-size: 1.2rem;">
           <label for="inputEmail3" class="col-sm-3 col-form-label">테마 제목</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="themeTitle" style="width: 35rem; border:1px solid black; box-shadow: none;" id="themeTile">
+            <input type="text" class="form-control" name="themeTitle" style="width: 35rem; border:1px solid black; box-shadow: none;" id="themeTile" value="${ta.themeTitle }">
           </div>
         </div>
 
@@ -125,7 +125,12 @@
         </div>
         <script>
         	var check = new Array();
-        	
+        	/* $(function(){
+        		
+        		for(var i in ${themeRList}){
+        			check.push(themeRList[i].resId);
+        		}
+        	}) */
         	function searchRestaurant(){
         		var search = $("#searchInput").val();
         		if(search == ""){
@@ -180,6 +185,9 @@
         	
         	function settingFunction(){
         		$(".pickDiv").click(function(){
+        			if(!confirm("음식점을 추가 하시겠습니까?")){
+        				return;
+        			}
         			var resId = $(this).find("#resId").val();
         			var dImg = $(this).find("#divImg").attr('src');
         			var title = $(this).find("#divTitle").text();
@@ -192,9 +200,6 @@
         			}else{
 	        			check.push(resId);        				
         			};
-        			if(!confirm("음식점을 추가 하시겠습니까?")){
-        				return;
-        			}
         			
         			$subDiv = $("#subDiv");
         			
@@ -263,6 +268,18 @@
 
         <div style="height : 40rem; overflow-y : auto; overflow-x : hidden; border: solid lightgray 1px; border-radius: 10px !important;">
           <div style="text-align: center;" id="subDiv">
+	          <c:forEach var="tRL" items="${themeRList }">
+	          	<div class='row selectDiv'>
+	          		<div class='col-5 position1' id='pickRImg'>
+	          			<img class='img_set2' src="${tRL.resImageName}">
+	          		</div>
+	          		<div class='col-5 position1' id='pickRCon'>
+	          			<h5 style='font-weight: bold; text-align: center;'>${tRL.resName }</h5>
+	          			<div style='text-align: center;'>${tRL.resAddress}</div>
+	          			<input type='hidden' id='resId' name='themeRList' class='themeRList' value="${tRL.resId }">
+	          		</div>
+	          	</div>
+	          </c:forEach>
           </div>                   
         </div>
       </div>
@@ -271,7 +288,7 @@
     <br><br>
     <div class="row">
       <div class="col-11">
-        <button type="button" class="btn btn-warning btn2" id="submitBtn" onclick="onsubmitTheme()">등록하기</button>
+        <button type="button" class="btn btn-warning btn2" id="submitBtn" onclick="onsubmitTheme()">수정하기</button>
       </div>
     </div>
   </form>

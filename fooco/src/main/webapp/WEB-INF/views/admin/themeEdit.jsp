@@ -215,7 +215,7 @@
 		function goModify(id){
 			var themeId = $(id).attr('value');
 			/* alert(themeId); */
-        	/* location.href="detailRestaurantAdmin.do?themeId="+themeId; */
+        	location.href="loadThemeModifyPage.do?themeId="+themeId;
         }
 		function insertTheme(){
 			location.href="themeRegistration.do";

@@ -115,5 +115,9 @@ public interface AdminService {
 
 	int insertThemeRestaurant(String th);
 
+	ThemeAdmin selectOneTheme(ThemeAdmin ta);
+
+	ArrayList<Restaurant> selectListThemeRestaurant(ThemeAdmin ta);
+
 	
 }

@@ -260,6 +260,14 @@ public class AdminDao {
 		return sqlSessionTemplate.insert("adminMapper.insertThemeRestaurant",theme);
 	}
 
+	public ThemeAdmin selectOneTheme(ThemeAdmin ta) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectOneTheme", ta);
+	}
+
+	public ArrayList<Restaurant> selectListThemeRestaurant(ThemeAdmin ta) {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListThemeRestaurant", ta);
+	}
+
 	
 
 

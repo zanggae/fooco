@@ -391,6 +391,7 @@
 
 
 <!-- ========================= 테마 ===================================================== -->
+<!-- 테마 검색시 페이지내이션에 사용된 테마 개수 카운팅 -->
 <select id="selectOneThemeCount" parameterType="ThemeAdmin" resultType="_int">
 	SELECT COUNT(*) FROM SELECT_THEME_ADMIN 
 	<where>
@@ -400,6 +401,7 @@
 	</where>
 </select>
 
+<!-- 테마 관리페이지에서 테마 로딩 및 검색시 사용 -->
 <select id="selectListTheme" parameterType="ThemeAdmin" resultMap="ThemeResultSet">
 	SELECT * FROM SELECT_THEME_ADMIN 
 	<where>
@@ -409,30 +411,48 @@
 	</where>
 </select>
 
+<!-- 테마 삭제 -->
 <delete id="deleteTheme" parameterType="ThemeAdmin">
 	DELETE FROM THEME
   	WHERE THEME_ID=#{themeId}
 </delete>
 
+<!-- 테마 삭제시 테마즐겨찾기목록에 등록된 값들 삭제  -->
 <delete id="deleteThemeBM" parameterType="ThemeAdmin">
 	DELETE FROM THEME_BOOKMARK
   	WHERE THEME_NO=#{themeId}
 </delete>
 
+<!-- 테마 삭제시 테마음식점리스트에 등록된 값들 삭제 -->
 <delete id="deleteThemeR" parameterType="ThemeAdmin">
 	DELETE FROM THEME_RES
   	WHERE THEME_ID=#{themeId}
 </delete>
 
+<!-- 테마등록시 음식점 검색시 사용되는 에이작스쿼리 -->
 <select id="selectListRestaurantAdminTheme" parameterType="Search" resultMap="RestaurantResultSet">
 	SELECT * FROM SELECT_RESTAURANT WHERE RES_STATUS='Y' AND RES_NAME LIKE '%'||#{search}||'%'
 </select>
 
+<!-- 테마등록 -->
 <insert id="insertTheme" parameterType="ThemeAdmin">
 	INSERT INTO THEME VALUES(SEQ_THEME.NEXTVAL,#{themeTitle},SYSDATE,SYSDATE,#{themeWriter},0)
 </insert>
 
+<!-- 테마 등록시 테마음식점리스트에 해당음식점들 등록 -->
 <insert id="insertThemeRestaurant" parameterType="string">
 	INSERT INTO THEME_RES VALUES(SEQ_THEME.CURRVAL,#{theme})
 </insert>
+
+<!-- 테마 디테일페이지 넘어갈때 테마 내용 조회 -->
+<select id="selectOneTheme" parameterType="ThemeAdmin" resultMap="ThemeResultSet">
+	SELECT * FROM SELECT_THEME_ADMIN WHERE THEME_ID = #{themeId}
+</select>
+
+<!-- 테마 디테일페이지 넘어갈 때  테마음식점리스트 내용 조회-->
+<select id="selectListThemeRestaurant" parameterType="ThemeAdmin" resultMap="RestaurantResultSet">
+	SELECT * FROM SELECT_RESTAURANT R 
+	LEFT JOIN THEME_RES TR ON(R.RES_ID = TR.RES_ID)
+	WHERE TR.THEME_ID = #{themeId}
+</select>
 </mapper>
