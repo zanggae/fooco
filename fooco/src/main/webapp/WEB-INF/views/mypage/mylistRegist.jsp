@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     
+
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -15,6 +18,7 @@
   <!-- 아이콘 -->
   <script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
 
+ <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <style>
     /*폰트*/
     @font-face {
@@ -53,7 +57,7 @@
     .img_set {width: 9.5rem; height: 6rem; margin-top: 2rem; border: solid black 0.18rem; border-radius: 5%;}
     #searchIcon {position: absolute; z-index: 100; top: 0.5rem; left: 14.3rem;}
     #btn1 {margin-left: 0.2rem; height: 2rem; width: 2.5rem; box-shadow: none !important; border: none !important;}
-    #search {height: 2rem; border: 1px solid black; color: gold; -webkit-border-radius: 7px; -moz-border-radius: 5px; border-radius: 5px; box-shadow: none;}
+    .search {height: 2rem; border: 1px solid black; color: gold; -webkit-border-radius: 7px; -moz-border-radius: 5px; border-radius: 5px; box-shadow: none;}
    
    /*선택된 맛집*/
     .img_set2 {width: 10rem; height: 6rem; margin-left: 1rem; border: solid black 0.18rem; border-radius: 5%;}
@@ -97,8 +101,9 @@
 
 		<!-- 검색부분  -->
         <div class="input-group" style="width:16em; margin-left: 3rem; box-shadow: none !important;">
-          <input type="text" class="form-control" placeholder="음식점 검색" id="search" name="searchRes">
+          <input type="text" class="form-control" placeholder="음식점 검색" class="search" name="searchRes" id="word">
           <button type="submit" class="btn btn-warning" id="btn1"><i class="fas fa-search" id="searchIcon"></i></button>
+        	<ul id="list"></ul> <!-- 검색 리스트가 나타나는 영역 -->
         </div>
         <br>
         <div style="height : 40rem; overflow-y : auto;">  
@@ -118,7 +123,7 @@
            </c:url>
           <div style="text-align: center;" class="plus">
             <img src="resources/restaurantImage_ye/${ml.imageOriginName}" class="img_set">
-            <div style="font-weight: bold;">${ml.resName }</a></div>
+            <div style="font-weight: bold;">${ml.resName }</div>
            <div> ${ml.resAddress }</div>
           </div>
           </c:forEach>
@@ -143,7 +148,7 @@
                <img src="img/sushi2.jpeg" class="img_set2">
             </div>
             <div class="col-5" id="position1">
-              <h5 style="font-weight: bold; text-align: center;">영은스시</h5>
+              <div><h5 style="font-weight: bold; text-align: center;">영은스시</h5></div>
               <div style="text-align: center;">경기도 평택시 평택로길 184번길 1</div>
             </div>
           </div>
@@ -162,6 +167,9 @@
 
   <br><br><br>
 
+<script>
+	
+</script>
 
 <footer>
 
