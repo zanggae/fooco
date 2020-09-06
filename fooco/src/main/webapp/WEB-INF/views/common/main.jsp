@@ -187,8 +187,7 @@
             	
             	search.onchange = function(){
             		var keyword = search.value;
-            	}
-        
+            	}        
             </script>
 
 
@@ -273,7 +272,7 @@
                                         <input type="button" value="&#x1F68C; 그 외 지역 찾아보기" class="form-control ml-button shadow-sm">
                                     </div>
                                     <div class="ml-button-div">
-                                        <input type="button" value="&#x1F685; 전체 지역 찾아보기" class="form-control ml-button shadow-sm">
+                                        <input type="button" value="&#x1F685; 전체 지역 찾아보기" onclick="goSearch(0)" class="form-control ml-button shadow-sm">
                                     </div>
                                 </div>
                             </div>
@@ -288,7 +287,7 @@
             		window.location.href = "goSearchedRestaurant.do?locationId="+locationId;
             	};
             </script>
-
+            
 
             <!-- 메인 테마 맛집 -->
             <div class="mainTheme">

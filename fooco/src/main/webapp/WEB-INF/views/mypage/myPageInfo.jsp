@@ -223,7 +223,7 @@
 								<div class="col-3">
 									<div class="row">
 										<div class="col-3" style="margin-right: 0.5rem;">
-											<span>50</span>
+											<span>${reviewCount }</span>
 										</div>
 										<a href="">
 											<div class="col-2">
@@ -245,7 +245,7 @@
 								<div class="col-3">
 									<div class="row">
 										<div class="col-3" style="margin-right: 0.5rem;">
-											<span>5</span>
+											<span>${checkinCount }</span>
 										</div>
 										<a href="">
 											<div class="col-2">
@@ -265,7 +265,7 @@
 								<div class="col-3">
 									<div class="row">
 										<div class="col-3" style="margin-right: 0.5rem;">
-											<span>15</span>
+											<span>${mylistCount }</span>
 										</div>
 										<a href="">
 											<div class="col-2">

@@ -10,6 +10,7 @@ import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.member.model.vo.Mylist;
 
 
@@ -106,6 +107,28 @@ public class MemberDao {
 		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectFollowing",m);
 	}
 
+	
+	// 나의 활동 리뷰 수 메소드
+	public int selectOneReviewCount(Member m) {
+		
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneReviewCount",m);
+	}
+	// 나의 활동 마이리스트 수 메소드
+	public int selectOneMyListCount(Member m) {
+		
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneMyListCount",m);
+	}
+	// 나의 활동 체크인 수 메소드
+	public int selectOneCheckInCount(Member m) {
+		
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneCheckInCount",m);
+	}
+
+	// 체크인 등록 페이지에서 음식점 조회
+	public ArrayList<Restaurant> selectListRestaurant(String restitle) {
+	
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectListRestaurant", restitle);
+	}
 	
 	
 	

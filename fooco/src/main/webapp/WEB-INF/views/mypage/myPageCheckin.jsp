@@ -141,7 +141,7 @@
                 <span style="font-family: 'heavy'; font-size: 1.2rem;">방문한 맛집에 대해 자유롭게 기록하세요!</span>
               </div>
               <div class="col-4" align="right">
-                  <button type="button" class="btn btn-warning btn-sm" style="padding: 0.2rem;">추가하기</button>
+                  <button type="button" class="btn btn-warning btn-sm" style="padding: 0.2rem;" onclick="checkinRegister();">추가하기</button>
               </div>
             </div>
 
@@ -245,5 +245,18 @@
 	</section>
 
 </body>
+
+
+<script>
+function checkinRegister(){
+	location.href="CheckinRegister.do"; 
+}
+
+
+
+</script>
+
+
+
 
 </html>
