@@ -125,12 +125,12 @@
         </div>
         <script>
         	var check = new Array();
-        	/* $(function(){
-        		
-        		for(var i in ${themeRList}){
-        			check.push(themeRList[i].resId);
-        		}
-        	}) */
+        	$(function(){
+	       		<c:forEach items="${themeRList}" var="item"> 
+	       			check.push("${item.resId}"); 
+	       		</c:forEach>
+	       		deleteRestaurant();        		
+        	})
         	function searchRestaurant(){
         		var search = $("#searchInput").val();
         		if(search == ""){
@@ -185,9 +185,6 @@
         	
         	function settingFunction(){
         		$(".pickDiv").click(function(){
-        			if(!confirm("음식점을 추가 하시겠습니까?")){
-        				return;
-        			}
         			var resId = $(this).find("#resId").val();
         			var dImg = $(this).find("#divImg").attr('src');
         			var title = $(this).find("#divTitle").text();
@@ -200,6 +197,9 @@
         			}else{
 	        			check.push(resId);        				
         			};
+        			if(!confirm("음식점을 추가 하시겠습니까?")){
+        				return;
+        			}
         			
         			$subDiv = $("#subDiv");
         			

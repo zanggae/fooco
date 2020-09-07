@@ -796,6 +796,7 @@ public class AdminController {
 		mv.setViewName("admin/themeModify");
 		return mv;
 	}
+	
 	@RequestMapping("test.do")
 	public String test() {
 		return "admin/test";
