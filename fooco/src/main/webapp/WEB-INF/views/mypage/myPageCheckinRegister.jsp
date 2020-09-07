@@ -122,13 +122,13 @@
             <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem; padding-bottom: 1rem;">
               <div class="col-1"></div>
               <div class="col-10">
-                <form action="">
+                <form action="myPageCheckinRegister.do" method="post" enctype="Multipart/form-data">
                   <div style="margin-left: 3rem;">
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">방문 식당 검색</label>
                       <input type="text" id="restitle" style="margin-left: 1.1rem;">
                       <!-- checkinId를 체크인 객체에 넘겨주기 위해 -->
-                      <input type="hidden" name="checkinId">
+                      <input type="hidden" id="memberId" name="memberId" value="${loginUser.memberId }">
                      <!-- resId를 체크인 객체에 넘겨주기 위해 -->
                       <input type="hidden" id="resId" name="resId">
                       <!-- Button trigger modal -->
@@ -156,12 +156,12 @@
     
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">날짜</label>
-                      <input type="date" name="visitDate">
+                      <input type="date" name="checkinVisitDate">
                     </div>
     
                     <div class="row" style="margin-bottom: 1.3rem;">
                       <label class="checkin_label">내용</label>
-                      <textarea cols="50" rows="10" style="resize: none;"></textarea>
+                      <textarea cols="50" rows="10" style="resize: none;" name="checkinContent"></textarea>
                     </div>
     				
     				<div class="row">
@@ -171,24 +171,24 @@
     				
                     <div class="row" style="margin-bottom:0.5rem;">
                       <label class="checkin_label">사진첨부1</label>
-                      <input type="file" id="addpoto1" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
+                      <input type="file" id="addpoto1" name="file" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
                     </div>
     
                     <div class="row" id="addpotoarea2" style="display:none; margin-bottom:0.5rem;">
                       <label class="checkin_label">사진첨부2</label>
-                      <input type="file" id="addpoto2" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
+                      <input type="file" id="addpoto2" name="file"  accept="image/gif,image/jpeg,image/png" style="width:13rem;">
                     </div>
     
                     <div class="row" id="addpotoarea3" style="margin-bottom: 2rem; display:none;">
                       <label class="checkin_label">사진첨부3</label>
-                      <input type="file" id="addpoto3" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
+                      <input type="file" id="addpoto3" name="file" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
                     </div>
                   
                   </div>
                     <div class="row">
                       <div class="col" align="center">
                         <input type="submit" class="btn btn-primary btn-sm" value="완료">&nbsp;
-                        <button type="button" class="btn btn-secondary btn-sm">취소</button>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="checkinCancle();">취소</button>
                       </div>
                     </div>
                   </form>
@@ -260,7 +260,7 @@
 					var $td = $("<td>");
 					var $resName = $("<p>").text(data[i].resName).css(resNameStyle).attr("class","resName");
 					var $resAddress = $("<p>").text(data[i].resAddress).css(resAddressStyle);
-					var $resImageName = $("<img>").attr("src","/fooco/resources/logo/"+data[i].resImageName).css(resImageName).text(data[i].resImageName);
+					var $resImageName = $("<img>").attr("src","/fooco/resources/restaurantImage/"+data[i].resImageName).css(resImageName).text(data[i].resImageName);
 					var $resId = $("<input>").attr("type","hidden").attr("value",data[i].resId).text(data[i].resId);
 					
 					$td.append($resImageName);
@@ -301,7 +301,7 @@ $(document).on("click",".trtag",function(){
 	
 	var resNames = $("#resName").attr("value",resNameText); // 방문 식당 이름 input태그 value값을 검색한 음식점text값으로 초기화
 	$("#resName").html(resNameText); // 방문 식당 이름 노출시킴
-	var resImageNames = $("#resImage").attr("src","/fooco/resources/logo/"+resImageName); // 방문 식당 이미지에 이미지 태그 src를 변경시킴
+	var resImageNames = $("#resImage").attr("src","/fooco/resources/restaurantImage/"+resImageName); // 방문 식당 이미지에 이미지 태그 src를 변경시킴
 	var resImagehidden = $("#resImageName").attr("value",resImageName); // 체크인 객체에 담길 이미지 값
 	var resIdhidden = $("#resId").attr("value",resId); // 체크인 객체에 담길 식당 번호
 	
@@ -329,6 +329,10 @@ $(function(){
 		}
 	})
 })
+
+function checkinCancle(){
+	location.href="myPageCheckin.do?"; 
+}
 
 // 이미지 파일 꼼꼼하게 제약조건
 /* function fileCheck(obj){

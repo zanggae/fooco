@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.board.model.vo.Board;
-import com.kh.fooco.theme.model.vo.Theme;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.theme.model.vo.ThemeBookmark;
 
@@ -66,6 +66,22 @@ public class ThemeDao {
 		updateParameter.put("themeWriter", themeWriter);
 		return sqlSessionTemplate.delete("themeMapper.deleteBookmark",updateParameter);
 	}
+
+
+	public ThemeAdmin themedetail(ThemeAdmin theme) {
+		return sqlSessionTemplate.selectOne("themeMapper.themedetail",theme);
+	}
+
+
+	public ArrayList<Restaurant> themedetailR(ThemeAdmin theme) {
+		return (ArrayList)sqlSessionTemplate.selectList("themeMapper.themedetailR",theme);
+	}
+
+
+
+
+
+	
 
 
 	

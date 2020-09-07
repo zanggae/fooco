@@ -2,7 +2,7 @@ package com.kh.fooco.theme.model.service;
 
 import java.util.ArrayList;
 
-import com.kh.fooco.theme.model.vo.Theme;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.theme.model.vo.ThemeBookmark;
 
@@ -32,4 +32,9 @@ public interface ThemeService {
 
 	int deleteBookmark(String bookmarkId, int themeWriter);
 
+
+	ThemeAdmin themedetail(ThemeAdmin theme);
+
+
+	ArrayList<Restaurant> themedetailR(ThemeAdmin theme);
 }

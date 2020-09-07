@@ -133,6 +133,30 @@
 		 })
 	 }
 	 </script>
+	 
+	 <!-- 멤버십 상태 update해 주기 -->
+	 <script>
+	 $(function(){
+		 MembershipUpdate();
+	 })
+	 
+	 function  MembershipUpdate(){
+		 /* alert("MembershipUpdate 함수 실행 되나"); */
+		 $.ajax({
+			 url:"updateMembershipStatus.do"
+			 ,type:"post"
+			 ,success:function(data){
+				 console.log("성공")
+			 }
+			 ,error:function(request, status, errorData){
+					alert("error code: " + request.status + "\n"
+							+"message: " + request.responseText
+							+"error: " + errorData);
+				}
+				
+		 })
+	 }
+	 </script>
     
     </head>
     <body>
