@@ -346,18 +346,24 @@
     <!-- 비밀번호 찾기  이메일 전송 -->
   <script>
   	function searchPwd(){
+  	   //이메일 정규 표현식
+  	   var regEx =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
        var emailchange = $("#emailchange").val();
        var memberId = $("#memberId").val();
        console.log(emailchange);
        console.log("회원아이디 : " + memberId);
        
+       if(!regEx.test($("#emailchange").val())){
+    	   alert("이메일 올바르게 작성해주세요");
+    	   $("#emailchange").focus();
+    	   return;
+       }
        if($("#emailchange").val()==""){
     	   alert("이메일을 입력하세요");
            $("#emailchange").focus();
            return;
        }else{
     	   location.href="searchMemberPwd.do?emailchange="+emailchange; 
-   		   alert("전송된 이메일을 확인해주세요");
        }
   	}
   </script>
@@ -389,12 +395,7 @@
   		}
   </script>
   
-  <!-- 추가로 해야할 것(지민)-->
-<!--
-  1. 로그인 - 존재하지않는 아이디나 비밀번호일 경우 alert창 띄워주기
--->
-  
-    
+
   
 </body>
 </html>
