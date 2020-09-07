@@ -797,6 +797,22 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping("ModifyThemeAdmin.do")
+	public ModelAndView ModifyThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, ThemeAdmin ta) {
+		int themeRListResult = 0;
+		
+		// 테마 정보 수정
+		int result = adminService.modifyTheme(ta);
+		// 테마속 기존의 음식점 리스트 제거
+		int deleteRListResult = adminService.deleteRList(ta);
+		// 새로운 리스트 삽입
+		String[] tRL = themeRList.split(",");		
+		for(String th : tRL) {
+			themeRListResult = adminService.insertThemeRestaurant2(th,ta);
+		}
+		return mv;
+	}
+	
 	@RequestMapping("test.do")
 	public String test() {
 		return "admin/test";
