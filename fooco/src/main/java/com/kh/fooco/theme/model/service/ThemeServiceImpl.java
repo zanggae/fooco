@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.fooco.common.model.vo.PageInfo;
-import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.dao.ThemeDao;
-import com.kh.fooco.theme.model.vo.Theme;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.theme.model.vo.ThemeBookmark;
 
 @Service("themeService")
@@ -18,7 +17,7 @@ public class ThemeServiceImpl implements ThemeService{
 	 ThemeDao themeDao;
 
 	@Override
-	public ArrayList<Theme> selectListTheme() {
+	public ArrayList<ThemeAdmin> selectListTheme() {
 		return themeDao.selectListTheme();
 	}
 
@@ -38,9 +37,35 @@ public class ThemeServiceImpl implements ThemeService{
 	}
 
 	@Override
-	public ArrayList<Theme> searchListTheme(String searchTheme) {
+	public ArrayList<ThemeAdmin> searchListTheme(String searchTheme) {
 		return themeDao.searchListTheme(searchTheme);
 	}
-	
+
+	@Override
+	public ArrayList<Integer> mythemeList(int themeWriter) {
+		return themeDao.mythemeList(themeWriter);
+	}
+
+	@Override
+	public int insertBookmark(String bookmarkId, int themeWriter) {
+		return themeDao.insertBookmark(bookmarkId,themeWriter);
+	}
+
+	@Override
+	public int deleteBookmark(String bookmarkId, int themeWriter) {
+		return themeDao.deleteBookmark(bookmarkId,themeWriter);
+	}
+
+	@Override
+	public ThemeAdmin themedetail(ThemeAdmin theme) {
+		return themeDao.themedetail(theme);
+	}
+
+	@Override
+	public ArrayList<Restaurant> themedetailR(ThemeAdmin theme) {
+		return themeDao.themedetailR(theme);
+	}
+
+
 }
 

@@ -1,13 +1,15 @@
 package com.kh.fooco.theme.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.board.model.vo.Board;
-import com.kh.fooco.theme.model.vo.Theme;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.theme.model.vo.ThemeBookmark;
 
 
@@ -16,7 +18,7 @@ public class ThemeDao {
 	@Autowired
 	 SqlSessionTemplate sqlSessionTemplate;
 
-	public ArrayList<Theme> selectListTheme() {
+	public ArrayList<ThemeAdmin> selectListTheme() {
 		return(ArrayList)sqlSessionTemplate.selectList("themeMapper.selectListTheme");
 	}
 	
@@ -37,9 +39,49 @@ public class ThemeDao {
 	}
 
 
-	public ArrayList<Theme> searchListTheme(String searchTheme) {
+	public ArrayList<ThemeAdmin> searchListTheme(String searchTheme) {
 		return (ArrayList)sqlSessionTemplate.selectList("themeMapper.searchListTheme",searchTheme);
 	}
+
+
+	public ArrayList<Integer> mythemeList(int themeWriter) {
+		return  (ArrayList)sqlSessionTemplate.selectList("themeMapper.mythemeList",themeWriter);
+	}
+
+
+	public int insertBookmark(String bookmarkId, int themeWriter) {
+	
+		HashMap<String, Object> updateParameter = new HashMap<String, Object>();
+		updateParameter.put("bookmarkId", bookmarkId);
+		updateParameter.put("themeWriter", themeWriter);
+		
+		return sqlSessionTemplate.insert("themeMapper.insertBookmark",updateParameter);
+	}
+
+
+	public int deleteBookmark(String bookmarkId, int themeWriter) {
+		
+		HashMap<String, Object> updateParameter = new HashMap<String, Object>();
+		updateParameter.put("bookmarkId", bookmarkId);
+		updateParameter.put("themeWriter", themeWriter);
+		return sqlSessionTemplate.delete("themeMapper.deleteBookmark",updateParameter);
+	}
+
+
+	public ThemeAdmin themedetail(ThemeAdmin theme) {
+		return sqlSessionTemplate.selectOne("themeMapper.themedetail",theme);
+	}
+
+
+	public ArrayList<Restaurant> themedetailR(ThemeAdmin theme) {
+		return (ArrayList)sqlSessionTemplate.selectList("themeMapper.themedetailR",theme);
+	}
+
+
+
+
+
+	
 
 
 	

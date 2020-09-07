@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="ko">
 
@@ -86,7 +87,7 @@
     .text2 {
       background-color: none;
       position: absolute;
-      top: 14rem;
+      top: 5rem;
       left: 48rem;
       transform: translate(-50%, -50%);
       font-size: 2.5rem;
@@ -95,13 +96,14 @@
     }
 
     .img1 {
-       margin: 0;
-      padding:0; 
+      margin: 0;
+      padding: 0;
       position: absolute;
       width: 15.5rem;
       height: 10rem;
       /* border: solid black 0.18rem;*/
-       border-radius: 10%;  
+      border-radius: 8%;
+      margin-top: -1rem;
 
 
     }
@@ -122,10 +124,10 @@
     #star {
       position: absolute;
       color: gold;
-     font-size: 3rem;
+      font-size: 3rem;
       margin-top: 0.2rem;
       margin-left: 18rem;
-      
+
     }
 
     .score {
@@ -181,80 +183,75 @@
       border: 0.1rem solid black;
 
     }
-
-    
   </style>
 
 </head>
 
 <body>
-	<header>
-	
-	
-	</header>
-	
-	<section>
-	
-	
-  <div class="top">
-    <img src="img/foocoLogo.png" class="fixed">
-    <div class="circle"></div>
-    <div class="text1" style="font-size: 1.3rem; color: black;font-weight: bold;">로그인</div>
-  </div>
+
+
+
+
+
   <div class="middle"></div>
   <div class="text2">${theme.themeTitle}</div>
   <div id="test">
-    <div class="container">
-      <br><br><br>
+    <div class="container">      
+      <c:forEach var="r" items="${restaurant1 }">
+      
+      <br><br>
       <div class="row">
         <!--왼쪽 여백-->
         <div class="col-2">
         </div>
-        <div class="boundary" >
+        <div class="boundary">
           <!--사진구역-->
           <div class="col-4" style="  width:300px;height:183.2px;display:inline-block;">
-            <img src="img/sushi1.jpg" class="img1">
+            <img src="resources/restaurantImage/${r.resImageName}" class="img1">
           </div>
-  
+
+
           <!--내용 구역-->
           <div class="col-7" style="display:inline-block;width:500px; margin-left : 0.5rem;
           margin-top: 0.7rem;">
             <div class="row" style="margin-top: 1rem;">
-              <h1 class="title" >1.영은스시</h1>
+              <h1 class="title">${r.resName}</h1>
               <i class="fas fa-star" id="star"></i>
-              <h1 class="score">4.9</h1>
+              <h1 class="score">${r.reviewRatingAvg }</h1>
             </div>
-            <div class="address">경기도 평택시 평택로길 184번길 1
+            <div class="address">${r.resAddress }
             </div>
             <br>
-            <div class="nickname">큐티지민
+            <div class="nickname">${r.reviewNickname}
             </div>
-            <div class="content">평택에서 여기 모르면 간첩이라고 해서 가봤어요!! 회 두께도 엄청 두껍고 입에서 살살 녹네요!! 너무...
-              <a href="http://www.naver.com" class="see_more">&nbsp;더보기</a>
-              <div><a href="http://www.naver.com" class="detailInfo">영은스시 더보기 ></a>
-              </div>
-              <br>
+
+            <div class="content" style="height : 3rem; overflow-y : auto; overflow-x : hidden;">
+              ${r.reviewContent }
             </div>
-            
+				<c:url var="detailRes" value="goDetailRestaurant.do">
+                  	<c:param name="resId" value="${r.resId }"/>
+                  	</c:url>
+            <div><a href="${detailRes}" class="detailInfo">${r.resName} 더보기 ></a>
+            </div>
+            <br>
           </div>
+
         </div>
-          <!--오른쪽 여백-->
-        
-          
-        
       </div>
+      <!--오른쪽 여백-->
 
-      
-
+	</c:forEach> 
     </div>
-    <!--container끝-->
- 	</div>
- 	</section>
-  <br><br><br> <br><br><br>	 <br><br><br> <br><br><br> <br><br><br> <br><br><br>
- 	
- 	<footer>
- 	
- 	</footer>
+
+
+
+
+
+
+  </div>
+  <!--container끝-->
+  </div>
+  <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
