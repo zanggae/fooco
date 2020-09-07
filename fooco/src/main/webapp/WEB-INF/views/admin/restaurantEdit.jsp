@@ -236,8 +236,8 @@
 		})
 		function goDetail(id){
         	var resId = $(id).attr('value');
-        	alert(resId);
-        	/* location.href="goDetailRestaurant.do?resId="+resId; */
+        	/* alert(resId); */
+        	location.href="goDetailRestaurant.do?resId="+resId;
         }
 		function goModify(id){
 			var resId = $(id).attr('value');

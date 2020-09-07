@@ -103,7 +103,7 @@
               <div id="background_" style="width:80%; border-radius:1rem; padding:2rem; padding-top:0; margin-left: 40px;">
                 <div id="imgtest">
                 	<input type="file" style="display: none" id="thumbnailChange" name="uploadFile" accept="image/*">
-                    <div id="img_background" onclick="thumbnail()"><img id="img" src="resources/buploadFiles/${restaurant.resImageName}" style="width: 8rem; height: 10rem;"></div><br>
+                    <div id="img_background" onclick="thumbnail()"><img id="img" src="resources/restaurantImage/${restaurant.resImageName}" style="width: 8rem; height: 10rem;"></div><br>
                     <p>[음식점 사진]</p>
                 </div>
               <table style="margin-left: 300px; margin-top: -260px;">

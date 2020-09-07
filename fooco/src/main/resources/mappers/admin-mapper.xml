@@ -338,8 +338,8 @@
 
 <insert id="insertRestaurantImage" parameterType="Image">
 	INSERT ALL
-	   	INTO IMAGE VALUES(SEQ_IMAGE_YE.NEXTVAL,#{imageOriginName},#{imageNewName},#{imageFilepath},SYSDATE,0,'Y',0)
-	   	INTO RES_IMAGE VALUES(SEQ_IMAGE_YE.CURRVAL,SEQ_RESTAURANT.CURRVAL)
+	   	INTO IMAGE VALUES(SEQ_IMAGEID.NEXTVAL,#{imageOriginName},#{imageNewName},#{imageFilepath},SYSDATE,0,'Y',0)
+	   	INTO RES_IMAGE VALUES(SEQ_IMAGEID.CURRVAL,SEQ_RESTAURANT.CURRVAL)
    	SELECT *
    	FROM DUAL
 </insert>
