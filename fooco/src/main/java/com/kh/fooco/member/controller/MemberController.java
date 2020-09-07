@@ -43,7 +43,6 @@ import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
-import com.kh.fooco.theme.model.vo.Theme;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @SessionAttributes("loginUser")
@@ -133,6 +132,10 @@ public class MemberController {
 			return "common/main";
 		}else{
 			 System.out.println("로그인 실패");
+			 response.setContentType("text/html; charset=UTF-8"); 
+			 PrintWriter out = response.getWriter();
+			 out.println("<script>alert('비밀번호를 다시 확인해주세요'); history.go(-1);</script>"); 
+			 out.flush();	
 		}
 		return "common/main";	
 	}

@@ -112,7 +112,7 @@ public class MemberShipController {
 		
         int result = memberShipService.updateMembershipStatus();
         
-        System.out.println("UPDATE 잘 되는지" + result);
+//        System.out.println("UPDATE 잘 되는지" + result);
         
         if(result>0) {
         	System.out.println("update성공");
