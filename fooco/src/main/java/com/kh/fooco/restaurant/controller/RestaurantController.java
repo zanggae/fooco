@@ -32,7 +32,7 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService restaurantService;
 	
-	@RequestMapping("goMain.do")  
+	@RequestMapping("goMain.do")    
 	public String goMain() {
 		return "common/main";
 	}
