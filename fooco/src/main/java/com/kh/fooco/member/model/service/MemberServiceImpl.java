@@ -16,6 +16,7 @@ import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Checkin;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -185,6 +186,14 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.insertCheckinImage(ckimg);
 	}
 	
+	// 체크인 리스트 조회 메소드
+	@Override
+	public ArrayList<Select_Checkin> selectCheckinList(int memberId) {
+	
+		return memberDao.selectCheckinList(memberId);
+	}
+	
+	
 	// ================================== Mylist 영은==========================================
 
 	//마이리스트 등록 검색 
@@ -207,6 +216,7 @@ public class MemberServiceImpl implements MemberService{
 	public int insertMylistRes(String th) {
 		return memberDao.insertMylistRes(th);
 	}
+
 
 
 

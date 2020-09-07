@@ -43,6 +43,7 @@ import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 
@@ -381,9 +382,10 @@ public class MemberController {
 		public ModelAndView proFileUpDate(HttpServletRequest request, Member m, ModelAndView mv,
 				@RequestParam(value="profile", required=false) MultipartFile file) {
 			
+			String folderName = "ProFiles";
 			
 			if(!file.getOriginalFilename().equals("")) {
-				String renameFileName = saveFile(file,request);
+				String renameFileName = saveFile(file,request, folderName);
 				
 				m.setOriginalName(file.getOriginalFilename());
 				m.setRenameName(renameFileName);
@@ -420,14 +422,14 @@ public class MemberController {
 		
 		
 		// 변경 파일을 ProFiles폴더에 저장하는 메소드
-		private String saveFile(MultipartFile file, HttpServletRequest request) {
+		private String saveFile(MultipartFile file, HttpServletRequest request, String folderName) {
 			
 			// webapp 경로
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			// == webapp/resources
 //			System.out.println("경로를 확인해 보자 : " + root);
 			
-			String savePath = root + "\\ProFiles";
+			String savePath = root + "\\" + folderName;
 			
 			File folder = new File(savePath); // import java.io.File;
 			
@@ -614,21 +616,36 @@ public class MemberController {
 		
 		// 체크인 페이지 이동
 		@RequestMapping("myPageCheckin.do")
-		public String myPageCheckinView() {
-			return "mypage/myPageCheckin";
+		public ModelAndView myPageCheckinView(ModelAndView mv, HttpSession session) {
+			
+	      Member loginUser = (Member)session.getAttribute("loginUser");
+	      int memberId = loginUser.getMemberId();
+			
+			
+			ArrayList<Select_Checkin> checkinList = memberService.selectCheckinList(memberId);
+			System.out.println("뽑혀라!!! " + checkinList);
+			
+			mv.addObject("checkinList",checkinList);
+			mv.setViewName("mypage/myPageCheckin");
+			
+			return mv;
 		}
+		
+		
 		
 		// 체크인 등록 페이지 이동
 		@RequestMapping("CheckinRegister.do")
 		public String myPageCheckinRegisterView() {
+			
 			return "mypage/myPageCheckinRegister";
 		}
 		
 		// 체크인 등록 페이지에서 등록버튼 클릭 시
 		@RequestMapping(value="myPageCheckinRegister.do", method=RequestMethod.POST)
-		public ModelAndView myPageCheckinRegister(HttpServletRequest request, ModelAndView mv, Checkin ck,
+		public ModelAndView myPageCheckinRegister(HttpServletRequest request, ModelAndView mv, Checkin ck, Member m,
 				Image img, CheckinImage ckimg, @RequestParam(value="file", required=false) List<MultipartFile> files)
 			 {
+			String folderName = "checkinImage";
 			
 			System.out.println("클릭페이지 : " + ck);
 			int result = memberService.insertCheckin(ck);
@@ -636,7 +653,7 @@ public class MemberController {
 			for (MultipartFile file : files) {
 				
 				if(!file.getOriginalFilename().equals("")) {
-					String renameFileName = saveFile(file,request);
+					String renameFileName = saveFile(file,request,folderName);
 					img.setImageOriginName(file.getOriginalFilename());
 					img.setImageNewName(renameFileName);
 					
@@ -648,18 +665,19 @@ public class MemberController {
 				}
 			}
 			
-			mv.setViewName("redirect:myPageCheckin.do");
 			
+			mv.setViewName("redirect:myPageCheckin.do");
 			
 			return mv;
 		}
 		
 		
-		
-		
-		
-		
-		
+		//체크인 수정 페이지 이동
+		@RequestMapping("CheckinModify.do")
+		public String myPageCheckinModifyView() {
+			
+			return "mypage/myPageCheckinModify";
+		}
 		
 		// 체크인 등록페이지 음식점 조회 ajax
 		@RequestMapping("selectRes.do")

@@ -128,7 +128,7 @@
                       <label class="checkin_label">방문 식당 검색</label>
                       <input type="text" id="restitle" style="margin-left: 1.1rem;">
                       <!-- checkinId를 체크인 객체에 넘겨주기 위해 -->
-                      <input type="hidden" name="memberId" value="${loginUser.memberId }">
+                      <input type="hidden" id="memberId" name="memberId" value="${loginUser.memberId }">
                      <!-- resId를 체크인 객체에 넘겨주기 위해 -->
                       <input type="hidden" id="resId" name="resId">
                       <!-- Button trigger modal -->
@@ -188,7 +188,7 @@
                     <div class="row">
                       <div class="col" align="center">
                         <input type="submit" class="btn btn-primary btn-sm" value="완료">&nbsp;
-                        <button type="button" class="btn btn-secondary btn-sm">취소</button>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="checkinCancle();">취소</button>
                       </div>
                     </div>
                   </form>
@@ -260,7 +260,7 @@
 					var $td = $("<td>");
 					var $resName = $("<p>").text(data[i].resName).css(resNameStyle).attr("class","resName");
 					var $resAddress = $("<p>").text(data[i].resAddress).css(resAddressStyle);
-					var $resImageName = $("<img>").attr("src","/fooco/resources/logo/"+data[i].resImageName).css(resImageName).text(data[i].resImageName);
+					var $resImageName = $("<img>").attr("src","/fooco/resources/restaurantImage/"+data[i].resImageName).css(resImageName).text(data[i].resImageName);
 					var $resId = $("<input>").attr("type","hidden").attr("value",data[i].resId).text(data[i].resId);
 					
 					$td.append($resImageName);
@@ -301,7 +301,7 @@ $(document).on("click",".trtag",function(){
 	
 	var resNames = $("#resName").attr("value",resNameText); // 방문 식당 이름 input태그 value값을 검색한 음식점text값으로 초기화
 	$("#resName").html(resNameText); // 방문 식당 이름 노출시킴
-	var resImageNames = $("#resImage").attr("src","/fooco/resources/logo/"+resImageName); // 방문 식당 이미지에 이미지 태그 src를 변경시킴
+	var resImageNames = $("#resImage").attr("src","/fooco/resources/restaurantImage/"+resImageName); // 방문 식당 이미지에 이미지 태그 src를 변경시킴
 	var resImagehidden = $("#resImageName").attr("value",resImageName); // 체크인 객체에 담길 이미지 값
 	var resIdhidden = $("#resId").attr("value",resId); // 체크인 객체에 담길 식당 번호
 	
@@ -329,6 +329,10 @@ $(function(){
 		}
 	})
 })
+
+function checkinCancle(){
+	location.href="myPageCheckin.do?"; 
+}
 
 // 이미지 파일 꼼꼼하게 제약조건
 /* function fileCheck(obj){

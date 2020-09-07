@@ -13,6 +13,7 @@ import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Checkin;
 
 public interface MemberService {
 
@@ -63,6 +64,8 @@ public interface MemberService {
 	
 	int insertCheckinImage(CheckinImage ckimg);
 	
+	ArrayList<Select_Checkin> selectCheckinList(int memberId);
+	
 	// ================================== Mylist 영은 ===========================================
 
 
@@ -73,6 +76,8 @@ public interface MemberService {
 	int insertMylist(String themeTitle, int themeWriter);
 
 	int insertMylistRes(String th);
+
+
 
 
 

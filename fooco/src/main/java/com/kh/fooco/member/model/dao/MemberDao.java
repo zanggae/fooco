@@ -17,6 +17,7 @@ import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Checkin;
 
 
 @Repository("memberDao")
@@ -153,6 +154,11 @@ public class MemberDao {
 		return sqlSessionTemplate.insert("mypageMapper.insertCheckinImage", ckimg);
 	}
 	
+	// 체크인 리스트 조회 메소드
+	public ArrayList<Select_Checkin> selectCheckinList(int memberId) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectCheckinList", memberId);
+	}
 	
 	// ================================== Mylist 영은 ===========================================
 
@@ -179,6 +185,8 @@ public class MemberDao {
 	public int insertMylistRes(String theme) {
 		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
 	}
+
+
 
 
 
