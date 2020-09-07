@@ -1,6 +1,10 @@
 package com.kh.fooco.membership.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,41 +43,85 @@ public class MemberShipController {
 	
 	//결제 + 골드멤버십 insert
 	@RequestMapping("buyGoldMembership.do")
-	public String insertGoldMembership(MemberShip membership) {
+	public String insertGoldMembership(MemberShip membership,HttpServletResponse response) throws IOException {
 		System.out.println("membership:" + membership);	
 		
-		//insert작업
-		int result = memberShipService.insertGoldMembership(membership);
-	    int result2 = memberShipService.insertCoupon1(membership);
-	    int result3= memberShipService.insertCoupon2(membership);
-		 
+	    
+	    ArrayList<MemberShip> m = memberShipService.checkmembership(membership);
+	    
+		System.out.println("멤버십 있는 지 조회해오기 : " + m);
 		
-		System.out.println("result:"+result);
-		
-		if(result>0) {
-			System.out.println("insert성공");
-			return "membership/membershipInfo";
-		}else {
+		if(m!=null) {
+			System.out.println("사용 하는 멤버십이 조회됨");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('이미 사용하는 멤버십이 있습니다'); history.go(-1);</script>"); 
+			out.flush();
+		}else{
+			//insert작업
+			int result = memberShipService.insertGoldMembership(membership);
+		    int result2 = memberShipService.insertCoupon1(membership);
+		    int result3= memberShipService.insertCoupon2(membership);
+		    System.out.println("result:"+result);
+		    
+			if(result>0) {
+				System.out.println("insert성공");
+				response.setContentType("text/html; charset=UTF-8"); 
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('결제 성공'); history.go(-1);</script>"); 
+				out.flush();
+			}else {
 			System.out.println("inser실패");
+			System.out.println("insert성공");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('결제 실패'); history.go(-1);</script>"); 
+			out.flush();
 			throw new MemberShipException("멤버십 등록 실패");
 		}
-
 	}
-	
+		return "membership/membershipInfo";
+	}
 	//결제 + 실버멤버십 insert
 	@RequestMapping("buySilverMembership.do")
-	public String insertSilverMembership(MemberShip membership) {
-		System.out.println("잘오는건 맞나");
+	public String insertSilverMembership(MemberShip membership, HttpServletResponse response) throws IOException {
 		System.out.println("membership:" + membership);
 		
+	    ArrayList<MemberShip> m = memberShipService.checkmembership(membership);
 		
-		 int result = memberShipService.insertSilverMembership(membership); int
-		 result2 = memberShipService.insertCoupon1(membership); 
-		 int result3= memberShipService.insertCoupon3(membership);
-		 
-		 if(result>0) { System.out.println("insert성공"); return
-		 "membership/membershipInfo"; }else { System.out.println("insert실패"); throw
-		 new MemberShipException("멤버십 등록 실패"); }
+	    System.out.println("멤버십 있는 지 조회해오기 : " + m);
+		
+		if(m!=null) {
+			System.out.println("사용 하는 멤버십이 조회됨");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('이미 사용하는 멤버십이 있습니다'); history.go(-1);</script>"); 
+			out.flush();
+		}else{
+			//insert작업
+			int result = memberShipService.insertGoldMembership(membership);
+		    int result2 = memberShipService.insertCoupon1(membership);
+		    int result3= memberShipService.insertCoupon2(membership);
+		    System.out.println("result:"+result);
+		    
+			if(result>0) {
+				System.out.println("insert성공");
+				response.setContentType("text/html; charset=UTF-8"); 
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('결제 성공'); history.go(-1);</script>"); 
+				out.flush();
+			}else {
+			System.out.println("inser실패");
+			System.out.println("insert성공");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('결제 실패'); history.go(-1);</script>"); 
+			out.flush();
+			throw new MemberShipException("멤버십 등록 실패");
+		}
+	}
+		return "membership/membershipInfo";
+
 	
 	}
 	

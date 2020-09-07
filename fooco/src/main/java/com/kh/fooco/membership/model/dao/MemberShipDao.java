@@ -58,4 +58,11 @@ public class MemberShipDao {
 		return (ArrayList)sqlSessionTemplate.selectList("membershipMapper.selectforMembership",memberId);
 	}
 
+	public ArrayList<MemberShip> checkmembership(MemberShip membership) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("membershipMapper.checkmembership",membership);
+	}
+
+	
+
 }
