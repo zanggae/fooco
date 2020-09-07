@@ -135,12 +135,12 @@
                 <div class="row row-cols-2" id="position">
               	<c:forEach var="t" items="${theme }">
               	
-                  <div class="col" style="margin-bottom: 2.5rem;">
-                  <img src="resources/restaurantImage_ye/${t.themeImageName}" class="img1">
-                    <div class="text4"><a href="${themedetail }" class="titlefont">${t.themeTitle }</a></div>
                   	<c:url var="themedetail" value="themedetail.do">
                   	<c:param name="themeId" value="${t.themeId }"/>
                   	</c:url>
+                  <div class="col" style="margin-bottom: 2.5rem;">
+                  <img src="resources/restaurantImage_ye/${t.themeImageName}" class="img1">
+                    <div class="text4"><a href="${themedetail }" class="titlefont">${t.themeTitle }</a></div>
                     <c:remove var="tt"/>
                     <c:forEach var="mt" items="${mytheme }">
                     	<c:if test="${t.themeId eq mt }">
@@ -148,7 +148,11 @@
 	                     <c:set var="tt" value = "${mt }"></c:set>                   	
                     	</c:if>
                     </c:forEach>
-                    <c:if test="${empty tt}"><div onclick="heartClick(this)" id="heartt" value="${t.themeId }"><i class="far fa-heart" id="heart"></i></div></c:if>
+                    <c:if test="${empty tt}">
+                    	<c:if test="${!empty loginUser }">
+                    		<div onclick="heartClick(this)" id="heartt" value="${t.themeId }"><i class="far fa-heart" id="heart"></i></div>
+                    	</c:if>
+                    </c:if>
                   </div>
                 </c:forEach> 
                   </div>
