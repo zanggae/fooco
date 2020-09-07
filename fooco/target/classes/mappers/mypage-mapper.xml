@@ -204,7 +204,7 @@ WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
 <!-- mylist 영은 -->
 
 <!-- mylist 등록 -->
-<insert id="insertMylist" parameterType="ThemeAdmin">
+<insert id="insertMylist" parameterType="hashmap">
 INSERT INTO MYLIST VALUES
 (SEQ_MYLISTID.NEXTVAL,#{themeTitle},SYSDATE,SYSDATE,DEFAULT,NULL,#{themeWriter})
 </insert>

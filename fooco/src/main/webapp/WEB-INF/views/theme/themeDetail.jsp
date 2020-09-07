@@ -86,7 +86,7 @@
     .text2 {
       background-color: none;
       position: absolute;
-      top: 14rem;
+      top: 5rem;
       left: 48rem;
       transform: translate(-50%, -50%);
       font-size: 2.5rem;
@@ -205,7 +205,8 @@
   <div class="text2">${theme.themeTitle}</div>
   <div id="test">
     <div class="container">
-      <br><br><br>
+         	<c:forEach var="r" items="${restaurant }">
+      <br><br>
       <div class="row">
         <!--왼쪽 여백-->
         <div class="col-2">
@@ -213,25 +214,26 @@
         <div class="boundary" >
           <!--사진구역-->
           <div class="col-4" style="  width:300px;height:183.2px;display:inline-block;">
-            <img src="img/sushi1.jpg" class="img1">
+            <img src="resources/restaurantImage_ye/${t.themeImageName}" class="img1">
           </div>
-  
           <!--내용 구역-->
           <div class="col-7" style="display:inline-block;width:500px; margin-left : 0.5rem;
           margin-top: 0.7rem;">
             <div class="row" style="margin-top: 1rem;">
-              <h1 class="title" >1.영은스시</h1>
+              <h1 class="title" >${r.resName}</h1>
               <i class="fas fa-star" id="star"></i>
-              <h1 class="score">4.9</h1>
+              <h1 class="score">${r.reviewRatingAvg }</h1>
             </div>
-            <div class="address">경기도 평택시 평택로길 184번길 1
+            <div class="address">${r.resAddress }
             </div>
             <br>
-            <div class="nickname">큐티지민
+            <div class="nickname">"${loginUser.nickName}
             </div>
-            <div class="content">평택에서 여기 모르면 간첩이라고 해서 가봤어요!! 회 두께도 엄청 두껍고 입에서 살살 녹네요!! 너무...
-              <a href="http://www.naver.com" class="see_more">&nbsp;더보기</a>
+            <div class="content" style="height : 3rem; overflow-y : auto; overflow-x : hidden;">${r.reviewContent }
+            </div>
+              
               <div><a href="http://www.naver.com" class="detailInfo">영은스시 더보기 ></a>
+        
               </div>
               <br>
             </div>
@@ -239,15 +241,26 @@
           </div>
         </div>
           <!--오른쪽 여백-->
+        <%-- 
+           <div class="title">${board.boardTitle }
+        </div>
+        <div class="date">
+           ${board.boardCreateDate }
+        </div>
+        <div class="row">
+          <div class="col-1">
+          </div>
+          <div class="col-10">
+            <div class="content">
+          		${board.boardContent } --%>
         
-          
-        
-      </div>
+     
 
       
 
     </div>
     <!--container끝-->
+    </c:forEach>
  	</div>
  	</section>
   <br><br><br> <br><br><br>	 <br><br><br> <br><br><br> <br><br><br> <br><br><br>

@@ -4,7 +4,7 @@
 
 
 
-<resultMap type="Theme" id="ThemeResultSet">
+<resultMap type="Theme" id="ThemeResultSet1">
 	<id property="themeId" column="THEME_ID"/>
    	<result property="themeTitle" column="THEME_TITLE"/>
    	<result property="themeUploadDate" column="THEME_UPLOAD_DATE"/>
@@ -26,56 +26,60 @@
 
 </resultMap>
 
+<resultMap type="ThemeAdmin" id="ThemeResultSet">
+   <id property="themeId" column="THEME_ID"/>
+      <result property="themeTitle" column="THEME_TITLE"/>
+      <result property="themeUploadDate" column="THEME_UPLOAD_DATE"/>
+      <result property="themeModifyDate" column="THEME_MODIFY_DATE"/>
+      <result property="themeWriter" column="MEMBER_NO"/>
+      <result property="themeCount" column="THEME_COUNT"/>
+      <result property="themeImageName" column="RES_IMAGE_NAME"/>       
+</resultMap>
+
 
 
 <!-- 테마 메인 조회 쿼리-->
-<select id="selectListTheme" resultMap="ThemeResultSet" >
-	SELECT
-	THEME_ID,THEME_TITLE,RES_ID,IMAGE_ID,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH,
-	RANK() OVER (ORDER BY THEME_COUNT DESC) AS COUNT
-	FROM SELECT_THEME
-	
+<select id="selectListTheme" resultMap="ThemeResultSet" >	
+	<![CDATA[
+	SELECT * FROM (
+	SELECT * FROM SELECT_THEME_ADMIN
+	ORDER BY THEME_COUNT DESC
+	) WHERE ROWNUM <=6
+	]]>
 </select>
 
 <!-- 검색한 테마 조회 -->
 <select id="searchListTheme" parameterType="string" resultMap="ThemeResultSet">
-	SELECT
-	THEME_ID,THEME_TITLE,RES_ID,IMAGE_ID,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH
-	FROM SELECT_THEME
-	WHERE THEME_TITLE LIKE '%'||#{searchTheme}||'%' ORDER BY THEME_TITLE
-
+	<![CDATA[
+	SELECT * FROM (
+	SELECT * FROM SELECT_THEME_ADMIN
+	ORDER BY THEME_COUNT DESC
+	) WHERE THEME_TITLE LIKE '%'||#{searchTheme}||'%' ORDER BY THEME_TITLE
+	]]>
 </select>
 
+
+<select id="mythemeList" parameterType="_int" resultType="int">
+
+	SELECT THEME_NO FROM THEME_BOOKMARK WHERE MEMBER_NO=#{themeWriter}
+
+</select>
 
 
 <!-- 테마 즐겨찾기 쿼리-->
-<insert id="insertThemeLike">
-	INSERT INTO THEME_BOOKMARK (MEMBER_NO, THEME_NO)
-	VALUES(#{memberNo}, #{themeNo))
+<insert id="insertBookmark" parameterType="hashmap">
+	
+	INSERT INTO THEME_BOOKMARK VALUES(
+	SEQ_THEME_BOOKMARKID.NEXTVAL, #{themeWriter}, #{bookmarkId})
+	
 </insert>
 
-<delete id="deleteThemeLike">
+<delete id="deleteBookmark" parameterType="hashmap">
+	
 	DELETE FROM THEME_BOOKMARK
-	WHERE MEMBER_NO = #{themeNo} AND MEMBER_NO = #{memberNo}
+	WHERE THEME_NO = #{bookmarkId} AND MEMBER_NO = #{themeWriter}
+
 </delete>
-
-<select id="updateThemeLike">
-	UPDATE THEME
-	SET THEME_BOOKMARK_COUNT = (SELECT COUNT(*)
-	FROM THEME_BOOKMARK
-	WHERE THEME_NO = #{themeNo})
-	WHERE THEME_ID = #{themeId}
-
-</select>
-
-<select id="getThemeLike" resultType="int">
-	SELECT COUNT(THEME_BOOKMARK_ID) FROM THEME_BOOKMARK
-	WHERE THEME_NO = #{themeNo} AND MEMBER_NO = #{memberNo}
-</select>
-
-
-
-
-
+	
 
 </mapper>

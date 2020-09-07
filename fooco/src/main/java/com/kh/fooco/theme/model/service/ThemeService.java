@@ -3,6 +3,7 @@ package com.kh.fooco.theme.model.service;
 import java.util.ArrayList;
 
 import com.kh.fooco.theme.model.vo.Theme;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.theme.model.vo.ThemeBookmark;
 
 public interface ThemeService {
@@ -17,9 +18,18 @@ public interface ThemeService {
 	void insertThemeLike(ThemeBookmark tb);
 
 
-	ArrayList<Theme> selectListTheme();
+	ArrayList<ThemeAdmin> selectListTheme();
 
 
-	ArrayList<Theme> searchListTheme(String searchTheme);
+	ArrayList<ThemeAdmin> searchListTheme(String searchTheme);
+
+
+	ArrayList<Integer> mythemeList(int themeWriter);
+
+
+	int insertBookmark(String bookmarkId, int themeWriter);
+
+
+	int deleteBookmark(String bookmarkId, int themeWriter);
 
 }
