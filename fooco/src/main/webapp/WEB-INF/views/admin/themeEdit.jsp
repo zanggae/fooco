@@ -209,8 +209,8 @@
 		})
 		function goDetail(id){
         	var themeId = $(id).attr('value');
-        	alert(themeId);
-        	/* location.href="goDetailRestaurant.do?resId="+resId; */
+        	/* alert(themeId); */
+        	location.href="themedetail.do?themeId="+themeId;
         }
 		function goModify(id){
 			var themeId = $(id).attr('value');
