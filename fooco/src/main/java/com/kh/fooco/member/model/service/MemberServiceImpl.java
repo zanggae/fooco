@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.dao.MemberDao;
 import com.kh.fooco.member.model.vo.Checkin;
+import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
@@ -168,7 +170,20 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.insertCheckin(ck);
 	}
+	
+	// 체크인 등록 페이지에서 이미지 테이블 입력 작업
+	@Override
+	public int insertImage(Image img) {
+	
+		return memberDao.insertImage(img);
+	}
+	
+	// 체크인 등록 페이지에서 체크인이미지 테이블 입력 작업
+	@Override
+	public int insertCheckinImage(CheckinImage ckimg) {
 
+		return memberDao.insertCheckinImage(ckimg);
+	}
 	
 	// ================================== Mylist 영은==========================================
 
@@ -192,6 +207,12 @@ public class MemberServiceImpl implements MemberService{
 	public int insertMylistRes(String th) {
 		return memberDao.insertMylistRes(th);
 	}
+
+
+
+
+
+
 
 	
 

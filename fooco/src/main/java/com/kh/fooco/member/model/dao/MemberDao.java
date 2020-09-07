@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.vo.Checkin;
+import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
@@ -139,6 +141,17 @@ public class MemberDao {
 		return sqlSessionTemplate.insert("mypageMapper.insertCheckin",ck);
 	}
 	
+	// 체크인 등록 페이지에서 이미지 테이블 입력 작업
+	public int insertImage(Image img) {
+		
+		return sqlSessionTemplate.insert("mypageMapper.insertImage",img);
+	}
+	
+	// 체크인 등록 페이지에서 체크인이미지 테이블 입력 작업
+	public int insertCheckinImage(CheckinImage ckimg) {
+		
+		return sqlSessionTemplate.insert("mypageMapper.insertCheckinImage", ckimg);
+	}
 	
 	
 	// ================================== Mylist 영은 ===========================================
@@ -166,7 +179,11 @@ public class MemberDao {
 	public int insertMylistRes(String theme) {
 		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
 	}
-	
+
+
+
+
+
 
 
 	

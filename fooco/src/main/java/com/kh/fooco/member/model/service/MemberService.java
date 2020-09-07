@@ -3,7 +3,9 @@ package com.kh.fooco.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.vo.Checkin;
+import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
@@ -57,6 +59,10 @@ public interface MemberService {
 	
 	int insertCheckin(Checkin ck);
 	
+	int insertImage(Image img);
+	
+	int insertCheckinImage(CheckinImage ckimg);
+	
 	// ================================== Mylist 영은 ===========================================
 
 
@@ -67,6 +73,12 @@ public interface MemberService {
 	int insertMylist(String themeTitle, int themeWriter);
 
 	int insertMylistRes(String th);
+
+
+
+
+
+
 	
 
 }

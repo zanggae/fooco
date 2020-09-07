@@ -122,7 +122,7 @@
             <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem; padding-bottom: 1rem;">
               <div class="col-1"></div>
               <div class="col-10">
-                <form action="myPageCheckinRegister.do" method="get">
+                <form action="myPageCheckinRegister.do" method="post" enctype="Multipart/form-data">
                   <div style="margin-left: 3rem;">
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">방문 식당 검색</label>
@@ -171,17 +171,17 @@
     				
                     <div class="row" style="margin-bottom:0.5rem;">
                       <label class="checkin_label">사진첨부1</label>
-                      <input type="file" id="addpoto1" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
+                      <input type="file" id="addpoto1" name="file" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
                     </div>
     
                     <div class="row" id="addpotoarea2" style="display:none; margin-bottom:0.5rem;">
                       <label class="checkin_label">사진첨부2</label>
-                      <input type="file" id="addpoto2" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
+                      <input type="file" id="addpoto2" name="file"  accept="image/gif,image/jpeg,image/png" style="width:13rem;">
                     </div>
     
                     <div class="row" id="addpotoarea3" style="margin-bottom: 2rem; display:none;">
                       <label class="checkin_label">사진첨부3</label>
-                      <input type="file" id="addpoto3" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
+                      <input type="file" id="addpoto3" name="file" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
                     </div>
                   
                   </div>

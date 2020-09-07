@@ -197,7 +197,6 @@ WHERE NICKNAME = #{nickName}
 SELECT RES_ID, RES_NAME, RES_ADDRESS, RES_IMAGE_NAME 
 FROM SELECT_RESTAURANT 
 WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
-
 </select>
 
 <!-- 체크인 테이블에 값 넣는 쿼리 -->
@@ -214,12 +213,33 @@ INSERT INTO CHECKIN VALUES(
 </insert>
 
 <!-- 체크인 이미지 테이블에 값을 넣는 쿼리 -->
+<insert id="insertCheckinImage" parameterType="CheckinImage">
+INSERT INTO CHECKIN_IMAGE VALUES(
+	SEQ_CHECKINIMGID.CURRVAL
+	,SEQ_CHECKINID.CURRVAL
+)
+</insert>
+
 <!-- 이미지 테이블에 값을 넣는 쿼리 -->
+<insert id="insertImage" parameterType="Image">
+INSERT INTO IMAGE VALUES(
+	SEQ_CHECKINIMGID.NEXTVAL
+	,#{imageOriginName}
+	,#{imageNewName}
+	,'checkinImage'
+	,SYSDATE
+	,'1'
+	,'Y'
+	,'0'
+)
+</insert>
+
+
 
 <!--  -->
 
 
-<!-- mylist 영은 -->
+<!-- =========================== mylist 영은 ================================================ -->
 
 <!-- mylist 등록 -->
 <insert id="insertMylist" parameterType="ThemeAdmin">
