@@ -50,7 +50,6 @@ public class RestaurantController {
 		
 		System.out.println("page: " + page + ", keyword: " + keyword + ", locationId: " + locationId + ", sortType: " + sortType + ", filters: " + filters + ", categories: " + categories);
 		
-		// 
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
 		searchParameter.put("filters", filters);
 		searchParameter.put("keyword", keyword);
