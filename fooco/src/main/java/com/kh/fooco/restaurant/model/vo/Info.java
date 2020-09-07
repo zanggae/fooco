@@ -9,19 +9,19 @@ public class Info implements Serializable {
 	
 	private int resId;
 	private String infoCategoryName;
-	private String infoBestMenu;
 	private String infoOperatingTime;
-	private ArrayList<Option> infoOption;
+	private ArrayList<Filter> infoFilter;	
+	private ArrayList<Bestmenu> bestmenu;
 	
 	public Info() {}
-	public Info(int resId, String infoCategoryName, String infoBestMenu, String infoOperatingTime,
-			ArrayList<Option> infoOption) {
+	public Info(int resId, String infoCategoryName, String infoOperatingTime, ArrayList<Filter> infoFilter,
+			ArrayList<Bestmenu> bestmenu) {
 		super();
 		this.resId = resId;
 		this.infoCategoryName = infoCategoryName;
-		this.infoBestMenu = infoBestMenu;
 		this.infoOperatingTime = infoOperatingTime;
-		this.infoOption = infoOption;
+		this.infoFilter = infoFilter;
+		this.bestmenu = bestmenu;
 	}
 	public int getResId() {
 		return resId;
@@ -35,28 +35,28 @@ public class Info implements Serializable {
 	public void setInfoCategoryName(String infoCategoryName) {
 		this.infoCategoryName = infoCategoryName;
 	}
-	public String getInfoBestMenu() {
-		return infoBestMenu;
-	}
-	public void setInfoBestMenu(String infoBestMenu) {
-		this.infoBestMenu = infoBestMenu;
-	}
 	public String getInfoOperatingTime() {
 		return infoOperatingTime;
 	}
 	public void setInfoOperatingTime(String infoOperatingTime) {
 		this.infoOperatingTime = infoOperatingTime;
 	}
-	public ArrayList<Option> getInfoOption() {
-		return infoOption;
+	public ArrayList<Filter> getInfoFilter() {
+		return infoFilter;
 	}
-	public void setInfoOption(ArrayList<Option> infoOption) {
-		this.infoOption = infoOption;
+	public void setInfoFilter(ArrayList<Filter> infoFilter) {
+		this.infoFilter = infoFilter;
+	}
+	public ArrayList<Bestmenu> getBestmenu() {
+		return bestmenu;
+	}
+	public void setBestmenu(ArrayList<Bestmenu> bestmenu) {
+		this.bestmenu = bestmenu;
 	}
 	@Override
 	public String toString() {
-		return "Info [resId=" + resId + ", infoCategoryName=" + infoCategoryName + ", infoBestMenu=" + infoBestMenu
-				+ ", infoOperatingTime=" + infoOperatingTime + ", infoOption=" + infoOption + "]";
+		return "Info [resId=" + resId + ", infoCategoryName=" + infoCategoryName + ", infoOperatingTime="
+				+ infoOperatingTime + ", infoFilter=" + infoFilter + ", bestmenu=" + bestmenu + "]";
 	}
 	
 }

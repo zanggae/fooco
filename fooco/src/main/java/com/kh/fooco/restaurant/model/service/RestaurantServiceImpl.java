@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.dao.RestaurantDao;
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.restaurant.model.vo.Review;
 
@@ -25,6 +27,16 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public ArrayList<Restaurant> getList(HashMap<String, Object> searchParameter, PageInfo pi) {
 		return restaurantDao.getList(searchParameter, pi);
+	}
+
+	@Override
+	public Res getRestaurantDetail(Integer resId) {
+		return restaurantDao.getRestaurantDetail(resId);
+	}
+
+	@Override
+	public Info getRestaurantInfo(Integer resId) {
+		return restaurantDao.getRestaurantInfo(resId);
 	}
 
 

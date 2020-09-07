@@ -7,6 +7,10 @@ import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 
+import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
+import com.kh.fooco.member.model.vo.Mylist;
+
 public interface MemberService {
 
 	Member loginMember(Member m);
@@ -41,6 +45,26 @@ public interface MemberService {
 	int updateMemberInfo(Member m);
 
 	int updateMemberWithdrawal(Member m);
+
+	int selectOneReviewCount(Member m);
+
+	int selectOneMyListCount(Member m);
+
+	int selectOneCheckInCount(Member m);
+
+	ArrayList<Restaurant> selectListRestaurant(String restitle);
+	
+	
+	// ================================== Mylist 영은 ===========================================
+
+
+	ArrayList<Mylist> searchListRes(String searchRes);
+
+	Mylist selectmylist(int mlId1);
+
+	int insertMylist(String themeTitle, int themeWriter);
+
+	int insertMylistRes(String th);
 	
 
 }

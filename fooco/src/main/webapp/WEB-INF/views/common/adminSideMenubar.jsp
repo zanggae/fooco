@@ -65,7 +65,7 @@
           <a href="boardEdit.do">게시판관리</a>
         </li>
         <li>
-          <a href="restaurantRegistration.do">통계</a>
+          <a href="#">통계</a>
         </li>
   
       </ul>

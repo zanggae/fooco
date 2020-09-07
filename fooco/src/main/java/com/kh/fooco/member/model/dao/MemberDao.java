@@ -1,14 +1,19 @@
 package com.kh.fooco.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
+import com.kh.fooco.member.model.vo.Mylist;
 
 
 @Repository("memberDao")
@@ -103,8 +108,60 @@ public class MemberDao {
 		
 		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectFollowing",m);
 	}
+
+	
+	// 나의 활동 리뷰 수 메소드
+	public int selectOneReviewCount(Member m) {
+		
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneReviewCount",m);
+	}
+	// 나의 활동 마이리스트 수 메소드
+	public int selectOneMyListCount(Member m) {
+		
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneMyListCount",m);
+	}
+	// 나의 활동 체크인 수 메소드
+	public int selectOneCheckInCount(Member m) {
+		
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneCheckInCount",m);
+	}
+
+	// 체크인 등록 페이지에서 음식점 조회
+	public ArrayList<Restaurant> selectListRestaurant(String restitle) {
+	
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectListRestaurant", restitle);
+	}
 	
 	
+	
+	
+	// ================================== Mylist 영은 ===========================================
+
+	public ArrayList<Mylist> searchListRes(String searchRes) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.searchListRes",searchRes);
+	}
+
+	public Mylist selectmylist(int mlId1) {
+		System.out.println("쿼리 실행 전 : " + mlId1);
+		Mylist ret = sqlSessionTemplate.selectOne("mypageMapper.selectmylist",mlId1);
+		System.out.println("쿼리 실행 후 Mylist : " + ret);
+		return ret;
+	}
+
+	public int insertMylist(String themeTitle, int themeWriter) {
+		HashMap<String, Object> updateParameter = new HashMap<String, Object>();
+		updateParameter.put("themeTitle", themeTitle);
+		updateParameter.put("themeWriter", themeWriter);
+		
+		return sqlSessionTemplate.insert("mypageMapper.insertMylist",updateParameter);
+	}
+
+	public int insertMylistRes(String theme) {
+		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
+	}
+	
+
 	
 
 }

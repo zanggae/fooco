@@ -26,6 +26,7 @@ public class Restaurant implements Serializable {
 	private String resImageFilepath;			// 맛집썸네일이미지파일경로
 	private String locationName;				// 맛집지역이름
 	private int reviewId;						// 리뷰번호(좋아요가 제일많은리뷰1)
+	private String reviewContent;				// 리뷰내용
 	private int reviewRatingAvg;				// 리뷰평점
 	private String reviewProfileImageName;		// 리뷰남긴사람의 프로필사진이름
 	private String reviewProfileImageFilepath;	// 리뷰남긴사람의 프로필사진경로
@@ -41,8 +42,9 @@ public class Restaurant implements Serializable {
 	public Restaurant(int resId, int resCategoryId, int locationId, String resName, String resAddress,
 			String resContent, int resViewCount, String resTime, String resStatus, Date resCreateDate,
 			Date resUpdateDate, String resPhone, String resImageName, String resImageFilepath, String locationName,
-			int reviewId, int reviewRatingAvg, String reviewProfileImageName, String reviewProfileImageFilepath,
-			String reviewNickname, int bookmarkCount, int reviewCount, String resCategoryName) {
+			int reviewId, String reviewContent, int reviewRatingAvg, String reviewProfileImageName,
+			String reviewProfileImageFilepath, String reviewNickname, int bookmarkCount, int reviewCount,
+			String resCategoryName) {
 		super();
 		this.resId = resId;
 		this.resCategoryId = resCategoryId;
@@ -60,6 +62,7 @@ public class Restaurant implements Serializable {
 		this.resImageFilepath = resImageFilepath;
 		this.locationName = locationName;
 		this.reviewId = reviewId;
+		this.reviewContent = reviewContent;
 		this.reviewRatingAvg = reviewRatingAvg;
 		this.reviewProfileImageName = reviewProfileImageName;
 		this.reviewProfileImageFilepath = reviewProfileImageFilepath;
@@ -197,6 +200,14 @@ public class Restaurant implements Serializable {
 		this.reviewId = reviewId;
 	}
 
+	public String getReviewContent() {
+		return reviewContent;
+	}
+
+	public void setReviewContent(String reviewContent) {
+		this.reviewContent = reviewContent;
+	}
+
 	public int getReviewRatingAvg() {
 		return reviewRatingAvg;
 	}
@@ -264,12 +275,14 @@ public class Restaurant implements Serializable {
 				+ ", resViewCount=" + resViewCount + ", resTime=" + resTime + ", resStatus=" + resStatus
 				+ ", resCreateDate=" + resCreateDate + ", resUpdateDate=" + resUpdateDate + ", resPhone=" + resPhone
 				+ ", resImageName=" + resImageName + ", resImageFilepath=" + resImageFilepath + ", locationName="
-				+ locationName + ", reviewId=" + reviewId + ", reviewRatingAvg=" + reviewRatingAvg
-				+ ", reviewProfileImageName=" + reviewProfileImageName + ", reviewProfileImageFilepath="
-				+ reviewProfileImageFilepath + ", reviewNickname=" + reviewNickname + ", bookmarkCount=" + bookmarkCount
-				+ ", reviewCount=" + reviewCount + ", resCategoryName=" + resCategoryName + "]";
+				+ locationName + ", reviewId=" + reviewId + ", reviewContent=" + reviewContent + ", reviewRatingAvg="
+				+ reviewRatingAvg + ", reviewProfileImageName=" + reviewProfileImageName
+				+ ", reviewProfileImageFilepath=" + reviewProfileImageFilepath + ", reviewNickname=" + reviewNickname
+				+ ", bookmarkCount=" + bookmarkCount + ", reviewCount=" + reviewCount + ", resCategoryName="
+				+ resCategoryName + "]";
 	}
 
+	
 	
 	
 }
