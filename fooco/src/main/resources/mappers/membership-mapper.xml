@@ -66,5 +66,14 @@
 <update id="updateMembershipStatus" >
 	<![CDATA[UPDATE MEMBERSHIP_LIST SET MS_STATUS = 'N' WHERE TO_CHAR(MEMBERSHIP_EXPIREDATE, 'YYYYMMDD') <= TO_CHAR(SYSDATE,'YYYYMMDD')]]>
 </update>
-  
+ 
+<!-- 골드 맴버십 가입시 static 테이블 goldCount update -->
+<update id="updateStaticGoldCount">
+	UPDATE STATIC SET GOLD_COUNT = GOLD_COUNT+1 WHERE TO_CHAR(STATIC_DATE,'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+</update>
+
+<!-- 실버 맴버십 가입시 static 테이블 silverCount update -->
+<update id="updateStaticSilverCount">
+	UPDATE STATIC SET SILVER_COUNT = SILVER_COUNT+1 WHERE TO_CHAR(STATIC_DATE,'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+</update>
 </mapper>

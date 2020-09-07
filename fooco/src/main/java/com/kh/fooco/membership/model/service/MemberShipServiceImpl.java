@@ -74,6 +74,16 @@ public class MemberShipServiceImpl implements MemberShipService{
 		
 		return memberShipDao.updateMembershipStatus();
 	}
+	// 골드 맴버십 가입시 관리자 테이블에 goldCount update
+	@Override
+	public int updateStaticGoldCount() {
+		return memberShipDao.updateStaticGoldCount();
+	}
+	// 실버 맴버십 가입시 관리자 테이블에 silverCount update
+	@Override
+	public int updateStaticSilverCount() {
+		return memberShipDao.updateStaticSilverCount();
+	}
 
 
 }

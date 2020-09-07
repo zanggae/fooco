@@ -69,6 +69,14 @@ public class MemberShipDao {
 		
 		return sqlSessionTemplate.update("membershipMapper.updateMembershipStatus");
 	}
+
+	public int updateStaticGoldCount() {
+		return sqlSessionTemplate.update("membershipMapper.updateStaticGoldCount");
+	}
+
+	public int updateStaticSilverCount() {
+		return sqlSessionTemplate.update("membershipMapper.updateStaticSilverCount");
+	}
 	
 	
 

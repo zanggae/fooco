@@ -121,7 +121,7 @@
 	                  <tr>
 	                  	<td style="display: none">${r.resId}</td>
 	                    <td align="center">
-	                      <img src="${r.resImageFilepath}/${r.resImageName}" width="60" height="60">
+	                      <img src="resources/${r.resImageFilepath}/${r.resImageName}" width="60" height="60">
 	                    </td>
 	                    <td>${r.resName}</td>
 	                    <td>${r.locationName }</td>
@@ -236,8 +236,8 @@
 		})
 		function goDetail(id){
         	var resId = $(id).attr('value');
-        	alert(resId);
-        	/* location.href="goDetailRestaurant.do?resId="+resId; */
+        	/* alert(resId); */
+        	location.href="goDetailRestaurant.do?resId="+resId;
         }
 		function goModify(id){
 			var resId = $(id).attr('value');
