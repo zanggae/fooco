@@ -17,7 +17,6 @@
 		<typeAlias type="com.kh.fooco.membership.model.vo.MemberShip" alias="Membership"/>	
 		<typeAlias type="com.kh.fooco.membership.model.vo.Coupon" alias="Coupon"/>	
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Restaurant" alias="Restaurant"/>
-		<typeAlias type="com.kh.fooco.theme.model.vo.Theme" alias="Theme"/>
 		<typeAlias type="com.kh.fooco.theme.model.vo.ThemeBookmark" alias="ThemeBookmark"/>
 		<typeAlias type="com.kh.fooco.theme.model.vo.ThemeAdmin" alias="ThemeAdmin"/>		
 		<typeAlias type="com.kh.fooco.member.model.vo.Follower" alias="Follower"/>
@@ -29,6 +28,10 @@
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Info" alias="Info"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Bestmenu" alias="Bestmenu"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.ResImage" alias="ResImage"/>
+		<typeAlias type="com.kh.fooco.member.model.vo.Checkin" alias="Checkin"/>
+		<typeAlias type="com.kh.fooco.member.model.vo.CheckinImage" alias="CheckinImage"/>
+		<typeAlias type="com.kh.fooco.member.model.vo.Select_Checkin" alias="Select_Checkin"/>
+		<typeAlias type="com.kh.fooco.member.model.vo.Select_CheckinImage" alias="Select_CheckinImage"/>
 	</typeAliases>
 	
 	<mappers>

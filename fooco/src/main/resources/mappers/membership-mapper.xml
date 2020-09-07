@@ -35,7 +35,7 @@
     	SELECT *
     	FROM DUAL 
 </insert>
-
+<!-- 해야하는 것 -> coupon1을 6개/12개 insert -->
 <insert id="insertCoupon1" parameterType="Membership">
       INSERT INTO COUPON_LIST VALUES(SEQ_COUPONLISTID.NEXTVAL,#{buy_coupon1},SEQ_MEMBERSHIPLISTID.CURRVAL,SYSDATE,SYSDATE+(INTERVAL '1' MONTH),DEFAULT)   
 </insert>
@@ -54,11 +54,17 @@
     AND MEMBER_ID=#{memberId}
 </select>
 
-<select id="checkmembership" resultMap="membershipResultSet">
+<!-- 사용하는 멤버십 있는지 조회 -->
+<select id="checkmembership" resultMap="membershipResultSet" parameterType="_int">
 	SELECT MEMBERSHIP_ENROLLDATE,MEMBERSHIP_EXPIREDATE,MEMBERSHIP_NAME
 	FROM MEMBERSHIP_LIST,MEMBERSHIP
 	WHERE MEMBERSHIP_LIST.MEMBERSHIP_ID=MEMBERSHIP.MEMBERSHIP_ID
-    AND MEMBER_ID=#{buy_memberId} AND MS_STATUS='Y'
+    AND MEMBER_ID=#{MembershipUser} AND MS_STATUS='Y'
 </select>
+
+<!-- 멤버십 상태 update -->
+<update id="updateMembershipStatus" >
+	<![CDATA[UPDATE MEMBERSHIP_LIST SET MS_STATUS = 'N' WHERE TO_CHAR(MEMBERSHIP_EXPIREDATE, 'YYYYMMDD') <= TO_CHAR(SYSDATE,'YYYYMMDD')]]>
+</update>
   
 </mapper>

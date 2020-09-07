@@ -58,11 +58,18 @@ public class MemberShipDao {
 		return (ArrayList)sqlSessionTemplate.selectList("membershipMapper.selectforMembership",memberId);
 	}
 
-	public ArrayList<MemberShip> checkmembership(MemberShip membership) {
+	//사용 중인 멤버십 있는 지 check하는 select
+	public MemberShip checkmembership(int MembershipUser) {
 		
-		return (ArrayList)sqlSessionTemplate.selectList("membershipMapper.checkmembership",membership);
+		return sqlSessionTemplate.selectOne("membershipMapper.checkmembership",MembershipUser);
 	}
 
+	//멤버십 상태 변경 update
+	public int updateMembershipStatus() {
+		
+		return sqlSessionTemplate.update("membershipMapper.updateMembershipStatus");
+	}
+	
 	
 
 }

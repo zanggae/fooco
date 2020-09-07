@@ -27,7 +27,6 @@
 	<result property="file_path" column="FILE_PATH"></result>	
 </resultMap>
 
-
 <resultMap type="Follower" id="followerListResultSet">
 	<result property="memberId" column="MEMBER_ID"></result>
 	<result property="nickName" column="NICKNAME"></result>
@@ -35,8 +34,6 @@
 	<result property="followerCount" column="FOLLOWER_COUNT"></result>
 	<result property="followingCount" column="FOLLOWING_COUNT"></result>	
 </resultMap>
-
-
 
 <resultMap type="Restaurant" id="restaurantListResultSet">
 		<id property="resId" column="RES_ID" />
@@ -53,6 +50,32 @@
 		<result property="resPhone" column="RES_PHONE"/>
 		<result property="resImageName" column="RES_IMAGE_NAME"/>
 </resultMap>
+
+
+<resultMap type="Select_Checkin" id="CheckinListResultSet">
+	<id property="checkinId" column="CHECKIN_ID" />
+	<result property="memberId" column="MEMBER_ID" />
+	<result property="resId" column="RES_ID" />
+	<result property="checkinCreateDate" column="CHECKIN_CREATE_DATE" />
+	<result property="checkinUpdateDate" column="CHECKIN_UPDATE_DATE" />
+	<result property="checkinVisitDate" column="CHECKIN_VISIT_DATE" />
+	<result property="checkinContent" column="CHECKIN_CONTENT" />
+	<result property="resName" column="RES_NAME" />
+	<result property="resImage" column="IMAGE_NEW_NAME" />
+	<collection property="checkinImageList" column="CHECKIN_ID" ofType="Select_CheckinImage" select="getCheckinImageList"/>
+</resultMap>
+
+
+
+<resultMap type="Select_CheckinImage" id="CheckinImageListResultSet">
+	<id property="imageId" column="IMAGE_ID" />
+	<result property="checkinId" column="CHECKIN_ID" />
+	<result property="imageNewName" column="IMAGE_NEW_NAME" />
+</resultMap>
+
+
+
+
 
 <!-- Mylist 영은 -->
 <resultMap type="Mylist" id="mylistResultSet">
@@ -78,7 +101,7 @@
 	
 </resultMap>
 
-	
+
 
 
 <!-- 팔로워 수 카운트 쿼리 -->
@@ -197,11 +220,64 @@ WHERE NICKNAME = #{nickName}
 SELECT RES_ID, RES_NAME, RES_ADDRESS, RES_IMAGE_NAME 
 FROM SELECT_RESTAURANT 
 WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
+</select>
+
+<!-- 체크인 테이블에 값 넣는 쿼리 -->
+<insert id="insertCheckin" parameterType="Checkin">
+INSERT INTO CHECKIN VALUES(
+		SEQ_CHECKINID.NEXTVAL
+		,#{memberId}
+		,#{resId}
+		,SYSDATE
+		,SYSDATE
+		,#{checkinVisitDate}
+		,#{checkinContent}
+)
+</insert>
+
+<!-- 체크인 이미지 테이블에 값을 넣는 쿼리 -->
+<insert id="insertCheckinImage" parameterType="CheckinImage">
+INSERT INTO CHECKIN_IMAGE VALUES(
+	SEQ_IMAGEID.CURRVAL
+	,SEQ_CHECKINID.CURRVAL
+)
+</insert>
+
+<!-- 이미지 테이블에 값을 넣는 쿼리 -->
+<insert id="insertImage" parameterType="Image">
+INSERT INTO IMAGE VALUES(
+	SEQ_IMAGEID.NEXTVAL
+	,#{imageOriginName}
+	,#{imageNewName}
+	,'checkinImage'
+	,SYSDATE
+	,'1'
+	,'Y'
+	,'0'
+)
+</insert>
+
+<select id="selectCheckinList" parameterType="_int" resultMap="CheckinListResultSet">
+SELECT CK.*, R.RES_NAME,IMG.IMAGE_NEW_NAME
+FROM CHECKIN CK
+LEFT JOIN RESTAURANT R ON (CK.RES_ID = R.RES_ID)
+LEFT JOIN RES_IMAGE RIMG ON (R.RES_ID = RIMG.RES_ID)
+LEFT JOIN IMAGE IMG ON (RIMG.IMAGE_ID = IMG.IMAGE_ID)
+WHERE CK.MEMBER_ID = #{memberId}
+ORDER BY CK.CHECKIN_ID ASC
 
 </select>
 
+<select id="getCheckinImageList" resultMap="CheckinImageListResultSet">
+SELECT CK.CHECKIN_ID, IMG.IMAGE_ID, IMG.IMAGE_NEW_NAME
+FROM CHECKIN CK
+LEFT JOIN CHECKIN_IMAGE CIMG ON(CK.CHECKIN_ID = CIMG.CHECKIN_ID)
+LEFT JOIN IMAGE IMG ON(CIMG.IMAGE_ID = IMG.IMAGE_ID)
+WHERE CK.CHECKIN_ID = #{checkinId}
+</select>	
 
-<!-- mylist 영은 -->
+
+<!-- =========================== mylist 영은 ================================================ -->
 
 <!-- mylist 등록 -->
 <insert id="insertMylist" parameterType="hashmap">

@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.common.model.vo.Image;
+import com.kh.fooco.member.model.vo.Checkin;
+import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Checkin;
 
 
 @Repository("memberDao")
@@ -132,8 +136,29 @@ public class MemberDao {
 		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectListRestaurant", restitle);
 	}
 	
+	// 체크인 등록 페이지에서 체크인 테이블 입력 작업
+	public int insertCheckin(Checkin ck) {
+		
+		return sqlSessionTemplate.insert("mypageMapper.insertCheckin",ck);
+	}
 	
+	// 체크인 등록 페이지에서 이미지 테이블 입력 작업
+	public int insertImage(Image img) {
+		
+		return sqlSessionTemplate.insert("mypageMapper.insertImage",img);
+	}
 	
+	// 체크인 등록 페이지에서 체크인이미지 테이블 입력 작업
+	public int insertCheckinImage(CheckinImage ckimg) {
+		
+		return sqlSessionTemplate.insert("mypageMapper.insertCheckinImage", ckimg);
+	}
+	
+	// 체크인 리스트 조회 메소드
+	public ArrayList<Select_Checkin> selectCheckinList(int memberId) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectCheckinList", memberId);
+	}
 	
 	// ================================== Mylist 영은 ===========================================
 
@@ -160,7 +185,14 @@ public class MemberDao {
 	public int insertMylistRes(String theme) {
 		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
 	}
-	
+
+
+
+
+
+
+
+
 
 	
 

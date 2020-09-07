@@ -18,113 +18,99 @@ import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.exception.ThemeException;
 import com.kh.fooco.theme.model.service.ThemeService;
-import com.kh.fooco.theme.model.vo.Theme;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @Controller
 public class ThemeController {
 	@Autowired
 	private ThemeService themeService;
-	
-	//테마메인, 검색
-	
+
+	// 테마메인, 검색
+
 	@RequestMapping("themeDetail.do")
 	public String themeDetail() {
 		return "theme/themeDetail";
 	}
+
 	@RequestMapping("themeMain.do")
-	public ModelAndView themeMain( ModelAndView mv,
-			@RequestParam(value="searchTheme", required=false) String searchTheme) {
-		
+	public ModelAndView themeMain(ModelAndView mv,
+			@RequestParam(value = "searchTheme", required = false) String searchTheme) {
+
 		int themeWriter = 81;
 //      Member loginUser = (Member)session.getAttribute("loginUser");
 //      themeWriter = loginUser.getMemberId();   
-			
+
 		ArrayList<ThemeAdmin> theme = new ArrayList<ThemeAdmin>();
-		
-		
-		if(searchTheme == null) {
-			
+
+		if (searchTheme == null) {
+
 			theme = themeService.selectListTheme();
 			System.out.println("검색어 없을 때 조회" + theme);
-			
-		}else {
+
+		} else {
 			theme = themeService.searchListTheme(searchTheme);
 			System.out.println("검색어 있을 때 " + theme);
 		}
-		
+
 		ArrayList<Integer> mytheme = themeService.mythemeList(themeWriter);
-		
-			mv.addObject("theme",theme);
-			mv.addObject("searchTheme",searchTheme);
-			mv.addObject("mytheme",mytheme);
-			mv.setViewName("theme/themeMain");
-			
-		
+
+		mv.addObject("theme", theme);
+		mv.addObject("searchTheme", searchTheme);
+		mv.addObject("mytheme", mytheme);
+		mv.setViewName("theme/themeMain");
+
 		return mv;
-		
-		
+
 	}
-	
-	//즐겨찾기 추가
+
+	// 즐겨찾기 추가
 	@RequestMapping("insertBookmark.do")
 	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId) {
-		
+
 		int themeWriter = 81;
 //      Member loginUser = (Member)session.getAttribute("loginUser");
 //      themeWriter = loginUser.getMemberId();   
-		
-		int result = themeService.insertBookmark(bookmarkId,themeWriter);
-		
-		if(result>0) {
+
+		int result = themeService.insertBookmark(bookmarkId, themeWriter);
+
+		if (result > 0) {
 			mv.setViewName("redirect:themeMain.do");
-		}else {
+		} else {
 			throw new ThemeException("즐겨찾기 등록 실패");
 		}
-		
+
 		return mv;
 	}
-	
-	
-	//즐겨찾기 취소
+
+	// 즐겨찾기 취소
 	@RequestMapping("heartClickCancle.do")
 	public ModelAndView heartClickCancle(ModelAndView mv, String bookmarkId) {
 		int themeWriter = 81;
 //      Member loginUser = (Member)session.getAttribute("loginUser");
 //      themeWriter = loginUser.getMemberId();   
-		
-		int result = themeService.deleteBookmark(bookmarkId,themeWriter);
-		
-		if(result>0) {
+
+		int result = themeService.deleteBookmark(bookmarkId, themeWriter);
+
+		if (result > 0) {
 			mv.setViewName("redirect:themeMain.do");
-		}else {
+		} else {
 			throw new ThemeException("즐겨찾기 등록 실패");
 		}
-		
+
 		return mv;
 	}
 
-	
-	
+	//테마 상세보기 
 	@RequestMapping("themedetail.do")
-	public ModelAndView themedetail(ModelAndView mv, Theme theme, Restaurant res, HttpSession session) {
-		String loginUser = ((Member) session.getAttribute("loginUser")).getNickName();
-		
-		ArrayList<Restaurant> restaurant = themeService.themedetail(loginUser);
-		
-		mv.addObject("theme",theme);
-		mv.addObject("restaurant",restaurant);
+	public ModelAndView themedetail(ModelAndView mv, ThemeAdmin theme, Restaurant res, HttpSession session) {
+
+		ThemeAdmin ta = themeService.themedetail(theme);
+		ArrayList<Restaurant> restaurant = themeService.themedetailR(theme);
+		System.out.println("테마디테일 " + restaurant);
+		mv.addObject("theme", ta);
+		mv.addObject("restaurant1", restaurant);
 		mv.setViewName("theme/themeDetail");
-		
-		
+
 		return mv;
 	}
 }
-	
-
-			 
-
-	
-
-
-

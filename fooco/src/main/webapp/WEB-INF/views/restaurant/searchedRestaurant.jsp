@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -221,7 +222,7 @@
 									<option>그 외</option>
 								</select>
 							</div>
-							<input type="search" class="form-control" placeholder="먹고 싶은 음식(한식, 중식, 분식)이나 맛집 이름을 입력하세요.">
+							<input type="search" class="form-control" placeholder="먹고 싶은 음식(한식, 중식, 분식)이나 맛집 이름을 입력하세요."/>
 						</div>
 						<div class="col sr-content-title d-flex flex-column justify-content-center">
 							<p style="font-family: 'medium'; color: rgb(204, 51, 98);">${location}</p>
@@ -241,7 +242,7 @@
 											<span style="font-family: 'bold'; font-size: 1.5rem; color:black;">${res.resName}</span>
 										</div>
 										<div class="col-3 sr-mz-rating">
-											<span><i class="fas fa-star"></i>${res.reviewRating}</span>
+											<span><i class="fas fa-star"></i><fmt:formatNumber type="number" value="${res.reviewRating}" pattern="0.0"/></span>
 										</div>
 									</div>
 									<div class="row sr-mz-address d-flex align-items-center">
@@ -268,9 +269,9 @@
 										</div>
 									</div>
 									<div class="row sr-mz-viewWishBookmark d-flex justify-content-end align-items-center">
-										<i class="fas fa-eye"></i> <span>${res.resViewCount}</span>
-										<i class="fas fa-heart"></i> <span>${res.resBookmarkCount}</span>
-										<i class="fas fa-pencil-alt"></i> <span>${res.resReviewCount}</span>
+										<i class="fas fa-eye"></i> <span><fmt:formatNumber type="number" value="${res.resViewCount}"/></span>
+										<i class="fas fa-heart"></i> <span><fmt:formatNumber type="number" value="${res.resBookmarkCount}"/></span>
+										<i class="fas fa-pencil-alt"></i> <span><fmt:formatNumber type="number" value="${res.resReviewCount}"/></span>
 									</div>
 								</div>
 							</div>
