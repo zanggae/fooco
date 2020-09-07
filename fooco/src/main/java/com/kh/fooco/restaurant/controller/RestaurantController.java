@@ -2,13 +2,21 @@ package com.kh.fooco.restaurant.controller;
 
 import static com.kh.fooco.common.Pagination.getPageInfo;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fooco.common.model.vo.PageInfo;
@@ -81,6 +89,7 @@ public class RestaurantController {
 		Res restaurant = restaurantService.getRestaurantDetail(resId);
 		Info info = restaurantService.getRestaurantInfo(resId);
 
+		System.out.println(restaurant);
 		mv.addObject("res", restaurant);
 		mv.addObject("info", info);
 		mv.setViewName("restaurant/detailRestaurant");
@@ -107,6 +116,37 @@ public class RestaurantController {
 		};
 		
 		return location;
+	}
+	
+	@RequestMapping("uploadFile.do")
+	public void uploadFile(HttpServletResponse response, HttpServletRequest request, @RequestParam("Filedata") MultipartFile file)
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		String realName = file.getOriginalFilename();
+		String fileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + realName.substring(realName.lastIndexOf(".") + 1);
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\reviewImage";
+		
+		File folder = new File(savePath);
+		
+		String filePath = folder + "\\" + fileName;
+		
+		try {
+			file.transferTo(new File(filePath));
+			response.getWriter().write(fileName);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@RequestMapping(value="uploadReview.do", method={RequestMethod.GET, RequestMethod.POST})
+	public void uploadReview(HttpServletRequest request
+			, @RequestParam(value="realname", required=false) String realname
+			, @RequestParam(value="filename", required=false) String filename
+			, @RequestParam(value="filesize", required=false) String filesize)
+	{
+		System.out.println("realname: " + realname + ", filename: " + filename + ", filesize: " + filesize);
 	}
 	
 }

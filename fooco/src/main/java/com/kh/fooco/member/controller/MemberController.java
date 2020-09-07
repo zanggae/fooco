@@ -44,6 +44,7 @@ import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.Theme;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -261,7 +262,7 @@ public class MemberController {
 		
 		//비밀번호 찾기
 		@RequestMapping("searchMemberPwd.do")
-		public String searchMemberPwd(String emailchange,Member m, HttpServletRequest request,HttpServletResponse response) {
+		public String searchMemberPwd(String emailchange,Member m, HttpServletRequest request,HttpServletResponse response) throws IOException {
 			System.out.println("비밀번호 맵핑 잘 오나");
 			System.out.println("email잘 나오는지" +emailchange);
 				StringBuilder sb = new StringBuilder();
@@ -305,13 +306,26 @@ public class MemberController {
 				System.out.println("비밀번호 바뀌었는지 테스트:" + pwdtest);
 				System.out.println("이메일값:" + emailtest);
 				
+				Member loginUser = memberService.loginMember(m);
 				int result = memberService.searchMemberPwd(m);
 				
-				if(result>0) {
-					System.out.println("비밀번호 찾기 성공");
+				if(loginUser==null) {
+					System.out.println("일치하는 회원이 없음");
+					response.setContentType("text/html; charset=UTF-8"); 
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('존재하지 않는 이메일입니다. 이메일을 다시 한번 확인 해 주세요'); history.go(-1);</script>"); 
+					out.flush();
 				}else {
-					System.out.println("비밀번호 찾기 실패");
-					throw new MemberException("비밀번호 찾기 실패");
+					if(result>0) {
+						System.out.println("비밀번호 찾기 성공");
+						response.setContentType("text/html; charset=UTF-8"); 
+						PrintWriter out = response.getWriter();
+						out.println("<script>alert('임시 비밀번호가 발급되었습니다. 이메일을 확인해 주세요'); history.go(-1);</script>"); 
+						out.flush();
+					}else {
+						System.out.println("비밀번호 찾기 실패");
+						throw new MemberException("비밀번호 찾기 실패");
+					}
 				}
 			return "common/main";	
 			}
@@ -622,6 +636,8 @@ public class MemberController {
 		}
 		
 
+		
+		
 // ================================== MyList 영은 ===========================================
 		
 		
@@ -630,23 +646,36 @@ public class MemberController {
 			return "mypage/myPageMylist";
 		}
 		
+		@RequestMapping("mylistRegist.do")
+		public String mylistRegist() {
+			return "mypage/mylistRegist";
+		}
 		
-		
-		
-		//마이리스트 등록 오른쪽 검색
-		@RequestMapping("mylistRegist.do")	
-		public ModelAndView mylistRegist(ModelAndView mv,
-				@RequestParam(value="searchRes", required=false)String searchRes) {
+		@RequestMapping(value="insertMylist.do", method= {RequestMethod.GET,RequestMethod.POST})
+		public ModelAndView restaurantThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, String themeTitle) {
+			int themeRListResult = 0;
 			
-			ArrayList<Mylist> mylist = new ArrayList<Mylist>();
+			int themeWriter = 81;
+//			Member loginUser = (Member)session.getAttribute("loginUser");
+//			themeWriter = loginUser.getMemberId();				
 			
-			mylist = memberService.searchListRes(searchRes);
-			System.out.println("db갔다온 후 mylist" + mylist);
 			
-			mv.addObject("mylist", mylist);
-			mv.addObject("searchRes",searchRes);
-			mv.setViewName("mypage/mylistRegist");	
+			
+			System.out.println(themeTitle);
+			
+			
+			int result = memberService.insertMylist(themeTitle, themeWriter);
+			
+			String[] tRL = themeRList.split(",");		
+			for(String th : tRL) {
+				themeRListResult = memberService.insertMylistRes(th);
+			}
+			
+			mv.setViewName("redirect:inquiryRegistrationFin.do");
 			return mv;
 		}
+		
+		
+		
 
 }

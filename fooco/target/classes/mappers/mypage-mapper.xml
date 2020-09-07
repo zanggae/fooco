@@ -203,23 +203,15 @@ WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
 
 <!-- mylist 영은 -->
 
-<!-- mylist등록 검색결과 쿼리 -->
-<select id="searchListRes" parameterType="string" resultMap="mylistResultSet">
-	SELECT
-	RES_ID,RES_NAME,RES_ID,RES_ADDRESS,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH,ML_ID
-	FROM SELECT_MYLIST
-	WHERE RES_NAME LIKE '%'||#{searchRes}||'%' ORDER BY RES_NAME
-</select>
+<!-- mylist 등록 -->
+<insert id="insertMylist" parameterType="ThemeAdmin">
+INSERT INTO MYLIST VALUES
+(SEQ_MYLISTID.NEXTVAL,#{themeTitle},SYSDATE,SYSDATE,DEFAULT,NULL,#{themeWriter})
+</insert>
 
-<!-- mylist 검색결과 추가  쿼리 -->
-<select id="selectmylist" parameterType="int" resultMap="mylistResultSet">
-	SELECT 
-	RES_ID,RES_NAME,RES_ID,RES_ADDRESS,IMAGE_ORIGIN_NAME,IMAGE_NEW_NAME,IMAGE_FILEPATH,ML_ID
-	FROM SELECT_MYLIST
-	WHERE MI_ID =#{mlId1}
-</select>
-
-
+<insert id="insertMylistRes" parameterType="string">
+	INSERT INTO MYLIST_RES VALUES(#{theme},SEQ_MYLISTID.CURRVAL)
+</insert>
 
 
 </mapper>

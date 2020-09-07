@@ -59,7 +59,7 @@
                     <div class="col-3">
                     </div>
                     <div class="col-6">
-                        <h1 class="text">1:1문의가 등록되었습니다.</h1>
+                        <h1 class="text">등록이 완료되었습니다..</h1>
                     </div>
                     <div class="col-3">
                     </div>

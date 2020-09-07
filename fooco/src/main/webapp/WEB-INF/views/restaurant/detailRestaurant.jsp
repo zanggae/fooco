@@ -7,13 +7,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/gu-upload/css/guupload.css"/>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
+<!-- gu-upload -->
+<script type="text/javascript" src="${contextPath}/resources/gu-upload/guuploadManager.js"></script>
 <title>Insert title here</title>
 <style>
 	/* 폰트 */
@@ -108,31 +111,18 @@
 					<div class="row mz-img-row">
 						<div class="col mz-img-biggest-col">
 							<div class="mz-img-biggest-div">
-								<img src="resPhoto/sushi (1).jpg" class="mz-img-biggest">
+								<img src="${contextPath}/resources/${res.resThumbnailImage.imageFilepath}/${res.resThumbnailImage.imageNewName}" class="mz-img-biggest"/>
 							</div>
 						</div>
 						<div class="col mz-img-small-col">
 							<div class="row row-cols-2">
+								<c:forEach var="images" items="${res.resLatestImages}">
 								<div class="col mz-img-small-col-inner">
 									<div class="mz-img-small-div">
-										<img src="resPhoto/sushi (2).jpg" class="mz-img-small">
+										<img src="${contextPath}/resources/${images.imageFilepath}/${images.imageNewName}" class="mz-img-small"/>
 									</div>
 								</div>
-								<div class="col mz-img-small-col-inner">
-									<div class="mz-img-small-div">
-										<img src="resPhoto/sushi (3).jpg" class="mz-img-small">
-									</div>
-								</div>
-								<div class="col mz-img-small-col-inner">
-									<div class="mz-img-small-div">
-										<img src="resPhoto/sushi (4).jpg" class="mz-img-small">
-									</div>
-								</div>
-								<div class="col mz-img-small-col-inner">
-									<div class="mz-img-small-div">
-										<img src="resPhoto/sushi (5).jpg" class="mz-img-small">
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
@@ -206,22 +196,16 @@
 				</div>
 			</div>
 		</div>
-		
-		<script>
-			function goDetailInfo(resId) {
-				window.location.href="goDetailInfo.do?resId=" + resId;
-			}
-		</script>
 
 
 		<!-- 리뷰 작성하기 모달 -->
+		<form id="uploadReview" name="uploadReview" action="uploadReview.do" method="POST">
 		<div class="modal fade" id="write-review" data-backdrop="static"
 			data-keyboard="false" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<span class="modal-title" id="write-review-title"
-							style="font-family: 'heavy'; font-size: 1.5rem;">리뷰 작성하기</span>
+						<span class="modal-title" id="write-review-title" style="font-family: 'heavy'; font-size: 1.5rem;">리뷰 작성하기</span>
 					</div>
 					<div class="modal-body">
 						<div class="row d-block">
@@ -229,8 +213,7 @@
 								<span style="font-family: 'bold'; font-size: 1.3rem;">경남스시</span>
 							</div>
 							<div class="row d-flex align-items-center">
-								<i class="fas fa-map-marker-alt"
-									style="color: rgb(204, 51, 98); font-size: 1.3rem; margin-right: 0.3rem;"></i>
+								<i class="fas fa-map-marker-alt" style="color: rgb(204, 51, 98); font-size: 1.3rem; margin-right: 0.3rem;"></i>
 								<span style="font-family: 'medium'; font-size: 1rem;">인천</span>
 							</div>
 							<div class="row">
@@ -253,8 +236,7 @@
 										<i class="far fa-star" data-rating="3" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="4" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="5" style="font-size: 1rem"></i>
-										<input type="hidden" name="tasteScore"
-											class="tasteScore reviewScore" value="3">
+										<input type="hidden" name="tasteScore" class="tasteScore reviewScore" value="3">
 									</div>
 								</div>
 								<div class="row">
@@ -267,8 +249,7 @@
 										<i class="far fa-star" data-rating="3" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="4" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="5" style="font-size: 1rem"></i>
-										<input type="hidden" name="priceScore"
-											class="priceScore reviewScore" value="3">
+										<input type="hidden" name="priceScore" class="priceScore reviewScore" value="3">
 									</div>
 								</div>
 								<div class="row">
@@ -281,8 +262,7 @@
 										<i class="far fa-star" data-rating="3" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="4" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="5" style="font-size: 1rem"></i>
-										<input type="hidden" name="serviceScore"
-											class="serviceScore reviewScore" value="3">
+										<input type="hidden" name="serviceScore" class="serviceScore reviewScore" value="3">
 									</div>
 								</div>
 							</div>
@@ -293,8 +273,7 @@
 								<span>내용 입력하기</span>
 							</div>
 							<div class="row">
-								<textarea class="form-control" rows="5" class="reviewContent"
-									style="font-size: 0.8rem; resize: none;"></textarea>
+								<textarea class="form-control" rows="5" class="reviewContent" id="reviewContent" style="font-size: 0.8rem; resize: none;"></textarea>
 							</div>
 						</div>
 						<hr>
@@ -309,11 +288,57 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn" data-dismiss="modal">취소하기</button>
-						<button type="button" class="btn">등록하기</button>
+						<button type="button" class="btn" onclick="formSubmit();">등록하기</button>
+						<input type="hidden" id="realname" name="realname"/>
+						<input type="hidden" id="filename" name="filename"/>
+						<input type="hidden" id="filesize" name="filesize"/>
 					</div>
 				</div>
 			</div>
 		</div>
+		</form>
+		
+		<!--별 평점 주기-->
+        
+		
+		<!-- 사진 첨부 -->
+		<script>
+            var guManager = null;
+
+            window.onload = function () {
+                var option = {
+                    listtype: "thumbnail",
+                    fileid: "attachFile",
+                    uploadURL: "uploadFile.do",
+                    maxFileCount:4,
+                    afterFileTransfer: afterFileTransfer
+                }
+                guManager = new guUploadManager(option);
+            }
+
+            function formSubmit() {
+                var brd_title = document.getElementById("reviewContent");
+                if (brd_title.value === "") {
+                    alert("내용을 입력해주세요.");
+                    return;
+                }
+
+                guManager.uploadFiles();
+            }
+
+            function afterFileTransfer(filesize, realname, filename) {
+                var realname9 = document.getElementById('realname');
+                var filename9 = document.getElementById('filename');
+                var filesize9 = document.getElementById('filesize');
+
+                realname9.value = realname;
+                filename9.value = filename;
+                filesize9.value = filesize;
+
+                document.uploadReview.submit();
+            }
+
+        </script>
 
 
 
