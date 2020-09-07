@@ -362,18 +362,23 @@
     <!-- 비밀번호 찾기  이메일 전송 -->
   <script>
   	function searchPwd(){
+  	   var regEx =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
        var emailchange = $("#emailchange").val();
        var memberId = $("#memberId").val();
        console.log(emailchange);
        console.log("회원아이디 : " + memberId);
        
+       if(!regEx.test($("#emailchange").val())){
+    	   alert("이메일 올바르게 작성해주세요");
+    	   $("#emailchange").focus();
+    	   return;
+       }
        if($("#emailchange").val()==""){
     	   alert("이메일을 입력하세요");
            $("#emailchange").focus();
            return;
        }else{
     	   location.href="searchMemberPwd.do?emailchange="+emailchange; 
-   		   alert("전송된 이메일을 확인해주세요");
        }
   	}
   </script>
@@ -384,32 +389,9 @@
     	$("#loginform").submit();
   	}
   </script>
+
   
-   <!-- 로그인 시 null처리 -->
-  <script>
-  	function loginbtn(){
-	//null처리
-  		if($("#email_input").val()==""){
-  			alert("이메일을 입력하세요");
-  			 $("#email_input").focus();
-  			 return;
-  		}
-  		if($("#pwd_input").val()==""){
-  			alert("비밀번호를 입력하세요");
-  			$("#pwd_input").focus();
-  			return;
-  		}
-  		if($("#email_input").val()!="" && $("#pwd_input").val()!=""){
-  			$("#loginform").submit();
-  		}
-  		}
-  </script>
-  
-  <!-- 추가로 해야할 것(지민)-->
-<!--
-  1. 로그인 - 존재하지않는 아이디나 비밀번호일 경우 alert창 띄워주기
--->
-  
+
     
   
 </body>

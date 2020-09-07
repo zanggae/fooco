@@ -262,7 +262,7 @@ public class MemberController {
 		
 		//비밀번호 찾기
 		@RequestMapping("searchMemberPwd.do")
-		public String searchMemberPwd(String emailchange,Member m, HttpServletRequest request,HttpServletResponse response) {
+		public String searchMemberPwd(String emailchange,Member m, HttpServletRequest request,HttpServletResponse response) throws IOException {
 			System.out.println("비밀번호 맵핑 잘 오나");
 			System.out.println("email잘 나오는지" +emailchange);
 				StringBuilder sb = new StringBuilder();
@@ -306,13 +306,26 @@ public class MemberController {
 				System.out.println("비밀번호 바뀌었는지 테스트:" + pwdtest);
 				System.out.println("이메일값:" + emailtest);
 				
+				Member loginUser = memberService.loginMember(m);
 				int result = memberService.searchMemberPwd(m);
 				
-				if(result>0) {
-					System.out.println("비밀번호 찾기 성공");
+				if(loginUser==null) {
+					System.out.println("일치하는 회원이 없음");
+					response.setContentType("text/html; charset=UTF-8"); 
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('존재하지 않는 이메일입니다. 이메일을 다시 한번 확인 해 주세요'); history.go(-1);</script>"); 
+					out.flush();
 				}else {
-					System.out.println("비밀번호 찾기 실패");
-					throw new MemberException("비밀번호 찾기 실패");
+					if(result>0) {
+						System.out.println("비밀번호 찾기 성공");
+						response.setContentType("text/html; charset=UTF-8"); 
+						PrintWriter out = response.getWriter();
+						out.println("<script>alert('임시 비밀번호가 발급되었습니다. 이메일을 확인해 주세요'); history.go(-1);</script>"); 
+						out.flush();
+					}else {
+						System.out.println("비밀번호 찾기 실패");
+						throw new MemberException("비밀번호 찾기 실패");
+					}
 				}
 			return "common/main";	
 			}
