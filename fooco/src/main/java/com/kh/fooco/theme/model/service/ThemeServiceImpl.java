@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.dao.ThemeDao;
-import com.kh.fooco.theme.model.vo.Theme;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.theme.model.vo.ThemeBookmark;
 
@@ -55,6 +55,17 @@ public class ThemeServiceImpl implements ThemeService{
 	public int deleteBookmark(String bookmarkId, int themeWriter) {
 		return themeDao.deleteBookmark(bookmarkId,themeWriter);
 	}
-	
+
+	@Override
+	public ThemeAdmin themedetail(ThemeAdmin theme) {
+		return themeDao.themedetail(theme);
+	}
+
+	@Override
+	public ArrayList<Restaurant> themedetailR(ThemeAdmin theme) {
+		return themeDao.themedetailR(theme);
+	}
+
+
 }
 

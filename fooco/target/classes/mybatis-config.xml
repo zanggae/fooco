@@ -17,7 +17,6 @@
 		<typeAlias type="com.kh.fooco.membership.model.vo.MemberShip" alias="Membership"/>	
 		<typeAlias type="com.kh.fooco.membership.model.vo.Coupon" alias="Coupon"/>	
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Restaurant" alias="Restaurant"/>
-		<typeAlias type="com.kh.fooco.theme.model.vo.Theme" alias="Theme"/>
 		<typeAlias type="com.kh.fooco.theme.model.vo.ThemeBookmark" alias="ThemeBookmark"/>
 		<typeAlias type="com.kh.fooco.theme.model.vo.ThemeAdmin" alias="ThemeAdmin"/>		
 		<typeAlias type="com.kh.fooco.member.model.vo.Follower" alias="Follower"/>
