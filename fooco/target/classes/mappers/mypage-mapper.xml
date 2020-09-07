@@ -1,3 +1,222 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mypageMapper">
+
+
+<!-- 맴버 (맴버 테이블 + 맴버십이름 + 프로필 사진) -->
+<resultMap type="Member" id="memberListResultSet">
+	<id property="memberId" column="MEMBER_ID"></id>
+	<result property="memberName" column="MEMBER_NAME"></result>
+	<result property="memberPwd" column="MEMBER_PWD"></result>
+	<result property="email" column="EMAIL"></result>
+	<result property="nickName" column="NICKNAME"></result>
+	<result property="gender" column="GENDER"></result>
+	<result property="phone" column="PHONE"></result>
+	<result property="address" column="ADDRESS"></result>
+	<result property="memberEnrolldate" column="MEMBER_ENROLLDATE"></result>
+	<result property="memberModifydate" column="MEMBER_MODIFYDATE"></result>
+	<result property="memberAccessdate" column="MEMBER_ACCESSDATE"></result>
+	<result property="memberStatus" column="MEMBER_STATUS"></result>
+	<result property="memberJoinType" column="MEMBERJOIN_TYPE"></result>
+	<result property="reviewStatus" column="REVIEW_STATUS"></result>
+	<result property="membershipName" column="MEMBERSHIP_NAME"></result>
+	<result property="profileId" column="PROFILE_ID"></result>
+	<result property="originalName" column="ORIGINAL_NAME"></result>
+	<result property="renameName" column="RENAME_NAME"></result>
+	<result property="uploadDate" column="UPLOAD_DATE"></result>
+	<result property="file_path" column="FILE_PATH"></result>	
+</resultMap>
+
+
+<resultMap type="Follower" id="followerListResultSet">
+	<result property="memberId" column="MEMBER_ID"></result>
+	<result property="nickName" column="NICKNAME"></result>
+	<result property="renameName" column="RENAME_NAME"></result>
+	<result property="followerCount" column="FOLLOWER_COUNT"></result>
+	<result property="followingCount" column="FOLLOWING_COUNT"></result>	
+</resultMap>
+
+
+
+<resultMap type="Restaurant" id="restaurantListResultSet">
+		<id property="resId" column="RES_ID" />
+		<result property="resCategoryId" column="RES_CATEGORY_ID" />
+		<result property="locationId" column="LOCATION_ID" />
+		<result property="resName" column="RES_NAME" />
+		<result property="resAddress" column="RES_ADDRESS" />
+		<result property="resContent" column="RES_CONTENT" />
+		<result property="resViewCount" column="RES_VIEWCOUNT" />
+		<result property="resTime" column="RES_TIME" />
+		<result property="resStatus" column="RES_STATUS" />
+		<result property="resCreateDate" column="RES_CREATE_DATE" />
+		<result property="resUpdateDate" column="RES_UPDATE_DATE" />
+		<result property="resPhone" column="RES_PHONE"/>
+		<result property="resImageName" column="RES_IMAGE_NAME"/>
+</resultMap>
+
+<!-- Mylist 영은 -->
+<resultMap type="Mylist" id="mylistResultSet">
+	<id property="resId" column="RES_ID"/>
+	<result property="resName" column="RES_NAME"/>
+	<result property="resAddress" column="RES_ADDRESS"/>
+	<result property="resStatus" column="RES_STATUS"/>
+	<result property="imageId" column="IMAGE_ID"/>
+	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/> 
+	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+	<result property="filePath" column="IMAGE_FILEPATH"/>
+	<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
+	<result property="imageLevel" column="IMAGE_LEVEL"/>
+	<result property="imageStatus" column="IMAGE_STATUS"/>
+	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>
+	<result property="mlId" column="ML_ID"/>
+	<result property="mlTitle" column="ML_TITLE"/>
+	<result property="mlUploadDate" column="ML_UPLOAD_DATE"/>
+	<result property="modifyDate" column="ML_MODIFY_DATE"/>
+	<result property="recommendationTheme" column="RECOMMENDATION_THEME"/>
+	<result property="approveTheme" column="APPROVE_THEME"/>
+	<result property="memberId" column="MEMBER_ID"/>
+	
+</resultMap>
+
+	
+
+
+<!-- 팔로워 수 카운트 쿼리 -->
+ <select id="selectOneFollowCount" parameterType="Member" resultType="_int">
+SELECT COUNT(*)
+FROM FOLLOW
+WHERE FOLLOWING_ID = #{memberId}
+</select>
+ 
+<!-- 팔로잉 수 카운트 쿼리 -->
+ <select id="selectOneFollowingCount" parameterType="Member" resultType="_int">
+SELECT COUNT(*)
+FROM FOLLOW
+WHERE FOLLOWER_ID = #{memberId}
+</select> 
+
+<!-- 리뷰 수 카운트 쿼리 -->
+<select id="selectOneReviewCount" parameterType="Member" resultType="_int">
+SELECT COUNT(*)
+FROM REVIEW
+WHERE MEMBER_ID = #{memberId}
+</select>
+
+<!-- 마이리스트 수 카운트 쿼리 -->
+<select id="selectOneMyListCount" parameterType="Member" resultType="_int">
+SELECT COUNT(*)
+FROM MYLIST
+WHERE MEMBER_ID = #{memberId}
+</select>
+
+<!-- 체크인 수 카운트 쿼리 -->
+<select id="selectOneCheckInCount" parameterType="Member" resultType="_int">
+SELECT COUNT(*)
+FROM CHECKIN
+WHERE MEMBER_ID = #{memberId}
+</select>
+
+<!-- 프로필 사진 조회 쿼리 -->
+<select id="selectOneProFile" parameterType="Member" resultType="string">
+SELECT RENAME_NAME
+FROM PROFILE_IMG
+WHERE MEMBER_ID = #{memberId}
+</select>
+
+<!-- 프로필 사진 변경 쿼리 -->
+<update id="updateMemberProfile" parameterType="Member">
+UPDATE PROFILE_IMG SET RENAME_NAME = #{renameName} WHERE MEMBER_ID = #{memberId}
+</update>
+
+<!-- 팔로워 조회 쿼리 -->
+<select id="selectFollower" parameterType="Member" resultMap="followerListResultSet">
+
+<![CDATA[
+SELECT M.MEMBER_ID
+        ,M.NICKNAME
+        ,PI.RENAME_NAME
+        ,(SELECT COUNT(*) FROM FOLLOW WHERE FOLLOWING_ID = M.MEMBER_ID) AS FOLLOWER_COUNT
+        ,(SELECT COUNT(*) FROM FOLLOW WHERE FOLLOWER_ID = M.MEMBER_ID) AS FOLLOWING_COUNT
+FROM MEMBER M
+LEFT JOIN PROFILE_IMG PI ON (M.MEMBER_ID = PI.MEMBER_ID)
+WHERE M.MEMBER_ID IN (SELECT FW.FOLLOWER_ID
+                        FROM FOLLOW FW
+                        LEFT JOIN MEMBER M ON (FW.FOLLOWING_ID = M.MEMBER_ID)
+                        WHERE MEMBER_ID = #{memberId})
+]]> 
+</select>
+
+<!-- 팔로잉 조회 쿼리 -->
+<select id="selectFollowing" parameterType="Member" resultMap="followerListResultSet">
+
+<![CDATA[
+SELECT M.MEMBER_ID
+        ,M.NICKNAME
+        ,PI.RENAME_NAME
+        ,(SELECT COUNT(*) FROM FOLLOW WHERE FOLLOWING_ID = M.MEMBER_ID) AS FOLLOWER_COUNT
+        ,(SELECT COUNT(*) FROM FOLLOW WHERE FOLLOWER_ID = M.MEMBER_ID) AS FOLLOWING_COUNT
+FROM MEMBER M
+LEFT JOIN PROFILE_IMG PI ON (M.MEMBER_ID = PI.MEMBER_ID)
+WHERE M.MEMBER_ID IN (SELECT FW.FOLLOWING_ID
+                        FROM FOLLOW FW
+                        LEFT JOIN MEMBER M ON (FW.FOLLOWER_ID = M.MEMBER_ID)
+                        WHERE MEMBER_ID = #{memberId})
+]]> 
+</select>
+
+
+<!-- 닉네임 중복 확인 쿼리 -->
+<select id="checkNickNameDup" parameterType="string" resultType="_int">
+SELECT COUNT(*)
+FROM MEMBER
+WHERE NICKNAME = #{nickName}
+</select>
+
+
+<!-- 내정보 수정 쿼리 -->
+<update id="updateMemberInfo" parameterType="Member">
+	UPDATE MEMBER
+	SET MEMBER_PWD=#{memberPwd}
+	, NICKNAME=#{nickName}
+	, PHONE=#{phone}
+	, ADDRESS=#{address}
+	WHERE MEMBER_ID = #{memberId}
+</update>
+
+<!-- 회원탈퇴 쿼리 -->
+<update id="updateMemberWithdrawal" parameterType="Member">
+	UPDATE MEMBER
+	SET MEMBER_STATUS = 'N'
+	WHERE MEMBER_ID = #{memberId}
+</update>
+
+
+
+<!-- 체크인 등록 페이지에서 음식점 조회 쿼리 -->
+<select id="selectListRestaurant" parameterType="string" resultMap="restaurantListResultSet">
+SELECT RES_ID, RES_NAME, RES_ADDRESS, RES_IMAGE_NAME 
+FROM SELECT_RESTAURANT 
+WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
+
+</select>
+
+
+<!-- mylist 영은 -->
+
+<!-- mylist 등록 -->
+<insert id="insertMylist" parameterType="hashmap">
+INSERT INTO MYLIST VALUES
+(SEQ_MYLISTID.NEXTVAL,#{themeTitle},SYSDATE,SYSDATE,DEFAULT,NULL,#{themeWriter})
+</insert>
+
+<insert id="insertMylistRes" parameterType="string">
+	INSERT INTO MYLIST_RES VALUES(#{theme},SEQ_MYLISTID.CURRVAL)
+</insert>
+
+
+</mapper>
+=======
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mypageMapper">
@@ -215,3 +434,4 @@ INSERT INTO MYLIST VALUES
 
 
 </mapper>
+>>>>>>> refs/remotes/origin/master

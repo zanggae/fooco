@@ -57,6 +57,7 @@
       .text4{text-align: center; position: absolute; top: 50%; left: 50%; transform: translate( -50%, -50% );}
       .titlefont{font-size: 1.5rem; font-family:'heavy'; color:black; }
       #heart{position: absolute; color: red; z-index: 100; top:12rem; left: 19rem; font-size: 3rem;} 
+      #heart2{position: absolute; color: black; z-index: 100; top:12rem; left: 19rem; font-size: 3rem;} 
       #position{margin-left: 11rem; width: 50.5rem; text-align: center;}	
       #noneResult{font-family:'heavy'; font-size:2rem; margin-left:4.5rem; margin-top:7rem;}
       
@@ -114,7 +115,7 @@
                 <c:if test="${!empty theme }">
                <c:url var="themeMain" value="themeMain.do">
                 <c:param name="searchTheme" value="${searchTheme }"/>
-            	</c:url>
+               </c:url>
                 <div class="container">
                 <div class="bottom">
                 <c:if test="${empty searchTheme }">
@@ -124,23 +125,45 @@
                   <h1 class="text3">'${searchTheme }'&nbsp;검색 결과</h1>
                   </c:if>
                   
+            
+          	
+                  
+                  
+                  
                 </div>
                 <br>
                 <div class="row row-cols-2" id="position">
               	<c:forEach var="t" items="${theme }">
               	
                   <div class="col" style="margin-bottom: 2.5rem;">
-                  <img src="resources/restaurantImage_ye/${t.imageOriginName}" class="img1" >
-                    <div class="text4"><a href="#" class="titlefont">${t.themeTitle }</a></div>
-                     <i class="fas fa-heart" id="heart"></i>
+                  <img src="resources/restaurantImage_ye/${t.themeImageName}" class="img1">
+                    <div class="text4"><a href="${themedetail }" class="titlefont">${t.themeTitle }</a></div>
+                  	<c:url var="themedetail" value="themedetail.do">
+                  	<c:param name="themeId" value="${t.themeId }"/>
+                  	</c:url>
+                    <c:remove var="tt"/>
+                    <c:forEach var="mt" items="${mytheme }">
+                    	<c:if test="${t.themeId eq mt }">
+	                     <div onclick="heartClickCancle(this)" id="heartt" value="${t.themeId }"><i class="fas fa-heart" id="heart"></i></div>
+	                     <c:set var="tt" value = "${mt }"></c:set>                   	
+                    	</c:if>
+                    </c:forEach>
+                    <c:if test="${empty tt}"><div onclick="heartClick(this)" id="heartt" value="${t.themeId }"><i class="far fa-heart" id="heart"></i></div></c:if>
                   </div>
-                  </c:forEach> 
+                </c:forEach> 
                   </div>
                 </div>
                 </c:if>
-                
-   				
-   			
+                <script>
+                	function heartClick(id){
+                		var bookmarkId = $(id).attr('value');
+                		location.href="insertBookmark.do?bookmarkId="+bookmarkId;
+                	}
+                	function heartClickCancle(id){
+                		var bookmarkId = $(id).attr('value');
+                		location.href="heartClickCancle.do?bookmarkId="+bookmarkId;
+                	}
+                </script>
         	
         		
         </section>
