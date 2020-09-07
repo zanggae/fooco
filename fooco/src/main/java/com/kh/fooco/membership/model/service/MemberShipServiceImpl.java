@@ -64,9 +64,15 @@ public class MemberShipServiceImpl implements MemberShipService{
 	}
 	//멤버십 유무 체크
 	@Override
-	public ArrayList<MemberShip> checkmembership(MemberShip membership) {
+	public MemberShip checkmembership(int MembershipUser) {
 		
-		return memberShipDao.checkmembership(membership);
+		return memberShipDao.checkmembership(MembershipUser);
+	}
+	//멤버십 상태 update
+	@Override
+	public int updateMembershipStatus() {
+		
+		return memberShipDao.updateMembershipStatus();
 	}
 
 

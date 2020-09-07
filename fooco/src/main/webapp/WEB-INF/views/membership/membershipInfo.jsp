@@ -381,6 +381,7 @@
     </section><br><br><br><br><br><br>
     <hr>
     
+    <input type="hidden" id="membershipcheck" value="${m.membershipName }">
 
     <!--footer시작-->
     <footer></footer>
@@ -390,22 +391,35 @@
     <script>
     function requestPayGold(){
     	var loginUser = $("#buy_memberId");
+    	var membershipcheck = $("#membershipcheck").val();
     	
     	if(loginUser.val()==""){
     		alert("로그인 후 이용 가능한 서비스입니다.");
+    		return;
+    	}
+    	if(membershipcheck!=""){
+    		alert("이미 사용 중인 멤버십이 존재합니다");
+    		return;
     	}else{
-    		$("#mbuyFormGold").submit();
-        	/* alert("결제성공"); */
+    		$("#mbuyFormGold").submit(); 
+        	alert("결제성공");  
     	}
     }
+    
     function requestPaySilver(){
     	var loginUser = $("#buy_memberId");
+    	var membershipcheck = $("#membershipcheck").val();
     	
     	if(loginUser.val()==""){
     		alert("로그인 후 이용 가능한 서비스입니다.");
+    		return;
+    	}
+    	if(membershipcheck!=""){
+    		alert("이미 사용 중인 멤버십이 존재합니다");
+    		return;
     	}else{
-    		$("#mbuyFormSilver").submit();
-        	/* alert("결제성공"); */
+    		$("#mbuyFormSilver").submit(); 
+        	alert("결제성공");  
     	}
     }
     //결제!_! 결제 안되도록 우선 주석처리 해 둠!_! 결제 없이 바로 INSERT되도록 임시로 적용해놓음
