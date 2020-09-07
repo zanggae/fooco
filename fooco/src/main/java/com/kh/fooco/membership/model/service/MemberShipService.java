@@ -23,5 +23,9 @@ public interface MemberShipService {
 
 	ArrayList<MemberShip> selectforMembership(String memberId);
 
+	ArrayList<MemberShip> checkmembership(MemberShip membership);
+
+
+
 
 }

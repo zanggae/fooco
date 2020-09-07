@@ -13,7 +13,7 @@
 	<!-- 아이콘 -->
 	<script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
 
-    <title>membershipInfo</title>
+    <title>membershipList</title>
     
     <style>
     	@font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
@@ -103,32 +103,6 @@
         <p>멤버십을 연장하여 FOOCO와 함께 더 많은 혜택을 누리세요!</p>
         </div>
         
-        <!-- 가입한 멤버십이 없을떄 -->
-        <%-- <c:if test="${empty item.membershipName }">
-        	<div id="membership_list">
-        <br><h2>멤버십 가입 내역</h2><br><br>
-   		<table class="table" id="membership_list_table">
-  		  <thead>
-    	    <tr>
-      		  <th scope="col"></th>
-              <th scope="col"><i class="fas fa-receipt"></i>&nbsp;나의 멤버십</th>
-      		  <th scope="col">가입일</th>
-      		  <th scope="col">가입 만료일</th>
-    		</tr>
-  		  </thead>
-  		  <tbody>
-    	   <tr>
-      		<th scope="row"></th>
-      		<td colspan="3">구매내역이 없습니다.</td>
-   		 </tr>
-  		</tbody>
-	</table>
-   <br><br><br>
-        <button onclick=gomembershipInfo();>구매하기</button>
-        <br><br><br>
-        <p>멤버십을 구매하여 FOOCO와 함께 더 많은 혜택을 누리세요!</p>
-        </div>
-        </c:if> --%>
 </section><br><br><br><br><br> 
 
 

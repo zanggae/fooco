@@ -345,8 +345,6 @@
         	<c:if test="${!empty loginUser }"><button id="gomembershiplist" onclick="gomembershiplist();">나의 멤버십 조회 ></button></c:if>
 
 
-        </div>
->
         	<form id="mbuyFormGold" action="buyGoldMembership.do" method="post">
 	        <!-- 회원 정보 -->
         	<input type="hidden" name="buy_memberId" id="buy_memberId" value="${loginUser.memberId}">
@@ -380,7 +378,6 @@
         	    <input type="hidden" name="buy_coupon2" id="buy_coupon2" value="${item.couponId}">  
     		</c:forEach> 
         	</form>
-
     </section><br><br><br><br><br><br>
     <hr>
     
@@ -395,10 +392,10 @@
     	var loginUser = $("#buy_memberId");
     	
     	if(loginUser.val()==""){
-    		alert("로그인 후 이용 가능한  서비스입니다.");
+    		alert("로그인 후 이용 가능한 서비스입니다.");
     	}else{
     		$("#mbuyFormGold").submit();
-        	alert("결제성공");	
+        	/* alert("결제성공"); */
     	}
     }
     function requestPaySilver(){
@@ -408,7 +405,7 @@
     		alert("로그인 후 이용 가능한 서비스입니다.");
     	}else{
     		$("#mbuyFormSilver").submit();
-        	alert("결제성공");
+        	/* alert("결제성공"); */
     	}
     }
     //결제!_! 결제 안되도록 우선 주석처리 해 둠!_! 결제 없이 바로 INSERT되도록 임시로 적용해놓음

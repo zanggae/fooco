@@ -128,23 +128,6 @@ public class BoardController {
 	   
 	   int result = boardService.inquiryInsert(b);
          
-         
-//     	@RequestMapping(value="login.do",method=RequestMethod.POST)
-// 		public String memberLogin( Member m, HttpSession session, Model model) {
- //	
-// 		
-// 				Member loginUser = mService.loginMember(m);
-// 				
-// 				// session가 model을 매개변수에 추가하여 작성하자
-// 				if(loginUser != null) {	// 로그인 할 멤버 객체가 조회되었을 시 
-// 					session.setAttribute("loginUser", loginUser);
-// 					return "home";
- //
-// 				}else {					// 로그인 실패 시 
-// 					model.addAttribute("msg", "로그인 실패!!");	
-// 					return "common/errorPage";
-// 				}
-// 		}
  	
          
 	

@@ -1,31 +1,25 @@
 package com.kh.fooco.theme.controller;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.board.model.vo.InsertBoard;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.exception.ThemeException;
 import com.kh.fooco.theme.model.service.ThemeService;
 import com.kh.fooco.theme.model.vo.Theme;
-import com.kh.fooco.theme.model.vo.ThemeBookmark;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @Controller
 public class ThemeController {
@@ -33,11 +27,20 @@ public class ThemeController {
 	private ThemeService themeService;
 	
 	//테마메인, 검색
+	
+	@RequestMapping("themeDetail.do")
+	public String themeDetail() {
+		return "theme/themeDetail";
+	}
 	@RequestMapping("themeMain.do")
 	public ModelAndView themeMain( ModelAndView mv,
 			@RequestParam(value="searchTheme", required=false) String searchTheme) {
+		
+		int themeWriter = 81;
+//      Member loginUser = (Member)session.getAttribute("loginUser");
+//      themeWriter = loginUser.getMemberId();   
 			
-		ArrayList<Theme> theme = new ArrayList<Theme>();
+		ArrayList<ThemeAdmin> theme = new ArrayList<ThemeAdmin>();
 		
 		
 		if(searchTheme == null) {
@@ -50,8 +53,11 @@ public class ThemeController {
 			System.out.println("검색어 있을 때 " + theme);
 		}
 		
+		ArrayList<Integer> mytheme = themeService.mythemeList(themeWriter);
+		
 			mv.addObject("theme",theme);
 			mv.addObject("searchTheme",searchTheme);
+			mv.addObject("mytheme",mytheme);
 			mv.setViewName("theme/themeMain");
 			
 		
@@ -59,62 +65,63 @@ public class ThemeController {
 		
 		
 	}
-			
-	 @RequestMapping("themeDetail.do")
-	   public String themeDetail() {
-		   return "theme/themeDetail";
-	   }
+	
+	//즐겨찾기 추가
+	@RequestMapping("insertBookmark.do")
+	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId) {
+		
+		int themeWriter = 81;
+//      Member loginUser = (Member)session.getAttribute("loginUser");
+//      themeWriter = loginUser.getMemberId();   
+		
+		int result = themeService.insertBookmark(bookmarkId,themeWriter);
+		
+		if(result>0) {
+			mv.setViewName("redirect:themeMain.do");
+		}else {
+			throw new ThemeException("즐겨찾기 등록 실패");
+		}
+		
+		return mv;
+	}
 	
 	
+	//즐겨찾기 취소
+	@RequestMapping("heartClickCancle.do")
+	public ModelAndView heartClickCancle(ModelAndView mv, String bookmarkId) {
+		int themeWriter = 81;
+//      Member loginUser = (Member)session.getAttribute("loginUser");
+//      themeWriter = loginUser.getMemberId();   
+		
+		int result = themeService.deleteBookmark(bookmarkId,themeWriter);
+		
+		if(result>0) {
+			mv.setViewName("redirect:themeMain.do");
+		}else {
+			throw new ThemeException("즐겨찾기 등록 실패");
+		}
+		
+		return mv;
+	}
+
 	
-	/*즐겨찾기 포함..*/
-//	private int themeId;
 	
-	/*
-	 * @RequestMapping(value="themeMain.do",method=RequestMethod.GET) public
-	 * ModelAndView themeMain(ModelAndView mv, Model model, HttpServletRequest
-	 * httpRequest) {
-	 * 
-	 * ArrayList<Theme> theme = themeService.selectListTheme();
-	 * 
-	 * int userid = ((Member)
-	 * httpRequest.getSession().getAttribute("loginUser")).getMemberId();
-	 * System.out.println("Theme_DB조회 후 화면에 뿌리기 전 : " + theme);
-	 * 
-	 * //테마 즐겨찾기 ThemeBookmark tb = new ThemeBookmark(); tb.setMemberNo(themeId);
-	 * tb.setMemberNo(userid);
-	 * 
-	 * int themeBookmark = themeService.getThemeLike(tb);
-	 * System.out.println(themeBookmark);
-	 * 
-	 * model.addAttribute("heart",themeBookmark); //비어있지 않으면 Theme가 조회된 것
-	 * if(!theme.isEmpty()) { mv.addObject("theme",theme);
-	 * 
-	 * mv.setViewName("theme/themeMain"); }else { throw new
-	 * ThemeException("Theme 목록 보기 실패!"); } return mv; }
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value="/heart", method = RequestMethod.POST,produces =
-	 * "application/json" ) public int heart(HttpServletRequest httpRequest) {
-	 * 
-	 * int heart = Integer.parseInt(httpRequest.getParameter("heart")); int themeId
-	 * = Integer.parseInt(httpRequest.getParameter("themeId")); int userid =
-	 * ((Member) httpRequest.getSession().getAttribute("loginUser")).getMemberId();
-	 * 
-	 * 
-	 * ThemeBookmark tb = new ThemeBookmark();
-	 * 
-	 * tb.setMemberNo(userid); tb.setThemeNo(themeId);
-	 * 
-	 * System.out.println(heart);
-	 * 
-	 * if(heart >= 1) { themeService.deleteThemeLike(tb); heart = 0; }else {
-	 * themeService.insertThemeLike(tb); heart=1; } return heart; }
-	 */
+	@RequestMapping("themedetail.do")
+	public ModelAndView themedetail(ModelAndView mv, Theme theme, Restaurant res, HttpSession session) {
+		String loginUser = ((Member) session.getAttribute("loginUser")).getNickName();
+		
+		ArrayList<Restaurant> restaurant = themeService.themedetail(loginUser);
+		
+		mv.addObject("theme",theme);
+		mv.addObject("restaurant",restaurant);
+		mv.setViewName("theme/themeDetail");
+		
+		
+		return mv;
+	}
 }
 	
-	
+
 			 
 
 	
