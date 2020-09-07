@@ -140,7 +140,7 @@
 	 })
 	 
 	 function  MembershipUpdate(){
-		 alert("MembershipUpdate 함수 실행 되나");
+		 /* alert("MembershipUpdate 함수 실행 되나"); */
 		 $.ajax({
 			 url:"updateMembershipStatus.do"
 			 ,type:"post"
