@@ -54,17 +54,17 @@
     .sr-mz-content .row {padding-top:0.1rem; padding-bottom:0.1rem;}
     .sr-mz-content * {margin:0;}
     .sr-mz-bestReview > * {padding:0;}
-    .sr-mz-bestReview-profile {padding:0;}
-    .sr-mz-bestReview-profile-div {width:3.5rem; height:3.5rem;}
+    .sr-mz-bestReview-profile {padding:0; width:3rem; height:3rem;}
+    .userProfile {max-width:100%; max-height:100%; border-radius:50%;}
     .badge-pill {background:rgb(204,51,98); color:white; margin-right:0.5rem;}
     .sr-mz-bestReview-content-div {padding-left:0; padding-right:0.5rem; margin-top:0.6rem; margin-bottom:0.3rem;}
-    .userProfile {max-width:100%; border-radius:3.5rem;}
     .sr-mz-viewWishBookmark {padding-right:0.5rem;}
     .sr-mz-viewWishBookmark * {font-size:0.7rem;}
     .sr-mz-viewWishBookmark i {margin-left:0.4rem;}
     .sr-mz-viewWishBookmark span {margin-left:0.2rem;}
     .sr-mz-img-col {padding-left:0.5rem; padding-right:0.5rem;}
-    .sr-mz-img {width:100%; height:100%; background-size:cover; background-repeat:no-repeat; border-radius:0.2rem;}
+    .sr-mz-img {border-radius:0.2rem;}
+    .resThumbnail {width:100%; height:9.5rem; border-radius:0.2rem;}
     .bookmarkheart {font-size:2.3rem; margin:0.5rem; color:#BA262B;}
 
     /* 광고 */
@@ -231,10 +231,8 @@
 							<c:forEach var="res" items="${list}">
 							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${res.resId});">
 								<div class="col-4 sr-mz-img-col">
-									<div class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end" style="background-image: url('resThumb/restaurant1.jpg');">
-										<p>
-											<i class="fas fa-heart bookmarkheart"></i>
-										</p>
+									<div class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end">
+										<img class="resThumbnail" src="${contextPath}/resources/${res.resThumbnailImage.imageFilepath}/${res.resThumbnailImage.imageNewName}">
 									</div>
 								</div>
 								<div class="col-8 sr-mz-content">
@@ -253,20 +251,18 @@
 									</div>
 									<div class="row">
 										<div class="row" class="sr-mz-bestReview">
-											<div
-												class="col-2 sr-mz-bestReview-profile d-flex justify-content-center align-items-center">
+											<div class="col-2 sr-mz-bestReview-profile">
 												<div class="sr-mz-bestReview-profile-div">
-													<img src="profile/luffy.jpg" class="userProfile" />
+													<img class="userProfile" src="${contextPath}/resources/${res.bestReview.reviewerProfilePath}/${res.bestReview.reviewerProfileImg}"/>
 												</div>
 											</div>
 											<div class="col-10 sr-mz-bestReview-content-div">
-												<div class="row sr-mz-bestReivew-nickname"
-													style="font-size: 0.8rem;">
-													<span class="badge badge-pill">best</span> <span
-														style="font-family: 'medium'">와니</span>
+												<div class="row sr-mz-bestReivew-nickname" style="font-size: 0.8rem;">
+													<span class="badge badge-pill">best</span>
+													<span style="font-family: 'medium'">${res.bestReview.nickname}</span>
 												</div>
 												<div class="row sr-mz-bestReivew-content" style="font-size: 0.8rem;">
-													<span>굿굿</span>
+													<span>${res.bestReview.reviewContent}</span>
 												</div>
 											</div>
 										</div>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="restaurantMapper">
-
-	<resultMap type="Res" id="RestaurantMap">
+	
+	<resultMap type="Res" id="RestaurantListMap">
 		<id property="resId" column="RES_ID" jdbcType="INTEGER"/>
 		<result property="resCategoryId" column="RES_CATEGORY_ID"/>
 		<result property="resCategoryName" column="RES_CATEGORY_NAME"/>
@@ -21,6 +21,26 @@
 		<result property="resViewCount" column="RES_VIEWCOUNT"/>
 		<association property="resThumbnailImage" column="RES_ID" javaType="ResImage" select="getResThumbnailImage"/>
 		<association property="bestReview"  column="RES_ID" javaType="Review" select="getBestReview"/>
+	</resultMap>
+
+	<resultMap type="Res" id="RestaurantDetailMap">
+		<id property="resId" column="RES_ID" jdbcType="INTEGER"/>
+		<result property="resCategoryId" column="RES_CATEGORY_ID"/>
+		<result property="resCategoryName" column="RES_CATEGORY_NAME"/>
+		<result property="locationId" column="LOCATION_ID"/>
+		<result property="locationName" column="LOCATION_NAME"/>
+		<result property="resName" column="RES_NAME"/>
+		<result property="resAddress" column="RES_ADDRESS"/>
+		<result property="resContent" column="RES_CONTENT"/>
+		<result property="resTime" column="RES_TIME"/>
+		<result property="resStatus" column="RES_STATUS"/>
+		<result property="resCreateDate" column="RES_CREATE_DATE"/>
+		<result property="resUpdateDate" column="RES_UPDATE_DATE"/>
+		<result property="reviewRating" column="REVIEW_RATING"/>
+		<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
+		<result property="resReviewCount" column="REVIEW_COUNT"/>
+		<result property="resViewCount" column="RES_VIEWCOUNT"/>
+		<association property="resThumbnailImage" column="RES_ID" javaType="ResImage" select="getResThumbnailImage"/>
 		<collection property="resLatestImages" column="RES_ID" ofType="Image" select="getResLatestImages"/>
 	</resultMap>
 	
@@ -128,7 +148,7 @@
 		</if>
 	</select>
 	
-	<select id="getList" parameterType="hashmap" resultMap="RestaurantMap">
+	<select id="getList" parameterType="hashmap" resultMap="RestaurantListMap">
 		SELECT    DISTINCT SR.RES_ID, SR.RES_NAME, SR.REVIEW_RATING, SR.LOCATION_NAME, SR.RES_ADDRESS, SR.RES_VIEWCOUNT, SR.BOOKMARK_COUNT, SR.REVIEW_COUNT
 		FROM      SELECT_RES SR
 		LEFT JOIN SELECT_FILTER SF ON (SR.RES_ID = SF.RES_ID)
@@ -165,7 +185,7 @@
 		</choose>
 	</select>
 	
-	<select id="getRestaurantDetail" parameterType="_int" resultMap="RestaurantMap">
+	<select id="getRestaurantDetail" parameterType="_int" resultMap="RestaurantDetailMap">
 		SELECT R.RES_ID, R.RES_NAME, R.LOCATION_NAME, R.RES_ADDRESS, R.REVIEW_RATING, R.RES_CONTENT
     	FROM   SELECT_RES R
 		WHERE  R.RES_ID = #{resId}
