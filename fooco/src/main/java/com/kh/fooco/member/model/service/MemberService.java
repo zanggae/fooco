@@ -8,8 +8,10 @@ import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
+import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
-
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
@@ -79,6 +81,16 @@ public interface MemberService {
 	int deleteCheckin(int checkinId);
 	
 	int deleteCheckinImage2(int checkinId);
+	
+	ArrayList<MZ> selectMZ(int memberId);
+	
+	int deleteMZ(int resBookMarkId);
+	
+	Res getRestaurantDetail(int resId);
+
+	Info getRestaurantInfo(int resId);
+
+
 	// ================================== Mylist 영은 ===========================================
 
 
@@ -89,6 +101,10 @@ public interface MemberService {
 	int insertMylist(String themeTitle, int themeWriter);
 
 	int insertMylistRes(String th);
+
+
+
+
 
 
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,6 +124,10 @@
 .card-body {
 	padding: 0;
 }
+
+#heart:hover{
+	color:yellow;
+}
 </style>
 
 <body>
@@ -140,131 +146,36 @@
 								즐겨찾기 - 맛집</p>
 						</div>
 						<div class="row row-cols-4 center_content shadow_sm">
-							<a href="">
-								<div class="card_div">
-									<div class="col card shadow-sm" style="height: 12rem;">
-										<div style="position: relative;">
-											<img src="resources/logo/galbi.jpg" class="card-img-top"
-												style="z-index: 0;">
-										</div>
-										<i class="fas fa-heart card_heart"></i>
-										<div class="card-body" style="margin: 0; padding: 0;">
-											<p class="card-text" style="font-family:'bold'; font-size:1rem; height:3rem; margin-bottom:0;">동원이가 제일
-												좋아하는 갈비찜</p>
-											<p
-												style="font-family: 'bold'; font-size: 0.8rem; color: #F4E04E
-											; margin-bottom: 0;">
-												<i class="fas fa-star"></i>4.9
-											</p>
-											<p
-												style="font-family: 'medium'; font-size: 0.8rem; margin-bottom: 0;">
-												<i class="fas fa-map-marker-alt"
-													style="color: rgb(204, 51, 98); margin-bottom: 0;"></i> 인천
-											</p>
-										</div>
-									</div>
-								</div>
-							</a>
-							<a href="">
-								<div class="card_div">
-									<div class="col card shadow-sm" style="height: 12rem;">
-										<div style="position: relative;">
-											<img src="resources/logo/galbi.jpg" class="card-img-top"
-												style="z-index: 0;">
-										</div>
-										<i class="fas fa-heart card_heart"></i>
-										<div class="card-body" style="margin: 0; padding: 0;">
-											<p class="card-text" style="font-family:'bold'; font-size:1rem; height:3rem; margin-bottom:0;">동원이가 제일
-												좋아하는 갈비찜</p>
-											<p
-												style="font-family: 'bold'; font-size: 0.8rem; color: #F4E04E
-											; margin-bottom: 0;">
-												<i class="fas fa-star"></i>4.9
-											</p>
-											<p
-												style="font-family: 'medium'; font-size: 0.8rem; margin-bottom: 0;">
-												<i class="fas fa-map-marker-alt"
-													style="color: rgb(204, 51, 98); margin-bottom: 0;"></i> 인천
-											</p>
-										</div>
-									</div>
-								</div>
-							</a>
-							<a href="">
-								<div class="card_div">
-									<div class="col card shadow-sm" style="height: 12rem;">
-										<div style="position: relative;">
-											<img src="resources/logo/galbi.jpg" class="card-img-top"
-												style="z-index: 0;">
-										</div>
-										<i class="fas fa-heart card_heart"></i>
-										<div class="card-body" style="margin: 0; padding: 0;">
-											<p class="card-text" style="font-family:'bold'; font-size:1rem; height:3rem; margin-bottom:0;">동원이가 제일
-												좋아하는 갈비찜</p>
-											<p
-												style="font-family: 'bold'; font-size: 0.8rem; color: #F4E04E
-											; margin-bottom: 0;">
-												<i class="fas fa-star"></i>4.9
-											</p>
-											<p
-												style="font-family: 'medium'; font-size: 0.8rem; margin-bottom: 0;">
-												<i class="fas fa-map-marker-alt"
-													style="color: rgb(204, 51, 98); margin-bottom: 0;"></i> 인천
-											</p>
-										</div>
-									</div>
-								</div>
-							</a>
-							<a href="">
-								<div class="card_div">
-									<div class="col card shadow-sm" style="height: 12rem;">
-										<div style="position: relative;">
-											<img src="resources/logo/galbi.jpg" class="card-img-top"
-												style="z-index: 0;">
-										</div>
-										<i class="fas fa-heart card_heart"></i>
-										<div class="card-body" style="margin: 0; padding: 0;">
-											<p class="card-text" style="font-family:'bold'; font-size:1rem; height:3rem; margin-bottom:0;">동원이가 제일
-												좋아하는 갈비찜</p>
-											<p
-												style="font-family: 'bold'; font-size: 0.8rem; color: #F4E04E
-											; margin-bottom: 0;">
-												<i class="fas fa-star"></i>4.9
-											</p>
-											<p
-												style="font-family: 'medium'; font-size: 0.8rem; margin-bottom: 0;">
-												<i class="fas fa-map-marker-alt"
-													style="color: rgb(204, 51, 98); margin-bottom: 0;"></i> 인천
-											</p>
-										</div>
-									</div>
-								</div>
-							</a>
-							<a href="">
-								<div class="card_div">
-									<div class="col card shadow-sm" style="height: 12rem;">
-										<div style="position: relative;">
-											<img src="resources/logo/galbi.jpg" class="card-img-top"
-												style="z-index: 0;">
-										</div>
-										<i class="fas fa-heart card_heart"></i>
-										<div class="card-body" style="margin: 0; padding: 0;">
-											<p class="card-text" style="font-family:'bold'; font-size:1rem; height:3rem; margin-bottom:0;">동원이가 제일
-												좋아하는 갈비찜</p>
-											<p
-												style="font-family: 'bold'; font-size: 0.8rem; color: #F4E04E
-											; margin-bottom: 0;">
-												<i class="fas fa-star"></i>4.9
-											</p>
-											<p
-												style="font-family: 'medium'; font-size: 0.8rem; margin-bottom: 0;">
-												<i class="fas fa-map-marker-alt"
-													style="color: rgb(204, 51, 98); margin-bottom: 0;"></i> 인천
-											</p>
-										</div>
-									</div>
-								</div>
-							</a>
+						
+							<c:forEach var="MZ" items="${MZList }">
+					                <div class="card_div">
+					                  <div class="col card shadow-sm" style="height: 12rem;">
+					                  <c:url var="detailMZ" value="detailMZ.do">
+					                  	<c:param name="resId" value="${MZ.resId }"></c:param>
+					                  </c:url>
+					                  <a href="${detailMZ }">
+					                    <div style="position: relative;">
+					                      <img src="${contextPath }/resources/restaurantImage/${MZ.imageNewName}" class="card-img-top" style="z-index: 0; width:8.5rem; height:5.5rem;">
+					                    </div>
+					                   </a>
+					                    <input type="hidden" id="resBookMarkId" value="${MZ.resBookMarkId}">
+					                    <!-- 즐겨찾기 해제 시 목록에서 없애려고 넘기는값 -->
+					                    <c:url var="deleteMZ" value="deleteMZ.do">
+					                    	<c:param name="resBookMarkId" value="${MZ.resBookMarkId}"></c:param>
+					                    </c:url>
+					                    <a href="${deleteMZ }">
+					                    	<i class="fas fa-heart card_heart" id="heart"></i>
+					                    </a>
+					                    <div class="card-body"">
+					                      <p class="card-text" style="margin-bottom:0.2rem;">
+					                      <p style="font-family:'bold'; font-size:1rem; height:3rem; margin-bottom:0.5rem;">${MZ.resName}</p>
+					                      <p style="font-family:'medium'; font-size:0.8rem; margin-bottom:0rem;">
+					                        <i class="fas fa-map-marker-alt" style="color:rgb(204,51,98);"></i> ${MZ.locationName}</p>
+					                      </p>
+					                    </div>
+					                  </div>
+					                </div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -274,5 +185,17 @@
 	</section>
 
 </body>
+
+<script>
+/* $("#heart").click(function(){
+	var resBookMarkId = $("#resBookMarkId").val()
+	location.href="deleteMZ.do?resBookMarkId="+resBookMarkId; 
+}) */
+
+
+
+
+</script>
+
 
 </html>

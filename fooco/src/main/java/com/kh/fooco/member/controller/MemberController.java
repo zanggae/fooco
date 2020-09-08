@@ -42,11 +42,13 @@ import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
+import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.naver.NaverLoginBO;
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
-import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -751,7 +753,7 @@ public class MemberController {
 			return mv;
 		}
 		
-		
+		// 체크인 삭제 버튼 클릭 시
 		@RequestMapping("myPageCheckinDelete.do")
 		public String myPageDelete( int checkinId) {
 			System.out.println("체크인 번호 : " + checkinId);
@@ -763,6 +765,48 @@ public class MemberController {
 			return "redirect:myPageCheckin.do";
 		}
 
+		
+		// 즐겨찾기 - 맛집 조회
+		@RequestMapping("myPageFavoritesMZ.do")
+		public ModelAndView myPageFavoritesMZView(ModelAndView mv, HttpSession session) {
+			 Member loginUser = (Member)session.getAttribute("loginUser");
+		     int memberId = loginUser.getMemberId();
+			
+		     // 즐겨찾기한 맛집 리스트 조회
+		     ArrayList<MZ> MZList = memberService.selectMZ(memberId);
+		      
+		     System.out.println("맛집리스트 조회 결과 : " +MZList);
+		    
+		    mv.addObject("MZList",MZList);
+			mv.setViewName("mypage/myPageFavoritesMZ");
+			return mv;
+		}
+		
+		// 즐겨찾기 - 맛집 삭제
+		@RequestMapping("deleteMZ.do")
+		public ModelAndView deleteMZ(ModelAndView mv, int resBookMarkId) {
+			System.out.println("클릭한 resBookMark번호 :" + resBookMarkId);
+			
+			int result = memberService.deleteMZ(resBookMarkId);
+		    
+			mv.setViewName("redirect:myPageFavoritesMZ.do");
+			return mv;
+		}
+		
+		// 즐겨 찾기 - 맛집 클릭 시 해당 맛집 상세페이지로 이동
+		@RequestMapping("detailMZ.do")
+		public ModelAndView goDetailRestaurant(ModelAndView mv, int resId)
+		{
+			System.out.println(resId);
+			Res restaurant = memberService.getRestaurantDetail(resId);
+			Info info = memberService.getRestaurantInfo(resId);
+
+			System.out.println(restaurant);
+			mv.addObject("res", restaurant);
+			mv.addObject("info", info);
+			mv.setViewName("restaurant/detailRestaurant");
+			return mv;
+		}
 		
 		
 // ================================== MyList 영은 ===========================================

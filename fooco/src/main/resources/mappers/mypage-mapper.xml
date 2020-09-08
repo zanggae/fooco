@@ -74,7 +74,72 @@
 </resultMap>
 
 
+<resultMap type="MZ" id="MZListResultSet">
+	<id property="resBookMarkId" column="RES_BOOKMARK_ID"/>
+	<result property="resId" column="RES_ID"/>
+	<result property="resName" column="RES_NAME"/>
+	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+	<result property="locationName" column="LOCATION_NAME"/>
 
+</resultMap>
+
+<resultMap type="Res" id="RestaurantDetailMap">
+	<id property="resId" column="RES_ID" jdbcType="INTEGER"/>
+	<result property="resCategoryId" column="RES_CATEGORY_ID"/>
+	<result property="resCategoryName" column="RES_CATEGORY_NAME"/>
+	<result property="locationId" column="LOCATION_ID"/>
+	<result property="locationName" column="LOCATION_NAME"/>
+	<result property="resName" column="RES_NAME"/>
+	<result property="resAddress" column="RES_ADDRESS"/>
+	<result property="resContent" column="RES_CONTENT"/>
+	<result property="resTime" column="RES_TIME"/>
+	<result property="resStatus" column="RES_STATUS"/>
+	<result property="resCreateDate" column="RES_CREATE_DATE"/>
+	<result property="resUpdateDate" column="RES_UPDATE_DATE"/>
+	<result property="reviewRating" column="REVIEW_RATING"/>
+	<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
+	<result property="resReviewCount" column="REVIEW_COUNT"/>
+	<result property="resViewCount" column="RES_VIEWCOUNT"/>
+	<association property="resThumbnailImage" column="RES_ID" javaType="ResImage" select="getResThumbnailImage"/>
+	<collection property="resLatestImages" column="RES_ID" ofType="Image" select="getResLatestImages"/>
+</resultMap>
+
+<resultMap type="Info" id="InfoMap">
+	<id property="resId" column="RES_ID"/>
+	<result property="infoCategoryName" column="RES_CATEGORY_NAME"/>
+	<result property="infoOperatingTime" column="RES_TIME"/>
+	<collection property="infoFilter" ofType="Filter">
+		<id property="filterId" column="FILTER_ID"/>
+		<result property="filterName" column="FILTER_NAME"/>
+	</collection>
+	<collection property="bestmenu" ofType="Bestmenu">
+		<id property="bestmenuId" column="BESTMENU_ID"/>
+		<result property="bestmenuName" column="BESTMENU_NAME"/>
+	</collection>
+</resultMap>
+
+<resultMap type="Image" id="ImageMap">
+	<id property="imageId" column="IMAGE_ID"/>
+	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
+	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+	<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+	<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
+	<result property="imageLevel" column="IMAGE_LEVEL"/>
+	<result property="imageStatus" column="IMAGE_STATUS"/>
+	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>
+</resultMap>
+	
+<resultMap type="ResImage" id="ResImageMap">
+		<result property="resId" column="RES_ID"/>
+		<result property="imageId" column="IMAGE_ID"/>
+		<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
+		<result property="imageNewName" column="IMAGE_NEW_NAME"/>
+		<result property="imageFilepath" column="IMAGE_FILEPATH"/>
+		<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
+		<result property="imageLevel" column="IMAGE_LEVEL"/>
+		<result property="imageStatus" column="IMAGE_STATUS"/>
+		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>	
+</resultMap>
 
 
 <!-- Mylist 영은 -->
@@ -335,6 +400,58 @@ WHERE CHECKIN_ID = #{checkinId}
 DELETE FROM CHECKIN_IMAGE
 WHERE CHECKIN_ID = #{checkinId}
 </delete>
+
+
+<!-- 즐겨찾기 - 맛집 조회 -->
+<select id="selectMZ" parameterType="_int" resultMap="MZListResultSet">
+SELECT RB.RES_BOOKMARK_ID, R.RES_ID, R.RES_NAME, IMG.IMAGE_NEW_NAME,LOC.LOCATION_NAME 
+FROM MEMBER M
+LEFT JOIN RES_BOOKMARK RB ON(M.MEMBER_ID = RB.MEMBER_ID)
+LEFT JOIN RESTAURANT R ON(RB.RES_ID = R.RES_ID)
+LEFT JOIN RES_IMAGE RIMG ON(R.RES_ID = RIMG.RES_ID)
+LEFT JOIN IMAGE IMG ON (RIMG.IMAGE_ID = IMG.IMAGE_ID)
+LEFT JOIN LOCATION LOC ON (R.LOCATION_ID = LOC.LOCATION_ID)
+WHERE M.MEMBER_ID = #{memberId}
+
+</select>
+
+<!-- 즐겨찾기 - 맛집 삭제 -->
+<delete id="deleteMZ" parameterType="_int">
+DELETE FROM RES_BOOKMARK
+WHERE RES_BOOKMARK_ID = #{resBookMarkId}
+
+</delete>
+
+<select id="getRestaurantDetail" parameterType="_int" resultMap="RestaurantDetailMap">
+	SELECT R.RES_ID, R.RES_NAME, R.LOCATION_NAME, R.RES_ADDRESS, R.REVIEW_RATING, R.RES_CONTENT
+   	FROM   SELECT_RES R
+	WHERE  R.RES_ID = #{resId}
+</select>
+
+<select id="getRestaurantInfo" parameterType="_int" resultMap="InfoMap">
+	SELECT    R.RES_ID, R.RES_CATEGORY_NAME, R.RES_TIME
+			  ,BM.BESTMENU_ID, BM.BESTMENU_NAME
+			  ,F.FILTER_ID, F.FILTER_NAME
+	FROM      SELECT_RES R
+	LEFT JOIN BESTMENU BM ON (R.RES_ID = BM.RES_ID)
+	LEFT JOIN FILTER_CATEGORY FC ON (R.RES_ID = FC.RES_ID)
+	LEFT JOIN FILTER F ON (FC.FILTER_ID = F.FILTER_ID)
+	WHERE     R.RES_ID = #{resId}
+</select>
+
+<select id="getResLatestImages" resultMap="ImageMap">
+	SELECT LI.*
+	FROM   SELECT_RES_LATEST_IMAGES LI
+	WHERE  LI.RES_ID = #{resId}
+</select>
+
+<select id="getResThumbnailImage" resultMap="ResImageMap">
+	SELECT    R.RES_ID, I.*
+	FROM      IMAGE I
+	LEFT JOIN RES_IMAGE RI ON (I.IMAGE_ID = RI.IMAGE_ID)
+	LEFT JOIN RESTAURANT R ON (R.RES_ID = RI.RES_ID)
+	WHERE     R.RES_ID = #{resId}
+</select>
 
 <!-- =========================== mylist 영은 ================================================ -->
 

@@ -167,7 +167,6 @@
                     </div>
     				
 	    				<c:forEach var="cd" items="${modifyCheckinList.checkinImageList }">
-							<c:out value="${cd.imageId }"></c:out>
 							<!-- 해당 체크인에 있는 첨부 이미지를 삭제하기 위해  -->
 							<input type="hidden" name="imageIds" value="${cd.imageId }">
 						</c:forEach>
