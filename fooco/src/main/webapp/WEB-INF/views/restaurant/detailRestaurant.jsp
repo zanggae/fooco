@@ -81,7 +81,7 @@
 	.starRating {cursor:pointer; margin:0;}
 	.reviewContent {font-size:0.8rem;}
 	#browseBtn {background-color:rgb(204,51,98); width:100%; height:2.5rem; color:white; font-family:'medium'; font-size:1rem; border:none; border-bottom-left-radius:0.25rem; border-bottom-right-radius:0.25rem;}
-	
+	.fas {color:#F4E04E;}
 	
 	/* 사진 자세히보기 모달 */
 	.view-photoDetail-modal {background-color:rgba(0,0,0,0.7);}
@@ -91,6 +91,7 @@
 	.carousel-control-next-icon {color:rgb(204,51,98);}
 	.photoDetail-img {height:30rem; border-radius:0.5rem;}
 	.mz-review-rating-row .col-10 {color:#F4E04E;}
+	.
 </style>
 </head>
 <body>
@@ -148,15 +149,13 @@
 							</div>
 							<div class="col-4 d-flex align-items-start flex-column">
 								<div class="ml-auto mb-auto mz-rating">
-									<span style="font-family: 'bold'; font-size: 2.5rem;"><i
-										class="fas fa-star"></i><fmt:formatNumber value="${res.reviewRating}" pattern="0.0"/></span>
+									<span style="font-family: 'bold'; font-size: 2.5rem;">
+										<i class="fas fa-star"></i><fmt:formatNumber value="${res.reviewRating}" pattern="0.0"/>
+									</span>
 								</div>
 								<div class="ml-auto mz-buttons d-flex">
-									<input type="button" value="&#x1F495; 즐겨찾기" class="form-control mz-bookmark-button shadow-sm"
-										data-toggle="modal" data-target="#view-photoDetail"> <input
-										type="button" value="&#x1F4DD; 리뷰쓰기"
-										class="form-control mz-review-button shadow-sm"
-										data-toggle="modal" data-target="#write-review">
+									<input type="button" value="&#x1F495; 즐겨찾기" class="form-control mz-bookmark-button shadow-sm" data-toggle="modal" data-target="#view-photoDetail">
+									<input type="button" value="&#x1F4DD; 리뷰쓰기" class="form-control mz-review-button shadow-sm" data-toggle="modal" data-target="#write-review">
 								</div>
 							</div>
 						</div>
@@ -197,21 +196,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<!-- 리뷰 가져오기 -->
-		<script>
-			var reviewBtn = document.getElementById("mz-review");
-			
-			reviewBtn.addEventListener("click", function(e){
-				
-			})
-			function readyForReview(resId){
-				var select = document.getElementById("review-sort");
-				var sortType = select.options[select.selectedIndex].value;
-				
-				window.location.href="goRestaurantReview.do?resId="+resId+"&sortType="+sortType;
-			}
-		</script>
 
 
 		<!-- 리뷰 작성하기 모달 -->
@@ -239,46 +223,46 @@
 						<hr>
 						<div class="row d-block">
 							<div class="row">
-								<span>별점 매기기</span>
+								<span style="font-family:'bold'; font-size:1.05rem;">별점</span>
 							</div>
 							<div class="row d-block">
 								<div class="row">
 									<div class="col-2">
-										<span>맛</span>
+										<span style="font-family:'medium';">맛</span>
 									</div>
-									<div class="col-10 starRating">
+									<div class="col-10 starRating tasteRating">
 										<i class="far fa-star" data-rating="1" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="2" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="3" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="4" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="5" style="font-size: 1rem"></i>
-										<input type="hidden" name="tasteScore" class="tasteScore reviewScore" value="3">
+										<input type="hidden" name="reviewTasterating" class="tasteScore reviewScore" value="3">
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-2">
-										<span>가격</span>
+										<span style="font-family:'medium';">가격</span>
 									</div>
-									<div class="col-10 starRating">
+									<div class="col-10 starRating priceRating">
 										<i class="far fa-star" data-rating="1" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="2" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="3" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="4" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="5" style="font-size: 1rem"></i>
-										<input type="hidden" name="priceScore" class="priceScore reviewScore" value="3">
+										<input type="hidden" name="reviewPricerating" class="priceScore reviewScore" value="3">
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-2">
-										<span>서비스</span>
+										<span style="font-family:'medium';">서비스</span>
 									</div>
-									<div class="col-10 starRating">
+									<div class="col-10 starRating serviceRating">
 										<i class="far fa-star" data-rating="1" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="2" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="3" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="4" style="font-size: 1rem"></i>
 										<i class="far fa-star" data-rating="5" style="font-size: 1rem"></i>
-										<input type="hidden" name="serviceScore" class="serviceScore reviewScore" value="3">
+										<input type="hidden" name="reviewServicerating" class="serviceScore reviewScore" value="3">
 									</div>
 								</div>
 							</div>
@@ -286,16 +270,16 @@
 						<hr>
 						<div class="row d-block">
 							<div class="row">
-								<span>내용 입력하기</span>
+								<span style="font-family:'bold'; font-size:1.05rem;">내용 입력하기</span>
 							</div>
 							<div class="row">
-								<textarea class="form-control" rows="5" class="reviewContent" id="reviewContent" style="font-size: 0.8rem; resize: none;"></textarea>
+								<textarea class="form-control" rows="5" class="reviewContent" id="reviewContent" name="reviewContent" style="font-size: 0.8rem; resize: none;"></textarea>
 							</div>
 						</div>
 						<hr>
 						<div class="row d-block">
 							<div class="row">
-								<span>파일 첨부하기</span>
+								<span style="font-family:'bold'; font-size:1.05rem;">파일 첨부하기</span>
 							</div>
 							<div class="row">
 								<div id="attachFile" style="width: 100%;"></div>
@@ -303,8 +287,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn" data-dismiss="modal">취소하기</button>
-						<button type="button" class="btn" onclick="formSubmit();">등록하기</button>
+						<button type="button" class="btn" data-dismiss="modal" style="font-family:'heavy'; font-size:1.1rem;">취소하기</button>
+						<button type="button" class="btn" onclick="formSubmit();" style="font-family:'heavy'; font-size:1.1rem;">등록하기</button>
 						<input type="hidden" id="realname" name="realname"/>
 						<input type="hidden" id="filename" name="filename"/>
 						<input type="hidden" id="filesize" name="filesize"/>
@@ -314,7 +298,66 @@
 		</div>
 		</form>
 		
-		<!--별 평점 주기-->
+
+		<!-- 세 가지 평점 주기-->
+		<script>
+			var tasteRating = $(".tasteRating .fa-star");
+			
+			var SetTasteRatingStar = function() {
+				return tasteRating.each(function() {
+                    if(parseInt(tasteRating.siblings('input.reviewScore').val()) >= parseInt($(this).data('rating'))) {
+                        return $(this).removeClass('far').addClass('fas');
+                    }else {
+                        return $(this).removeClass('fas').addClass('far');
+                    }
+                })
+            }
+            
+            tasteRating.on('click',function() {
+            	tasteRating.siblings('input.reviewScore').val($(this).data('rating'));
+            	return SetTasteRatingStar();
+            })
+            
+            SetTasteRatingStar();
+     
+			var priceRating = $(".priceRating .fa-star");
+			
+			var SetPriceRatingStar = function() {
+				return priceRating.each(function() {
+                    if(parseInt(priceRating.siblings('input.reviewScore').val()) >= parseInt($(this).data('rating'))) {
+                        return $(this).removeClass('far').addClass('fas');
+                    }else {
+                        return $(this).removeClass('fas').addClass('far');
+                    }
+                })
+            }
+            
+			priceRating.on('click',function() {
+				priceRating.siblings('input.reviewScore').val($(this).data('rating'));
+            	return SetPriceRatingStar();
+            })
+            
+            SetPriceRatingStar();
+       
+			var serviceRating = $(".serviceRating .fa-star");
+			
+			var SetServiceRatingStar = function() {
+				return serviceRating.each(function() {
+                    if(parseInt(serviceRating.siblings('input.reviewScore').val()) >= parseInt($(this).data('rating'))) {
+                        return $(this).removeClass('far').addClass('fas');
+                    }else {
+                        return $(this).removeClass('fas').addClass('far');
+                    }
+                })
+            }
+            
+			serviceRating.on('click',function() {
+				serviceRating.siblings('input.reviewScore').val($(this).data('rating'));
+            	return SetServiceRatingStar();
+            })
+            
+            SetServiceRatingStar();
+        </script>
         
 		
 		<!-- 사진 첨부 -->
@@ -353,9 +396,8 @@
 
                 document.uploadReview.submit();
             }
-
         </script>
-
+>
 
 
 		<!-- 사진 자세히보기 모달 -->
