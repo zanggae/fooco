@@ -13,7 +13,7 @@
 	<!-- 아이콘 -->
 	<script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
 
-    <title>membershipInfo</title>
+    <title>membershipInfo</title> 
     
     <style>
      @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
