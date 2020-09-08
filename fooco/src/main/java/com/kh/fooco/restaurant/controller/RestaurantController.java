@@ -25,6 +25,7 @@ import com.kh.fooco.restaurant.model.vo.Filter;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.restaurant.model.vo.Review;
 
 @Controller
 public class RestaurantController {
@@ -92,6 +93,33 @@ public class RestaurantController {
 		mv.addObject("res", restaurant);
 		mv.addObject("info", info);
 		mv.setViewName("restaurant/detailRestaurant");
+		return mv;
+	}
+	
+	@RequestMapping("goRestaurantReview.do")
+	public ModelAndView goRestaurantReview(ModelAndView mv, @RequestParam(value="resId", required=false) Integer resId
+														  , @RequestParam(value="sortType", required=false) String sortType
+														  , @RequestParam(value="page", required=false, defaultValue="1") Integer page)
+	{
+		int currentPage = page;
+		
+		System.out.println("Controller resId:" + resId + ", sortType: " + sortType);
+		
+		int howManyReview = restaurantService.getReviewListCount(resId);
+		
+		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
+		searchParameter.put("resId", resId);
+		searchParameter.put("sortType", sortType);
+		
+		System.out.println("howManyReview?: " + howManyReview);
+		
+		PageInfo pi = getPageInfo(currentPage, howManyReview);
+		
+		ArrayList<Review> list = new ArrayList<Review>();
+		list = restaurantService.getReviewList(searchParameter, pi);
+		
+		System.out.println(list);
+		
 		return mv;
 	}
 	

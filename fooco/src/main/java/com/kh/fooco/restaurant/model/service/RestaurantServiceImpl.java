@@ -39,6 +39,16 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantDao.getRestaurantInfo(resId);
 	}
 
+	@Override
+	public int getReviewListCount(Integer resId) {
+		return restaurantDao.getReviewListCount(resId);
+	}
+
+	@Override
+	public ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter, PageInfo pi) {
+		return restaurantDao.getReviewList(searchParameter, pi);
+	}
+
 
 
 }

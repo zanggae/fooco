@@ -12,6 +12,7 @@ import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.restaurant.model.vo.Review;
 
 @Repository("restaurantDao")
 public class RestaurantDao {
@@ -42,6 +43,20 @@ public class RestaurantDao {
 	public Info getRestaurantInfo(Integer resId) {
 		return sqlSessionTemplate.selectOne("restaurantMapper.getRestaurantInfo", resId);
 
+	}
+
+
+	public int getReviewListCount(Integer resId) {
+		return sqlSessionTemplate.selectOne("restaurantMapper.getReviewListCount", resId);
+	}
+
+
+	public ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getReviewList", searchParameter, rowBounds);
 	}
 	
 }

@@ -163,7 +163,7 @@
 						<div class="row mz-content-bottom">
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
 								<li class="nav-item mz-nav-item"><a class="nav-link active" data-toggle="tab" href="#mz-detail">상세정보</a></li>
-								<li class="nav-item mz-nav-item"><a class="nav-link" data-toggle="tab" href="#mz-review" onclick="goDetailReview(${res.resId})">리뷰</a></li>
+								<li class="nav-item mz-nav-item"><a class="nav-link" data-toggle="tab" href="#mz-review" onclick="readyForReview(${res.resId})">리뷰</a></li>
 								<li class="nav-item mz-nav-item"><a class="nav-link" data-toggle="tab" href="#mz-photo" onclick="goDetailPhoto(${res.resId})">사진</a></li>
 							</ul>
 						</div>
@@ -197,6 +197,16 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 리뷰 가져오기 -->
+		<script>
+			function readyForReview(resId){
+				var select = document.getElementById("review-sort");
+				var sortType = select.options[select.selectedIndex].value;
+				
+				window.location.href="goRestaurantReview.do?resId="+resId+"&sortType="+sortType;
+			}
+		</script>
 
 
 		<!-- 리뷰 작성하기 모달 -->
