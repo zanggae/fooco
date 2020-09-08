@@ -123,7 +123,7 @@
 								<div class="custom-control custom-radio">
 									<input id="highViewCount" type="radio" name="sort-radio" value="highViewCount" class="custom-control-input" required>
 									<label class="custom-control-label" for="highViewCount">조회수 많은 순</label>
-								</div>
+								</div>  
 							</div>
 						</div>
 						<div style="margin-bottom: 1.2rem;">
