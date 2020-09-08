@@ -27,6 +27,10 @@ public interface MemberShipService {
 
 	int updateMembershipStatus();
 
+	int updateStaticGoldCount();
+
+	int updateStaticSilverCount();
+
 
 
 

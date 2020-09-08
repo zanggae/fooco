@@ -95,7 +95,7 @@
 	                  <tr>
 	                  	<td style="display: none">${t.themeId}</td>
 	                  	<td align="center">
-	                      <img src="img/${t.themeImageName}" width="60" height="60">
+	                      <img src="resources/restaurantImage/${t.themeImageName}" width="60" height="60">
 	                    </td>	                    
 	                    <td>${t.themeTitle}</td>
 	                    <td>${t.themeModifyDate }</td>
@@ -209,8 +209,8 @@
 		})
 		function goDetail(id){
         	var themeId = $(id).attr('value');
-        	alert(themeId);
-        	/* location.href="goDetailRestaurant.do?resId="+resId; */
+        	/* alert(themeId); */
+        	location.href="themedetail.do?themeId="+themeId;
         }
 		function goModify(id){
 			var themeId = $(id).attr('value');

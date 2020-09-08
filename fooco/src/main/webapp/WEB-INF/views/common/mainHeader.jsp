@@ -211,7 +211,7 @@
                           </a>
                           </c:if>
                             <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle mh-dropdown-toggle" onclick="openMenu();" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle mh-dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="header-menu-btn d-flex justify-content-center align-items-center">
                                         <i class="dropdown-title fas fa-align-justify" id="fa-align-justify" style="color:rgb(204,51,98); font-size:1.3rem;"></i>
                                         <i class="dropdown-title fas fa-times" id="fa-times" style="color:rgb(204,51,98); display:none; font-size:1.3rem;"></i>
@@ -249,7 +249,6 @@
             </nav>
             
 	<!-- 김경남: 메뉴 열고 닫을 때 아이콘 변경하는 스크립트 -->
-
     <script>
     	function openMenu() {
     		var open = document.getElementById("fa-align-justify");

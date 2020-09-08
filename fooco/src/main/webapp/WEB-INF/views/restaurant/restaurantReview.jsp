@@ -43,12 +43,11 @@
 			class="col form-group mz-sort-selection d-flex justify-content-end align-items-center">
 			<label for="review-sort" class="review-sort-label">정렬</label>
 			<div class="review-sort-input">
-				<select class="form-control form-control-sm review-sort"
-					id="review-sort">
-					<option>최신 순</option>
-					<option>오래된 순</option>
-					<option>평점 높은 순</option>
-					<option>평점 낮은 순</option>
+				<select class="form-control form-control-sm review-sort" id="review-sort">
+					<option value="latest" selected>최신 순</option>
+					<option value="oldest">오래된 순</option>
+					<option value="highrating">평점 높은 순</option>
+					<option value="lowrating">평점 낮은 순</option>
 				</select>
 			</div>
 		</div>

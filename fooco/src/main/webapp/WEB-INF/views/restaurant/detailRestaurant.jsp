@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -147,8 +148,8 @@
 							</div>
 							<div class="col-4 d-flex align-items-start flex-column">
 								<div class="ml-auto mb-auto mz-rating">
-									<span style="font-family: 'heavy'; font-size: 2.5rem;"><i
-										class="fas fa-star"></i>${res.reviewRating}</span>
+									<span style="font-family: 'bold'; font-size: 2.5rem;"><i
+										class="fas fa-star"></i><fmt:formatNumber value="${res.reviewRating}" pattern="0.0"/></span>
 								</div>
 								<div class="ml-auto mz-buttons d-flex">
 									<input type="button" value="&#x1F495; 즐겨찾기" class="form-control mz-bookmark-button shadow-sm"
@@ -162,7 +163,7 @@
 						<div class="row mz-content-bottom">
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
 								<li class="nav-item mz-nav-item"><a class="nav-link active" data-toggle="tab" href="#mz-detail">상세정보</a></li>
-								<li class="nav-item mz-nav-item"><a class="nav-link" data-toggle="tab" href="#mz-review" onclick="goDetailReview(${res.resId})">리뷰</a></li>
+								<li class="nav-item mz-nav-item"><a class="nav-link" data-toggle="tab" href="#mz-review" onclick="readyForReview(${res.resId})">리뷰</a></li>
 								<li class="nav-item mz-nav-item"><a class="nav-link" data-toggle="tab" href="#mz-photo" onclick="goDetailPhoto(${res.resId})">사진</a></li>
 							</ul>
 						</div>
@@ -196,6 +197,16 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 리뷰 가져오기 -->
+		<script>
+			function readyForReview(resId){
+				var select = document.getElementById("review-sort");
+				var sortType = select.options[select.selectedIndex].value;
+				
+				window.location.href="goRestaurantReview.do?resId="+resId+"&sortType="+sortType;
+			}
+		</script>
 
 
 		<!-- 리뷰 작성하기 모달 -->

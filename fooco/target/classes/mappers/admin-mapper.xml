@@ -338,8 +338,8 @@
 
 <insert id="insertRestaurantImage" parameterType="Image">
 	INSERT ALL
-	   	INTO IMAGE VALUES(SEQ_IMAGE_YE.NEXTVAL,#{imageOriginName},#{imageNewName},#{imageFilepath},SYSDATE,0,'Y',0)
-	   	INTO RES_IMAGE VALUES(SEQ_IMAGE_YE.CURRVAL,SEQ_RESTAURANT.CURRVAL)
+	   	INTO IMAGE VALUES(SEQ_IMAGEID.NEXTVAL,#{imageOriginName},#{imageNewName},#{imageFilepath},SYSDATE,0,'Y',0)
+	   	INTO RES_IMAGE VALUES(SEQ_IMAGEID.CURRVAL,SEQ_RESTAURANT.CURRVAL)
    	SELECT *
    	FROM DUAL
 </insert>
@@ -456,4 +456,21 @@
 	LEFT JOIN THEME_RES TR ON(R.RES_ID = TR.RES_ID)
 	WHERE TR.THEME_ID = #{themeId}
 </select>
+
+<!-- 테마 수정 -->
+<update id="modifyTheme" parameterType="ThemeAdmin">
+	UPDATE THEME SET THEME_TITLE=#{themeTitle},THEME_MODIFY_DATE=SYSDATE WHERE THEME_ID=#{themeId}
+</update>
+
+<!-- 테마 수정시 새로운 음식점 리스트 등록 -->
+<insert id="insertThemeRestaurant2" parameterType="hashmap">
+	INSERT INTO THEME_RES VALUES(#{tId},#{theme})
+</insert>
+
+<!-- 테마 수정시 기존의 rList제거 -->
+<delete id="deleteRList" parameterType="ThemeAdmin">
+	DELETE FROM THEME_RES WHERE THEME_ID=#{themeId}
+</delete>
+
+
 </mapper>

@@ -26,46 +26,7 @@
 		<div class="col sr-recommend-boundary">
 			<div class="row row-cols-1 sr-recommend-card shadow-sm">
 				<div class="col sr-recommend-card-img">
-					<img src="resThumb/restaurant1.jpg" style="border-radius: 0.2rem;"></img>
-				</div>
-				<div class="col sr-recommend-card-content">
-					<div class="row sr-recommend-card-title">
-						<span style="font-size: 0.9rem; line-height: 0.9rem; font-family: 'bold';">진짜 맛있는 스테이크</span>
-					</div>
-					<div class="row sr-recommend-card-rating">
-						<span style="color: #F4E04E;"><i class="fas fa-star"></i>4.9</span>
-					</div>
-					<div class="row sr-recommend-card-location d-flex align-items-center">
-						<i class="fas fa-map-marker-alt" style="font-size: 0.8rem; margin-right: 0.2rem;"></i>
-						<span style="font-family: 'medium'; font-size: 0.8rem;">인천</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col sr-recommend-boundary">
-			<div class="row row-cols-1 sr-recommend-card shadow-sm">
-				<div class="col sr-recommend-card-img">
-					<img src="resThumb/restaurant1.jpg" style="border-radius: 0.2rem;"></img>
-				</div>
-				<div class="col sr-recommend-card-content">
-					<div class="row sr-recommend-card-title">
-						<span style="font-size: 0.9rem; line-height: 0.9rem; font-family: 'bold';">진짜 맛있는 스테이크</span>
-					</div>
-					<div class="row sr-recommend-card-rating">
-						<span style="color: #F4E04E;"><i class="fas fa-star"></i>4.9</span>
-					</div>
-					<div
-						class="row sr-recommend-card-location d-flex align-items-center">
-						<i class="fas fa-map-marker-alt" style="font-size: 0.8rem; margin-right: 0.2rem;"></i>
-						<span style="font-family: 'medium'; font-size: 0.8rem;">인천</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col sr-recommend-boundary">
-			<div class="row row-cols-1 sr-recommend-card shadow-sm">
-				<div class="col sr-recommend-card-img">
-					<img src="resThumb/restaurant1.jpg" style="border-radius: 0.2rem;"></img>
+					<img src="#" style="border-radius: 0.2rem;"></img>
 				</div>
 				<div class="col sr-recommend-card-content">
 					<div class="row sr-recommend-card-title">

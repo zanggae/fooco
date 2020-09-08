@@ -19,5 +19,9 @@ public interface RestaurantService {
 
 	Info getRestaurantInfo(Integer resId);
 
+	int getReviewListCount(Integer resId);
+
+	ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter, PageInfo pi);
+
 }
 

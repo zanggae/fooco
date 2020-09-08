@@ -59,7 +59,9 @@ public class MemberShipController {
 		    int result2 = memberShipService.insertCoupon1(membership);
 		    int result3= memberShipService.insertCoupon2(membership);
 			 
-			
+//			관리자 테이블(static에 맴버십 컬럼 update)
+		    int result4 = memberShipService.updateStaticGoldCount();
+		   
 			System.out.println("result:"+result);
 			
 			if(result>0) {
@@ -82,6 +84,9 @@ public class MemberShipController {
 			 int result2 = memberShipService.insertCoupon1(membership); 
 			 int result3= memberShipService.insertCoupon3(membership);
 			 
+//		  	  관리자 테이블(static에 맴버십 컬럼 update)
+	         int result4 = memberShipService.updateStaticSilverCount();
+	         
 			 if(result>0) { System.out.println("insert성공"); 
 			 return "membership/membershipInfo"; 
 			 }else { 
