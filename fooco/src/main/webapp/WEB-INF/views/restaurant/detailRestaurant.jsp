@@ -210,6 +210,7 @@
 					<div class="modal-body">
 						<div class="row d-block">
 							<div class="row">
+								<input type="hidden" name="resId" value="${res.resId}">
 								<span style="font-family: 'bold'; font-size: 1.3rem;">경남스시</span>
 							</div>
 							<div class="row d-flex align-items-center">

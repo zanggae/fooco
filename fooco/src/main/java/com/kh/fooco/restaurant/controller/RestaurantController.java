@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
+import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.service.RestaurantService;
 import com.kh.fooco.restaurant.model.vo.Filter;
 import com.kh.fooco.restaurant.model.vo.Info;
@@ -34,6 +36,7 @@ public class RestaurantController {
 	
 	@Autowired
 	private RestaurantService restaurantService;
+	HttpSession session;
 	
 	@RequestMapping("goMain.do")    
 	public String goMain() {
@@ -209,23 +212,40 @@ public class RestaurantController {
 			, @RequestParam(value="filename", required=false) String filename
 			, @RequestParam(value="filesize", required=false) String filesize)
 	{
-		System.out.println("r:" + realname + ", f:" + filename);
+		review.setMemberId(500);
+		review.setReviewRating((review.getReviewTasterating() + review.getReviewPricerating() + review.getReviewServicerating())/3);
+		
+		System.out.println(review);
+		
 		String[] realnameArray = realname.split(",");
-//		String[] filenameArray = filename.split(",");
+		String[] filenameArray = filename.split(",");
 		
-		System.out.println(realnameArray);
+		Image image = new Image();
+		ArrayList<Image> imageList = new ArrayList<Image>();
 		
-//		Image image = new Image();
-//		ArrayList<Image> imageList = new ArrayList<Image>();
-//		
-//		for(int i=0; i>realnameArray.length; i++) {
-//			image.setImageOriginName(realnameArray[i]);
-//			image.setImageNewName(filenameArray[i]);
-//			imageList.add(i, image);
-//		}
-//		
-//		System.out.println(imageList);
+		for(int i=0; i<realnameArray.length; i++) {
+			image.setImageOriginName(realnameArray[i].toString());
+			image.setImageNewName(filenameArray[i].toString());			
+			imageList.add(image);
+		}
 		
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("review", review);
+		parameters.put("imageList", imageList);
+		
+		int result = restaurantService.uploadReview(parameters);
+
+		System.out.println(result);
 	}
+		
+		
+		
+		
+		
+		
+		
+		
+
+	
 	
 }
