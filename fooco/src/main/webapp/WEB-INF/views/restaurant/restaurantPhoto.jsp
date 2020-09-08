@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,68 +26,24 @@
 			class="col form-group mz-photo-sort d-flex justify-content-end align-items-center">
 			<label for="photo-sort" class="photo-sort-label">정렬</label>
 			<div class="photo-sort-input">
-				<select class="form-control form-control-sm photo-sort"
-					id="photo-sort">
-					<option>최신 순</option>
-					<option>오래된 순</option>
-					<option>평점 높은 순</option>
-					<option>평점 낮은 순</option>
+				<select class="form-control form-control-sm photo-sort" id="photo-sort">
+					<option value="latest" selected>최신 순</option>
+					<option value="oldest">오래된 순</option>
+					<option value="highrating">평점 높은 순</option>
+					<option value="lowrating">평점 낮은 순</option>
 				</select>
 			</div>
 		</div>
 	</div>
 	<div class="row mz-photo-container">
 		<div class="row row-cols-4 mz-photo-row">
+			<c:forEach var="photo" items="${photoList}">
 			<div class="col mz-photo-col">
 				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (1).jpg" class="mz-photo">
+					<img src="${contextPath}/resources/${photo.imageFilepath}/${photo.imageNewName}" class="mz-photo">
 				</div>
 			</div>
-			<div class="col mz-photo-col">
-				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (2).jpg" class="mz-photo">
-				</div>
-			</div>
-			<div class="col mz-photo-col">
-				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (3).jpg" class="mz-photo">
-				</div>
-			</div>
-			<div class="col mz-photo-col">
-				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (4).jpg" class="mz-photo">
-				</div>
-			</div>
-			<div class="col mz-photo-col">
-				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (5).jpg" class="mz-photo">
-				</div>
-			</div>
-			<div class="col mz-photo-col">
-				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (6).jpg" class="mz-photo">
-				</div>
-			</div>
-			<div class="col mz-photo-col">
-				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (7).jpg" class="mz-photo">
-				</div>
-			</div>
-			<div class="col mz-photo-col">
-				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (8).jpg" class="mz-photo">
-				</div>
-			</div>
-			<div class="col mz-photo-col">
-				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (9).jpg" class="mz-photo">
-				</div>
-			</div>
-			<div class="col mz-photo-col">
-				<div class="mz-photo-div">
-					<img src="resPhoto/sushi (10).jpg" class="mz-photo">
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 </body>

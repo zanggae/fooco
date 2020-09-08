@@ -3,6 +3,7 @@ package com.kh.fooco.restaurant.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
@@ -18,6 +19,14 @@ public interface RestaurantService {
 	Res getRestaurantDetail(Integer resId);
 
 	Info getRestaurantInfo(Integer resId);
+
+	int getReviewListCount(Integer resId);
+
+	ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter, PageInfo pi);
+
+	int getPhotoCount(Integer resId);
+
+	ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter, PageInfo ppi);
 
 }
 

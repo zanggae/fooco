@@ -35,18 +35,28 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.fooco.board.model.exception.BoardException;
+import com.kh.fooco.board.model.vo.Board;
+
 import com.kh.fooco.common.model.vo.Image;
+
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
 import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
+import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.naver.NaverLoginBO;
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+
+import com.kh.fooco.theme.model.exception.ThemeException;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
+
 
 @SessionAttributes("loginUser")
 @Controller
@@ -645,6 +655,19 @@ public class MemberController {
 			return "mypage/myPageCheckinRegister";
 		}
 		
+		// 체크인 등록페이지 음식점 조회 ajax
+		@RequestMapping("selectRes.do")
+		public void myPageSelectRes(HttpServletResponse response, String restitle) throws JsonIOException, IOException {
+			response.setContentType("application/json;charset=utf-8");
+			
+			System.out.println(restitle);
+			ArrayList<Restaurant> res = memberService.selectListRestaurant(restitle);
+			new Gson().toJson(res, response.getWriter());
+			System.out.println(res);
+			
+		}
+		
+		
 		// 체크인 등록 페이지에서 등록버튼 클릭 시
 		@RequestMapping(value="myPageCheckinRegister.do", method=RequestMethod.POST)
 		public ModelAndView myPageCheckinRegister(HttpServletRequest request, ModelAndView mv, Checkin ck, Member m,
@@ -653,6 +676,7 @@ public class MemberController {
 			String folderName = "checkinImage";
 			
 			System.out.println("클릭페이지 : " + ck);
+			// 체크인 테이블 인서트
 			int result = memberService.insertCheckin(ck);
 			
 			for (MultipartFile file : files) {
@@ -677,26 +701,120 @@ public class MemberController {
 		}
 		
 		
-		//체크인 수정 페이지 이동
+		// 체크인 수정 페이지 이동
 		@RequestMapping("CheckinModify.do")
-		public String myPageCheckinModifyView() {
+		public ModelAndView myPageCheckinModifyView(ModelAndView mv, int checkinId) {
+			System.out.println("수정페이지로 넘어가는 체크인번호 : " + checkinId);
 			
-			return "mypage/myPageCheckinModify";
+			ArrayList<Select_Checkin> modifyCheckinList = memberService.selectModifyCheckinList(checkinId);
+			
+			System.out.println(modifyCheckinList);
+			
+			mv.addObject("modifyCheckinList", modifyCheckinList);
+			mv.addObject("checkinId", checkinId);
+			mv.setViewName("mypage/myPageCheckinModify");
+			return mv;
 		}
 		
-		// 체크인 등록페이지 음식점 조회 ajax
-		@RequestMapping("selectRes.do")
-		public void myPageSelectRes(HttpServletResponse response, String restitle) throws JsonIOException, IOException {
-			response.setContentType("application/json;charset=utf-8");
+		// 체크인 수정 페이지에서 수정버튼 클릭 시
+		@RequestMapping(value="myPageCheckinModify.do", method=RequestMethod.POST)
+		public ModelAndView myPageCheckinModify(HttpServletRequest request, ModelAndView mv, Checkin ck, String imageIds,
+				Image img, CheckinImage ckimg, @RequestParam(value="file", required=false) List<MultipartFile> files)
+			 {
+			String folderName = "checkinImage";
 			
-			System.out.println(restitle);
-			ArrayList<Restaurant> res = memberService.selectListRestaurant(restitle);
-			new Gson().toJson(res, response.getWriter());
-			System.out.println(res);
+			System.out.println("수정페이지에서 넘어오는 값 : " + ck);
+			System.out.println("수정페이지에서 넘어오는 이미지 번호 값 : " + imageIds);
 			
+			int result1 = 0;
+			int result2 = 0;
+			
+			if(imageIds != null) {
+				String[] IL = imageIds.split(",");		
+				for(String imageNum : IL) {
+					result2 = memberService.deleteCheckinImage(imageNum);
+					result1 = memberService.deleteImage(imageNum);
+				}
+			}
+			
+			System.out.println("체크인 번호" + ckimg);
+			
+			// 체크인 테이블 인서트
+			int result3 = memberService.updateCheckin(ck);
+			
+			for (MultipartFile file : files) {
+				
+				if(!file.getOriginalFilename().equals("")) {
+					String renameFileName = saveFile(file,request,folderName);
+					img.setImageOriginName(file.getOriginalFilename());
+					img.setImageNewName(renameFileName);
+					
+					// 이미지 테이블 인서트
+					int result4 = memberService.insertImage(img);
+					// 체크인 수정 시 체크인 이미지 테이블 인서트
+					int result5 = memberService.insertCheckinImage2(ckimg);
+					
+				}
+			}
+			mv.setViewName("redirect:myPageCheckin.do");
+			
+			return mv;
 		}
 		
+		// 체크인 삭제 버튼 클릭 시
+		@RequestMapping("myPageCheckinDelete.do")
+		public String myPageDelete( int checkinId) {
+			System.out.println("체크인 번호 : " + checkinId);
+			
+			int result = memberService.deleteCheckinImage2(checkinId);
+			int result2 = memberService.deleteCheckin(checkinId);
+			
+			
+			return "redirect:myPageCheckin.do";
+		}
 
+		
+		// 즐겨찾기 - 맛집 조회
+		@RequestMapping("myPageFavoritesMZ.do")
+		public ModelAndView myPageFavoritesMZView(ModelAndView mv, HttpSession session) {
+			 Member loginUser = (Member)session.getAttribute("loginUser");
+		     int memberId = loginUser.getMemberId();
+			
+		     // 즐겨찾기한 맛집 리스트 조회
+		     ArrayList<MZ> MZList = memberService.selectMZ(memberId);
+		      
+		     System.out.println("맛집리스트 조회 결과 : " +MZList);
+		    
+		    mv.addObject("MZList",MZList);
+			mv.setViewName("mypage/myPageFavoritesMZ");
+			return mv;
+		}
+		
+		// 즐겨찾기 - 맛집 삭제
+		@RequestMapping("deleteMZ.do")
+		public ModelAndView deleteMZ(ModelAndView mv, int resBookMarkId) {
+			System.out.println("클릭한 resBookMark번호 :" + resBookMarkId);
+			
+			int result = memberService.deleteMZ(resBookMarkId);
+		    
+			mv.setViewName("redirect:myPageFavoritesMZ.do");
+			return mv;
+		}
+		
+		// 즐겨 찾기 - 맛집 클릭 시 해당 맛집 상세페이지로 이동
+		@RequestMapping("detailMZ.do")
+		public ModelAndView goDetailRestaurant(ModelAndView mv, int resId)
+		{
+			System.out.println(resId);
+			Res restaurant = memberService.getRestaurantDetail(resId);
+			Info info = memberService.getRestaurantInfo(resId);
+
+			System.out.println(restaurant);
+			mv.addObject("res", restaurant);
+			mv.addObject("info", info);
+			mv.setViewName("restaurant/detailRestaurant");
+			return mv;
+		}
 		
 		
 // ================================== MyList 영은 ===========================================
@@ -709,14 +827,14 @@ public class MemberController {
 		
 		@RequestMapping("mylistRegist.do")
 		public String mylistRegist() {
-			return "mypage/mylistRegist";
+			return "mypage/mypageMylistRegist";
 		}
 		
 		@RequestMapping(value="insertMylist.do", method= {RequestMethod.GET,RequestMethod.POST})
 		public ModelAndView restaurantThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, String themeTitle) {
 			int themeRListResult = 0;
 			
-			int themeWriter = 81;
+			int themeWriter = 3002;
 //			Member loginUser = (Member)session.getAttribute("loginUser");
 //			themeWriter = loginUser.getMemberId();				
 			
@@ -737,6 +855,20 @@ public class MemberController {
 		}
 		
 		
+	/*
+	 * @RequestMapping("mylistList.do") public ModelAndView mylistList(ModelAndView
+	 * mv) { ArrayList<Mylist> mylist = memberService.mylistList();
+	 * System.out.println("mylist조회 후 화면에 뿌리기 전 :" + mylist);
+	 * 
+	 * if(!mylist.isEmpty()) { mv.addObject("mylist",mylist);
+	 * mv.setViewName("mypage/myPageMylist"); }else { throw new
+	 * ThemeException("Mylist목록 보기 실패!"); } }
+	 */
 		
+		
+		@RequestMapping("mypageMylistDetail.do")
+		public String mypageMylistDetail() {
+			return"mypage/mypageMylistDetail";
+		}
 
 }

@@ -47,86 +47,29 @@
       font-family: 'light';
     }
 
-    .top {
-      border: 4.5rem solid rgb(253, 215, 129);
-      background-color: none;
-    }
-
-    img.fixed {
-      margin-top: -3rem;
-      padding-left: 5rem;
-      position: absolute;
-      width: 14rem;
-      height: 6rem;
-    }
-
-    .circle {
-      margin-top: -2.5rem;
-      margin-left: 45rem;
-      position: absolute;
-      width: 4.5rem;
-      height: 4.5rem;
-      border-radius: 50%;
-      background: rgb(204, 51, 98);
-    }
-
-    .text1 {
-      margin-top: -0.4rem;
-      margin-left: 53rem;
-      background-color: none;
-      position: absolute;
-      transform: translate(-50%, -50%)
-    }
-
-    /*상단부분 설정*/
-
-    .middle {
-      border: 5rem solid rgb(204, 51, 98);
-    }
-
-    .text2 {
-      background-color: none;
-      position: absolute;
-      top: 5rem;
-      left: 48rem;
-      transform: translate(-50%, -50%);
-      font-size: 2.5rem;
-      color: white;
-      font-family: 'bold';
-    }
-
-    .img1 {
-      margin: 0;
-      padding: 0;
-      position: absolute;
-      width: 15.5rem;
-      height: 10rem;
-      /* border: solid black 0.18rem;*/
-      border-radius: 8%;
-      margin-top: -1rem;
-
-
-    }
-
-    .img1:hover {
-
-      -webkit-transform: scale(1.1, 1.1);
-    }
-
-    .title {
-      margin-top: 0.5rem;
+    .text1 {margin-top: -0.4rem; margin-left: 53rem; background-color: none; position: absolute; transform: translate(-50%, -50%)}
+    .middle {border: 5rem solid rgb(204, 51, 98);}
+    .text2 {background-color: none; position: absolute; text-align: center; top: 10%; left: 50%; transform: translate(-50%, -50%); 
+    font-size: 2.5rem; color: white; font-family: 'bold';}
+    .img1 {margin: 0; padding: 0; position: relative; width: 19rem; height: 14rem; border-radius: 1%; margin-top: 1.2rem; margin-left: 2rem; padding-bottom: 1.2rem;}
+    .img1:hover {-webkit-transform: scale(1.1, 1.1);}
+	.title {
+      margin-top: 1.5rem;
       margin-left: 0.9rem;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-family: 'bold';
+      text-align: left;
+      position: relative;
+      transform: translate(-5%, -10%);
 
     }
 
     #star {
       position: absolute;
       color: gold;
-      font-size: 3rem;
-      margin-top: 0.2rem;
-      margin-left: 18rem;
+      font-size: 2.8rem;
+      margin-top: 1rem;
+
 
     }
 
@@ -134,24 +77,26 @@
       position: absolute;
       font-size: 2.6rem;
       color: gold;
-      margin-left: 22rem;
-      margin-top: -0.01rem;
+      margin-left: 4rem;
+      margin-top: 1rem;
       font-weight: bold;
 
     }
 
     .address {
       color: gray;
-      font-weight: bold;
+      font-family: 'bold';
     }
 
     .nickname {
-      font-weight: bold;
+
       font-size: 1.1rem;
+      font-family: 'medium';
     }
 
     .content {
       font-size: 1rem;
+      font-family: 'light';
 
     }
 
@@ -164,93 +109,145 @@
     .detailInfo {
       font-size: 0.9rem;
       color: silver;
-      margin-left: 20rem;
+      margin-left: 22rem;
       font-weight: bold;
     }
 
-    /* #test{
-    background: rgb(240,240,240);
-    width: 69rem;
-    height: 70rem;
-    margin-left: 13rem;
-    margin-top: 0.5rem;
-    border-radius: 15px;
-  } */
-
     .boundary {
-      margin: 0;
-      padding: 0;
-      border: 0.1rem solid black;
+      height: 16rem;
+      border: 0.4rem solid lightgray;
+      background-color: white;
+      border-radius: 0.5rem;
 
+
+    }
+
+    .text4 {
+      font-size: 1.2rem;
+      font-family: 'bold';
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .textbound {
+      border: 1rem;
+      border-style: none;
     }
   </style>
 
 </head>
 
 <body>
+<header>
+
+</header>
+
+<section>
+  <div class="middle">
 
 
-
-
-
-  <div class="middle"></div>
-  <div class="text2">${theme.themeTitle}</div>
+    <div class="text2">${theme.themeTitle}</div>
+  </div>
   <div id="test">
-    <div class="container">      
-      <c:forEach var="r" items="${restaurant1 }">
+    <div class="container">
       
-      <br><br>
-      <div class="row">
-        <!--왼쪽 여백-->
-        <div class="col-2">
-        </div>
-        <div class="boundary">
-          <!--사진구역-->
-          <div class="col-4" style="  width:300px;height:183.2px;display:inline-block;">
-            <img src="resources/restaurantImage/${r.resImageName}" class="img1">
-          </div>
+        <c:forEach var="r" items="${restaurant1 }">
+      
+          <br><br>
+
+          <div class="row">
+            <!--바깥쪽을 나누기 위한 row-->
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+              <!--들어갈 내용row-->
+              <div class="boundary">
+                <div class="row">
+                  <!--테두리 안쪽 내용을 위한 row-->
+
+                  <!--사진구역-->
+                  <div class="col-5" style="  width:300px;height:183.2px;display:inline-block;">
+                    <div><img src="resources/restaurantImage/${r.resImageName}" class="img1">
+                    </div>
+                  </div>
 
 
-          <!--내용 구역-->
-          <div class="col-7" style="display:inline-block;width:500px; margin-left : 0.5rem;
-          margin-top: 0.7rem;">
-            <div class="row" style="margin-top: 1rem;">
-              <h1 class="title">${r.resName}</h1>
-              <i class="fas fa-star" id="star"></i>
-              <h1 class="score">${r.reviewRatingAvg }</h1>
-            </div>
-            <div class="address">${r.resAddress }
-            </div>
-            <br>
-            <div class="nickname">${r.reviewNickname}
-            </div>
+                  <!--내용 구역-->
+                  <div class="col-7">
+                    <div class="row">
+                      <!--제목, 평점 구역-->
+                      <div class="col-8">
+                        <p class="title">${r.resName}</p>
+                      </div>
+                      <div class="col-4">
+                        <i class="fas fa-star" id="star"></i>
+                        <h1 class="score">${r.reviewRatingAvg }</h1>
+                      </div>
+                    </div>
+                    <!--제목, 평점 구역 끝-->
+                    <div class="row">
+                      <div class="col-10 address">
+                        ${r.resAddress }
+                      </div>
 
-            <div class="content" style="height : 3rem; overflow-y : auto; overflow-x : hidden;">
-              ${r.reviewContent }
-            </div>
-				<c:url var="detailRes" value="goDetailRestaurant.do">
+                    </div>
+
+                    <div class="nickname" style="margin-top: 0.5rem;">${r.reviewNickname}
+                    </div>
+                    <div class="content"
+                      style="font-family:'light';height : 3rem; width:30rem; overflow-y : auto; overflow-x : hidden; margin-top: 0.2rem;">
+                  		${r.reviewContent }
+                    </div>
+                    <c:url var="detailRes" value="goDetailRestaurant.do">
                   	<c:param name="resId" value="${r.resId }"/>
                   	</c:url>
-            <div><a href="${detailRes}" class="detailInfo">${r.resName} 더보기 ></a>
+                    <div style="margin-bottom:0.5rem; margin-top:0.5rem"><a href="${detailRes}"
+                        class="detailInfo">음식점 정보 더보기&nbsp;&nbsp;<i class="fas fa-arrow-right"></i></a>
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-1">
+
+              </div>
             </div>
-            <br>
+            <!--큰 row 끝-->
+
+            <br><br><br>
           </div>
+          <!--오른쪽 여백-->
+				</c:forEach> 
+		
 
-        </div>
       </div>
-      <!--오른쪽 여백-->
 
-	</c:forEach> 
+
+
     </div>
-
-
-
-
-
-
-  </div>
   <!--container끝-->
-  <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br>
+
+
+
+  <footer>
+  
+  </footer>
+  
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -22,6 +22,7 @@ public class Review implements Serializable {
 	private int reviewTasterating;
 	private int reviewPricerating;
 	private int reviewServicerating;
+	private String reviewStatus;
 	
 	// Review 부가 요소
 	private String nickname;
@@ -29,14 +30,14 @@ public class Review implements Serializable {
 	private String reviewerProfileImg;
 	private String reviewerProfilePath;
 	private int reviewerReviewCount;
-	private int reviewerFollowerCount;          
+	private int reviewerFollowerCount;
 	private ArrayList<Image> reviewImages;
 	
 	public Review() {}
 	public Review(int reviewId, int resId, int memberId, Date reviewCreateDate, Date reviewUpdateDate,
 			String reviewContent, int reviewGoodcount, int reviewRating, int reviewTasterating, int reviewPricerating,
-			int reviewServicerating, String nickname, int reviewerProfileId, String reviewerProfileImg,
-			String reviewerProfilePath, int reviewerReviewCount, int reviewerFollowerCount,
+			int reviewServicerating, String reviewStatus, String nickname, int reviewerProfileId,
+			String reviewerProfileImg, String reviewerProfilePath, int reviewerReviewCount, int reviewerFollowerCount,
 			ArrayList<Image> reviewImages) {
 		super();
 		this.reviewId = reviewId;
@@ -50,6 +51,7 @@ public class Review implements Serializable {
 		this.reviewTasterating = reviewTasterating;
 		this.reviewPricerating = reviewPricerating;
 		this.reviewServicerating = reviewServicerating;
+		this.reviewStatus = reviewStatus;
 		this.nickname = nickname;
 		this.reviewerProfileId = reviewerProfileId;
 		this.reviewerProfileImg = reviewerProfileImg;
@@ -124,6 +126,12 @@ public class Review implements Serializable {
 	public void setReviewServicerating(int reviewServicerating) {
 		this.reviewServicerating = reviewServicerating;
 	}
+	public String getReviewStatus() {
+		return reviewStatus;
+	}
+	public void setReviewStatus(String reviewStatus) {
+		this.reviewStatus = reviewStatus;
+	}
 	public String getNickname() {
 		return nickname;
 	}
@@ -172,10 +180,10 @@ public class Review implements Serializable {
 				+ reviewCreateDate + ", reviewUpdateDate=" + reviewUpdateDate + ", reviewContent=" + reviewContent
 				+ ", reviewGoodcount=" + reviewGoodcount + ", reviewRating=" + reviewRating + ", reviewTasterating="
 				+ reviewTasterating + ", reviewPricerating=" + reviewPricerating + ", reviewServicerating="
-				+ reviewServicerating + ", nickname=" + nickname + ", reviewerProfileId=" + reviewerProfileId
-				+ ", reviewerProfileImg=" + reviewerProfileImg + ", reviewerProfilePath=" + reviewerProfilePath
-				+ ", reviewerReviewCount=" + reviewerReviewCount + ", reviewerFollowerCount=" + reviewerFollowerCount
-				+ ", reviewImages=" + reviewImages + "]";
-	}    
+				+ reviewServicerating + ", reviewStatus=" + reviewStatus + ", nickname=" + nickname
+				+ ", reviewerProfileId=" + reviewerProfileId + ", reviewerProfileImg=" + reviewerProfileImg
+				+ ", reviewerProfilePath=" + reviewerProfilePath + ", reviewerReviewCount=" + reviewerReviewCount
+				+ ", reviewerFollowerCount=" + reviewerFollowerCount + ", reviewImages=" + reviewImages + "]";
+	}
 	
 }

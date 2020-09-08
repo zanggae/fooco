@@ -61,7 +61,7 @@
         .ms-title-col {text-align:center; vertical-align:middle; margin-bottom:1.5rem;}
         .ms-title {color:white; font-size:3rem;}
         .ms-input-col {text-align:center; vertical-align:middle;}
-        .inputAppend {border-top-left-radius:0; border-bottom-left-radius:0;}
+        .inputAppend {border-top-left-radius:0; border-bottom-left-radius:0; cursor:pointer;}
 
 
         /* 지역 맛집 */
@@ -193,7 +193,7 @@
 							</div>
 							<div class="col input-group ms-input-col">
 								<input type="search" class="form-control" id="select-keyword"  placeholder="먹고 싶은 음식이나 맛집 이름을 입력하세요."/>
-								<div class="input-group-append inputAppend" onclick="getLocationAndKeyword()">
+								<div class="input-group-append inputAppend" id="inputAppend" onclick="getLocationAndKeyword()">
 									<span class="input-group-text">
 										&#x1F50D;
 									</span>
@@ -206,25 +206,23 @@
             
             <!-- select option을 선택하면 -->
             <script>
-            	function getLocationAndKeyword() {
-            		
-            		   		
-            	
             	var select = document.getElementById("select-local");
-            	
-            	select.onchange = function(){
-            		var option = select.options[select.selectedIndex].value;
-            		console.log(option);
-            	}  	
-            	
+            	var searchBtn = document.getElementById("inputAppend");
             	var search = document.getElementById("select-keyword");
             	
-            	search.onchange = function(){
-            		var keyword = search.value;
-            		console.log(keyword);
-            	}        
+            	search.addEventListener("keyup", function(e){
+            		if(e.keyCode === 13) {
+            			e.preventDefault();
+            			searchBtn.click();
+            		}
+            	});
             	
-            	}
+    			function getLocationAndKeyword() {    				
+                	var locationId = select.options[select.selectedIndex].value;
+                	var keyword = search.value;	
+                	
+    				window.location.href="goSearchedRestaurant.do?locationId="+locationId+"&keyword="+keyword;
+    			};
             </script>
 
 

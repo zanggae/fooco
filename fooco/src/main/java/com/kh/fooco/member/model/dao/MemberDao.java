@@ -13,7 +13,10 @@ import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
+import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
@@ -160,6 +163,73 @@ public class MemberDao {
 		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectCheckinList", memberId);
 	}
 	
+	// 체크인 수정페이지에서 조회되는 체크인 리스트
+	public ArrayList<Select_Checkin> selectModifyCheckinList(int checkinId) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectModifyCheckinList", checkinId);
+	}
+
+	// 체크인 수정 페이지에서 체크인 테이블 수정 작업
+	public int updateCheckin(Checkin ck) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateCheckin", ck);
+	}
+	
+	// 체크인 수정 시 이미지 테이블에서 해당 이미지 삭제
+		public int deleteImage(String imageNum) {
+			
+			return sqlSessionTemplate.delete("mypageMapper.deleteImage", imageNum);
+		}
+		
+	// 체크인 수정 시 체크인 이미지 테이블에서 해당 이미지 관련 행 삭제
+	public int deleteCheckinImage(String imageNum) {
+		
+		return sqlSessionTemplate.delete("mypageMapper.deleteCheckinImage", imageNum);
+	}	
+	
+	// 체크인 수정 시 체크인 이미지 테이블 입력 작업
+	public int insertCheckinImage2(CheckinImage ckimg) {
+		
+		return sqlSessionTemplate.insert("mypageMapper.insertCheckinImage2", ckimg);
+	}	
+
+	// 체크인 테이블 삭제 작업
+	public int deleteCheckin(int checkinId) {
+	
+		return sqlSessionTemplate.delete("mypageMapper.deleteCheckin", checkinId);
+	}
+	
+	// 체크인 리스트 페이지에서 체크인 이미지 테이블 삭제 작업
+	public int deleteCheckinImage2(int checkinId) {
+		
+		return sqlSessionTemplate.delete("mypageMapper.deleteCheckinImage2", checkinId);
+	}
+	
+	// 즐겨찾기 - 맛집 조회 메소드
+	public ArrayList<MZ> selectMZ(int memberId) {
+
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectMZ",memberId);
+	}
+	
+	// 즐겨찾기 - 맛집 삭제 메소드
+	public int deleteMZ(int resBookMarkId) {
+		
+		return sqlSessionTemplate.delete("mypageMapper.deleteMZ", resBookMarkId);
+	}
+	
+	// 맛집 상세페이지
+	public Res getRestaurantDetail(int resId) {
+		
+		return sqlSessionTemplate.selectOne("restaurantMapper.getRestaurantDetail", resId);
+	}
+	
+	// 해당 맛집 상세페이지 정보
+	public Info getRestaurantInfo(int resId) {
+		
+		return sqlSessionTemplate.selectOne("restaurantMapper.getRestaurantInfo", resId);
+	}
+	
+	
 	// ================================== Mylist 영은 ===========================================
 
 	public ArrayList<Mylist> searchListRes(String searchRes) {
@@ -185,6 +255,23 @@ public class MemberDao {
 	public int insertMylistRes(String theme) {
 		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
 	}
+
+	/*
+	 * public ArrayList<Mylist> mylistList() { return
+	 * (ArrayList)sqlSessionTemplate.selectList("mypageMapper.mylistList"); }
+	 */
+
+
+
+
+
+
+	
+
+	
+	
+
+
 
 
 
