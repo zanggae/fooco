@@ -153,6 +153,8 @@
               <div class="checkin_div shadow-sm">
                 <div class="row">
                   <div class="col-3">
+                  <!-- 체크인 번호 몇번인지 확인  -->
+                  	<c:out value="${checkinList.checkinId }"></c:out>
                     <img src="${contextPath }/resources/restaurantImage/${checkinList.resImage}" style="width: 8rem; height: 6rem; margin:0rem;">
                   </div>
                   <div class="col-9" style="padding-left: 0.3rem; margin-bottom: 0.5rem;">
@@ -161,8 +163,15 @@
                         <p style="font-family: 'medium'; font-size: 1.1rem; margin-bottom: 0.3rem;">${ checkinList.resName}</p>
                       </div>
                       <div class="col-4" align="right">
-                        <button type="button" class="btn btn-primary btn-sm">수정</button>
-                        <button type="button" class="btn btn-secondary btn-sm">삭제</button>
+                      	<c:url var="CheckinModify" value="CheckinModify.do">
+							<c:param name="checkinId" value="${checkinList.checkinId}"/>
+						</c:url>
+						<c:url var="myPageCheckinDelete" value="myPageCheckinDelete.do">
+							<c:param name="checkinId" value="${checkinList.checkinId}"/>
+						</c:url>
+                        <a href="${CheckinModify }"><button type="button" class="btn btn-primary btn-sm">수정</button></a>
+                        
+                        <a href="${myPageCheckinDelete }"><button type="button" class="btn btn-secondary btn-sm">삭제</button></a>
                       </div>
 
                     </div>
@@ -177,9 +186,14 @@
                 </div>
 	                <div class="row">
 					<c:forEach var="checkinImageList" items="${checkinList.checkinImageList }">
+	                  <c:if test="${!empty checkinImageList.imageNewName }">
 	                  <div class="col-4">
 	                    <img src="${contextPath }/resources/checkinImage/${checkinImageList.imageNewName}" style="width: 11rem; height: 7rem; margin:0rem;">
 	                  </div>
+	                  </c:if>
+	                  <c:if test="${empty checkinImageList.imageNewName }">
+	                  	<p>첨부된 사진이 없습니다 ㅠㅡㅠ</p>
+	                  </c:if>
                 	</c:forEach>
 	                </div>
 	               </div> 
@@ -207,12 +221,9 @@
 
 
 <script>
+// 추가하기 버튼
 function checkinRegister(){
 	location.href="CheckinRegister.do?"; 
-}
-
-function checkinRegister(){
-	location.href="CheckinModify.do?";
 }
 
 

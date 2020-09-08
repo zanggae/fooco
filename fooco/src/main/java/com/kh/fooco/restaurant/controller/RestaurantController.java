@@ -1,6 +1,7 @@
 package com.kh.fooco.restaurant.controller;
 
 import static com.kh.fooco.common.Pagination.getPageInfo;
+import static com.kh.fooco.common.Pagination.getPhotoPageInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.service.RestaurantService;
 import com.kh.fooco.restaurant.model.vo.Filter;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.restaurant.model.vo.Review;
 
 @Controller
 public class RestaurantController {
@@ -82,15 +85,85 @@ public class RestaurantController {
 	
 
 	@RequestMapping("goDetailRestaurant.do")
-	public ModelAndView goDetailRestaurant(ModelAndView mv, @RequestParam(value="resId") Integer resId)
+	public ModelAndView goDetailRestaurant(ModelAndView mv, @RequestParam(value="resId") Integer resId
+														  , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType)
 	{
 		System.out.println(resId);
 		Res restaurant = restaurantService.getRestaurantDetail(resId);
 		Info info = restaurantService.getRestaurantInfo(resId);
-
+		
+		int currentPage = 1;
+		
+		int howManyReview = restaurantService.getReviewListCount(resId);
+		PageInfo pi = getPageInfo(currentPage, howManyReview);
+		
+		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
+		searchParameter.put("resId", resId);
+		searchParameter.put("sortType", sortType);
+		
+		ArrayList<Review> reviewList = new ArrayList<Review>();		
+		reviewList = restaurantService.getReviewList(searchParameter, pi);
+		
+		int howManyReviewPhoto = restaurantService.getPhotoCount(resId);
+		PageInfo ppi = getPhotoPageInfo(currentPage, howManyReviewPhoto);
+		
+		ArrayList<Image> photoList = new ArrayList<Image>();
+		photoList = restaurantService.getPhotoList(searchParameter, ppi);
+		
+		System.out.println(reviewList);
+		
 		System.out.println(restaurant);
 		mv.addObject("res", restaurant);
 		mv.addObject("info", info);
+		mv.addObject("reviewList", reviewList);
+		mv.addObject("photoList", photoList);
+		mv.setViewName("restaurant/detailRestaurant");
+		return mv;
+	}
+	
+	@RequestMapping("goRestaurantReview.do")
+	public ModelAndView goRestaurantReview(ModelAndView mv, @RequestParam(value="resId", required=false) Integer resId
+														  , @RequestParam(value="sortType", required=false) String sortType
+														  , @RequestParam(value="page", required=false, defaultValue="1") Integer page)
+	{
+		int currentPage = page;		
+		int howManyReview = restaurantService.getReviewListCount(resId);
+		
+		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
+		searchParameter.put("resId", resId);
+		searchParameter.put("sortType", sortType);		
+		
+		PageInfo pi = getPageInfo(currentPage, howManyReview);
+		
+		ArrayList<Review> reviewList = new ArrayList<Review>();
+		reviewList = restaurantService.getReviewList(searchParameter, pi);
+		
+		mv.addObject("pi", pi);
+		mv.addObject("reviewList", reviewList);
+		mv.setViewName("restaurant/detailRestaurant");
+		return mv;
+	}
+	
+	
+	@RequestMapping("goRestaurantPhoto.do")
+	public ModelAndView goRestaurantPhoto(ModelAndView mv, @RequestParam(value="resId", required=false) Integer resId
+														  , @RequestParam(value="sortType", required=false) String sortType
+														  , @RequestParam(value="page", required=false, defaultValue="1") Integer page)
+	{
+		int currentPage = page;		
+		int howManyPhoto = restaurantService.getPhotoCount(resId);
+		
+		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
+		searchParameter.put("resId", resId);
+		searchParameter.put("sortType", sortType);	
+		
+		PageInfo ppi = getPhotoPageInfo(currentPage, howManyPhoto);
+		
+		ArrayList<Image> photoList = new ArrayList<Image>();
+		photoList = restaurantService.getPhotoList(searchParameter, ppi);
+		
+		mv.addObject("ppi", ppi);
+		mv.addObject("photoList", photoList);
 		mv.setViewName("restaurant/detailRestaurant");
 		return mv;
 	}

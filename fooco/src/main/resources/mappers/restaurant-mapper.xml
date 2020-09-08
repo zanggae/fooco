@@ -44,26 +44,6 @@
 		<collection property="resLatestImages" column="RES_ID" ofType="Image" select="getResLatestImages"/>
 	</resultMap>
 	
-	<select id="getResThumbnailImage" resultMap="ResImageMap">
-		SELECT    R.RES_ID, I.*
-		FROM      IMAGE I
-		LEFT JOIN RES_IMAGE RI ON (I.IMAGE_ID = RI.IMAGE_ID)
-		LEFT JOIN RESTAURANT R ON (R.RES_ID = RI.RES_ID)
-		WHERE     R.RES_ID = #{resId}
-	</select>
-	
-	<select id="getBestReview" resultMap="ReviewMap">
-		SELECT  BR.*
-		FROM    SELECT_BESTREVIEW BR
-		WHERE   BR.RES_ID = #{resId}
-	</select>
-	
-	<select id="getResLatestImages" resultMap="ImageMap">
-		SELECT LI.*
-		FROM   SELECT_RES_LATEST_IMAGES LI
-		WHERE  LI.RES_ID = #{resId}
-	</select>
-	
 	<resultMap type="Review" id="ReviewMap">
 		<id property="reviewId" column="REVIEW_ID"/>
 		<result property="resId" column="RES_ID"/>
@@ -76,13 +56,14 @@
 		<result property="reviewTasterating" column="REVIEW_TASTERATING"/>
 		<result property="reviewPricerating" column="REVIEW_PRICERATING"/>
 		<result property="reviewServicerating" column="REVIEW_SERVICERATING"/>
+		<result property="reviewStatus" column="REVIEW_STATUS"/>
 		<result property="nickname" column="NICKNAME"/>
 		<result property="reviewerProfileId" column="REVIEWER_PROFILE_ID"/>
 		<result property="reviewerProfileImg" column="REVIEWER_PROFILE_IMG"/>
 		<result property="reviewerProfilePath" column="REVIEWER_PROFILE_PATH"/>
 		<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
 		<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
-		<collection property="reviewImages" column="REVIEW_ID" ofType="Image"/>
+		<collection property="reviewImages" column="REVIEW_ID" ofType="Image" select="getReviewImages"/>
 	</resultMap>
 	
 	<resultMap type="Info" id="InfoMap">
@@ -122,8 +103,91 @@
 		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>	
 	</resultMap>
 	
-	<select id="getListCount" parameterType="hashmap" resultType="_int">
+	<select id="getPhotoCount" parameterType="_int" resultType="_int">
+		SELECT    COUNT(I.IMAGE_ID)
+		FROM      REVIEW_IMAGE RI
+  		LEFT JOIN IMAGE I ON (RI.IMAGE_ID = I.IMAGE_ID)
+ 		LEFT JOIN REVIEW R ON (RI.REVIEW_ID = R.REVIEW_ID)
+ 	 	WHERE     I.IMAGE_STATUS = 'Y' AND R.REVIEW_STATUS = 'Y' AND R.RES_ID = #{resId}
+	</select>
 	
+	<select id="getPhotoList" parameterType="hashmap" resultMap="ImageMap">
+		SELECT    I.*
+		FROM      REVIEW_IMAGE RI
+  		LEFT JOIN IMAGE I ON (RI.IMAGE_ID = I.IMAGE_ID)
+ 		LEFT JOIN REVIEW R ON (RI.REVIEW_ID = R.REVIEW_ID)
+ 	 	WHERE     I.IMAGE_STATUS = 'Y' AND R.REVIEW_STATUS = 'Y' AND R.RES_ID = #{resId}
+		<choose>
+			<when test="'latest'.equals(sortType)">
+		 		ORDER BY R.REVIEW_CREATE_DATE DESC
+		 	</when>
+		 	<when test="'oldest'.equals(sortType)">
+		 		ORDER BY R.REVIEW_CREATE_DATE ASC
+		 	</when>
+		 	<when test="'highrating'.equals(sortType)">
+		 		ORDER BY R.REVIEW_RATING DESC
+		 	</when>
+		 	<when test="'lowrating'.equals(sortType)">
+		 		ORDER BY R.REVIEW_RATING ASC
+		 	</when>
+		</choose>
+	</select>
+	
+	<select id="getResThumbnailImage" resultMap="ResImageMap">
+		SELECT    R.RES_ID, I.*
+		FROM      IMAGE I
+		LEFT JOIN RES_IMAGE RI ON (I.IMAGE_ID = RI.IMAGE_ID)
+		LEFT JOIN RESTAURANT R ON (R.RES_ID = RI.RES_ID)
+		WHERE     R.RES_ID = #{resId}
+	</select>
+	
+	<select id="getBestReview" resultMap="ReviewMap">
+		SELECT  BR.*
+		FROM    SELECT_BESTREVIEW BR
+		WHERE   BR.RES_ID = #{resId}
+	</select>
+	
+	<select id="getResLatestImages" resultMap="ImageMap">
+		SELECT LI.*
+		FROM   SELECT_RES_LATEST_IMAGES LI
+		WHERE  LI.RES_ID = #{resId}
+	</select>
+	
+	<select id="getReviewImages" resultMap="ImageMap">
+		SELECT    R.REVIEW_ID, I.IMAGE_ID, I.IMAGE_NEW_NAME, I.IMAGE_FILEPATH
+		FROM      REVIEW R
+		LEFT JOIN REVIEW_IMAGE RI ON (R.REVIEW_ID = RI.REVIEW_ID)
+		LEFT JOIN IMAGE I ON (RI.IMAGE_ID = I.IMAGE_ID)
+		WHERE     R.REVIEW_ID = #{reviewId}
+	</select>
+	
+	<select id="getReviewListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(DISTINCT R.REVIEW_ID)
+		FROM   REVIEW R
+		WHERE  R.REVIEW_STATUS = 'Y' AND R.RES_ID = #{resId}
+	</select>
+	
+	<select id="getReviewList" parameterType="hashmap" resultMap="ReviewMap">
+		SELECT SR.*
+		FROM   SELECT_REVIEW SR
+		WHERE  SR.REVIEW_STATUS = 'Y' AND sR.RES_ID = #{resId}
+		<choose>
+			<when test="'latest'.equals(sortType)">
+		 		ORDER BY SR.REVIEW_CREATE_DATE DESC
+		 	</when>
+		 	<when test="'oldest'.equals(sortType)">
+		 		ORDER BY SR.REVIEW_CREATE_DATE ASC
+		 	</when>
+		 	<when test="'highrating'.equals(sortType)">
+		 		ORDER BY SR.REVIEW_RATING DESC
+		 	</when>
+		 	<when test="'lowrating'.equals(sortType)">
+		 		ORDER BY SR.REVIEW_RATING ASC
+		 	</when>
+		</choose>
+	</select>
+	
+	<select id="getListCount" parameterType="hashmap" resultType="_int">
 		SELECT    COUNT(DISTINCT SR.RES_ID)
 		FROM      SELECT_RES SR
 		LEFT JOIN SELECT_FILTER SF ON (SR.RES_ID = SF.RES_ID)
