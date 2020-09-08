@@ -30,7 +30,7 @@ public class Review implements Serializable {
 	private String reviewerProfileImg;
 	private String reviewerProfilePath;
 	private int reviewerReviewCount;
-	private int reviewerFollowerCount;          
+	private int reviewerFollowerCount;
 	private ArrayList<Image> reviewImages;
 	
 	public Review() {}

@@ -103,6 +103,36 @@
 		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>	
 	</resultMap>
 	
+	<select id="getPhotoCount" parameterType="_int" resultType="_int">
+		SELECT    COUNT(I.IMAGE_ID)
+		FROM      REVIEW_IMAGE RI
+  		LEFT JOIN IMAGE I ON (RI.IMAGE_ID = I.IMAGE_ID)
+ 		LEFT JOIN REVIEW R ON (RI.REVIEW_ID = R.REVIEW_ID)
+ 	 	WHERE     I.IMAGE_STATUS = 'Y' AND R.REVIEW_STATUS = 'Y' AND R.RES_ID = #{resId}
+	</select>
+	
+	<select id="getPhotoList" parameterType="hashmap" resultMap="ImageMap">
+		SELECT    I.*
+		FROM      REVIEW_IMAGE RI
+  		LEFT JOIN IMAGE I ON (RI.IMAGE_ID = I.IMAGE_ID)
+ 		LEFT JOIN REVIEW R ON (RI.REVIEW_ID = R.REVIEW_ID)
+ 	 	WHERE     I.IMAGE_STATUS = 'Y' AND R.REVIEW_STATUS = 'Y' AND R.RES_ID = #{resId}
+		<choose>
+			<when test="'latest'.equals(sortType)">
+		 		ORDER BY R.REVIEW_CREATE_DATE DESC
+		 	</when>
+		 	<when test="'oldest'.equals(sortType)">
+		 		ORDER BY R.REVIEW_CREATE_DATE ASC
+		 	</when>
+		 	<when test="'highrating'.equals(sortType)">
+		 		ORDER BY R.REVIEW_RATING DESC
+		 	</when>
+		 	<when test="'lowrating'.equals(sortType)">
+		 		ORDER BY R.REVIEW_RATING ASC
+		 	</when>
+		</choose>
+	</select>
+	
 	<select id="getResThumbnailImage" resultMap="ResImageMap">
 		SELECT    R.RES_ID, I.*
 		FROM      IMAGE I

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
@@ -57,6 +58,19 @@ public class RestaurantDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getReviewList", searchParameter, rowBounds);
+	}
+
+	public int getPhotoCount(Integer resId) {
+		return sqlSessionTemplate.selectOne("restaurantMapper.getPhotoCount", resId);
+	}
+
+
+	public ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter, PageInfo ppi) {
+		
+		int offset = (ppi.getCurrentPage() - 1) * ppi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, ppi.getBoardLimit());
+		
+		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getPhotoList", searchParameter, rowBounds);
 	}
 	
 }
