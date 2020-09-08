@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,13 +73,14 @@
 
                   <h5 style="margin-left: 27.5rem;"><a href="mylistRegist.do"><i class="far fa-check-square"
                       style="font-size: 1.6rem;"></i>&nbsp;마이리스트 만들기</a></h5>
+                    <c:forEach var="my" items="${mylist }">
                     <br>
                       <div class="row shadow-sm edge">
                         <div class="col-4 d-flex justify-content-center align-items-center">
-                          <img src="img/sushi3.jpg" class="img1">
+                          <img src="resources/restaurantImage/${my.imageNewName}" class="img1">
                         </div>
                             <div class="col-6">
-                              <h6 class="title">부산가면 꼭 먹을 맛집 Best7</h6>
+                              <h6 class="title">${my.mlTitle}</h6>
                             </div>
                             <div class="col-2" style="margin-top: 1.5rem ;">
                                 <button type="button" class="btn btn-light">추천하기</button>
@@ -86,6 +88,7 @@
                                 <button type="button" class="btn btn-light">삭제</button>
                             </div>
                       </div>
+                      </c:forEach>
 						
 
 						

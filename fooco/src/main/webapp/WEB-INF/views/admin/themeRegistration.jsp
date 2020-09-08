@@ -14,7 +14,7 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
   <title>Hello, world!</title>
-  <style>
+    <style>
    
     .table td {
       vertical-align: middle;
@@ -72,6 +72,9 @@
       width: 5.5rem;
       float: right;
     }
+    
+    .pickDiv{cursor: pointer;} 
+ 	.pickDiv:hover{text-decoration: underline;}
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>

@@ -16,7 +16,8 @@ public class ThemeAdmin implements Serializable{
 	private int themeWriter;			// 테마 작성자
 	private int themeCount;				// 테마 조회수
     private String themeImageName;		// 테마 썸네일이미지
-	public ThemeAdmin() {
+	
+    public ThemeAdmin() {
 		super();
 	}
 	public ThemeAdmin(int themeId, String themeTitle, Date themeUploadDate, Date themeModifyDate, int themeWriter,

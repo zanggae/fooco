@@ -55,6 +55,8 @@ public interface MemberService {
 	ArrayList<Restaurant> selectListRestaurant(String restitle);
 	
 	
+	
+	
 	// ================================== Mylist 영은 ===========================================
 
 
@@ -65,6 +67,8 @@ public interface MemberService {
 	int insertMylist(String themeTitle, int themeWriter);
 
 	int insertMylistRes(String th);
+
+	ArrayList<Mylist> mylistList();
 	
 
 }

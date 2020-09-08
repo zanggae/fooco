@@ -206,12 +206,18 @@ WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
 <!-- mylist 등록 -->
 <insert id="insertMylist" parameterType="hashmap">
 INSERT INTO MYLIST VALUES
-(SEQ_MYLISTID.NEXTVAL,#{themeTitle},SYSDATE,SYSDATE,DEFAULT,NULL,#{themeWriter})
+(SEQ_MLID.NEXTVAL,#{themeTitle},SYSDATE,SYSDATE,DEFAULT,NULL,#{themeWriter})
 </insert>
 
 <insert id="insertMylistRes" parameterType="string">
-	INSERT INTO MYLIST_RES VALUES(#{theme},SEQ_MYLISTID.CURRVAL)
+	INSERT INTO MYLIST_RES VALUES(#{theme},SEQ_MLID.CURRVAL)
 </insert>
 
+<!-- 
+<select id="mylistList" parameterType="Mylist" resultMap="mylistResultSet">
+	SELECT 
+
+</select>
+ -->
 
 </mapper>

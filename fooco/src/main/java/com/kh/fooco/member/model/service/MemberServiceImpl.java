@@ -186,6 +186,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.insertMylistRes(th);
 	}
 
+	@Override
+	public ArrayList<Mylist> mylistList() {
+		return memberDao.mylistList();
+	}
+
 	
 
 
