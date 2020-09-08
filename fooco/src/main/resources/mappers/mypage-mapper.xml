@@ -257,6 +257,7 @@ INSERT INTO IMAGE VALUES(
 )
 </insert>
 
+<!-- 체크인에 등록된 전체 리스트 조회 -->
 <select id="selectCheckinList" parameterType="_int" resultMap="CheckinListResultSet">
 SELECT CK.*, R.RES_NAME,IMG.IMAGE_NEW_NAME
 FROM CHECKIN CK
@@ -268,6 +269,7 @@ ORDER BY CK.CHECKIN_ID ASC
 
 </select>
 
+<!-- 체크인 번호와 관련된 이미지 리스트 조회 -->
 <select id="getCheckinImageList" resultMap="CheckinImageListResultSet">
 SELECT CK.CHECKIN_ID, IMG.IMAGE_ID, IMG.IMAGE_NEW_NAME
 FROM CHECKIN CK
@@ -276,6 +278,63 @@ LEFT JOIN IMAGE IMG ON(CIMG.IMAGE_ID = IMG.IMAGE_ID)
 WHERE CK.CHECKIN_ID = #{checkinId}
 </select>	
 
+<!-- 체크인 수정페이지에 조회되는 체크인 리스트 -->
+
+<select id="selectModifyCheckinList" parameterType="_int" resultMap="CheckinListResultSet">
+SELECT CK.*, R.RES_NAME,IMG.IMAGE_NEW_NAME
+FROM CHECKIN CK
+LEFT JOIN RESTAURANT R ON (CK.RES_ID = R.RES_ID)
+LEFT JOIN RES_IMAGE RIMG ON (R.RES_ID = RIMG.RES_ID)
+LEFT JOIN IMAGE IMG ON (RIMG.IMAGE_ID = IMG.IMAGE_ID)
+WHERE CK.CHECKIN_ID = #{checkinId}
+
+</select>
+
+<!-- 체크인 테이블 수정 쿼리 -->
+<update id="updateCheckin" parameterType="Checkin">
+UPDATE CHECKIN
+	SET RES_ID = #{resId}
+	, CHECKIN_UPDATE_DATE = SYSDATE
+	, CHECKIN_VISIT_DATE = #{checkinVisitDate}
+	, CHECKIN_CONTENT = #{checkinContent}
+	WHERE CHECKIN_ID = #{checkinId}
+
+</update>
+
+<!-- 이미지 테이블 삭제 쿼리 -->
+<delete id="deleteImage" parameterType="string">
+DELETE FROM IMAGE
+WHERE IMAGE_ID = #{imageId}
+
+</delete>
+
+<!-- 체크인 이미지 테이블 삭제 쿼리 -->
+<delete id="deleteCheckinImage" parameterType="string">
+DELETE FROM CHECKIN_IMAGE
+WHERE IMAGE_ID = #{imageId}
+
+</delete>
+
+
+<!-- 체크인 수정 시 체크인 이미지 테이블에 값을 넣는 쿼리 -->
+<insert id="insertCheckinImage2" parameterType="CheckinImage">
+INSERT INTO CHECKIN_IMAGE VALUES(
+	SEQ_IMAGEID.CURRVAL
+	,#{checkinId}
+)
+</insert>
+
+<!-- 체크인 테이블 삭제 작업 -->
+<delete id="deleteCheckin" parameterType="_int">
+DELETE FROM CHECKIN
+WHERE CHECKIN_ID = #{checkinId}
+</delete>
+
+<!-- 체크인 리스트 페이지에서 체크인 이미지 테이블 삭제 작업 -->
+<delete id="deleteCheckinImage2" parameterType="_int">
+DELETE FROM CHECKIN_IMAGE
+WHERE CHECKIN_ID = #{checkinId}
+</delete>
 
 <!-- =========================== mylist 영은 ================================================ -->
 

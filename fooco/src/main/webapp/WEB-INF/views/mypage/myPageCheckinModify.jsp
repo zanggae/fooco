@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,85 +116,96 @@
 				<div class="col-7 main_content">
 					<div class="main_content_div shadow-sm">
 						<div class="row">
-              <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F618; 나의 활동 - 체크인 수정</p>
+              <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F618; 나의 활동 - 체크인 등록</p>
             </div>
 					
             <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem; padding-bottom: 1rem;">
               <div class="col-1"></div>
               <div class="col-10">
-                <form action="">
+                <form action="myPageCheckinModify.do" method="post" enctype="Multipart/form-data">
                   <div style="margin-left: 3rem;">
+                  
+                  	<c:forEach var="modifyCheckinList" items="${modifyCheckinList }">
                     <div class="row" style="margin-bottom: 1rem;">
-                      <label class="checkin_label">방문 식당 이미지</label>
-                      <input type="text" name="visitRestaurant">
+                      <label class="checkin_label">방문 식당 검색</label>
+                      <input type="text" id="restitle" style="margin-left: 1.1rem;">
+                      <!-- checkinId를 체크인 객체에 넘겨주기 위해 -->
+                      <input type="hidden" id="checkinId" name="checkinId" value="${modifyCheckinList.checkinId }">
+                     <!-- resId를 체크인 객체에 넘겨주기 위해 -->
+                      <input type="hidden" id="resId" name="resId" value="${modifyCheckinList.resId }">
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                      <button type="button" id="searchbtn" class="btn btn-secondary btn-sm" data-toggle="modal"
                         data-target="#exampleModal">
-                        조회
+                        		조회
                       </button>
                     </div>
     
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">방문 식당 이름</label>
-                      <input type="text" name="visitRestaurantName" style="margin-left: 1.1rem;">
+                      <input type="text" id="resName" name="resName" style="margin-left: 1.1rem;" value="${modifyCheckinList.resName }">
                     </div>
     
                     <div class="row" style="margin-bottom: 1rem;">
                       <div class="col-2.5" style="padding: 0;">
                         <label class="checkin_label">방문 식당 이미지</label>
                       </div>
-                      <!-- 조회를 하기 전 이미지 값이 없을 때   -->
+                     
                       <div class="col-9" style="padding: 0;">
-                      </div>
-                      <!-- 조회 버튼으로 식당 클릭 시 이미지 값이 null이 아니면 display:block 되게만들기  -->
-                      <div class="col-9" style="padding: 0; margin-bottom:10rem; display:none;">
-                        <img src="img/갈비찜.jpg" style="width: 12rem; height: 9rem; margin:0rem;">
+                        <img id="resImage"  style="width: 12rem; height: 9rem; margin:0rem;" src="${contextPath }/resources/restaurantImage/${modifyCheckinList.resImage}" >
+                        <input type="hidden" id="resImageName" name="resImageName">
                       </div>
                     </div>
     
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">날짜</label>
-                      <input type="date" name="visitDate">
+                      <input type="date" name="checkinVisitDate" value="${modifyCheckinList.checkinVisitDate}">
                     </div>
     
                     <div class="row" style="margin-bottom: 1.3rem;">
                       <label class="checkin_label">내용</label>
-                      <textarea cols="50" rows="10" style="resize: none;"></textarea>
+                      <textarea cols="50" rows="10" style="resize: none;" name="checkinContent" >${modifyCheckinList.checkinContent}</textarea>
                     </div>
-    
-                    <div class="row">
+    				
+	    				<c:forEach var="cd" items="${modifyCheckinList.checkinImageList }">
+							<c:out value="${cd.imageId }"></c:out>
+							<!-- 해당 체크인에 있는 첨부 이미지를 삭제하기 위해  -->
+							<input type="hidden" name="imageIds" value="${cd.imageId }">
+						</c:forEach>
+					
+					</c:forEach>
+					
+    				<div class="row">
+    				<label class="checkin_label" style="font-size:1rem">※사진은 최대 3개를 첨부할 수 있습니다.</label>
+    				</div>
+					
+					
+                    <div class="row" style="margin-bottom:0.5rem;">
                       <label class="checkin_label">사진첨부1</label>
-                      <input type="file" id="addpoto1" style="display: none;">
-                      <i class="fas fa-plus-square" onclick="addpoto1();" style="font-size: 1.5rem;"></i>
-                      <i class="fas fa-minus-square" style="font-size: 1.5rem;"></i>
+                      <input type="file" id="addpoto1" name="file" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
                     </div>
-    
-                    <div class="row">
+                   
+                    <div class="row" id="addpotoarea2" style="display:none; margin-bottom:0.5rem;">
                       <label class="checkin_label">사진첨부2</label>
-                      <input type="file" id="addpoto2" style="display: none;">
-                      <i class="fas fa-plus-square" onclick="addpoto2();" style="font-size: 1.5rem;"></i>
-                      <i class="fas fa-minus-square" style="font-size: 1.5rem;"></i>
+                      <input type="file" id="addpoto2" name="file"  accept="image/gif,image/jpeg,image/png" style="width:13rem;">
                     </div>
     
-                    <div class="row" style="margin-bottom: 3rem;">
+                    <div class="row" id="addpotoarea3" style="margin-bottom: 2rem; display:none;">
                       <label class="checkin_label">사진첨부3</label>
-                      <input type="file" id="addpoto3" style="display: none;">
-                      <i class="fas fa-plus-square" onclick="addpoto3();" style="font-size: 1.5rem;"></i>
-                      <i class="fas fa-minus-square" style="font-size: 1.5rem;"></i>
+                      <input type="file" id="addpoto3" name="file" accept="image/gif,image/jpeg,image/png" style="width:13rem;">
                     </div>
                   
                   </div>
                     <div class="row">
                       <div class="col" align="center">
-                        <input type="submit" class="btn btn-primary btn-sm" value="완료">&nbsp;
-                        <button type="button" class="btn btn-secondary btn-sm">취소</button>
+                        <input type="submit" class="btn btn-primary btn-sm" value="수정">&nbsp;
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="checkinCancle();">취소</button>
                       </div>
                     </div>
-                  
+                  </form>
     
     
     
-    
+    				
                   <!-- Modal -->
                   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -207,14 +220,10 @@
     
                         <div class="modal-body">
                           <div class="container-fluid" style="overflow-x: auto; height: 30rem;">
-                            <table class="table-hover table">
-                              <tr>
-                                <td align="center">
-                                  <img src="img/갈비찜.jpg" style="width: 10rem; height: 7rem;">
-                                  <p style="font-family:'medium'; margin: 0rem;">경남 갈비</p>
-                                  <p style="font-family:'medium'; margin: 0rem; word-break: break-all; font-size: 0.7rem;">인천광역시 남동구 서창동 661-3</p>
-                                </td>
-                              </tr>
+                            <table class="table-hover table" id="tb">
+	                            <tbody align="center">
+									
+								</tbody>
                             </table>
                           </div>
                         </div>
@@ -222,7 +231,6 @@
                     </div>
                   </div>
     
-                </form>
               </div>
               <div class="col-1"></div>
             </div>
@@ -242,25 +250,123 @@
 
 
 <script>
-  function addpoto1() {
-    $(function () {
-      $("#addpoto1").click();
-    })
-  }
+// 음식점 조회 ajax
+	$("#searchbtn").click(function(){
+		var restitle = $("#restitle").val();
 
-  function addpoto2() {
-    $(function () {
-      $("#addpoto2").click();
-    })
-  }
+		$.ajax({
+			url:"selectRes.do",
+			dataType:"json",
+			data:{restitle:restitle},
+			success:function(data){
+				$tableBody = $("#tb tbody");
+				$tableBody.html("");	// tbody 부분 리셋
+				
+				for(var i in data){
+					var resImageName = {"width":"10rem","height":"7rem"};
+					var resNameStyle = {"font-family":"medium","margin":"0rem"};
+					var resAddressStyle = {"font-family":"medium","margin":"0rem","word-break":"break-all","font-size":"0.7rem"};
+					var $tr = $("<tr>").attr("class","trtag");
+					var $td = $("<td>");
+					var $resName = $("<p>").text(data[i].resName).css(resNameStyle).attr("class","resName");
+					var $resAddress = $("<p>").text(data[i].resAddress).css(resAddressStyle);
+					var $resImageName = $("<img>").attr("src","/fooco/resources/restaurantImage/"+data[i].resImageName).css(resImageName).text(data[i].resImageName);
+					var $resId = $("<input>").attr("type","hidden").attr("value",data[i].resId).text(data[i].resId);
+					
+					$td.append($resImageName);
+					$td.append($resName);
+					$td.append($resAddress);
+					$td.append($resId);
+					
+					$tr.append($td);
+					$tableBody.append($tr);
+							
+				}	
+				
+				
+			},
+			error:function(request, status, errorData){
+				alert("error code: " + request.status + "\n"
+						+"message: " + request.responseText
+						+"error: " + errorData);
+			}
+		})
+	})
 
-  function addpoto3() {
-    $(function () {
-      $("#addpoto3").click();
-    })
-  }
 
 </script>
+
+
+<!-- 조회된 음식점에서 tr태그 클릭 시 서블릿 걸쳐서 해당 값을 뿌려주기-->
+<script>
+$(document).on("click",".trtag",function(){
+		
+	var tr = $(this).children(); // <td>
+	var td = tr.children('.resName'); // <td> 자손 태그 class명이 resName인 태그
+	var img = tr.children('img'); // <td> 자손 img 태그
+	var input = tr.children('input'); // <td> 자손 input 태그
+	var resNameText = td.text(); // <td> 자손 태그 class명이 resName 태그의 텍스트값
+	var resImageName = img.text(); // <td> 자손 img 태그의 텍스트값
+	var resId = input.text(); // <td> 자손 input 태그의 텍스트값
+	
+	var resNames = $("#resName").attr("value",resNameText); // 방문 식당 이름 input태그 value값을 검색한 음식점text값으로 초기화
+	$("#resName").html(resNameText); // 방문 식당 이름 노출시킴
+	var resImageNames = $("#resImage").attr("src","/fooco/resources/restaurantImage/"+resImageName); // 방문 식당 이미지에 이미지 태그 src를 변경시킴
+	var resImagehidden = $("#resImageName").attr("value",resImageName); // 체크인 객체에 담길 이미지 값
+	var resIdhidden = $("#resId").attr("value",resId); // 체크인 객체에 담길 식당 번호
+	
+	$('#exampleModal').modal("hide"); // 음식점 선택 완료 후 모달 창 닫게하기
+})
+</script>
+
+<script>
+$(function(){
+	$("#addpoto1").change(function(){
+		document.getElementById("addpotoarea2").style.display="flex";
+		if($("#addpoto1").val() == ''){
+			document.getElementById("addpotoarea2").style.display="none";
+			document.getElementById("addpotoarea3").style.display="none";
+		}
+	})
+})
+
+
+$(function(){
+	$("#addpoto2").change(function(){
+		document.getElementById("addpotoarea3").style.display="flex";
+		if($("#addpoto2").val() == ''){
+			document.getElementById("addpotoarea3").style.display="none";
+		}
+	})
+})
+
+function checkinCancle(){
+	location.href="myPageCheckin.do?"; 
+}
+
+// 이미지 파일 꼼꼼하게 제약조건
+/* function fileCheck(obj){
+	pathpoint=obj.value.lastIndexOf('.');
+	filepoint=obj.value.substring(pathpoint+1,obj.length);
+	filetype=filepoint.toLowerCase();
+	if(filetype=='jpg'||filetype=='gif'||filetype=='jpeg'||filetype=='png'||filetype=='bmp'){
+		// 정상적인 이미지 확장자일 경우
+	}else{
+		alert("이미지 파일만 선택할 수 있습니다...");
+		parentObj=obj.parentNode;
+		node=parentObj.replaceChild(obj.cloneNode(true),obj);
+		return false;
+	}
+	if(filetype=='bmp'){
+		upload=confirm('BMP파일은 웹상에서 사용하기엔 적절한 이미지 포맷이 아닙니다.\n 그래도 계속 하시겠습니까?');
+		if(!upload) return false;
+	}
+	
+} */
+
+</script>
+
+
 
 
 </html>
