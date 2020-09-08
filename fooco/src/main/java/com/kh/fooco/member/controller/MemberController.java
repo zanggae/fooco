@@ -35,18 +35,28 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.fooco.board.model.exception.BoardException;
+import com.kh.fooco.board.model.vo.Board;
+
 import com.kh.fooco.common.model.vo.Image;
+
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
 import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
+import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.naver.NaverLoginBO;
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+
+import com.kh.fooco.theme.model.exception.ThemeException;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
+
 
 @SessionAttributes("loginUser")
 @Controller
@@ -751,7 +761,7 @@ public class MemberController {
 			return mv;
 		}
 		
-		
+		// 체크인 삭제 버튼 클릭 시
 		@RequestMapping("myPageCheckinDelete.do")
 		public String myPageDelete( int checkinId) {
 			System.out.println("체크인 번호 : " + checkinId);
@@ -764,6 +774,48 @@ public class MemberController {
 		}
 
 		
+		// 즐겨찾기 - 맛집 조회
+		@RequestMapping("myPageFavoritesMZ.do")
+		public ModelAndView myPageFavoritesMZView(ModelAndView mv, HttpSession session) {
+			 Member loginUser = (Member)session.getAttribute("loginUser");
+		     int memberId = loginUser.getMemberId();
+			
+		     // 즐겨찾기한 맛집 리스트 조회
+		     ArrayList<MZ> MZList = memberService.selectMZ(memberId);
+		      
+		     System.out.println("맛집리스트 조회 결과 : " +MZList);
+		    
+		    mv.addObject("MZList",MZList);
+			mv.setViewName("mypage/myPageFavoritesMZ");
+			return mv;
+		}
+		
+		// 즐겨찾기 - 맛집 삭제
+		@RequestMapping("deleteMZ.do")
+		public ModelAndView deleteMZ(ModelAndView mv, int resBookMarkId) {
+			System.out.println("클릭한 resBookMark번호 :" + resBookMarkId);
+			
+			int result = memberService.deleteMZ(resBookMarkId);
+		    
+			mv.setViewName("redirect:myPageFavoritesMZ.do");
+			return mv;
+		}
+		
+		// 즐겨 찾기 - 맛집 클릭 시 해당 맛집 상세페이지로 이동
+		@RequestMapping("detailMZ.do")
+		public ModelAndView goDetailRestaurant(ModelAndView mv, int resId)
+		{
+			System.out.println(resId);
+			Res restaurant = memberService.getRestaurantDetail(resId);
+			Info info = memberService.getRestaurantInfo(resId);
+
+			System.out.println(restaurant);
+			mv.addObject("res", restaurant);
+			mv.addObject("info", info);
+			mv.setViewName("restaurant/detailRestaurant");
+			return mv;
+		}
+		
 		
 // ================================== MyList 영은 ===========================================
 		
@@ -775,14 +827,14 @@ public class MemberController {
 		
 		@RequestMapping("mylistRegist.do")
 		public String mylistRegist() {
-			return "mypage/mylistRegist";
+			return "mypage/mypageMylistRegist";
 		}
 		
 		@RequestMapping(value="insertMylist.do", method= {RequestMethod.GET,RequestMethod.POST})
 		public ModelAndView restaurantThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, String themeTitle) {
 			int themeRListResult = 0;
 			
-			int themeWriter = 81;
+			int themeWriter = 3002;
 //			Member loginUser = (Member)session.getAttribute("loginUser");
 //			themeWriter = loginUser.getMemberId();				
 			
@@ -803,6 +855,20 @@ public class MemberController {
 		}
 		
 		
+	/*
+	 * @RequestMapping("mylistList.do") public ModelAndView mylistList(ModelAndView
+	 * mv) { ArrayList<Mylist> mylist = memberService.mylistList();
+	 * System.out.println("mylist조회 후 화면에 뿌리기 전 :" + mylist);
+	 * 
+	 * if(!mylist.isEmpty()) { mv.addObject("mylist",mylist);
+	 * mv.setViewName("mypage/myPageMylist"); }else { throw new
+	 * ThemeException("Mylist목록 보기 실패!"); } }
+	 */
 		
+		
+		@RequestMapping("mypageMylistDetail.do")
+		public String mypageMylistDetail() {
+			return"mypage/mypageMylistDetail";
+		}
 
 }

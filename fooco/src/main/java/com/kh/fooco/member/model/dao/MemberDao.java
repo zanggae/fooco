@@ -13,7 +13,10 @@ import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
+import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
@@ -202,6 +205,31 @@ public class MemberDao {
 		return sqlSessionTemplate.delete("mypageMapper.deleteCheckinImage2", checkinId);
 	}
 	
+	// 즐겨찾기 - 맛집 조회 메소드
+	public ArrayList<MZ> selectMZ(int memberId) {
+
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectMZ",memberId);
+	}
+	
+	// 즐겨찾기 - 맛집 삭제 메소드
+	public int deleteMZ(int resBookMarkId) {
+		
+		return sqlSessionTemplate.delete("mypageMapper.deleteMZ", resBookMarkId);
+	}
+	
+	// 맛집 상세페이지
+	public Res getRestaurantDetail(int resId) {
+		
+		return sqlSessionTemplate.selectOne("restaurantMapper.getRestaurantDetail", resId);
+	}
+	
+	// 해당 맛집 상세페이지 정보
+	public Info getRestaurantInfo(int resId) {
+		
+		return sqlSessionTemplate.selectOne("restaurantMapper.getRestaurantInfo", resId);
+	}
+	
+	
 	// ================================== Mylist 영은 ===========================================
 
 	public ArrayList<Mylist> searchListRes(String searchRes) {
@@ -227,6 +255,13 @@ public class MemberDao {
 	public int insertMylistRes(String theme) {
 		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
 	}
+
+	/*
+	 * public ArrayList<Mylist> mylistList() { return
+	 * (ArrayList)sqlSessionTemplate.selectList("mypageMapper.mylistList"); }
+	 */
+
+
 
 
 

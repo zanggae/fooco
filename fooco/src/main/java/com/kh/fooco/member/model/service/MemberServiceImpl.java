@@ -11,8 +11,10 @@ import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
+import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
-
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
@@ -242,6 +244,35 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.deleteCheckinImage2(checkinId);
 	}
 	
+	// 즐겨찾기 - 맛집 조회 메소드
+	@Override
+	public ArrayList<MZ> selectMZ(int memberId) {
+		
+		return memberDao.selectMZ(memberId);
+	}
+	
+	// 즐겨찾기 - 맛집 삭제 메소드
+	@Override
+	public int deleteMZ(int resBookMarkId) {
+		
+		return memberDao.deleteMZ(resBookMarkId);
+	}
+	
+	// 맛집 상세페이지
+	@Override
+	public Res getRestaurantDetail(int resId) {
+	
+		return memberDao.getRestaurantDetail(resId);
+	}
+	
+	// 해당 맛집 상세페이지 정보
+	@Override
+	public Info getRestaurantInfo(int resId) {
+		
+		return memberDao.getRestaurantInfo(resId);
+	}
+	
+	
 	// ================================== Mylist 영은==========================================
 
 	//마이리스트 등록 검색 
@@ -266,6 +297,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
+	/*
+	 * @Override public ArrayList<Mylist> mylistList() { return
+	 * memberDao.mylistList(); }
+	 */
 
 
 
@@ -276,15 +311,6 @@ public class MemberServiceImpl implements MemberService{
 
 
 
-
-
-
-
-
-
-
-
-	
 
 
 
