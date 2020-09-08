@@ -50,7 +50,6 @@ public class RestaurantController {
 		
 		System.out.println("page: " + page + ", keyword: " + keyword + ", locationId: " + locationId + ", sortType: " + sortType + ", filters: " + filters + ", categories: " + categories);
 		
-		// 
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
 		searchParameter.put("filters", filters);
 		searchParameter.put("keyword", keyword);
@@ -112,7 +111,7 @@ public class RestaurantController {
 			case 6: location = "대전"; break;
 			case 7: location = "울산"; break;
 			case 8: location = "제주"; break;
-			case 9: location = "그외"; break;
+			default: location = "그 외"; break;
 		};
 		
 		return location;

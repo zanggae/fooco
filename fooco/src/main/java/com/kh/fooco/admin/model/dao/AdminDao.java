@@ -268,6 +268,22 @@ public class AdminDao {
 		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListThemeRestaurant", ta);
 	}
 
+	public int modifyTheme(ThemeAdmin ta) {
+		return sqlSessionTemplate.update("adminMapper.modifyTheme",ta);
+	}
+
+	public int deleteRList(ThemeAdmin ta) {
+		return sqlSessionTemplate.delete("adminMapper.deleteRList",ta);
+	}
+
+	public int insertThemeRestaurant2(String th, ThemeAdmin ta) {
+		int tId = ta.getThemeId();
+		HashMap<String, Object> updateParameter = new HashMap<String, Object>();
+		updateParameter.put("tId", tId);
+		updateParameter.put("theme", th);		
+		return sqlSessionTemplate.insert("adminMapper.insertThemeRestaurant2",updateParameter);
+	}
+
 	
 
 

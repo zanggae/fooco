@@ -3,6 +3,9 @@ package com.kh.fooco.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.common.model.vo.Image;
+import com.kh.fooco.member.model.vo.Checkin;
+import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.Member;
@@ -10,6 +13,7 @@ import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Checkin;
 
 public interface MemberService {
 
@@ -54,6 +58,13 @@ public interface MemberService {
 
 	ArrayList<Restaurant> selectListRestaurant(String restitle);
 	
+	int insertCheckin(Checkin ck);
+	
+	int insertImage(Image img);
+	
+	int insertCheckinImage(CheckinImage ckimg);
+	
+	ArrayList<Select_Checkin> selectCheckinList(int memberId);
 	
 	// ================================== Mylist 영은 ===========================================
 
@@ -65,6 +76,14 @@ public interface MemberService {
 	int insertMylist(String themeTitle, int themeWriter);
 
 	int insertMylistRes(String th);
+
+
+
+
+
+
+
+
 	
 
 }

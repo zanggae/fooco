@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -147,8 +148,8 @@
 							</div>
 							<div class="col-4 d-flex align-items-start flex-column">
 								<div class="ml-auto mb-auto mz-rating">
-									<span style="font-family: 'heavy'; font-size: 2.5rem;"><i
-										class="fas fa-star"></i>${res.reviewRating}</span>
+									<span style="font-family: 'bold'; font-size: 2.5rem;"><i
+										class="fas fa-star"></i><fmt:formatNumber value="${res.reviewRating}" pattern="0.0"/></span>
 								</div>
 								<div class="ml-auto mz-buttons d-flex">
 									<input type="button" value="&#x1F495; 즐겨찾기" class="form-control mz-bookmark-button shadow-sm"
