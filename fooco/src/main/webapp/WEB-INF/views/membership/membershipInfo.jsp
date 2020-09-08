@@ -352,11 +352,13 @@
         	<!-- 1.gold 멤버십 -->
         	<c:forEach var="item" items="${membershiplist}" end="0">
         	<input type="hidden" name="membershipId1" id="membershipId1" value="${item.membershipId}">
+        	<input type="hidden"  id="GoldMembershipName" value="${item.membershipName}">
+        	<input type="hidden"  id="GoldMembershipPrice" value="${item.membershipPrice}">
         	</c:forEach>
         	<!-- 쿠폰정보 -->
         	<c:forEach var="item" items="${couponList}" end="0">
         	    <input type="hidden" name="buy_coupon1" id="buy_coupon1" value="${item.couponId}">  
-    		</c:forEach> 
+    		</c:forEach>
     		<c:forEach var="item" items="${couponList}" begin="2" end="2">
         	    <input type="hidden" name="buy_coupon3" id="buy_coupon3" value="${item.couponId}">  
     		</c:forEach> 
@@ -369,6 +371,9 @@
         	<!-- 멤버십정보 -->
         	<c:forEach var="item" items="${membershiplist}" begin="1" end="1">
         	<input type="hidden" name="membershipId2" id="membershipId2" value="${item.membershipId}">
+        	<input type="hidden" name="membershipId1" id="membershipId1" value="${item.membershipId}">
+        	<input type="hidden"  id="SilverMembershipName" value="${item.membershipName}">
+        	<input type="hidden"  id="SilverMembershipPrice" value="${item.membershipPrice}">
         	</c:forEach>  
         	<!-- 쿠폰정보 -->
         	<c:forEach var="item" items="${couponList}" end="0">
@@ -401,8 +406,9 @@
     		alert("이미 사용 중인 멤버십이 존재합니다");
     		return;
     	}else{
-    		$("#mbuyFormGold").submit(); 
-        	alert("결제성공");  
+    		requestPay1();
+    		/* $("#mbuyFormGold").submit(); 
+        	alert("결제성공"); */  
     	}
     }
     
@@ -418,20 +424,18 @@
     		alert("이미 사용 중인 멤버십이 존재합니다");
     		return;
     	}else{
-    		$("#mbuyFormSilver").submit(); 
-        	alert("결제성공");  
+    		requestPay2();
+    		/* $("#mbuyFormSilver").submit(); 
+        	alert("결제성공");   */
     	}
     }
     //결제!_! 결제 안되도록 우선 주석처리 해 둠!_! 결제 없이 바로 INSERT되도록 임시로 적용해놓음
     //1. gold 멤버십 구매
-    /* function requestPay1() {
-      	//사용자 정보 받아오기
-      	var memberName = $("#buy_memberId").val();
-      	
+    function requestPay1() {
       	//멤버십 정보 받아오기
       	//1. gold 멤버십
-        var name1 = $("#membership_name1").val();
-        var price1 = $("#membership_price1").val();
+        var Membershipname = $("#GoldMembershipName").val();
+        var Membershipprice = $("#GoldMembershipPrice").val();
          
         var IMP = window.IMP; // 생략가능
         IMP.init("imp96485144"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"
@@ -441,14 +445,15 @@
             pg: "html5_inicis",
             pay_method: "card",
             merchant_uid: "merchant_" + new Date().getTime(),   //주문번호
-            name: name1,
-            amount: 1000,
+            name: Membershipname,
+            amount: Membershipprice,
         }, function (rsp) { // callback - 결제 완료 후 실행되는 함수
         	console.log(rsp);
             if (rsp.success) {
                console.log("결제 성공");
                //결제 완료 후 결과 화면으로
-               $("#mbuyForm").submit();
+               $("#mbuyFormGold").submit();
+               alert("결제성공");
             } else {
                 console.log("결제 실패");
                 var msg = rsp.error_msg;
@@ -464,8 +469,8 @@
         	
           //멤버십 정보 받아오기
           //2. silver 멤버십
-          var name2 =$("#membership_name2").val();
-          var price2 = $("#membership_price2").val();
+          var Membershipname =$("#SilverMembershipName").val();
+          var Membershipprice = $("#SilverMembershipPrice").val();
 
           var IMP = window.IMP; // 생략가능
           IMP.init("imp96485144"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"
@@ -475,21 +480,22 @@
               pg: "html5_inicis",
               pay_method: "card",
               merchant_uid: "merchant_" + new Date().getTime(),   //주문번호   
-              name: name2,
-              amount: price2,
+              name: Membershipname,
+              amount: Membershipprice,
           }, function (rsp) { // callback - 결제 완료 후 실행되는 함수
           	console.log(rsp);
               if (rsp.success) {
                  console.log("결제 성공");
                  //결제 완료 후 결과 화면으로
-                 $("#mbuyForm").submit();
+                 $("#mbuyFormSilver").submit();
+                 alert("결제성공");
               } else {
                   console.log("결제 실패");
                   var msg = rsp.error_msg;
                   alert(msg);
               }
           });
-        } */
+        } 
     
 	</script>
 	
