@@ -3,13 +3,19 @@ package com.kh.fooco.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.fooco.admin.model.vo.VisitorCount;
+import com.kh.fooco.common.model.vo.Image;
+import com.kh.fooco.member.model.vo.Checkin;
+import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
+import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
-
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Checkin;
 
 public interface MemberService {
 
@@ -54,9 +60,38 @@ public interface MemberService {
 
 	ArrayList<Restaurant> selectListRestaurant(String restitle);
 	
+	int insertCheckin(Checkin ck);
 	
+	int insertImage(Image img);
 	
+	int insertCheckinImage(CheckinImage ckimg);
 	
+	ArrayList<Select_Checkin> selectCheckinList(int memberId);
+	
+	ArrayList<Select_Checkin> selectModifyCheckinList(int checkinId);
+	
+	int updateCheckin(Checkin ck);
+	
+	int deleteImage(String imageNum);
+	
+	int deleteCheckinImage(String imageNum);
+	
+	int insertCheckinImage2(CheckinImage ckimg);
+	
+	int deleteCheckin(int checkinId);
+	
+	int deleteCheckinImage2(int checkinId);
+	
+	ArrayList<MZ> selectMZ(int memberId);
+	
+	int deleteMZ(int resBookMarkId);
+	
+	Res getRestaurantDetail(int resId);
+
+	Info getRestaurantInfo(int resId);
+
+
+
 	// ================================== Mylist 영은 ===========================================
 
 
@@ -68,7 +103,23 @@ public interface MemberService {
 
 	int insertMylistRes(String th);
 
-	ArrayList<Mylist> mylistList();
+
+	/* ArrayList<Mylist> mylistList(); */
+
+
+
+
+
+
+
 	
+
+
+
+
+
+
+
+
 
 }

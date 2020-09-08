@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -147,86 +149,58 @@
 
             <div class="checkin_div_div">
 
+              <c:forEach var="checkinList" items="${checkinList }">
               <div class="checkin_div shadow-sm">
                 <div class="row">
                   <div class="col-3">
-                    <img src="img/갈비찜.jpg" style="width: 8rem; height: 6rem; margin:0rem;">
+                  <!-- 체크인 번호 몇번인지 확인  -->
+                  	<c:out value="${checkinList.checkinId }"></c:out>
+                    <img src="${contextPath }/resources/restaurantImage/${checkinList.resImage}" style="width: 8rem; height: 6rem; margin:0rem;">
                   </div>
                   <div class="col-9" style="padding-left: 0.3rem; margin-bottom: 0.5rem;">
                     <div class="row">
                       <div class="col-8" style="padding-left: 0rem;">
-                        <p style="font-family: 'medium'; font-size: 1.1rem; margin-bottom: 0.3rem;">동네갈비야야야야야야야야야ㅑ양</p>
+                        <p style="font-family: 'medium'; font-size: 1.1rem; margin-bottom: 0.3rem;">${ checkinList.resName}</p>
                       </div>
                       <div class="col-4" align="right">
-                        <button type="button" class="btn btn-primary btn-sm">수정</button>
-                        <button type="button" class="btn btn-secondary btn-sm">삭제</button>
+                      	<c:url var="CheckinModify" value="CheckinModify.do">
+							<c:param name="checkinId" value="${checkinList.checkinId}"/>
+						</c:url>
+						<c:url var="myPageCheckinDelete" value="myPageCheckinDelete.do">
+							<c:param name="checkinId" value="${checkinList.checkinId}"/>
+						</c:url>
+                        <a href="${CheckinModify }"><button type="button" class="btn btn-primary btn-sm">수정</button></a>
+                        
+                        <a href="${myPageCheckinDelete }"><button type="button" class="btn btn-secondary btn-sm">삭제</button></a>
                       </div>
 
                     </div>
                     <div class="row" style="margin-bottom: 0.3rem;">
-                      <p style="margin:0rem; padding-left:0rem;">2020-08-22</p>
+                      <p style="margin:0rem; padding-left:0rem;">${ checkinList.checkinVisitDate}</p>
                     </div>
                     <div class="row" style="overflow-x: auto; height: 5rem;">
-                      <p style="word-break: break-all;">갈비 양념이 너무 맛있었고 웨이팅이 길지않아 너무 좋았다. 주차공간도 넓고 식후 무료 디저트들이 배치되어있었다.
-                        ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+                      <p style="word-break: break-all;">${checkinList.checkinContent }
                       </p>
                     </div>
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="col-4">
-                    <img src="img/갈비 1.jpg" style="width: 11rem; height: 7rem; margin:0rem;">
-                  </div>
-                  <div class="col-4">
-                    <img src="img/갈비2.jpg" style="width: 11rem; height: 7rem; margin:0rem;">
-                  </div>
-                  <div class="col-4">
-                    <img src="img/갈비3.jpg" style="width: 10rem; height: 7rem; margin:0rem;">
-                  </div>
-                </div>
+	                <div class="row">
+					<c:forEach var="checkinImageList" items="${checkinList.checkinImageList }">
+	                  <c:if test="${!empty checkinImageList.imageNewName }">
+	                  <div class="col-4">
+	                    <img src="${contextPath }/resources/checkinImage/${checkinImageList.imageNewName}" style="width: 11rem; height: 7rem; margin:0rem;">
+	                  </div>
+	                  </c:if>
+	                  <c:if test="${empty checkinImageList.imageNewName }">
+	                  	<p>첨부된 사진이 없습니다 ㅠㅡㅠ</p>
+	                  </c:if>
+                	</c:forEach>
+	                </div>
+	               </div> 
+                </c:forEach>
               </div>
 
-               <div class="checkin_div shadow-sm">
-                <div class="row">
-                  <div class="col-3">
-                    <img src="img/갈비찜.jpg" style="width: 8rem; height: 6rem; margin:0rem;">
-                  </div>
-                  <div class="col-9" style="padding-left: 0.3rem; margin-bottom: 0.5rem;">
-                    <div class="row">
-                      <div class="col-8" style="padding-left: 0rem;">
-                        <p style="font-family: 'medium'; font-size: 1.1rem; margin-bottom: 0.3rem;">동네갈비야야야야야야야야야ㅑ양</p>
-                      </div>
-                      <div class="col-4" align="right">
-                        <button type="button" class="btn btn-primary btn-sm">수정</button>
-                        <button type="button" class="btn btn-secondary btn-sm">삭제</button>
-                      </div>
-
-                    </div>
-                    <div class="row" style="margin-bottom: 0.3rem;">
-                      <p style="margin:0rem; padding-left:0rem;">2020-08-22</p>
-                    </div>
-                    <div class="row" style="overflow-x: auto; height: 5rem;">
-                      <p style="word-break: break-all;">갈비 양념이 너무 맛있었고 웨이팅이 길지않아 너무 좋았다. 주차공간도 넓고 식후 무료 디저트들이 배치되어있었다.
-                        ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-4">
-                    <img src="img/갈비 1.jpg" style="width: 11rem; height: 7rem; margin:0rem;">
-                  </div>
-                  <div class="col-4">
-                    <img src="img/갈비2.jpg" style="width: 11rem; height: 7rem; margin:0rem;">
-                  </div>
-                  <div class="col-4">
-                    <img src="img/갈비3.jpg" style="width: 10rem; height: 7rem; margin:0rem;">
-                  </div>
-                </div>
-              </div>
-              
+               
 
               
               
@@ -234,7 +208,6 @@
               
               
 
-            </div>
 					</div>
 				</div>
 
@@ -248,8 +221,9 @@
 
 
 <script>
+// 추가하기 버튼
 function checkinRegister(){
-	location.href="CheckinRegister.do"; 
+	location.href="CheckinRegister.do?"; 
 }
 
 

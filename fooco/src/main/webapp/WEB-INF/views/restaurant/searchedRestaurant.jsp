@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -44,7 +45,7 @@
 
     /* 검색 결과 맛집 리스트 */        
     .sr-content-list {margin-bottom:0.5rem; border-radius:0.5rem; background-color:#ECECEC; padding:0.9rem; }
-    .sr-mz {margin:0; margin-bottom:1rem; padding-top:0.5rem; padding-bottom:0.5rem; padding-right:0.5rem; background-color:white; border-radius:0.5rem; cursor:pointer;}
+    .sr-mz {margin:0; height:12rem; margin-bottom:1rem; padding-top:0.5rem; padding-bottom:0.5rem; padding-right:0.5rem; background-color:white; border-radius:0.5rem; cursor:pointer;}
     .sr-mz-title {padding-left:0.5rem;}
     .sr-mz-address {padding-left:0.5rem;}
     .sr-mz-address span {padding-left:0.5rem;}
@@ -54,17 +55,20 @@
     .sr-mz-content .row {padding-top:0.1rem; padding-bottom:0.1rem;}
     .sr-mz-content * {margin:0;}
     .sr-mz-bestReview > * {padding:0;}
-    .sr-mz-bestReview-profile {padding:0; width:3rem; height:3rem;}
-    .userProfile {max-width:100%; max-height:100%; border-radius:50%;}
+    .sr-mz-bestReview-profile {padding:0;}
+    .sr-mz-bestReview-profile-div {border-radius:50%; width:3rem; height:3rem; overflow:hidden; align-items:center; justify-content:center;}
+    .userProfile {width:100%; height:100%;}
     .badge-pill {background:rgb(204,51,98); color:white; margin-right:0.5rem;}
     .sr-mz-bestReview-content-div {padding-left:0; padding-right:0.5rem; margin-top:0.6rem; margin-bottom:0.3rem;}
+    .bestReview-content-p {height:2.5rem; text-overflow:ellipsis; overflow:hidden; white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
     .sr-mz-viewWishBookmark {padding-right:0.5rem;}
     .sr-mz-viewWishBookmark * {font-size:0.7rem;}
     .sr-mz-viewWishBookmark i {margin-left:0.4rem;}
     .sr-mz-viewWishBookmark span {margin-left:0.2rem;}
     .sr-mz-img-col {padding-left:0.5rem; padding-right:0.5rem;}
-    .sr-mz-img {border-radius:0.2rem;}
-    .resThumbnail {width:100%; height:9.5rem; border-radius:0.2rem;}
+    .sr-mz-img {border-radius:0.2rem; overflow:hidden;}
+    .resThumbnail {width:100%; max-height:11rem; border-radius:0.2rem; transition-duration:0.3s; transition-timing-function:ease;}
+    .sr-mz:hover .resThumbnail {transform:scale(1.1);}
     .bookmarkheart {font-size:2.3rem; margin:0.5rem; color:#BA262B;}
 
     /* 광고 */
@@ -111,17 +115,17 @@
 							<span class="sr-filter-title">정렬</span>
 							<div class="sr-filter-group">
 								<div class="custom-control custom-radio">
-									<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-									<label class="custom-control-label" for="credit">평점 높은 순</label>
+									<input id="highrating" type="radio" name="sort-radio" value="highrating" class="custom-control-input" checked required>
+									<label class="custom-control-label" for="highrating">평점 높은 순</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-									<label class="custom-control-label" for="debit">리뷰 많은 순</label>
+									<input id="highReviewCount" type="radio" name="sort-radio" value="highReviewCount" class="custom-control-input" required>
+									<label class="custom-control-label" for="highReviewCount">리뷰 많은 순</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-									<label class="custom-control-label" for="paypal">조회수 많은 순</label>
-								</div>
+									<input id="highViewCount" type="radio" name="sort-radio" value="highViewCount" class="custom-control-input" required>
+									<label class="custom-control-label" for="highViewCount">조회수 많은 순</label>
+								</div>  
 							</div>
 						</div>
 						<div style="margin-bottom: 1.2rem;">
@@ -221,7 +225,7 @@
 									<option>그 외</option>
 								</select>
 							</div>
-							<input type="search" class="form-control" placeholder="먹고 싶은 음식(한식, 중식, 분식)이나 맛집 이름을 입력하세요.">
+							<input type="search" class="form-control" placeholder="먹고 싶은 음식(한식, 중식, 분식)이나 맛집 이름을 입력하세요."/>
 						</div>
 						<div class="col sr-content-title d-flex flex-column justify-content-center">
 							<p style="font-family: 'medium'; color: rgb(204, 51, 98);">${location}</p>
@@ -229,7 +233,7 @@
 						</div>
 						<div class="col sr-content-list">
 							<c:forEach var="res" items="${list}">
-							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${res.resId});">
+							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${res.resId})">
 								<div class="col-4 sr-mz-img-col">
 									<div class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end">
 										<img class="resThumbnail" src="${contextPath}/resources/${res.resThumbnailImage.imageFilepath}/${res.resThumbnailImage.imageNewName}">
@@ -241,7 +245,7 @@
 											<span style="font-family: 'bold'; font-size: 1.5rem; color:black;">${res.resName}</span>
 										</div>
 										<div class="col-3 sr-mz-rating">
-											<span><i class="fas fa-star"></i>${res.reviewRating}</span>
+											<span><i class="fas fa-star"></i><fmt:formatNumber type="number" value="${res.reviewRating}" pattern="0.0"/></span>
 										</div>
 									</div>
 									<div class="row sr-mz-address d-flex align-items-center">
@@ -249,9 +253,9 @@
 										<span style="font-family: 'medium'; font-size: 1rem;">${res.locationName}</span>
 										<span style="font-size: 0.8rem;">${res.resAddress}</span>
 									</div>
-									<div class="row">
-										<div class="row" class="sr-mz-bestReview">
-											<div class="col-2 sr-mz-bestReview-profile">
+									<div class="row" class="sr-mz-bestReview" style="margin-top:0.5rem;">
+										<c:if test="${not empty res.bestReview}">
+											<div class="col-2 sr-mz-bestReview-profile d-flex justify-content-center">
 												<div class="sr-mz-bestReview-profile-div">
 													<img class="userProfile" src="${contextPath}/resources/${res.bestReview.reviewerProfilePath}/${res.bestReview.reviewerProfileImg}"/>
 												</div>
@@ -262,15 +266,15 @@
 													<span style="font-family: 'medium'">${res.bestReview.nickname}</span>
 												</div>
 												<div class="row sr-mz-bestReivew-content" style="font-size: 0.8rem;">
-													<span>${res.bestReview.reviewContent}</span>
+													<p class="bestReview-content-p">${res.bestReview.reviewContent}</p>
 												</div>
 											</div>
-										</div>
+										</c:if>
 									</div>
 									<div class="row sr-mz-viewWishBookmark d-flex justify-content-end align-items-center">
-										<i class="fas fa-eye"></i> <span>${res.resViewCount}</span>
-										<i class="fas fa-heart"></i> <span>${res.resBookmarkCount}</span>
-										<i class="fas fa-pencil-alt"></i> <span>${res.resReviewCount}</span>
+										<i class="fas fa-eye"></i> <span><fmt:formatNumber type="number" value="${res.resViewCount}"/></span>
+										<i class="fas fa-heart"></i> <span><fmt:formatNumber type="number" value="${res.resBookmarkCount}"/></span>
+										<i class="fas fa-pencil-alt"></i> <span><fmt:formatNumber type="number" value="${res.resReviewCount}"/></span>
 									</div>
 								</div>
 							</div>
@@ -301,6 +305,13 @@
 	<script>
 		function goDetail(resId) {
 			window.location.href="goDetailRestaurant.do?resId=" + resId;
+		};
+	</script>
+	
+	<script>
+		window.onload = function(){
+			var sortType = document.querySelector("input[name='sort-radio']:checked").value;
+			console.log(sortType);
 		};
 	</script>
 	<!-- Optional JavaScript -->

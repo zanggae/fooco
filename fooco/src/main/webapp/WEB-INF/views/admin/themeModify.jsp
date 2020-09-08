@@ -84,6 +84,7 @@
     <div class="container">
 
     <form action="restaurantThemeAdmin.do" method="get" id="themeSubmit">
+    <input type="hidden" name="themeId" value="${ta.themeId }">
     <script>
     	function onsubmitTheme(){
     		if($("#themeTile").val() == ""){
@@ -125,12 +126,12 @@
         </div>
         <script>
         	var check = new Array();
-        	/* $(function(){
-        		
-        		for(var i in ${themeRList}){
-        			check.push(themeRList[i].resId);
-        		}
-        	}) */
+        	$(function(){
+	       		<c:forEach items="${themeRList}" var="item"> 
+	       			check.push("${item.resId}"); 
+	       		</c:forEach>
+	       		deleteRestaurant();        		
+        	})
         	function searchRestaurant(){
         		var search = $("#searchInput").val();
         		if(search == ""){
@@ -153,7 +154,7 @@
     					
     					 if(data.restaurant.length > 0){	// 조회된 음식점이 존재하면
     						for(var i in data.restaurant){
-    							var src = "resources/buploadFiles/"+data.restaurant[i].resImageName;
+    							var src = "resources/restaurantImage/"+data.restaurant[i].resImageName;
     							var address = data.restaurant[i].resAddress.split(',').join(' ');
     							$div = $("<div class='pickDiv'>");
     							$img = $("<img class='img_set' id='divImg'>").attr("src",src);
@@ -185,9 +186,6 @@
         	
         	function settingFunction(){
         		$(".pickDiv").click(function(){
-        			if(!confirm("음식점을 추가 하시겠습니까?")){
-        				return;
-        			}
         			var resId = $(this).find("#resId").val();
         			var dImg = $(this).find("#divImg").attr('src');
         			var title = $(this).find("#divTitle").text();
@@ -200,6 +198,9 @@
         			}else{
 	        			check.push(resId);        				
         			};
+        			if(!confirm("음식점을 추가 하시겠습니까?")){
+        				return;
+        			}
         			
         			$subDiv = $("#subDiv");
         			
@@ -271,7 +272,7 @@
 	          <c:forEach var="tRL" items="${themeRList }">
 	          	<div class='row selectDiv'>
 	          		<div class='col-5 position1' id='pickRImg'>
-	          			<img class='img_set2' src="${tRL.resImageName}">
+	          			<img class='img_set2' src="resources/restaurantImage/${tRL.resImageName}">
 	          		</div>
 	          		<div class='col-5 position1' id='pickRCon'>
 	          			<h5 style='font-weight: bold; text-align: center;'>${tRL.resName }</h5>

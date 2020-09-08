@@ -155,11 +155,11 @@ a {
 			</div>
 			<div class="row row-cols-1 menubar_group">
 				<div class="menubar_group_title">
-					<a href="#"><span style="font-family: 'bold';">&#x1F495;
-							즐겨찾기</span></a>
+					<span style="font-family: 'bold'; font-size: 1.3rem;">&#x1F495;
+							즐겨찾기</span>
 				</div>
 				<div class="col menubar_group_member">
-					<a href="#">
+					<a href="myPageFavoritesMZ.do">
 						<p>맛집</p>
 					</a> <a href="#">
 						<p>테마</p>

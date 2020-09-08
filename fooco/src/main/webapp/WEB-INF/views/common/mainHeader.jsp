@@ -74,10 +74,12 @@
 			width: 90%;
 			margin-left: 50px;
 		}
-		/* hr태그 */
-		#for_first_modal hr {
-			margin-left: 28px;
-			width: 107%;
+		/* '매일매일 즐거운 푸코와 함께'' 문구 */
+		#login_first_line{
+			position:absolute;
+			margin-top:10px;
+			margin-left: 50px;
+			font-size:11px;
 		}
 		/* 로그인 버튼 */
 		#login_btn {
@@ -211,7 +213,7 @@
                           </a>
                           </c:if>
                             <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle mh-dropdown-toggle" onclick="openMenu();" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle mh-dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="header-menu-btn d-flex justify-content-center align-items-center">
                                         <i class="dropdown-title fas fa-align-justify" id="fa-align-justify" style="color:rgb(204,51,98); font-size:1.3rem;"></i>
                                         <i class="dropdown-title fas fa-times" id="fa-times" style="color:rgb(204,51,98); display:none; font-size:1.3rem;"></i>
@@ -235,8 +237,10 @@
                                     <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
                                     <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
 
-                                    <!-- 추후 관리자 회원등록 시 수정 -->
+                                    <!-- 회원 이름이 '관리자'만 보이도록-->
+                                    <c:if test="${!empty loginUser && loginUser.nickName eq '관리자'}">
                                     <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
+                                    </c:if>
                                     <c:if test="${!empty loginUser }">
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃</a>
@@ -249,7 +253,6 @@
             </nav>
             
 	<!-- 김경남: 메뉴 열고 닫을 때 아이콘 변경하는 스크립트 -->
-
     <script>
     	function openMenu() {
     		var open = document.getElementById("fa-align-justify");
@@ -283,13 +286,10 @@
               </div>
               <div class="w-100"></div>
               <div class="col">
-                <input type="text" name="email" placeholder="이메일" id="email_input"><span style="line-height: 30px;"></span>
-                <input type="password" name="memberPwd" placeholder="비밀번호" id="pwd_input"><span style="line-height: 50px;"></span>
+              	<p id="login_first_line">매일매일 즐거운 Fooco와 함께!</p><br>
+                <input type="text" name="email" placeholder="이메일" id="email_input"><span style="line-height: 40px;"></span>
+                <input type="password" name="memberPwd" placeholder="비밀번호" id="pwd_input"><span style="line-height: 50px;"></span><br>
                 <button id="login_btn" onclick="login_btn();">LOGIN</button> 
-                <hr>
-                <!-- 네이버 로그인 창으로 이동 -->
-				<div id="naver_id_login" style="text-align:center"><a href="${url}">
-				<img id="naver_login_img" width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div> 
               </div>
               <div id="forLine"></div>
               <div class="col">

@@ -40,22 +40,6 @@ public class MemberShipServiceImpl implements MemberShipService{
 		return memberShipDao.insertSilverMembership(membership);
 	}
 
-	//결제 후 쿠폰1 insert 메소드
-	@Override
-	public int insertCoupon1(MemberShip membership) {
-		
-		return memberShipDao.insertCoupon1(membership);
-	}
-	@Override
-	public int insertCoupon2(MemberShip membership) {
-		
-		return memberShipDao.insertCoupon2(membership);
-	}
-	@Override
-	public int insertCoupon3(MemberShip membership) {
-		
-		return memberShipDao.insertCoupon3(membership);
-	}
 	//해당 회원 멤버십 조회
 	@Override
 	public ArrayList<MemberShip> selectforMembership(String memberId) {
@@ -64,9 +48,25 @@ public class MemberShipServiceImpl implements MemberShipService{
 	}
 	//멤버십 유무 체크
 	@Override
-	public ArrayList<MemberShip> checkmembership(MemberShip membership) {
+	public MemberShip checkmembership(int MembershipUser) {
 		
-		return memberShipDao.checkmembership(membership);
+		return memberShipDao.checkmembership(MembershipUser);
+	}
+	//멤버십 상태 update
+	@Override
+	public int updateMembershipStatus() {
+		
+		return memberShipDao.updateMembershipStatus();
+	}
+	// 골드 맴버십 가입시 관리자 테이블에 goldCount update
+	@Override
+	public int updateStaticGoldCount() {
+		return memberShipDao.updateStaticGoldCount();
+	}
+	// 실버 맴버십 가입시 관리자 테이블에 silverCount update
+	@Override
+	public int updateStaticSilverCount() {
+		return memberShipDao.updateStaticSilverCount();
 	}
 
 

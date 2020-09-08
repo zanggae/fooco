@@ -1,6 +1,9 @@
 package com.kh.fooco.membership.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,32 +40,32 @@ public class MemberShipDao {
 		return sqlSessionTemplate.insert("membershipMapper.insertSilverMembership",membership);
 	}
 
-	//결제 후 쿠폰 insert
-	public int insertCoupon1(MemberShip membership) {
-		
-		return sqlSessionTemplate.insert("membershipMapper.insertCoupon1",membership);
-	}
-	//결제 후 쿠폰 insert
-	public int insertCoupon2(MemberShip membership) {
-		
-		return sqlSessionTemplate.insert("membershipMapper.insertCoupon2",membership);
-	}
-	public int insertCoupon3(MemberShip membership) {
-		
-		return sqlSessionTemplate.insert("membershipMapper.insertCoupon3",membership);
-	}
-
 	//해당 회원 멤버십 select
 	public ArrayList<MemberShip> selectforMembership(String memberId) {
 		
 		return (ArrayList)sqlSessionTemplate.selectList("membershipMapper.selectforMembership",memberId);
 	}
 
-	public ArrayList<MemberShip> checkmembership(MemberShip membership) {
+	//사용 중인 멤버십 있는 지 check하는 select
+	public MemberShip checkmembership(int MembershipUser) {
 		
-		return (ArrayList)sqlSessionTemplate.selectList("membershipMapper.checkmembership",membership);
+		return sqlSessionTemplate.selectOne("membershipMapper.checkmembership",MembershipUser);
 	}
 
+	//멤버십 상태 변경 update
+	public int updateMembershipStatus() {
+		
+		return sqlSessionTemplate.update("membershipMapper.updateMembershipStatus");
+	}
+
+	public int updateStaticGoldCount() {
+		return sqlSessionTemplate.update("membershipMapper.updateStaticGoldCount");
+	}
+
+	public int updateStaticSilverCount() {
+		return sqlSessionTemplate.update("membershipMapper.updateStaticSilverCount");
+	}
+	
 	
 
 }

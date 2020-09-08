@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fooco.member.model.exception.MemberException;
+import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.membership.model.exception.MemberShipException;
 import com.kh.fooco.membership.model.service.MemberShipService;
 import com.kh.fooco.membership.model.vo.Coupon;
@@ -27,103 +29,78 @@ public class MemberShipController {
 	
 	//멤버십 메인 화면으로 이동 + 멤버십 조회
 	@RequestMapping("goMembershipInfo.do")
-	public ModelAndView selectMembershipList(MemberShip mebership,ModelAndView mv) {
+	public ModelAndView selectMembershipList(MemberShip mebership,ModelAndView mv,HttpSession session) {
+		//멤버십조회
 		ArrayList<MemberShip> membershiplist = memberShipService.selectMembershipList(mebership);
+		
+		//쿠폰 조회
 		ArrayList<Coupon> couponList = memberShipService.selectCouponList();
-		System.out.println("멤버십 정보 불러오는 지 :" + membershiplist);
-		System.out.println("쿠폰 정보 잘 불러오는지 : " + couponList);
 		
-		mv.addObject("membershiplist", membershiplist);
-		mv.addObject("couponList", couponList);
-		mv.setViewName("membership/membershipInfo");
-		
+
+		//회원 불러오기
+		int  MembershipUser= 0;
+		//로그인한 회원이 있으면
+	    if((Member)session.getAttribute("loginUser")!=null) {
+	    	Member loginUser = (Member)session.getAttribute("loginUser");
+	    	MembershipUser = loginUser.getMemberId();
+	    	MemberShip m = memberShipService.checkmembership(MembershipUser);
+	    	mv.addObject("m", m);
+	    	mv.addObject("membershiplist", membershiplist);
+	    	mv.addObject("couponList", couponList);
+	    	mv.setViewName("membership/membershipInfo");
+	    //로그인 안했을 시
+	    }else {
+	    	mv.addObject("membershiplist", membershiplist);
+	    	mv.addObject("couponList", couponList);
+	    	mv.setViewName("membership/membershipInfo");
+	    }
+
 		return mv;
 	}
 	
 	
 	//결제 + 골드멤버십 insert
-	@RequestMapping("buyGoldMembership.do")
-	public String insertGoldMembership(MemberShip membership,HttpServletResponse response) throws IOException {
-		System.out.println("membership:" + membership);	
-		
-	    
-	    ArrayList<MemberShip> m = memberShipService.checkmembership(membership);
-	    
-		System.out.println("멤버십 있는 지 조회해오기 : " + m);
-		
-		if(m!=null) {
-			System.out.println("사용 하는 멤버십이 조회됨");
-			response.setContentType("text/html; charset=UTF-8"); 
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('이미 사용하는 멤버십이 있습니다'); history.go(-1);</script>"); 
-			out.flush();
-		}else{
+		@RequestMapping("buyGoldMembership.do")
+		public String insertGoldMembership(MemberShip membership) {
+			System.out.println("membership:" + membership);	
+			
 			//insert작업
 			int result = memberShipService.insertGoldMembership(membership);
-		    int result2 = memberShipService.insertCoupon1(membership);
-		    int result3= memberShipService.insertCoupon2(membership);
-		    System.out.println("result:"+result);
-		    
-			if(result>0) {
-				System.out.println("insert성공");
-				response.setContentType("text/html; charset=UTF-8"); 
-				PrintWriter out = response.getWriter();
-				out.println("<script>alert('결제 성공'); history.go(-1);</script>"); 
-				out.flush();
-			}else {
-			System.out.println("inser실패");
-			System.out.println("insert성공");
-			response.setContentType("text/html; charset=UTF-8"); 
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('결제 실패'); history.go(-1);</script>"); 
-			out.flush();
-			throw new MemberShipException("멤버십 등록 실패");
-		}
-	}
-		return "membership/membershipInfo";
-	}
-	//결제 + 실버멤버십 insert
-	@RequestMapping("buySilverMembership.do")
-	public String insertSilverMembership(MemberShip membership, HttpServletResponse response) throws IOException {
-		System.out.println("membership:" + membership);
-		
-	    ArrayList<MemberShip> m = memberShipService.checkmembership(membership);
-		
-	    System.out.println("멤버십 있는 지 조회해오기 : " + m);
-		
-		if(m!=null) {
-			System.out.println("사용 하는 멤버십이 조회됨");
-			response.setContentType("text/html; charset=UTF-8"); 
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('이미 사용하는 멤버십이 있습니다'); history.go(-1);</script>"); 
-			out.flush();
-		}else{
-			//insert작업
-			int result = memberShipService.insertGoldMembership(membership);
-		    int result2 = memberShipService.insertCoupon1(membership);
-		    int result3= memberShipService.insertCoupon2(membership);
-		    System.out.println("result:"+result);
-		    
-			if(result>0) {
-				System.out.println("insert성공");
-				response.setContentType("text/html; charset=UTF-8"); 
-				PrintWriter out = response.getWriter();
-				out.println("<script>alert('결제 성공'); history.go(-1);</script>"); 
-				out.flush();
-			}else {
-			System.out.println("inser실패");
-			System.out.println("insert성공");
-			response.setContentType("text/html; charset=UTF-8"); 
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('결제 실패'); history.go(-1);</script>"); 
-			out.flush();
-			throw new MemberShipException("멤버십 등록 실패");
-		}
-	}
-		return "membership/membershipInfo";
 
-	
-	}
+//			관리자 테이블(static에 맴버십 컬럼 update)
+		    int result4 = memberShipService.updateStaticGoldCount();
+		   
+			System.out.println("result:"+result);
+			
+			if(result>0) {
+				System.out.println("insert성공");
+				return "membership/membershipInfo";
+			}else {
+				System.out.println("inser실패");
+				throw new MemberShipException("멤버십 등록 실패");
+			}
+
+		}
+		//결제 + 실버멤버십 insert
+		@RequestMapping("buySilverMembership.do")
+		public String insertSilverMembership(MemberShip membership) {
+			System.out.println("잘오는건 맞나");
+			System.out.println("membership:" + membership);
+			
+			int result = memberShipService.insertSilverMembership(membership); 
+
+			 
+//		  	  관리자 테이블(static에 맴버십 컬럼 update)
+	         int result4 = memberShipService.updateStaticSilverCount();
+	         
+			 if(result>0) { System.out.println("insert성공"); 
+			 return "membership/membershipInfo"; 
+			 }else { 
+				 System.out.println("insert실패"); 
+				 throw new MemberShipException("멤버십 등록 실패"); 
+			}
+		
+		}
 	
 	//멤버십 조회
 	@RequestMapping("goMembershipList.do")
@@ -139,4 +116,24 @@ public class MemberShipController {
 
 		return mv;
 	}
+	
+	//멤버십 상태 update
+	@RequestMapping("updateMembershipStatus.do")
+	public ModelAndView updateMembership(ModelAndView mv,HttpSession session){
+		
+        int result = memberShipService.updateMembershipStatus();
+        
+//        System.out.println("UPDATE 잘 되는지" + result);
+        
+        if(result>0) {
+        	System.out.println("update성공");
+        	mv.addObject("result",result);
+        	mv.setViewName("common/main");
+        }else {
+        	System.out.println("update실패");
+        	mv.setViewName("common/main");
+        }
+        return mv;
+	}
+	
 }

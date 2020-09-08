@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.dao.RestaurantDao;
 import com.kh.fooco.restaurant.model.vo.Info;
@@ -37,6 +38,26 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public Info getRestaurantInfo(Integer resId) {
 		return restaurantDao.getRestaurantInfo(resId);
+	}
+
+	@Override
+	public int getReviewListCount(Integer resId) {
+		return restaurantDao.getReviewListCount(resId);
+	}
+
+	@Override
+	public ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter, PageInfo pi) {
+		return restaurantDao.getReviewList(searchParameter, pi);
+	}
+
+	@Override
+	public int getPhotoCount(Integer resId) {
+		return restaurantDao.getPhotoCount(resId);
+	}
+
+	@Override
+	public ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter, PageInfo ppi) {
+		return restaurantDao.getPhotoList(searchParameter, ppi);
 	}
 
 

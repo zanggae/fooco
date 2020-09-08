@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -25,7 +26,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,16 +37,26 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.vo.Board;
+
+import com.kh.fooco.common.model.vo.Image;
+
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
+import com.kh.fooco.member.model.vo.Checkin;
+import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
+import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
-import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.naver.NaverLoginBO;
+import com.kh.fooco.restaurant.model.vo.Info;
+import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+
 import com.kh.fooco.theme.model.exception.ThemeException;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
+
 
 @SessionAttributes("loginUser")
 @Controller
@@ -135,6 +145,10 @@ public class MemberController {
 			return "common/main";
 		}else{
 			 System.out.println("로그인 실패");
+			 response.setContentType("text/html; charset=UTF-8"); 
+			 PrintWriter out = response.getWriter();
+			 out.println("<script>alert('비밀번호를 다시 확인해주세요'); history.go(-1);</script>"); 
+			 out.flush();	
 		}
 		return "common/main";	
 	}
@@ -383,9 +397,10 @@ public class MemberController {
 		public ModelAndView proFileUpDate(HttpServletRequest request, Member m, ModelAndView mv,
 				@RequestParam(value="profile", required=false) MultipartFile file) {
 			
+			String folderName = "ProFiles";
 			
 			if(!file.getOriginalFilename().equals("")) {
-				String renameFileName = saveFile(file,request);
+				String renameFileName = saveFile(file,request, folderName);
 				
 				m.setOriginalName(file.getOriginalFilename());
 				m.setRenameName(renameFileName);
@@ -422,14 +437,14 @@ public class MemberController {
 		
 		
 		// 변경 파일을 ProFiles폴더에 저장하는 메소드
-		private String saveFile(MultipartFile file, HttpServletRequest request) {
+		private String saveFile(MultipartFile file, HttpServletRequest request, String folderName) {
 			
 			// webapp 경로
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			// == webapp/resources
 //			System.out.println("경로를 확인해 보자 : " + root);
 			
-			String savePath = root + "\\ProFiles";
+			String savePath = root + "\\" + folderName;
 			
 			File folder = new File(savePath); // import java.io.File;
 			
@@ -441,11 +456,12 @@ public class MemberController {
 			
 			// 공지글은 파일명 중복 제거는 신경쓰지 않고 했지만
 			// 게시판에서는 파일명을 날짜(업로드 시간)로 rename 해보자
+			int randomNum = (int)(Math.random() * 10000) + 1;
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 			String originFileName = file.getOriginalFilename();
 			String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis()))
-					+ "." + originFileName.substring(originFileName.lastIndexOf(".")+1); // 시스템에서 현재시간을 long형으로 변환해줌
+				+ randomNum + "." + originFileName.substring(originFileName.lastIndexOf(".")+1); // 시스템에서 현재시간을 long형으로 변환해줌
 			
 			String filePath = folder + "\\" + renameFileName;
 			// 실제 저장 될 파일의 경로 + rename 파일명
@@ -453,7 +469,7 @@ public class MemberController {
 			System.out.println("내파일 경로 :"+ filePath);
 			
 			try {
-				file.transferTo(new File(filePath));
+				file.transferTo(new File(filePath)); 
 				// 사용자가 넘겨줄 파일을 집어넣어라
 				// 이 상태로는 파일 업로드가 되지 않는다.
 				// 왜냐하면 파일 제한크기에 대한 설정을 주지 않았기 때문이다.
@@ -615,13 +631,27 @@ public class MemberController {
 		
 		// 체크인 페이지 이동
 		@RequestMapping("myPageCheckin.do")
-		public String myPageCheckinView() {
-			return "mypage/myPageCheckin";
+		public ModelAndView myPageCheckinView(ModelAndView mv, HttpSession session) {
+			
+	      Member loginUser = (Member)session.getAttribute("loginUser");
+	      int memberId = loginUser.getMemberId();
+			
+			
+			ArrayList<Select_Checkin> checkinList = memberService.selectCheckinList(memberId);
+			System.out.println("뽑혀라!!! " + checkinList);
+			
+			mv.addObject("checkinList",checkinList);
+			mv.setViewName("mypage/myPageCheckin");
+			
+			return mv;
 		}
+		
+		
 		
 		// 체크인 등록 페이지 이동
 		@RequestMapping("CheckinRegister.do")
 		public String myPageCheckinRegisterView() {
+			
 			return "mypage/myPageCheckinRegister";
 		}
 		
@@ -637,7 +667,154 @@ public class MemberController {
 			
 		}
 		
+		
+		// 체크인 등록 페이지에서 등록버튼 클릭 시
+		@RequestMapping(value="myPageCheckinRegister.do", method=RequestMethod.POST)
+		public ModelAndView myPageCheckinRegister(HttpServletRequest request, ModelAndView mv, Checkin ck, Member m,
+				Image img, CheckinImage ckimg, @RequestParam(value="file", required=false) List<MultipartFile> files)
+			 {
+			String folderName = "checkinImage";
+			
+			System.out.println("클릭페이지 : " + ck);
+			// 체크인 테이블 인서트
+			int result = memberService.insertCheckin(ck);
+			
+			for (MultipartFile file : files) {
+				
+				if(!file.getOriginalFilename().equals("")) {
+					String renameFileName = saveFile(file,request,folderName);
+					img.setImageOriginName(file.getOriginalFilename());
+					img.setImageNewName(renameFileName);
+					
+					// 이미지 테이블 인서트
+					int result2 = memberService.insertImage(img);
+					// 체크인 이미지 테이블 인서트
+					int result3 = memberService.insertCheckinImage(ckimg);
+					
+				}
+			}
+			
+			
+			mv.setViewName("redirect:myPageCheckin.do");
+			
+			return mv;
+		}
+		
+		
+		// 체크인 수정 페이지 이동
+		@RequestMapping("CheckinModify.do")
+		public ModelAndView myPageCheckinModifyView(ModelAndView mv, int checkinId) {
+			System.out.println("수정페이지로 넘어가는 체크인번호 : " + checkinId);
+			
+			ArrayList<Select_Checkin> modifyCheckinList = memberService.selectModifyCheckinList(checkinId);
+			
+			System.out.println(modifyCheckinList);
+			
+			mv.addObject("modifyCheckinList", modifyCheckinList);
+			mv.addObject("checkinId", checkinId);
+			mv.setViewName("mypage/myPageCheckinModify");
+			return mv;
+		}
+		
+		// 체크인 수정 페이지에서 수정버튼 클릭 시
+		@RequestMapping(value="myPageCheckinModify.do", method=RequestMethod.POST)
+		public ModelAndView myPageCheckinModify(HttpServletRequest request, ModelAndView mv, Checkin ck, String imageIds,
+				Image img, CheckinImage ckimg, @RequestParam(value="file", required=false) List<MultipartFile> files)
+			 {
+			String folderName = "checkinImage";
+			
+			System.out.println("수정페이지에서 넘어오는 값 : " + ck);
+			System.out.println("수정페이지에서 넘어오는 이미지 번호 값 : " + imageIds);
+			
+			int result1 = 0;
+			int result2 = 0;
+			
+			if(imageIds != null) {
+				String[] IL = imageIds.split(",");		
+				for(String imageNum : IL) {
+					result2 = memberService.deleteCheckinImage(imageNum);
+					result1 = memberService.deleteImage(imageNum);
+				}
+			}
+			
+			System.out.println("체크인 번호" + ckimg);
+			
+			// 체크인 테이블 인서트
+			int result3 = memberService.updateCheckin(ck);
+			
+			for (MultipartFile file : files) {
+				
+				if(!file.getOriginalFilename().equals("")) {
+					String renameFileName = saveFile(file,request,folderName);
+					img.setImageOriginName(file.getOriginalFilename());
+					img.setImageNewName(renameFileName);
+					
+					// 이미지 테이블 인서트
+					int result4 = memberService.insertImage(img);
+					// 체크인 수정 시 체크인 이미지 테이블 인서트
+					int result5 = memberService.insertCheckinImage2(ckimg);
+					
+				}
+			}
+			mv.setViewName("redirect:myPageCheckin.do");
+			
+			return mv;
+		}
+		
+		// 체크인 삭제 버튼 클릭 시
+		@RequestMapping("myPageCheckinDelete.do")
+		public String myPageDelete( int checkinId) {
+			System.out.println("체크인 번호 : " + checkinId);
+			
+			int result = memberService.deleteCheckinImage2(checkinId);
+			int result2 = memberService.deleteCheckin(checkinId);
+			
+			
+			return "redirect:myPageCheckin.do";
+		}
 
+		
+		// 즐겨찾기 - 맛집 조회
+		@RequestMapping("myPageFavoritesMZ.do")
+		public ModelAndView myPageFavoritesMZView(ModelAndView mv, HttpSession session) {
+			 Member loginUser = (Member)session.getAttribute("loginUser");
+		     int memberId = loginUser.getMemberId();
+			
+		     // 즐겨찾기한 맛집 리스트 조회
+		     ArrayList<MZ> MZList = memberService.selectMZ(memberId);
+		      
+		     System.out.println("맛집리스트 조회 결과 : " +MZList);
+		    
+		    mv.addObject("MZList",MZList);
+			mv.setViewName("mypage/myPageFavoritesMZ");
+			return mv;
+		}
+		
+		// 즐겨찾기 - 맛집 삭제
+		@RequestMapping("deleteMZ.do")
+		public ModelAndView deleteMZ(ModelAndView mv, int resBookMarkId) {
+			System.out.println("클릭한 resBookMark번호 :" + resBookMarkId);
+			
+			int result = memberService.deleteMZ(resBookMarkId);
+		    
+			mv.setViewName("redirect:myPageFavoritesMZ.do");
+			return mv;
+		}
+		
+		// 즐겨 찾기 - 맛집 클릭 시 해당 맛집 상세페이지로 이동
+		@RequestMapping("detailMZ.do")
+		public ModelAndView goDetailRestaurant(ModelAndView mv, int resId)
+		{
+			System.out.println(resId);
+			Res restaurant = memberService.getRestaurantDetail(resId);
+			Info info = memberService.getRestaurantInfo(resId);
+
+			System.out.println(restaurant);
+			mv.addObject("res", restaurant);
+			mv.addObject("info", info);
+			mv.setViewName("restaurant/detailRestaurant");
+			return mv;
+		}
 		
 		
 // ================================== MyList 영은 ===========================================

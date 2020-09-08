@@ -653,6 +653,24 @@
               email2 = $("#selfSiteName");    //직접입력 이메일
             }
             
+            if($("#email").val()==""){
+	            alert("이메일을 입력해주세요");
+	            $("#email").focus();
+	            emailCheck=1;
+	            return;
+	          }
+	          if($("#selfSiteName").val()=="" &&($("#selectEmail").val()==""||$("#selectEmail").val()=="e_option")){
+	            alert("이메일주소를 선택해주세요");
+	            emailCheck=1;
+	            return;
+	          }
+	          if($("#selectEmail").val()=="selfEmail" && ($("#selfSiteName").val()=="")){
+	            alert("이메일 주소를 입력해주세요");
+	            $("#selfSiteName").focus();
+	            emailCheck=1;
+	            return;
+	          }
+            
       		$.ajax({
       			url:"checkemailDup.do"
       			,type:"post"
