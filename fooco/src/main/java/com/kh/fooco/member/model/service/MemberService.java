@@ -66,6 +66,19 @@ public interface MemberService {
 	
 	ArrayList<Select_Checkin> selectCheckinList(int memberId);
 	
+	ArrayList<Select_Checkin> selectModifyCheckinList(int checkinId);
+	
+	int updateCheckin(Checkin ck);
+	
+	int deleteImage(String imageNum);
+	
+	int deleteCheckinImage(String imageNum);
+	
+	int insertCheckinImage2(CheckinImage ckimg);
+	
+	int deleteCheckin(int checkinId);
+	
+	int deleteCheckinImage2(int checkinId);
 	// ================================== Mylist 영은 ===========================================
 
 
@@ -76,6 +89,20 @@ public interface MemberService {
 	int insertMylist(String themeTitle, int themeWriter);
 
 	int insertMylistRes(String th);
+
+
+
+
+
+
+
+
+
+	
+
+
+
+	
 
 
 
