@@ -250,7 +250,6 @@
 
   </div>
   <!--container끝-->
-  </div>
   <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br>
 
   <!-- Optional JavaScript -->

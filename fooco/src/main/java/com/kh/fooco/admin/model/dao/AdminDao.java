@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
@@ -233,7 +234,7 @@ public class AdminDao {
 	public ArrayList<ThemeAdmin> selectListTheme(ThemeAdmin ta, PageInfo pi) {
 		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());		
-		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListTheme",ta);
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListTheme",ta,rowBounds);
 	}
 
 	public int deleteTheme(ThemeAdmin ta) {
@@ -282,6 +283,16 @@ public class AdminDao {
 		updateParameter.put("tId", tId);
 		updateParameter.put("theme", th);		
 		return sqlSessionTemplate.insert("adminMapper.insertThemeRestaurant2",updateParameter);
+	}
+
+	public int selectOneMyListCount(Search search) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectOneMyListCount",search);
+	}
+
+	public ArrayList<MyListAdmin> selectListMylistAdmin(Search search, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListMylistAdmin",search,rowBounds);
 	}
 
 	

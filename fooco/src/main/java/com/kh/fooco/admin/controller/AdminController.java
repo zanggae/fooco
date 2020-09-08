@@ -32,6 +32,7 @@ import com.kh.fooco.admin.model.exception.AdminException;
 import com.kh.fooco.admin.model.service.AdminService;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.exception.BoardException;
@@ -523,6 +524,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 음식점 등록버튼 누를시 이동되는 컨트롤러
 	@RequestMapping(value="registrationRestaurant.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView registrationRestaurant(ModelAndView mv, Restaurant r
 			,@RequestParam(value="menu", required=false) String menu
@@ -582,6 +584,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 음식점 수정페이지로 이동
 	@RequestMapping("detailRestaurantAdmin.do")
 	public ModelAndView detailRestaurantAdmin(ModelAndView mv, Restaurant restaurant) {
 		
@@ -608,6 +611,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 음식점 업데이트 버튼 누를시 이동되는 컨트롤러
 	@RequestMapping(value="registrationModifyAdmin.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView registrationModifyAdmin(ModelAndView mv, Restaurant r
 			,@RequestParam(value="menu", required=false) String menu
@@ -621,49 +625,57 @@ public class AdminController {
 		int imageResult = 0;
 		int rId = r.getResId();
 		r.setResAddress(post + "," + address1 + "," + address2); 
+		
+		// 1. 음식점 정보 업데이트 
 		 result = adminService.updateRestaurant(r);
 		 if(result >0) {
 			 
 		 }else {
-			 throw new BoardException("음식점 등록 실패!");
+			 throw new BoardException("음식점 업데이트 실패!");
 		 }
 		
 		
-		// 파일 업로드 유무 판단해서 있으면 기존의 파일 삭제후 새로은 파일로 업데이트
+		// 2. 파일 업로드 유무 판단해서 있으면 기존의 파일 삭제후 새로은 파일로 업데이트
 		String imageNewName="";
 		if(!file.getOriginalFilename().equals("")) {
 			if(i.getImageNewName() != null) {
+				// 2-1 기존 파일 삭제
 				deleteFile(i.getImageNewName(), request);				
 			}
 			
+			// 2-2 새로운 파일 사진 옮기기
 			String renameFileName = saveFile(file,request);
-			 
+			
+			// 2-3 image 객체에 새로 담아온 파일의 원본이름과 바뀐이름 담기
 			i.setImageOriginName(file.getOriginalFilename());
 			i.setImageNewName(renameFileName);
 			
+			// 2-4 새로운파일의 정보를 담고 있는 이미지 객체를 가지고 업데이트 된 음식점의 이미지 정보 업데이트
 			imageResult = adminService.updateRestaurantImage(i, rId);
 			
 			if(imageResult >0) {
 				
 			}else {
-				throw new BoardException("음식점 사진 등록 실패!");
+				throw new BoardException("음식점 사진 업데이트 실패!");
 			}
 		}
 		
-		// 기존의 bestmenu 삭제
+		// 3. bestmenu 업데이트
+		// 3-1 기존의 bestmenu 삭제
 		int dMenu = adminService.deleteRestaurantMenu(r);
-		// 업데이트된 bestmenu 생성
+		// 3-2 업데이트된 bestmenu 생성
 		String[] menu1 = menu.split(",");		
 		for(String me : menu1) {
 			menuResult = adminService.updateRestaurantMenu(me,rId);
 		}	
 		if(menuResult <0) {
-			throw new BoardException("음식점 베스트매뉴 등록 실패!");			 
+			throw new BoardException("음식점 베스트매뉴 업데이트 실패!");			 
 		}
 		
-		// 기존의 필터 삭제
+		// 4. 필터 업데이트
+		// 4-1 기존의 필터 삭제
 		int dFilter = adminService.deleteRestaurantFilter(r);
-		// 업데이트된 필터 생성
+		// 4-2 업데이트된 필터 생성
 		if(filter !=null) {
 			String[] filter1 = filter.split(",");		
 			for(String fi : filter1) {
@@ -680,17 +692,19 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 음식점 등록페이지로 이동
 	@RequestMapping("restaurantRegistration.do")
 	public String restaurantRegistration() {
 		return "admin/restaurantRegistration";
 	}
 	
-	
+	// 게시물 등록 페이지로 이동
 	@RequestMapping("boardRegistration.do")
 	public String boardRegistration() {
 		return "admin/boardRegistration";
 	}
 	
+	// 테마 관리 페이지로 이동
 	@RequestMapping("themeEdit.do")
 	public ModelAndView themeEdit(ModelAndView mv,ThemeAdmin ta,
 			@RequestParam(value="page", required=false) Integer page) {
@@ -717,6 +731,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 테마 삭제버튼 누를시 이동되는 컨트롤러
 	@RequestMapping("deleteTheme.do")
 	public ModelAndView deleteTheme(ModelAndView mv, ThemeAdmin ta) {
 		
@@ -738,6 +753,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 테마등록 페이지로 이동
 	@RequestMapping("themeRegistration.do")
 	public String themeRegistration() {
 		return "admin/themeRegistration";
@@ -758,6 +774,7 @@ public class AdminController {
 		
 	}
 	
+	// 테마 등록버튼 누를시 이동되는 컨트롤러
 	@RequestMapping(value="restaurantThemeAdmin.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView restaurantThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, ThemeAdmin ta) {
 		int themeRListResult = 0;
@@ -783,6 +800,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 테마수정 페이지로 이동 컨트롤러
 	@RequestMapping("loadThemeModifyPage.do")
 	public ModelAndView loadThemeModifyPage(ModelAndView mv, ThemeAdmin ta) {
 		
@@ -797,6 +815,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	// 테마 수정완료 누를시 이동되는 컨트롤러
 	@RequestMapping("ModifyThemeAdmin.do")
 	public ModelAndView ModifyThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, ThemeAdmin ta) {
 		int themeRListResult = 0;
@@ -810,6 +829,32 @@ public class AdminController {
 		for(String th : tRL) {
 			themeRListResult = adminService.insertThemeRestaurant2(th,ta);
 		}
+		return mv;
+	}
+	
+	// 마이리스트 관리 페이지로 이동
+	@RequestMapping("mylistEditAdmin.do")
+	public ModelAndView mylistEditAdmin(ModelAndView mv,Search search,
+			@RequestParam(value="page", required=false) Integer page) {
+		System.out.println(search);
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int mCount = adminService.selectOneMyListCount(search);
+		
+		PageInfo pi = getPageInfo(currentPage, mCount);
+		
+		ArrayList<MyListAdmin> ml = adminService.selectListMylistAdmin(search,pi);
+		
+		
+		mv.addObject("search",search);
+		mv.addObject("pi",pi);
+		mv.addObject("ml", ml);
+		mv.addObject("mCount",mCount);
+		mv.setViewName("admin/mylistEdit");
+		
 		return mv;
 	}
 	
