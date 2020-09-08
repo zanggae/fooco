@@ -45,7 +45,7 @@
 
     /* 검색 결과 맛집 리스트 */        
     .sr-content-list {margin-bottom:0.5rem; border-radius:0.5rem; background-color:#ECECEC; padding:0.9rem; }
-    .sr-mz {margin:0; margin-bottom:1rem; padding-top:0.5rem; padding-bottom:0.5rem; padding-right:0.5rem; background-color:white; border-radius:0.5rem; cursor:pointer;}
+    .sr-mz {margin:0; height:12rem; margin-bottom:1rem; padding-top:0.5rem; padding-bottom:0.5rem; padding-right:0.5rem; background-color:white; border-radius:0.5rem; cursor:pointer;}
     .sr-mz-title {padding-left:0.5rem;}
     .sr-mz-address {padding-left:0.5rem;}
     .sr-mz-address span {padding-left:0.5rem;}
@@ -55,17 +55,19 @@
     .sr-mz-content .row {padding-top:0.1rem; padding-bottom:0.1rem;}
     .sr-mz-content * {margin:0;}
     .sr-mz-bestReview > * {padding:0;}
-    .sr-mz-bestReview-profile {padding:0; width:3rem; height:3rem;}
-    .userProfile {max-width:100%; max-height:100%; border-radius:50%;}
+    .sr-mz-bestReview-profile {padding:0;}
+    .sr-mz-bestReview-profile-div {border-radius:50%; width:3rem; height:3rem; overflow:hidden; align-items:center; justify-content:center;}
+    .userProfile {width:100%; height:100%;}
     .badge-pill {background:rgb(204,51,98); color:white; margin-right:0.5rem;}
     .sr-mz-bestReview-content-div {padding-left:0; padding-right:0.5rem; margin-top:0.6rem; margin-bottom:0.3rem;}
+    .bestReview-content-p {height:2.5rem; text-overflow:ellipsis; overflow:hidden; white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
     .sr-mz-viewWishBookmark {padding-right:0.5rem;}
     .sr-mz-viewWishBookmark * {font-size:0.7rem;}
     .sr-mz-viewWishBookmark i {margin-left:0.4rem;}
     .sr-mz-viewWishBookmark span {margin-left:0.2rem;}
     .sr-mz-img-col {padding-left:0.5rem; padding-right:0.5rem;}
     .sr-mz-img {border-radius:0.2rem; overflow:hidden;}
-    .resThumbnail {width:100%; height:9.5rem; border-radius:0.2rem; transition-duration:0.3s; transition-timing-function:ease;}
+    .resThumbnail {width:100%; max-height:11rem; border-radius:0.2rem; transition-duration:0.3s; transition-timing-function:ease;}
     .sr-mz:hover .resThumbnail {transform:scale(1.1);}
     .bookmarkheart {font-size:2.3rem; margin:0.5rem; color:#BA262B;}
 
@@ -231,7 +233,7 @@
 						</div>
 						<div class="col sr-content-list">
 							<c:forEach var="res" items="${list}">
-							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${res.resId});">
+							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${res.resId})">
 								<div class="col-4 sr-mz-img-col">
 									<div class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end">
 										<img class="resThumbnail" src="${contextPath}/resources/${res.resThumbnailImage.imageFilepath}/${res.resThumbnailImage.imageNewName}">
@@ -251,10 +253,9 @@
 										<span style="font-family: 'medium'; font-size: 1rem;">${res.locationName}</span>
 										<span style="font-size: 0.8rem;">${res.resAddress}</span>
 									</div>
-									<div class="row">
+									<div class="row" class="sr-mz-bestReview" style="margin-top:0.5rem;">
 										<c:if test="${not empty res.bestReview}">
-										<div class="row" class="sr-mz-bestReview">
-											<div class="col-2 sr-mz-bestReview-profile">
+											<div class="col-2 sr-mz-bestReview-profile d-flex justify-content-center">
 												<div class="sr-mz-bestReview-profile-div">
 													<img class="userProfile" src="${contextPath}/resources/${res.bestReview.reviewerProfilePath}/${res.bestReview.reviewerProfileImg}"/>
 												</div>
@@ -265,10 +266,9 @@
 													<span style="font-family: 'medium'">${res.bestReview.nickname}</span>
 												</div>
 												<div class="row sr-mz-bestReivew-content" style="font-size: 0.8rem;">
-													<span>${res.bestReview.reviewContent}</span>
+													<p class="bestReview-content-p">${res.bestReview.reviewContent}</p>
 												</div>
 											</div>
-										</div>
 										</c:if>
 									</div>
 									<div class="row sr-mz-viewWishBookmark d-flex justify-content-end align-items-center">
