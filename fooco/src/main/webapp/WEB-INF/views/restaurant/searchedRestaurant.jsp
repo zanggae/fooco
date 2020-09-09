@@ -8,6 +8,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<!-- fontawesome -->
+<script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 <title>Insert title here</title>
 <style>
@@ -37,11 +44,14 @@
 
     /* 검색 */
     .searchResult {margin-bottom:7rem;}
-    .sr-content-selectLocal {width:10rem; margin-right:0.5rem;}
-    .sr-content-input-local {text-align:center;}
+    .sr-content-selectLocal {width:8rem; margin-right:0.5rem;}
+    .sr-content-input-local {font-family:'medium'; cursor:pointer; text-align:center;}
+    .sr-content-input-local > option {font-family:'medium'; text-align-last:center; cursor:pointer;}
     select {font-family:'FontAwesome'}
     .input-group-text {background-color:white;}
     .fa-map-marker-alt {color:rgb(204,51,98); font-size:1.3rem;}
+    .ms-input-col {padding-left:0; padding-right:0;}
+    .inputAppend {cursor:pointer;}
 
     /* 검색 결과 맛집 리스트 */        
     .sr-content-list {margin-bottom:0.5rem; border-radius:0.5rem; background-color:#ECECEC; padding:0.9rem; }
@@ -67,9 +77,12 @@
     .sr-mz-viewWishBookmark span {margin-left:0.2rem;}
     .sr-mz-img-col {padding-left:0.5rem; padding-right:0.5rem;}
     .sr-mz-img {border-radius:0.2rem; overflow:hidden;}
-    .resThumbnail {width:100%; max-height:11rem; border-radius:0.2rem; transition-duration:0.3s; transition-timing-function:ease;}
+    .resThumbnail {width:100%; min-height:11rem; max-height:11rem; border-radius:0.2rem; transition-duration:0.3s; transition-timing-function:ease;}
     .sr-mz:hover .resThumbnail {transform:scale(1.1);}
     .bookmarkheart {font-size:2.3rem; margin:0.5rem; color:#BA262B;}
+    .page-link {font-family:'bold'; color:rgb(204,51,98);}
+    .page-link:hover {background:rgb(204,51,98); color:white; font-family:'bold';}
+    .pagination {margin-bottom:0;}
 
     /* 광고 */
     .sr-ad-col {height:9rem; margin-bottom:1rem; background-color:#ECECEC; border-radius:0.5rem;}
@@ -114,92 +127,113 @@
 						<div style="margin-bottom: 1.2rem;">
 							<span class="sr-filter-title">정렬</span>
 							<div class="sr-filter-group">
+								<input type="hidden" id="hiddenSortType" value="${sortType}"/>
 								<div class="custom-control custom-radio">
-									<input id="highrating" type="radio" name="sort-radio" value="highrating" class="custom-control-input" checked required>
+									<input id="highrating" type="radio" name="sort-radio" value="highrating" onclick="clickSort('highrating')" class="custom-control-input sort-radio" required>
 									<label class="custom-control-label" for="highrating">평점 높은 순</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input id="highReviewCount" type="radio" name="sort-radio" value="highReviewCount" class="custom-control-input" required>
+									<input id="highReviewCount" type="radio" name="sort-radio" value="highReviewCount" onclick="clickSort('highReviewCount')" value="highReviewCount" class="custom-control-input sort-radio" required>
 									<label class="custom-control-label" for="highReviewCount">리뷰 많은 순</label>
 								</div>
 								<div class="custom-control custom-radio">
-									<input id="highViewCount" type="radio" name="sort-radio" value="highViewCount" class="custom-control-input" required>
+									<input id="highViewCount" type="radio" name="sort-radio" value="highViewCount" onclick="clickSort('highViewCount')" value="highViewCount" class="custom-control-input sort-radio" required>
 									<label class="custom-control-label" for="highViewCount">조회수 많은 순</label>
 								</div>  
 							</div>
 						</div>
+						<script>
+							var currentSort = 0;
+							var hiddenSortType = document.getElementById("hiddenSortType").value;
+							console.log(hiddenSortType);
+							
+							function clickSort(clicked) {
+								var locationId = document.getElementById("hiddenLocationId").value;
+								var keyword = document.getElementById("hiddenKeyword").value;
+								currentSort = clicked;
+								window.location.href = "goSearchedRestaurant.do?locationId="+locationId+"&keyword="+keyword+"&sortType="+currentSort;
+							}			
+						
+							$("input:radio[name=sort-radio]:input[value="+hiddenSortType+"]").attr("checked", true);		
+						</script>
 						<div style="margin-bottom: 1.2rem;">
 							<span class="sr-filter-title">메뉴</span>
 							<div class="sr-filter-group">
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="korean">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="1" id="korean">
 									<label class="custom-control-label" for="korean">한식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="flour">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="2" id="flour">
 									<label class="custom-control-label" for="flour">분식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="cafe">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="3" id="cafe">
 									<label class="custom-control-label" for="cafe">카페·디저트</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="japanese">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="4" id="japanese">
 									<label class="custom-control-label" for="japanese">돈까스·회·일식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="chicken">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="5" id="chicken">
 									<label class="custom-control-label" for="chicken">치킨</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="pizza">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="6" id="pizza">
 									<label class="custom-control-label" for="pizza">피자</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="global-food">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="7" id="global-food">
 									<label class="custom-control-label" for="global-food">아시안·양식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="chinese">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="8" id="chinese">
 									<label class="custom-control-label" for="chinese">중식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="jokbo">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="9" id="jokbo">
 									<label class="custom-control-label" for="jokbo">족발·보쌈</label>
 								</div>
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" name="category" data-value="10" id="drink">
+									<label class="custom-control-label" for="drink">주점</label>
+								</div>
+								<input type="hidden" name="hiddenCategory" id="hiddenCategory" value=""/>
 							</div>
 						</div>
 						<div>
 							<span class="sr-filter-title">기타</span>
 							<div class="sr-filter-group">
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="parking">
+									<input type="checkbox" class="custom-control-input" name="filter" data-value="1" id="parking">
 									<label class="custom-control-label" for="parking">주차</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="wifi">
+									<input type="checkbox" class="custom-control-input" name="filter" data-value="2" id="wifi">
 									<label class="custom-control-label" for="wifi">와이파이</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="indoor-room">
+									<input type="checkbox" class="custom-control-input" name="filter" data-value="3" id="indoor-room">
 									<label class="custom-control-label" for="indoor-room">룸</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="no-kids-zone">
+									<input type="checkbox" class="custom-control-input" name="filter" data-value="4" id="no-kids-zone">
 									<label class="custom-control-label" for="no-kids-zone">노키즈존</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="outdoor-chair">
+									<input type="checkbox" class="custom-control-input" name="filter" data-value="5" id="outdoor-chair">
 									<label class="custom-control-label" for="outdoor-chair">야외좌석</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="baby-facility">
+									<input type="checkbox" class="custom-control-input" name="filter" data-value="6" id="baby-facility">
 									<label class="custom-control-label" for="baby-facility">유아시설</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="partner-restaurant">
+									<input type="checkbox" class="custom-control-input" name="filter" data-value="7" id="partner-restaurant">
 									<label class="custom-control-label" for="partner-restaurant">파트너 맛집</label>
 								</div>
+								<input type="hidden" name="hiddenFilter" id="hiddenFilter" value=""/>
 							</div>
 						</div>
 					</div>
@@ -213,23 +247,33 @@
 										<i class="fas fa-map-marker-alt"></i>
 									</span>
 								</div>
-								<select class="form-control sr-content-input-local">
-									<option selected>전체</option>
-									<option>서울</option>
-									<option>인천</option>
-									<option>부산</option>
-									<option>대구</option>
-									<option>광주</option>
-									<option>대전</option>
-									<option>울산</option>
-									<option>그 외</option>
+								<select class="form-control sr-content-input-local" id="select-local">
+									<option selected value="0">전체</option>
+									<option value="1">서울</option>
+									<option value="2">인천</option>
+									<option value="3">부산</option>
+									<option value="4">대구</option>
+									<option value="5">광주</option>
+									<option value="6">대전</option>
+									<option value="7">울산</option>
+									<option value="8">제주</option>
+									<option value="9">그 외</option>
 								</select>
 							</div>
-							<input type="search" class="form-control" placeholder="먹고 싶은 음식(한식, 중식, 분식)이나 맛집 이름을 입력하세요."/>
+							<div class="col input-group ms-input-col">
+								<input type="search" class="form-control" id="select-keyword"  placeholder="먹고 싶은 음식이나 맛집 이름을 입력하세요."/>
+								<div class="input-group-append inputAppend" id="inputAppend" onclick="getLocationAndKeyword()">
+									<span class="input-group-text">
+										&#x1F50D;
+									</span>
+								</div>
+							</div>
 						</div>
 						<div class="col sr-content-title d-flex flex-column justify-content-center">
+							<input type="hidden" id="hiddenLocationId" value="${locationId}"/>
 							<p style="font-family: 'medium'; color: rgb(204, 51, 98);">${location}</p>
-							<p style="font-family: 'bold'; font-size: 1.5rem;">'${keyword}'(으)로 검색한 결과</p>
+							<input type="hidden" id="hiddenKeyword" value="${keyword}"/>
+							<p style="font-family: 'bold'; font-size: 1.5rem;">'${changedKeyword}'(으)로 검색한 결과</p>
 						</div>
 						<div class="col sr-content-list">
 							<c:forEach var="res" items="${list}">
@@ -279,6 +323,24 @@
 								</div>
 							</div>
 							</c:forEach>
+							<div class="col">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination justify-content-center">
+										<c:if test="${pi.currentPage eq 1}">
+											<li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
+										</c:if>
+										<c:if test="${pi.currentPage gt 1}">
+											<c:url value="goSearchedRestaurant.do" var="goSearch">
+												<c:param name="page" value="${pi.currentPage - 1}"/>
+											</c:url>
+										</c:if>
+										<li class="page-item"><a class="page-link" href="#">1</a></li>
+										<li class="page-item"><a class="page-link" href="#">2</a></li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<li class="page-item"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+									</ul>
+								</nav>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -301,7 +363,29 @@
 	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<footer>
 	</footer>
-	
+
+	<!-- select option을 선택하면 -->
+	<script>
+     	var select = document.getElementById("select-local");
+     	var searchBtn = document.getElementById("inputAppend");
+     	var search = document.getElementById("select-keyword");
+     	
+     	search.addEventListener("keyup", function(e){
+     		if(e.keyCode === 13) {
+     			e.preventDefault();
+     			searchBtn.click();
+     		}
+     	});
+     	
+     	function getLocationAndKeyword() {    				
+         	var locationId = select.options[select.selectedIndex].value;
+         	var keyword = search.value;	
+         	
+         	window.location.href="goSearchedRestaurant.do?locationId="+locationId+"&keyword="+keyword;
+     	};
+    </script>
+    	
+
 	<script>
 		function goDetail(resId) {
 			window.location.href="goDetailRestaurant.do?resId=" + resId;
@@ -309,17 +393,24 @@
 	</script>
 	
 	<script>
-		window.onload = function(){
-			var sortType = document.querySelector("input[name='sort-radio']:checked").value;
-			console.log(sortType);
-		};
 	</script>
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-	<!-- fontawesome -->
-	<script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
+	
+	<script>
+		var categoryArray = [];
+		var filterArray = [];
+		
+		$("input:checkbox[name=category]").on("change", function(e){
+			$("input:checkbox[name=category]:checked").each(function(e){
+				categoryArray.push($(this).data("value"));
+				console.log(categoryArray);
+			})	
+		})			
+				
+		$("input:checkbox[name=filter]:checked").each(function(e){
+			filterArray.push($(this).data("value"));
+			console.log(filterArray);
+		})		
+	</script>
+
 </body>
 </html>

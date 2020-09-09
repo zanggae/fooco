@@ -890,8 +890,8 @@ public class MemberController {
 			int themeRListResult = 0;
 			
 			int themeWriter = 3002;
-//			Member loginUser = (Member)session.getAttribute("loginUser");
-//			themeWriter = loginUser.getMemberId();				
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			themeWriter = loginUser.getMemberId();				
 			
 			
 			

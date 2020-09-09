@@ -69,8 +69,6 @@
       color: gold;
       font-size: 2.8rem;
       margin-top: 1rem;
-
-
     }
 
     .score {

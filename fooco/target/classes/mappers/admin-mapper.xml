@@ -278,7 +278,7 @@
 
 <insert id="registrationBoard" parameterType="Board">
 	INSERT ALL
-   	INTO BOARD VALUES(SEQ_BOARDID.NEXTVAL,#{categoryNo},21,#{boardTitle},#{boardContent},0,SYSDATE,SYSDATE,'Y',DEFAULT)
+   	INTO BOARD VALUES(SEQ_BOARDID.NEXTVAL,#{boardWriter},#{categoryNo},#{boardTitle},#{boardContent},0,SYSDATE,SYSDATE,'Y',NULL,NULL)
    	<if test="imageOriginName != null">
    	INTO IMAGE VALUES(SEQ_BOARDFILEID.NEXTVAL,#{imageOriginName},#{imageNewName},0,SYSDATE,0,'Y',0)
    	INTO BOARD_IMAGE VALUES(SEQ_BOARDFILEID.CURRVAL,SEQ_BOARDID.CURRVAL)
@@ -487,11 +487,67 @@
 <!-- ======================= mylist 관리 ========================================= -->
 <!-- 추천되어진 마이리스트 개수 조회 -->
 <select id="selectOneMyListCount" parameterType="Search" resultType="_int">
-	SELECT COUNT(*) FROM SELECT_MYLIST_ADMIN WHERE RECOMMENDATION_THEME='Y' AND APPROVE_THEME ='W'
+	SELECT COUNT(*) FROM SELECT_MYLIST_ADMIN WHERE RECOMMENDATION_THEME='Y'
+	<if test="category ==1">
+		 AND APPROVE_THEME ='W'	
+	</if>
+	<if test="category ==2">
+		 AND APPROVE_THEME ='Y'	
+	</if>
+	<if test="category ==3">
+		 AND APPROVE_THEME ='N'	
+	</if>
 </select>
 
 <!-- 추천되어진 마이리스트 리스트 조회 -->
 <select id="selectListMylistAdmin" parameterType="Search" resultMap="MylistResultSet">
-	SELECT * FROM SELECT_MYLIST_ADMIN WHERE RECOMMENDATION_THEME='Y' AND APPROVE_THEME ='W'
+	SELECT * FROM SELECT_MYLIST_ADMIN WHERE RECOMMENDATION_THEME='Y'
+	<if test="category ==1">
+		 AND APPROVE_THEME ='W'	
+	</if>
+	<if test="category ==2">
+		 AND APPROVE_THEME ='Y'	
+	</if>
+	<if test="category ==3">
+		 AND APPROVE_THEME ='N'	
+	</if>
+</select>
+
+<!-- 마이리스트 상세정보 조회시 마이리스트 조회 -->
+<select id="selectOneMylist" parameterType="string" resultMap="MylistResultSet">
+	SELECT * FROM SELECT_MYLIST_ADMIN WHERE ML_ID=#{mlId}
+</select>
+
+<!-- 마이리스트 상세정보 조회시 마이리스트의 음식점 리스트 조회 -->
+<select id="selectListMylistRestaurant" parameterType="string" resultMap="RestaurantResultSet">
+	SELECT * FROM SELECT_RESTAURANT R 
+	LEFT JOIN MYLIST_RES MR ON(R.RES_ID = MR.RES_ID)
+	WHERE MR.ML_ID = #{mlId}
+</select>
+
+<update id="mylistRejectAdmin" parameterType="string">
+	UPDATE MYLIST SET APPROVE_THEME='N' WHERE ML_ID=#{mlId}
+</update>
+
+<update id="permitMylist" parameterType="string">
+	UPDATE MYLIST SET APPROVE_THEME='Y' WHERE ML_ID=#{mlId}
+</update>
+
+<select id="selectListNoticeD" resultMap="BoardResultSet">
+<![CDATA[
+	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 1 AND ROWNUM <=5
+]]>
+</select>
+
+<select id="selectListFAQD" resultMap="BoardResultSet">
+<![CDATA[
+	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 2 AND ROWNUM <=5
+]]>
+</select>
+
+<select id="selectListMyListD" resultMap="MylistResultSet">
+<![CDATA[
+	SELECT * FROM SELECT_MYLIST_ADMIN WHERE APPROVE_THEME = 'W' AND RECOMMENDATION_THEME = 'Y' AND ROWNUM <=5
+]]>
 </select>
 </mapper>

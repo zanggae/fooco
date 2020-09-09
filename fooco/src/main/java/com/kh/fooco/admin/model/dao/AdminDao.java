@@ -53,6 +53,18 @@ public class AdminDao {
 	public int updateVisitorCount() {
 		return sqlSessionTemplate.update("adminMapper.updateVisitorCount");
 	}
+	
+	public ArrayList<Board> selectListNoticeD() {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListNoticeD");
+	}
+
+	public ArrayList<Board> selectListFAQD() {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListFAQD");
+	}
+
+	public ArrayList<MyListAdmin> selectListMyListD() {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListMyListD");
+	}
 
 	public ArrayList<Member> selectlistMember(PageInfo pi) {
 		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
@@ -294,6 +306,24 @@ public class AdminDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListMylistAdmin",search,rowBounds);
 	}
+
+	public MyListAdmin selectOneMylist(String mlId) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectOneMylist",mlId);
+	}
+
+	public ArrayList<Restaurant> selectListMylistRestaurant(String mlId) {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListMylistRestaurant",mlId);
+	}
+
+	public int mylistRejectAdmin(String mlId) {
+		return sqlSessionTemplate.update("adminMapper.mylistRejectAdmin", mlId);
+	}
+
+	public int permitMylist(String mlId) {
+		return  sqlSessionTemplate.update("adminMapper.permitMylist", mlId);
+	}
+
+	
 
 	
 
