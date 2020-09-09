@@ -5,6 +5,7 @@ import static com.kh.fooco.common.Pagination.getPhotoPageInfo;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.service.RestaurantService;
+import com.kh.fooco.restaurant.model.vo.Bookmark;
 import com.kh.fooco.restaurant.model.vo.Filter;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
@@ -72,7 +74,7 @@ public class RestaurantController {
 	
 		String location = convertLocation(locationId);
 		
-		String changedKeyword = "";
+		String changedKeyword = keyword;
 		
 		if("all".equals(keyword)) {
 			changedKeyword = "전체";
@@ -85,12 +87,13 @@ public class RestaurantController {
 		mv.addObject("keyword", keyword);
 		mv.addObject("changedKeyword", changedKeyword);
 		mv.addObject("filters", filters);
+		mv.addObject("categories", categories);
 		mv.addObject("sortType", sortType);
 		mv.setViewName("restaurant/searchedRestaurant");
+		System.out.println(mv);
 		return mv;
 	}
 	
-
 	@RequestMapping("goDetailRestaurant.do")
 	public ModelAndView goDetailRestaurant(ModelAndView mv, @RequestParam(value="resId") Integer resId
 														  , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType)
@@ -102,6 +105,8 @@ public class RestaurantController {
 		
 		int howManyReview = restaurantService.getReviewListCount(resId);
 		PageInfo pi = getPageInfo(currentPage, howManyReview);
+		
+		int upViewCount = restaurantService.upViewCount(resId);
 		
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
 		searchParameter.put("resId", resId);
@@ -143,10 +148,9 @@ public class RestaurantController {
 		
 		mv.addObject("pi", pi);
 		mv.addObject("reviewList", reviewList);
-		mv.setViewName("restaurant/detailRestaurant");
+		mv.setViewName("restaurant/restaurantReview");
 		return mv;
 	}
-	
 	
 	@RequestMapping("goRestaurantPhoto.do")
 	public ModelAndView goRestaurantPhoto(ModelAndView mv, @RequestParam(value="resId", required=false) Integer resId
@@ -170,8 +174,6 @@ public class RestaurantController {
 		mv.setViewName("restaurant/detailRestaurant");
 		return mv;
 	}
-	
-	
 	
 	public String convertLocation(int locationId) {
 		
@@ -245,7 +247,37 @@ public class RestaurantController {
 
 		System.out.println(result);
 	}
+	
+	@RequestMapping(value="enrollBookmark.do", method=RequestMethod.POST)
+	public void EnrollBookmark(HttpServletResponse response, Integer resId) throws IOException
+	{
 		
+		PrintWriter out = response.getWriter();
+		Member m = (Member)session.getAttribute("loginUser");
+
+		int result = 0;
+		
+		if((Member)session.getAttribute("loginUser") == null) {
+			out.append("notvalid");
+			out.flush();
+		}else {
+			Bookmark bm = new Bookmark();
+			bm.setMemberId(m.getMemberId());
+			bm.setResId(resId);
+			result = restaurantService.enrollBookmark(bm);
+			
+			if(result >= 1) {
+				out.append("success");
+				out.flush();
+			}else {
+				out.append("FAIL");
+				out.flush();
+			}
+		}
+		
+		out.close();
+	}
+
 		
 		
 		

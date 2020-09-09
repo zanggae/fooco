@@ -301,4 +301,16 @@
 		SELECT *
 		FROM DUAL	
 	</insert>
+	
+	<update id="upViewCount" parameterType="_int">
+		UPDATE RESTAURANT
+		SET    RES_VIEWCOUNT = RES_VIEWCOUNT + 1
+		WHERE  RES_ID = #{resId}
+	</update>
+	
+	<insert id="enrollBookmark" parameterType="Bookmark">
+		INSERT
+		INTO   RES_BOOKMARK
+		VALUES (SEQ_BOOKMARK.NEXTVAL, #{memberId}, #{resId})
+	</insert>
 </mapper>

@@ -145,12 +145,11 @@
 						<script>
 							var currentSort = 0;
 							var hiddenSortType = document.getElementById("hiddenSortType").value;
-							console.log(hiddenSortType);
 							
-							function clickSort(clicked) {
+							function clickSort(clicked) {								
+								currentSort = clicked;
 								var locationId = document.getElementById("hiddenLocationId").value;
 								var keyword = document.getElementById("hiddenKeyword").value;
-								currentSort = clicked;
 								window.location.href = "goSearchedRestaurant.do?locationId="+locationId+"&keyword="+keyword+"&sortType="+currentSort;
 							}			
 						
@@ -159,49 +158,72 @@
 						<div style="margin-bottom: 1.2rem;">
 							<span class="sr-filter-title">메뉴</span>
 							<div class="sr-filter-group">
+								<input type="hidden" id="hiddenCategory" value="${categories}"/>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="1" id="korean">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="1" id="korean">
 									<label class="custom-control-label" for="korean">한식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="2" id="flour">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="2" id="flour">
 									<label class="custom-control-label" for="flour">분식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="3" id="cafe">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="3" id="cafe">
 									<label class="custom-control-label" for="cafe">카페·디저트</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="4" id="japanese">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="4" id="japanese">
 									<label class="custom-control-label" for="japanese">돈까스·회·일식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="5" id="chicken">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="5" id="chicken">
 									<label class="custom-control-label" for="chicken">치킨</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="6" id="pizza">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="6" id="pizza">
 									<label class="custom-control-label" for="pizza">피자</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="7" id="global-food">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="7" id="global-food">
 									<label class="custom-control-label" for="global-food">아시안·양식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="8" id="chinese">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="8" id="chinese">
 									<label class="custom-control-label" for="chinese">중식</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="9" id="jokbo">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="9" id="jokbo">
 									<label class="custom-control-label" for="jokbo">족발·보쌈</label>
 								</div>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name="category" data-value="10" id="drink">
+									<input type="checkbox" class="custom-control-input" name="category" onclick="checkCategory()" data-value="10" id="drink">
 									<label class="custom-control-label" for="drink">주점</label>
 								</div>
 								<input type="hidden" name="hiddenCategory" id="hiddenCategory" value=""/>
 							</div>
 						</div>
+						<script>
+							function checkCategory() {
+								var categories = document.getElementById("hiddenCategory").value;
+								var locationId = document.getElementById("hiddenLocationId").value;
+								var keyword = document.getElementById("hiddenKeyword").value;
+								var hiddenSortType = document.getElementById("hiddenSortType").value;
+								
+								if (document.getElementById("korean").checked) categories += "1";
+								if (document.getElementById("flour").checked) categories += "2";
+								if (document.getElementById("cafe").checked) categories += "3";
+								if (document.getElementById("japanese").checked) categories += "4";
+								if (document.getElementById("chicken").checked) categories += "5";
+								if (document.getElementById("pizza").checked) categories += "6";
+								if (document.getElementById("global-food").checked) categories += "7";
+								if (document.getElementById("chinese").checked) categories += "8";
+								if (document.getElementById("jokbo").checked) categories += "9";
+								if (document.getElementById("drink").checked) categories += "10";
+								
+								window.location.href = "goSearchedRestaurant.do?locationId="+locationId+"&keyword="+keyword+"&sortType="+hiddenSortType+"&categories="+categories;
+								console.log(categories);
+							}
+						</script>
 						<div>
 							<span class="sr-filter-title">기타</span>
 							<div class="sr-filter-group">
@@ -327,17 +349,43 @@
 								<nav aria-label="Page navigation example">
 									<ul class="pagination justify-content-center">
 										<c:if test="${pi.currentPage eq 1}">
-											<li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
+											<li class="page-item"><a class="page-link"><span>&laquo;</span></a></li>
 										</c:if>
 										<c:if test="${pi.currentPage gt 1}">
-											<c:url value="goSearchedRestaurant.do" var="goSearch">
+											<c:url value="goSearchedRestaurant.do" var="before">
 												<c:param name="page" value="${pi.currentPage - 1}"/>
+												<c:param name="sortType" value="${sortType}"/>
+												<c:param name="locationId" value="${locationId}"/>
+												<c:param name="keyword" value="${keyword}"/>
 											</c:url>
+											<li class="page-item"><a class="page-link" href="${before}"> <span>&laquo;</span></a></li>
 										</c:if>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+										<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+											<c:if test="${p eq pi.currentPage}">
+												<li class="page-item"><a class="page-link" style="background:rgb(204,51,98); color:white;">${p}</a></li>
+											</c:if>
+											<c:if test="${p ne pi.currentPage}">
+												<c:url value="goSearchedRestaurant.do" var="thisNumberPage" >
+													<c:param name="page" value="${p}"/>
+													<c:param name="sortType" value="${sortType}"/>
+													<c:param name="locationId" value="${locationId}"/>
+													<c:param name="keyword" value="${keyword}"/>
+												</c:url>
+												<li class="page-item"><a class="page-link" href="${thisNumberPage}">${p}</a></li>
+											</c:if>
+										</c:forEach>
+										<c:if test="${pi.currentPage eq pi.maxPage}">
+											<li class="page-item"><a class="page-link"><span>&raquo;</span></a></li>
+										</c:if>
+										<c:if test="${pi.currentPage lt pi.maxPage}">
+											<c:url value="goSearchedRestaurant.do" var="after">
+												<c:param name="page" value="${pi.currentPage + 1}"/>
+												<c:param name="sortType" value="${sortType}"/>
+												<c:param name="locationId" value="${locationId}"/>
+												<c:param name="keyword" value="${keyword}"/>
+											</c:url>
+											<li class="page-item"><a class="page-link" href="${after}"><span>&raquo;</span></a></li>
+										</c:if>
 									</ul>
 								</nav>
 							</div>
@@ -384,33 +432,10 @@
          	window.location.href="goSearchedRestaurant.do?locationId="+locationId+"&keyword="+keyword;
      	};
     </script>
-    	
-
 	<script>
 		function goDetail(resId) {
 			window.location.href="goDetailRestaurant.do?resId=" + resId;
 		};
 	</script>
-	
-	<script>
-	</script>
-	
-	<script>
-		var categoryArray = [];
-		var filterArray = [];
-		
-		$("input:checkbox[name=category]").on("change", function(e){
-			$("input:checkbox[name=category]:checked").each(function(e){
-				categoryArray.push($(this).data("value"));
-				console.log(categoryArray);
-			})	
-		})			
-				
-		$("input:checkbox[name=filter]:checked").each(function(e){
-			filterArray.push($(this).data("value"));
-			console.log(filterArray);
-		})		
-	</script>
-
 </body>
 </html>
