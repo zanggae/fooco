@@ -51,8 +51,8 @@
 
         /* 메인 검색 */
         .inputPrepend {background:white; border-top-left-radius:0.25rem; border-bottom-left-radius:0.25rem;}
-        .sr-content-input-local {width:8rem; border-top-left-radius:0; border-bottom-left-radius:0; font-family:'medium';}
-        .sr-content-input-local > option {font-family:'medium'; text-align-last:center;}
+        .sr-content-input-local {width:8rem; border-top-left-radius:0; border-bottom-left-radius:0; font-family:'medium'; cursor:pointer;}
+        .sr-content-input-local > option {font-family:'medium'; text-align-last:center; cursor:pointer;}
         select {text-align:center; text-align-last:center;}
         .selectLocation {width:8em;}
         .fa-map-marker-alt {color:rgb(204,51,98); font-size:1.3rem;}
@@ -63,7 +63,6 @@
         .ms-input-col {text-align:center; vertical-align:middle;}
         .inputAppend {border-top-left-radius:0; border-bottom-left-radius:0; cursor:pointer;}
 
-
         /* 지역 맛집 */
         .mainLocal {margin-top:8rem; margin-bottom:8rem;}
         .ml-container {display:flex; justify-content:center; align-items:center;}
@@ -71,7 +70,7 @@
         .ml-title {color:rgb(204,51,98); font-size:1.5rem;}
         .ml-row {width:70rem;}
         .ml-list {min-width:6rem; min-height:8rem; border:none; border-radius:1rem; padding:0.5rem; padding-top:1rem; margin-right:1rem; margin-bottom:0.5rem; color:black; text-align:center; text-decoration:none;}
-        .ml-list:hover {background:#ECECEC; color:black;}
+        .ml-list:hover {background:#ECECEC; color:black; cursor:pointer;}
         .ml-logo-div {width:4rem; height:4rem; margin:auto; margin-bottom:0.5rem;}
         .ml-logo {max-width:100%;}
         .ml-scroll {width:25rem; max-width:50rem; overflow-x:scroll;}
@@ -189,6 +188,7 @@
 									<option value="6">대전</option>
 									<option value="7">울산</option>
 									<option value="8">제주</option>
+									<option value="9">그 외</option>
 								</select>
 							</div>
 							<div class="col input-group ms-input-col">
