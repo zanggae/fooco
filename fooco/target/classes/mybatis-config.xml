@@ -36,6 +36,7 @@
 		<typeAlias type="com.kh.fooco.member.model.vo.MZ" alias="MZ"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.Select_Board" alias="Select_Board"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.BoardInfo" alias="BoardInfo"/>
+		<typeAlias type="com.kh.fooco.member.model.vo.Select_Coupon" alias="Select_Coupon"/>
 		
 	</typeAliases>
 	

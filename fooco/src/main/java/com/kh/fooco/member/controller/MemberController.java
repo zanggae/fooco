@@ -3,6 +3,7 @@ package com.kh.fooco.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,9 @@ import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.model.vo.Select_Board;
 import com.kh.fooco.member.model.vo.Select_Checkin;
+import com.kh.fooco.member.model.vo.Select_Coupon;
 import com.kh.fooco.member.naver.NaverLoginBO;
+import com.kh.fooco.membership.model.vo.MemberShip;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
@@ -879,11 +882,67 @@ public class MemberController {
 			Member loginUser = (Member)session.getAttribute("loginUser");
 		    int memberId = loginUser.getMemberId();
 			
+		    ArrayList<Select_Coupon> couponList = memberService.selectCouponList(memberId);
 		    
+		    System.out.println(couponList);
 		    
+		    mv.addObject("couponList",couponList);
 			mv.setViewName("mypage/myPageMembership");
 			return mv;
 		}
+		
+		// 쿠폰 상태 변경 및 이메일 전송
+		@RequestMapping("cStatusChange.do")
+		public String cStatusChange(int couponListId, HttpSession session, Date couponStartDate, Date couponExpireDate) throws IOException {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+		    String email = loginUser.getEmail();
+			
+		    // 쿠폰 상태 N -> Y
+		    int result = memberService.updatecStatus(couponListId);
+		    
+		    
+		    Random r = new Random();
+			int dice = r.nextInt(4589362) + 49311;	//이메일로 받는 인증코드 부분(난수)
+			
+			String setfrom = "fooco@gmail.com";		//보내는 사람
+			String title = "Fooco 인증 메일입니다";				//메일제목
+			String content = "안녕하세요! Fooco입니다."+
+					System.getProperty("line.separator")+
+					System.getProperty("line.separator")+
+					"★★★★★유효기간은 "+ couponStartDate + " 부터 " +
+					couponExpireDate + " 까지입니다.★★★★★" +
+					System.getProperty("line.separator")+
+					System.getProperty("line.separator")+
+					"쿠폰 코드번호는 " + dice+ "입니다"+
+					System.getProperty("line.separator")+
+					System.getProperty("line.separator")+
+					"위의 코드번호를 사용하여 서비스를 제공받으세요!";
+		    
+			
+		    try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
+				
+				 messageHelper.setFrom(setfrom); 	// 보내는사람 생략하면 정상작동을 안함
+	             messageHelper.setTo(email); 		// 받는사람 이메일
+	             messageHelper.setSubject(title); 	// 메일제목은 생략가능
+	             messageHelper.setText(content); 	// 메일 내용
+	            
+	             mailSender.send(message);
+	             System.out.println("이메일 전송됨!_!");
+				
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				System.out.println(e);
+			}
+		    
+		    
+			return "redirect:myPageMembership.do";
+		}
+		
+		
+		
+		
 		
 // ================================== MyList 영은 ===========================================
 		
