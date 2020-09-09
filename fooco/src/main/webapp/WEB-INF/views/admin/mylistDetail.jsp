@@ -98,7 +98,7 @@
   <input type="hidden" name="themeTitle" value="${mlA.mlTitle }">
   <input type="hidden" name="mlId" value="${mlA.mlId }">
   <input type="hidden" id="check" value="${mlA.approveTheme }">
-  <div style="margin-left: 13%;">
+  <div style="margin-left: 13%;">  
       <div class="middle outside">
 			<div class="indiv title2">${mlA.mlTitle }</div>		
 			</div>
