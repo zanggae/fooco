@@ -148,7 +148,7 @@ a {
 						<p>체크인</p>
 					</a> <a href="#">
 						<p>마이리뷰</p>
-					</a> <a href="mylist.do">
+					</a> <a href="myPageMylist.do">
 						<p>마이리스트</p>
 					</a>
 				</div>

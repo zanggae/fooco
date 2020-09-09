@@ -46,13 +46,30 @@
     * {
       font-family: 'light';
     }
-
+    
+	/*themeTitle 부분*/
     .text1 {margin-top: -0.4rem; margin-left: 53rem; background-color: none; position: absolute; transform: translate(-50%, -50%)}
     .middle {border: 5rem solid rgb(204, 51, 98);}
-    .text2 {background-color: none; position: absolute; text-align: center; top: 10%; left: 50%; transform: translate(-50%, -50%); 
+    
+    /*본문 */
+    .text2 {background-color: none; position: absolute; text-align: center; top: 25%; left: 50%; transform: translate(-50%, -50%); 
     font-size: 2.5rem; color: white; font-family: 'bold';}
     .img1 {margin: 0; padding: 0; position: relative; width: 19rem; height: 14rem; border-radius: 1%; margin-top: 1.2rem; margin-left: 2rem; padding-bottom: 1.2rem;}
     .img1:hover {-webkit-transform: scale(1.1, 1.1);}
+<<<<<<< HEAD
+	.title {margin-top: 1.5rem; margin-left: 0.9rem; font-size: 1.3rem; font-family: 'bold'; text-align: left; position: relative; transform: translate(-10%, -10%);}
+	 #star {position: absolute; color: gold; font-size: 2.8rem; margin-top: 1rem;}
+	.score {position: absolute; font-size: 2.6rem; color: gold; margin-left: 4rem; margin-top: 1rem; font-weight: bold;}
+	.address {color: gray; font-family: 'bold';}
+	.nickname {font-size: 1.1rem; font-family: 'medium';}
+	.content {font-size: 1rem; font-family: 'light';}
+	.see_more {font-size: 0.9rem; color: rgb(204, 51, 98); font-weight: bold;}
+	.detailInfo {font-size: 0.9rem; color: silver; margin-left: 22rem; font-weight: bold;}
+	.boundary {height: 16rem; border: 0.4rem solid lightgray; background-color: white; border-radius: 0.5rem;}
+	.text4 {font-size: 1.2rem; font-family: 'bold'; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+    .textbound {border: 1rem; border-style: none;}
+  
+=======
 	.title {
       margin-top: 1.5rem;
       margin-left: 0.9rem;
@@ -69,8 +86,6 @@
       color: gold;
       font-size: 2.8rem;
       margin-top: 1rem;
-
-
     }
 
     .score {
@@ -136,13 +151,14 @@
       border: 1rem;
       border-style: none;
     }
+>>>>>>> refs/remotes/origin/master
   </style>
 
 </head>
 
 <body>
 <header>
-
+ <jsp:include page="../common/commonHeader.jsp"></jsp:include>  
 </header>
 
 <section>
@@ -208,15 +224,6 @@
                         class="detailInfo">음식점 정보 더보기&nbsp;&nbsp;<i class="fas fa-arrow-right"></i></a>
 
 
-
-
-
-
-
-
-
-
-
                     </div>
 
                   </div>
@@ -234,14 +241,14 @@
           <!--오른쪽 여백-->
 				</c:forEach> 
 		
-
+	</section>
       </div>
 
 
 
     </div>
   <!--container끝-->
-
+	<br><br><br>
 
 
   <footer>

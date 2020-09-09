@@ -286,15 +286,19 @@
 	</select>
 	
 	<insert id="uploadReview" parameterType="hashmap">
+		<selectKey keyProperty="rvid, imid" resultType="int" order="BEFORE">
+			SELECT SEQ_REVIEW.NEXTVAL as 'rvid', SEQ_IMAGEID.NEXTVAL as 'imid'
+			FROM DUAL
+		</selectKey>
 		INSERT ALL
-		INTO   REVIEW VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
-		<if test="imageList.size > 0">
-			<foreach collection="imageList" item="image" index="index">
-				INTO   IMAGE VALUES (SEQ_IMAGEID.NEXTVAL, #{image.imageOriginName}, #{image.imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
-				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.CURRVAL, SEQ_REVIEW.CURRVAL)
-		 	</foreach> 
-		</if>
+		INTO   REVIEW VALUES (#{rvid}, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
+		<foreach collection="imageList" item="image" index="index">
+			<if test="!''.equals(image.imageOriginName)">
+				INTO   IMAGE VALUES (#{imid}, #{image.imageOriginName}, #{image.imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (#{imid}, #{rvid})
+			</if>
+		</foreach> 	
 		SELECT *
-		FROM   DUAL
+		FROM DUAL	
 	</insert>
 </mapper>

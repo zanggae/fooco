@@ -36,6 +36,8 @@ public class RestaurantController {
 	
 	@Autowired
 	private RestaurantService restaurantService;
+	
+	@Autowired
 	HttpSession session;
 	
 	@RequestMapping("goMain.do")    
@@ -45,8 +47,8 @@ public class RestaurantController {
 	
 	@RequestMapping("goSearchedRestaurant.do")
 	public ModelAndView goSearchedRestaurant(ModelAndView mv
-									 , @RequestParam(value="options", required=false) ArrayList<Filter> filters
-									 , @RequestParam(value="category", required=false) ArrayList<Integer> categories
+									 , @RequestParam(value="filters", required=false) ArrayList<Filter> filters
+									 , @RequestParam(value="categories", required=false) ArrayList<Integer> categories
 									 , @RequestParam(value="page", required=false, defaultValue="1") Integer page
 									 , @RequestParam(value="keyword", required=false, defaultValue="all") String keyword
 									 , @RequestParam(value="locationId", required=false, defaultValue="0") Integer locationId
@@ -69,14 +71,21 @@ public class RestaurantController {
 		list = restaurantService.getList(searchParameter, pi);
 	
 		String location = convertLocation(locationId);
+		
+		String changedKeyword = "";
+		
 		if("all".equals(keyword)) {
-			keyword = "전체";
+			changedKeyword = "전체";
 		}
 		
 		mv.addObject("pi", pi);
 		mv.addObject("list", list);
+		mv.addObject("locationId", locationId);
 		mv.addObject("location", location);
 		mv.addObject("keyword", keyword);
+		mv.addObject("changedKeyword", changedKeyword);
+		mv.addObject("filters", filters);
+		mv.addObject("sortType", sortType);
 		mv.setViewName("restaurant/searchedRestaurant");
 		return mv;
 	}
@@ -212,10 +221,9 @@ public class RestaurantController {
 			, @RequestParam(value="filename", required=false) String filename
 			, @RequestParam(value="filesize", required=false) String filesize)
 	{
-		review.setMemberId(500);
+		Member m = (Member)session.getAttribute("loginUser");
+		review.setMemberId(m.getMemberId());
 		review.setReviewRating((review.getReviewTasterating() + review.getReviewPricerating() + review.getReviewServicerating())/3);
-		
-		System.out.println(review);
 		
 		String[] realnameArray = realname.split(",");
 		String[] filenameArray = filename.split(",");

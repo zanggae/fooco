@@ -308,6 +308,41 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectListMylistAdmin(search,pi);
 	}
 
+	@Override
+	public MyListAdmin selectOneMylist(String mlId) {
+		return adminDao.selectOneMylist(mlId);
+	}
+
+	@Override
+	public ArrayList<Restaurant> selectListMylistRestaurant(String mlId) {
+		return adminDao.selectListMylistRestaurant(mlId);
+	}
+
+	@Override
+	public int mylistRejectAdmin(String mlId) {
+		return adminDao.mylistRejectAdmin(mlId);
+	}
+
+	@Override
+	public int permitMylist(String mlId) {
+		return adminDao.permitMylist(mlId);
+	}
+
+	@Override
+	public ArrayList<Board> selectListNoticeD() {
+		return adminDao.selectListNoticeD();
+	}
+
+	@Override
+	public ArrayList<Board> selectListFAQD() {
+		return adminDao.selectListFAQD();
+	}
+
+	@Override
+	public ArrayList<MyListAdmin> selectListMyListD() {
+		return adminDao.selectListMyListD();
+	}
+
 	
 
 }

@@ -73,6 +73,19 @@ public class AdminController {
 		ArrayList<Board> inquiry = adminService.selectListInquiryD();
 //		System.out.println(inquiry);
 		
+		// 공지사항 조회
+		ArrayList<Board> notice = adminService.selectListNoticeD();
+		
+		// FAQ 조회
+		ArrayList<Board> faq = adminService.selectListFAQD();
+		
+		// 마이리스트 추천 조회
+		ArrayList<MyListAdmin> mylist = adminService.selectListMyListD();
+			
+		
+			mv.addObject("notice", notice);		
+			mv.addObject("faq", faq);
+			mv.addObject("mylist", mylist);
 			mv.addObject("inquiry", inquiry);
 			mv.addObject("vc", vc);
 			mv.addObject("membershipStatus", membershipStatus);
@@ -372,8 +385,11 @@ public class AdminController {
 	
 	// 게시물 등록
 	@RequestMapping(value="registrationBoard.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public String registrationBoard(HttpServletRequest request, Board board,
+	public String registrationBoard(HttpServletRequest request, Board board, HttpSession session,
 			@RequestParam(value="uploadFile", required=false) MultipartFile file) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		board.setBoardWriter(loginUser.getMemberId());
 		
 		if(!file.getOriginalFilename().equals("")) {
 			String renameFileName = saveFile(file,request);
@@ -780,13 +796,13 @@ public class AdminController {
 		int themeRListResult = 0;
 		
 		int themeWriter = 1;
-//		Member loginUser = (Member)session.getAttribute("loginUser");
-//		themeWriter = loginUser.getMemberId();				
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		themeWriter = loginUser.getMemberId();				
 		
 		
 		
 		System.out.println(ta);
-		
+		System.out.println(themeRList);
 		ta.setThemeWriter(themeWriter);
 		
 		int result = adminService.insertTheme(ta);
@@ -829,6 +845,8 @@ public class AdminController {
 		for(String th : tRL) {
 			themeRListResult = adminService.insertThemeRestaurant2(th,ta);
 		}
+		
+		mv.setViewName("redirect:themeEdit.do");
 		return mv;
 	}
 	
@@ -840,6 +858,16 @@ public class AdminController {
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
+		}
+		
+		if(search.getCategory() != null) {
+			if(search.getCategory().equals("W")) {
+				search.setCategory("1");
+			}else if(search.getCategory().equals("Y")) {
+				search.setCategory("2");
+			}else if(search.getCategory().equals("N")) {
+				search.setCategory("3");
+			}			
 		}
 		
 		int mCount = adminService.selectOneMyListCount(search);
@@ -858,13 +886,90 @@ public class AdminController {
 		return mv;
 	}
 	
+	/*
+	 * // ajax
+	 * 
+	 * @RequestMapping("selectOneMylistAdmin.do") public void
+	 * selectOneMylistAdmin(HttpServletResponse response, String mlId) throws
+	 * JsonIOException, IOException {
+	 * response.setContentType("application/json;charset=utf-8");
+	 * System.out.println(mlId); // 마이리스트 정보 조회 MyListAdmin mlA =
+	 * adminService.selectOneMylist(mlId);
+	 * 
+	 * // 마이리스트에 포함된 음식점 리스트 조회 ArrayList<Restaurant> mlR =
+	 * adminService.selectListMylistRestaurant(mlId);
+	 * 
+	 * 
+	 * Map<String, Object> result = new HashMap<>(); result.put("mlA", mlA);
+	 * result.put("mlR", mlR);
+	 * 
+	 * 
+	 * Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+	 * gson.toJson(result , response.getWriter());
+	 * 
+	 * }
+	 */
+	
+	// 마이리스트 정보조회
+	@RequestMapping("selectOneMylistAdmin.do")
+	public ModelAndView selectOneMylistAdmin(ModelAndView mv, String mlId) {
+		// 마이리스트 정보 조회
+		MyListAdmin mlA = adminService.selectOneMylist(mlId);
+		
+		// 마이리스트에 포함된 음식점 리스트 조회
+		ArrayList<Restaurant> mlR = adminService.selectListMylistRestaurant(mlId);
+		
+		mv.addObject("mlA", mlA);
+		mv.addObject("mlR", mlR);
+		mv.setViewName("admin/mylistDetail");
+		return mv;
+		
+	}
+	
+	@RequestMapping("mylistRejectAdmin.do")
+	public ModelAndView mylistRejectAdmin(ModelAndView mv, String mlId) {
+		// 마이 리스트 거절
+		int result = adminService.mylistRejectAdmin(mlId);
+		
+		mv.setViewName("redirect:mylistEditAdmin.do");
+		return mv;
+		
+	}
+	
+	@RequestMapping(value="restaurantThemeAdmin1.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView restaurantThemeAdmin1(HttpSession session, ModelAndView mv, String themeRList, ThemeAdmin ta, String mlId) {
+		int themeRListResult = 0;
+		
+		int themeWriter = 1;
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		themeWriter = loginUser.getMemberId();				
+		
+		
+		
+		System.out.println(ta);
+		System.out.println(themeRList);
+		ta.setThemeWriter(themeWriter);
+		
+		int result = adminService.insertTheme(ta);
+		
+		String[] tRL = themeRList.split(",");		
+		for(String th : tRL) {
+			themeRListResult = adminService.insertThemeRestaurant(th);
+		}
+		
+		int result1 = adminService.permitMylist(mlId);
+		
+		mv.setViewName("redirect:mylistEditAdmin.do");
+		return mv;
+	}
+	
 	@RequestMapping("test.do")
 	public String test() {
 		return "admin/test";
 	}
 	
 	
-
+	
 }
 
 

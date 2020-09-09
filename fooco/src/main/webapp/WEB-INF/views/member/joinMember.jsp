@@ -31,25 +31,22 @@
         margin: 0px;
         padding:0px;
       }
-      /* section{
-        text-align: center;
-      } */
       /* 회원가입 타이틀(JOIN US) */
-      h1{
+      section h1{
         margin-left: 18%;
         font-weight: bold;
       }
       /* 회원가입 타이틀(진짜 맛집을 찾아서!) */
-      p{
+      section p{
         margin-left: 18%;
       }
       /* 구분선 */
-      hr{
+      section hr{
         margin-left: 18%;
         width: 67%;
         background: rgb(253, 215, 129);
       }
-      span{
+      #Join_InputT span{
         font-size: 11px;
       }
       /* 회원가입 양식 테이블 */
@@ -188,6 +185,50 @@
         }
         /* 이메일 placeholder */
         #email::placeholder { font-size: 11px; }
+        
+        /* 메인 푸터 */
+        /* 메인 푸터 */
+        .mainFooter{
+        	height:21rem; background-color:rgb(248,248,248);        	     	
+        }
+        .mainFooter span{
+        	display:inline-block;
+        	margin-right:100px;       	
+        }
+        .mainFooter span:nth-of-type(1){
+        	margin-left:230px;
+        	margin-right:150px;
+        	margin-top:12px;
+        	font-size:10px;
+        }
+        .mainFooter span:nth-of-type(2){
+        	margin-top:30px;
+        	position:absolute;	
+        }
+        .mainFooter span:nth-of-type(3){
+        	position:absolute;
+        	margin-top:30px;
+        	margin-left:200px;
+        }
+       #footerPimog{
+        	margin-top:-1000px;
+        	margin-left:600px;
+        	font-size:35px;
+        }
+        .mainFooter img{
+         width:100px;
+         height:80px;
+        }
+        .mainFooter hr{
+         width:80%;
+         color:gray;
+         margin-top:45px;
+        }
+        #footerP{
+        	margin-left:230px;
+        	margin-top:15px;
+        	font-size:13px;
+        }
     </style>
   </head>
   <body>
@@ -518,7 +559,41 @@
 
 
       <!--footer시작-->
-      <footer></footer>
+      <footer>
+      	<div class="mainFooter">
+               <span>
+               	<img src="resources/logo/logo.png">
+               	<hr style="margin-top:-8px; margin-bottom:-1px; width:110%;">
+               	<p style="font-size:12px">FOOCO와 함께 Enjoy!</p>
+               </span>
+               <span>
+               		<p style="font-size:14px; font-family:bold;" >COMPANY</p>
+               		<p style="font-size:14px">회사소개</p>
+               		<p style="font-size:14px">FOOCO 채용</p>
+               		<p style="font-size:14px">투자정보</p>
+               		<p style="font-size:14px">FOOCO 비즈니스</p>
+               		<p style="font-size:14px">광고문의</p>
+               </span>          
+               <span>
+               		<p style="font-size:14px; font-family:bold;" >FOR YOU</p>
+               		<p style="font-size:14px">공지사항</p>
+               		<p style="font-size:14px">이용약관</p>
+               		<p style="font-size:14px">비회원 이용자 이용정책</p>
+               		<p style="font-size:14px">개인정보처리방침</p>
+               		<p style="font-size:14px">커뮤니티 가이드라인</p>
+               </span> 
+               <span id="footerPimog">
+               <p style="font-size:15px; text-align:center; font-family:bold;">Social Link</p>
+               	<i class="fab fa-facebook-square"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fab fa-twitter-square"></i>
+               	&nbsp;&nbsp;&nbsp;&nbsp;<i class="fab fa-instagram"></i>
+               	<!-- <p style="font-size:15px; text-align:center;">Social Link</p> -->
+               </span><br><br><br><br><br><hr>
+              	<p id="footerP" style="font-family:'light'; color:gray;">
+                    (주)FOOCO&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;서울특별시 서초구 강남대로42길 12, 3층 (역삼동, 경남짱빌딩)<br>
+                     	대표이사 : 김경남(KKN PRINCESS)&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;사업자 등록번호: 202-09-17200 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;고객센터: 02-565-1234 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; © 2020 FOOCO Co., Ltd. All rights reserved.
+                </p>
+            </div>
+      </footer>
 
       <!--동적 제어 시작(script영역)-->
       <!--정규표현식/비밀번호 일치 확인/ 닉네임 중복여부 확인-->
@@ -807,7 +882,7 @@
 				, data:{email:email1.val()+'@'+email2.val()}
 				, success:function(data){
 					console.log("성공");
-					alert(data);
+					/* alert(data); */
 					checkSuccess = data;
 					console.log("checkSuccess"+checkSuccess);
 									
