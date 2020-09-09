@@ -16,8 +16,14 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+
+import com.kh.fooco.member.model.vo.MylistAdmin;
+
 import com.kh.fooco.member.model.vo.Select_Board;
+
 import com.kh.fooco.member.model.vo.Select_Checkin;
+import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.membership.model.vo.MemberShip;
 
 public interface MemberService {
 
@@ -102,6 +108,11 @@ public interface MemberService {
 	
 	int updateBoardStatus(int boardId);
 	
+	ArrayList<Select_Coupon> selectCouponList(int memberId);
+	
+	int updatecStatus(int couponListId);
+	
+	
 	// ================================== Mylist 영은 ===========================================
 
 
@@ -112,6 +123,9 @@ public interface MemberService {
 	int insertMylist(String themeTitle, int themeWriter);
 
 	int insertMylistRes(String th);
+
+	ArrayList<MylistAdmin> selectmyPageMylist();
+
 
 
 

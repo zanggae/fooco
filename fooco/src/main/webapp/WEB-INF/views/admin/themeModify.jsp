@@ -83,7 +83,7 @@
   <div style="margin-left: 13%;">
     <div class="container">
 
-    <form action="restaurantThemeAdmin.do" method="get" id="themeSubmit">
+    <form action="ModifyThemeAdmin.do" method="get" id="themeSubmit">
     <input type="hidden" name="themeId" value="${ta.themeId }">
     <script>
     	function onsubmitTheme(){
@@ -97,7 +97,7 @@
     			return 
     		}    		
 
-    		if(confirm("테마를 등록 하시겠습니까?")){
+    		if(confirm("테마를 수정 하시겠습니까?")){
     			$("#themeSubmit").submit();
     		}    		
     	}    	

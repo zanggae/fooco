@@ -3,9 +3,11 @@ package com.kh.fooco.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -35,6 +37,10 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.fooco.admin.model.vo.Search;
+import com.kh.fooco.board.model.exception.BoardException;
+import com.kh.fooco.board.model.vo.Board;
+import com.kh.fooco.board.model.vo.InsertBoard;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
@@ -45,12 +51,21 @@ import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.MylistAdmin;
 import com.kh.fooco.member.model.vo.Select_Board;
 import com.kh.fooco.member.model.vo.Select_Checkin;
+import com.kh.fooco.member.model.vo.Select_Coupon;
 import com.kh.fooco.member.naver.NaverLoginBO;
+import com.kh.fooco.membership.model.vo.MemberShip;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+
+import com.kh.fooco.theme.model.exception.ThemeException;
+import com.kh.fooco.theme.model.service.ThemeService;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
+
 
 
 @SessionAttributes("loginUser")
@@ -872,26 +887,92 @@ public class MemberController {
 		} 
 		
 		
+		
+		// 나의 멤버십 페이지 이동
+		@RequestMapping("myPageMembership.do")
+		public ModelAndView myPageMembershipView(ModelAndView mv, HttpSession session) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+		    int memberId = loginUser.getMemberId();
+			
+		    ArrayList<Select_Coupon> couponList = memberService.selectCouponList(memberId);
+		    
+		    System.out.println(couponList);
+		    
+		    mv.addObject("couponList",couponList);
+			mv.setViewName("mypage/myPageMembership");
+			return mv;
+		}
+		
+		// 쿠폰 상태 변경 및 이메일 전송
+		@RequestMapping("cStatusChange.do")
+		public String cStatusChange(int couponListId, HttpSession session, Date couponStartDate, Date couponExpireDate) throws IOException {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+		    String email = loginUser.getEmail();
+			
+		    // 쿠폰 상태 N -> Y
+		    int result = memberService.updatecStatus(couponListId);
+		    
+		    
+		    Random r = new Random();
+			int dice = r.nextInt(4589362) + 49311;	//이메일로 받는 인증코드 부분(난수)
+			
+			String setfrom = "fooco@gmail.com";		//보내는 사람
+			String title = "Fooco 인증 메일입니다";				//메일제목
+			String content = "안녕하세요! Fooco입니다."+
+					System.getProperty("line.separator")+
+					System.getProperty("line.separator")+
+					"★★★★★유효기간은 "+ couponStartDate + " 부터 " +
+					couponExpireDate + " 까지입니다.★★★★★" +
+					System.getProperty("line.separator")+
+					System.getProperty("line.separator")+
+					"쿠폰 코드번호는 " + dice+ "입니다"+
+					System.getProperty("line.separator")+
+					System.getProperty("line.separator")+
+					"위의 코드번호를 사용하여 서비스를 제공받으세요!";
+		    
+			
+		    try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
+				
+				 messageHelper.setFrom(setfrom); 	// 보내는사람 생략하면 정상작동을 안함
+	             messageHelper.setTo(email); 		// 받는사람 이메일
+	             messageHelper.setSubject(title); 	// 메일제목은 생략가능
+	             messageHelper.setText(content); 	// 메일 내용
+	            
+	             mailSender.send(message);
+	             System.out.println("이메일 전송됨!_!");
+				
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				System.out.println(e);
+			}
+		    
+		    
+			return "redirect:myPageMembership.do";
+		}
+		
+		
+		
+		
+		
 // ================================== MyList 영은 ===========================================
 		
-		
-		@RequestMapping("mylist.do")
-		public String mylist() {
-			return "mypage/myPageMylist";
-		}
+
 		
 		@RequestMapping("mylistRegist.do")
 		public String mylistRegist() {
 			return "mypage/mypageMylistRegist";
 		}
 		
+		//마이리스트 - 등록 
 		@RequestMapping(value="insertMylist.do", method= {RequestMethod.GET,RequestMethod.POST})
 		public ModelAndView restaurantThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, String themeTitle) {
 			int themeRListResult = 0;
 			
 			int themeWriter = 3002;
-//			Member loginUser = (Member)session.getAttribute("loginUser");
-//			themeWriter = loginUser.getMemberId();				
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			themeWriter = loginUser.getMemberId();				
 			
 			
 			
@@ -909,21 +990,40 @@ public class MemberController {
 			return mv;
 		}
 		
+	
+		
+		//마이리스트 - 리스트 확인
+		@RequestMapping("myPageMylist.do")
+		public ModelAndView selectmyPageMylist(ModelAndView mv,HttpSession session) {
+			int memberId =  ((Member) session.getAttribute("loginUser")).getMemberId();
+			
+		
+			ArrayList<MylistAdmin> mylist = memberService.selectmyPageMylist();
+			
+			System.out.println("mylist db조회 후 화면에 뿌리기 전 : " + mylist);
+			if(!mylist.isEmpty()) {
+				mv.addObject("mylist",mylist);
+				mv.setViewName("mypage/myPageMylist");
+			}else {
+				throw new MemberException("mylist 목록 보기 실패!");
+			}
+			return mv;
+		}
 		
 	/*
-	 * @RequestMapping("mylistList.do") public ModelAndView mylistList(ModelAndView
-	 * mv) { ArrayList<Mylist> mylist = memberService.mylistList();
-	 * System.out.println("mylist조회 후 화면에 뿌리기 전 :" + mylist);
+	 * @RequestMapping("mypageMylistModify.do") public ModelAndView
+	 * mypageMylistModify(HttpSession session, ModelAndView mv,String themeRList,
+	 * String themeTitle) {
 	 * 
-	 * if(!mylist.isEmpty()) { mv.addObject("mylist",mylist);
-	 * mv.setViewName("mypage/myPageMylist"); }else { throw new
-	 * ThemeException("Mylist목록 보기 실패!"); } }
+	 * int themeRListResult = 0;
+	 * 
+	 * int reulst = memberService.mypageMylistModify(themeTitle);
+	 * 
+	 * int deleteListRes = memberService.deleteRList(themeTitle);
+	 * 
+	 * String[] tRL = themeRList.split(","); for(String th : tRL) { themeRList =
+	 * memberService.insertMylistRestaurant(themeRList,themeTitle); }
+	 * 
+	 * return mv; }
 	 */
-		
-		
-		@RequestMapping("mypageMylistDetail.do")
-		public String mypageMylistDetail() {
-			return"mypage/mypageMylistDetail";
-		}
-
 }

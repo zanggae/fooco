@@ -130,5 +130,19 @@ public interface AdminService {
 
 	ArrayList<MyListAdmin> selectListMylistAdmin(Search search, PageInfo pi);
 
+	MyListAdmin selectOneMylist(String mlId);
+
+	ArrayList<Restaurant> selectListMylistRestaurant(String mlId);
+
+	int mylistRejectAdmin(String mlId);
+
+	int permitMylist(String mlId);
+
+	ArrayList<Board> selectListNoticeD();
+
+	ArrayList<Board> selectListFAQD();
+
+	ArrayList<MyListAdmin> selectListMyListD();
+
 	
 }

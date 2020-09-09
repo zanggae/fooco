@@ -37,10 +37,10 @@
                 <div class="card">
                   <div class="card-body">
 
-                    <h5 class="card-title"><b>조회수</b></h5>
+                    <h5 class="card-title"><b>방문자수</b></h5>
                     <p class="card-text"><b>today : </b>${vc.day }</p>
-                    <p class="card-text"><b>total 조회수 : </b>${vc.totalCount }</p>
-                    <p class="card-text"><b>today 조회수 : </b>${vc.count }</p>
+                    <p class="card-text"><b>total 방문자수 : </b>${vc.totalCount }</p>
+                    <p class="card-text"><b>today 방문자수 : </b>${vc.count }</p>
                   </div>
                 </div>
               </div>
@@ -92,12 +92,10 @@
             <div class="row">
               <div class="col-6">
                 <div class="card">
-                  <div class="card-header">
-                    미답변 문의
-                  </div>
+                  <div class="card-header">미답변 문의</div>
                   <div class="card-body">
                   	<c:forEach var="iq" items="${inquiry }">
-                    <h5 class="card-title">${iq.boardTitle }</h5>
+                    <p>${iq.boardTitle }</p>
                     <hr>
                     </c:forEach>
                     <p class="card-text"></p>
@@ -107,11 +105,12 @@
               </div>
               <div class="col-6">
                 <div class="card">
-                  <div class="card-header">
-                    공지사항
-                  </div>
+                  <div class="card-header">공지사항</div>
                   <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
+                    <c:forEach var="no" items="${notice }">
+                    <p>${no.boardTitle }</p>
+                    <hr>
+                    </c:forEach>
                     <p class="card-text"></p>
                     <a href="#" class="btn btn-primary">더보러 가기</a>
                   </div>
@@ -121,11 +120,12 @@
             <div class="row mt-3">
               <div class="col-6">
                 <div class="card">
-                  <div class="card-header">
-                    음식점 추천
-                  </div>
+                  <div class="card-header">FAQ</div>
                   <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
+                    <c:forEach var="fa" items="${faq }">
+                    <p>${fa.boardTitle }</p>
+                    <hr>
+                    </c:forEach>
                     <p class="card-text"></p>
                     <a href="#" class="btn btn-primary">더보러 가기</a>
                   </div>
@@ -133,11 +133,12 @@
               </div>
               <div class="col-6">
                 <div class="card">
-                  <div class="card-header">
-                    마이리스트 추천
-                  </div>
+                  <div class="card-header">마이리스트 추천</div>
                   <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
+                    <c:forEach var="ml" items="${mylist }">
+                    <p>${ml.mlTitle }</p>
+                    <hr>
+                    </c:forEach>
                     <p class="card-text"></p>
                     <a href="#" class="btn btn-primary">더보러 가기</a>
                   </div>
@@ -358,7 +359,7 @@
             var man = Math.floor(Math.random() * total) + 1;
             var woman = total - man;
 
-            dataRow = [new Date('2017', '09', i, '10'), man, woman, total];
+            dataRow = [new Date('2018', '09', i, '11'), man, woman, total];
             data.addRow(dataRow);
           }
 
