@@ -60,6 +60,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantDao.getPhotoList(searchParameter, ppi);
 	}
 
+	@Override
+	public int uploadReview(HashMap<String, Object> parameters) {
+		return restaurantDao.uploadReview(parameters);
+	}
+
 
 
 }

@@ -224,26 +224,26 @@
                                 	<c:url var="mypage" value="myPageInfo.do">
 									<c:param name="memberId" value="${loginUser.memberId }"/>
 									</c:url>                             	
-                                    <a class="dropdown-item mh-dropdown-item" href="${mypage}">마이페이지</a> 
+                                    <a class="dropdown-item mh-dropdown-item" href="${mypage}">마이페이지&#x1F490;</a> 
                                     </c:if>                                   
 
 
                                     <!-- <a class="dropdown-item mh-dropdown-item" href="myPageInfo.do">지역 맛집</a> -->
-                                    <a class="dropdown-item mh-dropdown-item" href="themeMain.do">테마 맛집</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="themeMain.do">테마 맛집&#x1F46A;</a>
 
-                                    <a class="dropdown-item mh-dropdown-item" href="goSearchedRestaurant.do">지역 맛집</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="goSearchedRestaurant.do">지역 맛집&#x1F690;</a>
                                 
 
-                                    <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십</a>
-                                    <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="goMembershipInfo.do">멤버십&#x1F381;</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="serviceCenterMain.do">고객센터&#x1F4AC;</a>
 
                                     <!-- 회원 이름이 '관리자'만 보이도록-->
                                     <c:if test="${!empty loginUser && loginUser.nickName eq '관리자'}">
-                                    <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="dashboard.do">관리자페이지&#x1F4CA;</a>
                                     </c:if>
                                     <c:if test="${!empty loginUser }">
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃 &#x1F64B;</a>
                                     </c:if>
                                 </div>
                             </div>

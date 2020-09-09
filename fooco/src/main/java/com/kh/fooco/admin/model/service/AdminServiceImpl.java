@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.fooco.admin.model.dao.AdminDao;
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
@@ -295,6 +296,51 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int insertThemeRestaurant2(String th, ThemeAdmin ta) {
 		return adminDao.insertThemeRestaurant2(th,ta);
+	}
+
+	@Override
+	public int selectOneMyListCount(Search search) {
+		return adminDao.selectOneMyListCount(search);
+	}
+
+	@Override
+	public ArrayList<MyListAdmin> selectListMylistAdmin(Search search, PageInfo pi) {
+		return adminDao.selectListMylistAdmin(search,pi);
+	}
+
+	@Override
+	public MyListAdmin selectOneMylist(String mlId) {
+		return adminDao.selectOneMylist(mlId);
+	}
+
+	@Override
+	public ArrayList<Restaurant> selectListMylistRestaurant(String mlId) {
+		return adminDao.selectListMylistRestaurant(mlId);
+	}
+
+	@Override
+	public int mylistRejectAdmin(String mlId) {
+		return adminDao.mylistRejectAdmin(mlId);
+	}
+
+	@Override
+	public int permitMylist(String mlId) {
+		return adminDao.permitMylist(mlId);
+	}
+
+	@Override
+	public ArrayList<Board> selectListNoticeD() {
+		return adminDao.selectListNoticeD();
+	}
+
+	@Override
+	public ArrayList<Board> selectListFAQD() {
+		return adminDao.selectListFAQD();
+	}
+
+	@Override
+	public ArrayList<MyListAdmin> selectListMyListD() {
+		return adminDao.selectListMyListD();
 	}
 
 	

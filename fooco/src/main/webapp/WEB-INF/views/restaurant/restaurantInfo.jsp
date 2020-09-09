@@ -44,11 +44,13 @@
 				<span style="font-family: 'bold';" class="mz-moreInfo-title">옵션</span>
 			</div>
 			<div class="row row-cols-2 mz-moreInfo-option-row">
+				<c:if test="${0 ne info.infoFilter[0].filterId}">
 				<c:forEach var="filter" items="${info.infoFilter}">
 					<div class="col d-flex align-items-center">
 						<i class="far fa-check-square"></i>${filter.filterName}
 					</div>
 				</c:forEach>
+				</c:if>
 			</div>
 		</div>
 	</div>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
@@ -51,6 +52,18 @@ public class AdminDao {
 	// 방문시 업데이트
 	public int updateVisitorCount() {
 		return sqlSessionTemplate.update("adminMapper.updateVisitorCount");
+	}
+	
+	public ArrayList<Board> selectListNoticeD() {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListNoticeD");
+	}
+
+	public ArrayList<Board> selectListFAQD() {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListFAQD");
+	}
+
+	public ArrayList<MyListAdmin> selectListMyListD() {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListMyListD");
 	}
 
 	public ArrayList<Member> selectlistMember(PageInfo pi) {
@@ -233,7 +246,7 @@ public class AdminDao {
 	public ArrayList<ThemeAdmin> selectListTheme(ThemeAdmin ta, PageInfo pi) {
 		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());		
-		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListTheme",ta);
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListTheme",ta,rowBounds);
 	}
 
 	public int deleteTheme(ThemeAdmin ta) {
@@ -283,6 +296,34 @@ public class AdminDao {
 		updateParameter.put("theme", th);		
 		return sqlSessionTemplate.insert("adminMapper.insertThemeRestaurant2",updateParameter);
 	}
+
+	public int selectOneMyListCount(Search search) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectOneMyListCount",search);
+	}
+
+	public ArrayList<MyListAdmin> selectListMylistAdmin(Search search, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListMylistAdmin",search,rowBounds);
+	}
+
+	public MyListAdmin selectOneMylist(String mlId) {
+		return sqlSessionTemplate.selectOne("adminMapper.selectOneMylist",mlId);
+	}
+
+	public ArrayList<Restaurant> selectListMylistRestaurant(String mlId) {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListMylistRestaurant",mlId);
+	}
+
+	public int mylistRejectAdmin(String mlId) {
+		return sqlSessionTemplate.update("adminMapper.mylistRejectAdmin", mlId);
+	}
+
+	public int permitMylist(String mlId) {
+		return  sqlSessionTemplate.update("adminMapper.permitMylist", mlId);
+	}
+
+	
 
 	
 

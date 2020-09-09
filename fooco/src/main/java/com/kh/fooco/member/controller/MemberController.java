@@ -41,9 +41,9 @@ import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.board.model.vo.InsertBoard;
 import com.kh.fooco.common.model.vo.Image;
-
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
+import com.kh.fooco.member.model.vo.BoardInfo;
 import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
@@ -52,6 +52,7 @@ import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.model.vo.MylistAdmin;
+import com.kh.fooco.member.model.vo.Select_Board;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Info;
@@ -61,6 +62,7 @@ import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.exception.ThemeException;
 import com.kh.fooco.theme.model.service.ThemeService;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
+
 
 
 @SessionAttributes("loginUser")
@@ -607,10 +609,54 @@ public class MemberController {
 		
 		
 		// 1:1문의 수정페이지 이동
-		@RequestMapping("inquiryes.do")
-		public String inquirypage() {
-			return "mypage/myPageInquiryModify";
+		@RequestMapping("InquiryModify.do")
+		public ModelAndView myPageInquiryModifyView(ModelAndView mv, int boardId) {
+			System.out.println("넘어온 보드번호 : " + boardId);
+			
+			BoardInfo boardInfo = memberService.selectBoardInfo(boardId);
+			
+			System.out.println("조회된 보드 정보 는 : " + boardInfo);
+			
+			mv.addObject("boardInfo", boardInfo);
+			mv.setViewName("mypage/myPageInquiryModify");
+			return mv;
 		}
+		
+		// 1:1문의 수정 버튼 클릭 시
+		@RequestMapping(value="InquiryModifyBtn.do", method=RequestMethod.POST)
+		public String myPageInquiryModifyBtn(BoardInfo boardInfo) {
+			System.out.println("수정버튼 클릭 후 넘어온 값 : " + boardInfo);
+			
+			int result1 = memberService.updateBoard(boardInfo);
+			int result2 = memberService.updateInquiry(boardInfo);
+			
+			
+			return "redirect:myPageInquiry.do";
+		}
+		
+		// 1:1 문의 삭제 버튼 클릭 시
+		@RequestMapping("updateBoardStatus.do")
+		public String updateBoardStatus(int boardId) {
+			
+			int result = memberService.updateBoardStatus(boardId);
+			
+			return "redirect:myPageInquiry.do";
+		}
+		
+		// 1:1문의 페이지 이동
+		@RequestMapping("myPageInquiry.do")
+		public ModelAndView myPageInquiryView(ModelAndView mv, HttpSession session) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+		    int memberId = loginUser.getMemberId();
+			
+		    ArrayList<Select_Board> InquiryList = memberService.selectInquiry(memberId);
+		    
+		    System.out.println("조회된 문의 리스트 : " + InquiryList);
+		    mv.addObject("InquiryList",InquiryList);
+			mv.setViewName("mypage/myPageInquiry");
+			return mv;
+		}
+		
 		
 		// 회원 탈퇴페이지 이동
 		@RequestMapping("myPageWithdrawal.do")
@@ -821,6 +867,22 @@ public class MemberController {
 			return mv;
 		}
 		
+		// 즐겨찾기 - 테마 조회
+		@RequestMapping("myPageFavoritesTM.do")
+		public ModelAndView myPageFavoritesTMView(ModelAndView mv, HttpSession session) {
+			 Member loginUser = (Member)session.getAttribute("loginUser");
+		     int memberId = loginUser.getMemberId();
+			
+		     // 즐겨찾기한 맛집 리스트 조회
+//		     ArrayList<MZ> MZList = memberService.selectMZ(memberId);
+//		      
+//		     System.out.println("맛집리스트 조회 결과 : " +MZList);
+//		    
+//		    mv.addObject("MZList",MZList);
+			mv.setViewName("mypage/myPageFavoritesTM");
+			return mv;
+		} 
+		
 		
 // ================================== MyList 영은 ===========================================
 		
@@ -837,8 +899,8 @@ public class MemberController {
 			int themeRListResult = 0;
 			
 			int themeWriter = 3002;
-//			Member loginUser = (Member)session.getAttribute("loginUser");
-//			themeWriter = loginUser.getMemberId();				
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			themeWriter = loginUser.getMemberId();				
 			
 			
 			
