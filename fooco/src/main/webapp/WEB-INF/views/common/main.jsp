@@ -27,7 +27,7 @@
 	<!-- fontawesome -->
 	<script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
 	
-    <title>Hello, world!</title>
+    <title>FOOCO와 함께 매일매일 즐거움!</title>
     <style>
         /* 폰트 */
         @font-face {font-family: 'bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff'); font-weight: normal; font-style: normal;}
@@ -51,8 +51,8 @@
 
         /* 메인 검색 */
         .inputPrepend {background:white; border-top-left-radius:0.25rem; border-bottom-left-radius:0.25rem;}
-        .sr-content-input-local {width:8rem; border-top-left-radius:0; border-bottom-left-radius:0; font-family:'medium';}
-        .sr-content-input-local > option {font-family:'medium'; text-align-last:center;}
+        .sr-content-input-local {width:8rem; border-top-left-radius:0; border-bottom-left-radius:0; font-family:'medium'; cursor:pointer;}
+        .sr-content-input-local > option {font-family:'medium'; text-align-last:center; cursor:pointer;}
         select {text-align:center; text-align-last:center;}
         .selectLocation {width:8em;}
         .fa-map-marker-alt {color:rgb(204,51,98); font-size:1.3rem;}
@@ -63,7 +63,6 @@
         .ms-input-col {text-align:center; vertical-align:middle;}
         .inputAppend {border-top-left-radius:0; border-bottom-left-radius:0; cursor:pointer;}
 
-
         /* 지역 맛집 */
         .mainLocal {margin-top:8rem; margin-bottom:8rem;}
         .ml-container {display:flex; justify-content:center; align-items:center;}
@@ -71,7 +70,7 @@
         .ml-title {color:rgb(204,51,98); font-size:1.5rem;}
         .ml-row {width:70rem;}
         .ml-list {min-width:6rem; min-height:8rem; border:none; border-radius:1rem; padding:0.5rem; padding-top:1rem; margin-right:1rem; margin-bottom:0.5rem; color:black; text-align:center; text-decoration:none;}
-        .ml-list:hover {background:#ECECEC; color:black;}
+        .ml-list:hover {background:#ECECEC; color:black; cursor:pointer;}
         .ml-logo-div {width:4rem; height:4rem; margin:auto; margin-bottom:0.5rem;}
         .ml-logo {max-width:100%;}
         .ml-scroll {width:25rem; max-width:50rem; overflow-x:scroll;}
@@ -93,7 +92,49 @@
 
         
         /* 메인 푸터 */
-        .mainFooter {height:10rem; background-color:rgb(253,215,129);}
+        .mainFooter{
+        	height:20rem; background-color:rgb(253,215,129);        	     	
+        }
+        .mainFooter span{
+        	display:inline-block;
+        	margin-right:100px;       	
+        }
+        .mainFooter span:nth-of-type(1){
+        	margin-left:230px;
+        	margin-right:150px;
+        	margin-top:12px;
+        	font-size:10px;
+        }
+        .mainFooter span:nth-of-type(2){
+        	margin-top:30px;
+        	position:absolute;	
+        }
+        .mainFooter span:nth-of-type(3){
+        	position:absolute;
+        	margin-top:30px;
+        	margin-left:200px;
+        }
+       #footerPimog{
+        	margin-top:-1000px;
+        	margin-left:600px;
+        	font-size:35px;
+        }
+        .mainFooter img{
+         width:100px;
+         height:100px;
+        }
+        .mainFooter hr{
+         width:80%;
+         color:gray;
+         margin-top:45px;
+        }
+        #footerP{
+        	margin-left:230px;
+        	margin-top:15px;
+        	font-size:13px;
+        }
+        
+        
     </style>  
      <!-- 방문자수 count를 위한 쿠키 생성 및 ajax 구문 -->
 	 <script>  
@@ -189,6 +230,7 @@
 									<option value="6">대전</option>
 									<option value="7">울산</option>
 									<option value="8">제주</option>
+									<option value="9">그 외</option>
 								</select>
 							</div>
 							<div class="col input-group ms-input-col">
@@ -371,8 +413,34 @@
             </div>
         </section>
         <footer>
-            <div class="mainFooter shadow-sm d-flex justify-content-center align-items-center">
-                <span style="font-family:'medium'">Copyright </span>                
+            <div class="mainFooter">
+               <span>
+               	<img src="resources/logo/logo.png">
+               	<hr style="margin-top:-8px; margin-bottom:-1px;">
+               	<p style="font-size:13px">FOOCO와 함께 Enjoy!</p>
+               </span>
+               <span>
+               		<p style="font-size:14px">회사소개</p>
+               		<p style="font-size:14px">FOOCO 채용</p>
+               		<p style="font-size:14px">투자정보</p>
+               		<p style="font-size:14px">FOOCO 비즈니스</p>
+               		<p style="font-size:14px">광고문의</p>
+               </span>          
+               <span>
+               		<p style="font-size:14px">공지사항</p>
+               		<p style="font-size:14px">이용약관</p>
+               		<p style="font-size:14px">비회원 이용자 이용정책</p>
+               		<p style="font-size:14px">개인정보처리방침</p>
+               		<p style="font-size:14px">커뮤니티 가이드라인</p>
+               </span> 
+               <span id="footerPimog">
+               	<i class="fab fa-facebook-square"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fab fa-twitter-square"></i>
+               	&nbsp;&nbsp;&nbsp;&nbsp;<i class="fab fa-instagram"></i>
+               </span><br><br><br><hr>
+              	<p id="footerP" style="font-family:'light'; color:gray;">
+                    (주)FOOCO&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;서울특별시 서초구 강남대로42길 12, 3층 (역삼동, 경남짱빌딩)<br>
+                     	대표이사 : 김경남(KKN PRINCESS)&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;사업자 등록번호: 202-09-17200 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;고객센터: 02-565-1234 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; © 2020 FOOCO Co., Ltd. All rights reserved.
+                </p>
             </div>
         </footer>
 

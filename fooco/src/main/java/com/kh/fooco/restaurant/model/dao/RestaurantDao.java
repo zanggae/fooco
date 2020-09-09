@@ -72,5 +72,10 @@ public class RestaurantDao {
 		
 		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getPhotoList", searchParameter, rowBounds);
 	}
+
+
+	public int uploadReview(HashMap<String, Object> parameters) {
+		return sqlSessionTemplate.insert("restaurantMapper.uploadReview", parameters);
+	}
 	
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.Image;
+import com.kh.fooco.member.model.vo.BoardInfo;
 import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
@@ -20,6 +21,7 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Board;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 
 
@@ -229,6 +231,35 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("restaurantMapper.getRestaurantInfo", resId);
 	}
 	
+	// 1대1문의 리스트 조회 메소드
+	public ArrayList<Select_Board> selectInquiry(int memberId) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectInquiry",memberId);
+	}
+	
+	// 1대1문의 수정페이지 이동 시 해당 정보 조회 메소드
+	public BoardInfo selectBoardInfo(int boardId) {
+		
+		return sqlSessionTemplate.selectOne("mypageMapper.selectBoardInfo",boardId);
+	}
+	
+	// 1대1문의 수정 버튼 클릭 시 board테이블 수정 작업
+	public int updateBoard(BoardInfo boardInfo) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateBoard",boardInfo);
+	}
+	
+	// 1대1문의 수정 버튼 클릭 시 inquiry테이블 수정 작업
+	public int updateInquiry(BoardInfo boardInfo) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateInquiry",boardInfo);
+	}
+	
+	// 1대1 문의 삭제 버튼 클릭 시 boardStatus 상태 변경
+	public int updateBoardStatus(int boardId) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateBoardStatus",boardId);
+	}	
 	
 	// ================================== Mylist 영은 ===========================================
 
@@ -255,6 +286,9 @@ public class MemberDao {
 	public int insertMylistRes(String theme) {
 		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
 	}
+
+
+	
 
 	/*
 	 * public ArrayList<Mylist> mylistList() { return

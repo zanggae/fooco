@@ -153,8 +153,6 @@
               <div class="checkin_div shadow-sm">
                 <div class="row">
                   <div class="col-3">
-                  <!-- 체크인 번호 몇번인지 확인  -->
-                  	<c:out value="${checkinList.checkinId }"></c:out>
                     <img src="${contextPath }/resources/restaurantImage/${checkinList.resImage}" style="width: 8rem; height: 6rem; margin:0rem;">
                   </div>
                   <div class="col-9" style="padding-left: 0.3rem; margin-bottom: 0.5rem;">
