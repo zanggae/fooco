@@ -10,9 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
+	<script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
   <title>Hello, world!</title>
   <style>
     .table td {
@@ -21,9 +21,55 @@
 	.mBtn{
 		width: 200px; background:rgb(253, 215, 129) !important; color:rgb(204, 51, 98) !important;	border: 0px solid black !important;
 	}
+	.middle {background: rgb(204, 51, 98); height: 5rem; text-align: center;}
+	.outside{position: relative;}
+	.indiv {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+	.text2 {background-color: none; position: absolute; text-align: center; top: 10%; left: 50%; transform: translate(-50%, -50%);}
+	.boundary {
+      height: 16rem;
+      border: 0.4rem solid lightgray;
+      background-color: white;
+      border-radius: 0.5rem;
+    }
+    .title {
+      font-size: 1.3rem;
+      font-family: 'bold';
+      text-align: left;
+    }
+    #star {     
+      color: gold;
+      font-size: 2.8rem;
+      display: inline-block;
+    }
+    .img1 {margin:0; padding:0;  width: 19rem; height: 12rem;}
+    .score {
+      font-size: 2.6rem;
+      color: gold;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .address {
+      color: gray;
+      font-family: 'bold';
+      text-align: left;
+    }
+    .nickname {
+      font-size: 1.1rem;
+      font-family: 'medium';
+      text-align: left;
+    }
+    .content {
+      font-size: 1rem;
+      font-family: 'light';
+    }
+    .detailInfo {
+      font-size: 0.9rem;
+      color: silver;
+      font-weight: bold;
+    }
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
+  
 </head>
 
 <body>
@@ -41,13 +87,13 @@
         <div class="row" style="margin-bottom: 1rem;">
           <div class="col-5">          	
        		<h4>추천리스트(${mCount }) 
-	       		<c:if test="${search.category eq 'Y'}">
+	       		<c:if test="${search.category eq 2}">
 	       			: "승인"
 	       		</c:if>
-	       		<c:if test="${search.category eq 'N'}">
+	       		<c:if test="${search.category eq 3}">
 	       			: "거절"
 	       		</c:if>
-	       		<c:if test="${search.category eq 'W'}">
+	       		<c:if test="${search.category eq 1}">
 	       			: "승인대기"
 	       		</c:if>
        		</h4>           	
@@ -56,19 +102,35 @@
             	<input type="hidden" name="category" id="category" value="${search.category}">
             	<input type="hidden" name="page" id="page" value="${pi.currentPage }">
               <div class="mt-1 mr-5"style="margin:auto; float: right; vertical-align: middle;" align="center">
-              	<input type="radio" name="category" value="W" onclick="searchOnclick(this)"><label>&nbsp;승인대기&nbsp;</label>
-              	<input type="radio" name="category" value="Y" onclick="searchOnclick(this)"><label>&nbsp;승인&nbsp;</label>
-              	<input type="radio" name="category" value="N" onclick="searchOnclick(this)"><label>&nbsp;거절</label>              	
+              	<input type="radio" name="category" value="W" onclick="searchOnclick(this)" id="W"><label>&nbsp;승인대기&nbsp;</label>
+              	<input type="radio" name="category" value="Y" onclick="searchOnclick(this)" id="Y"><label>&nbsp;승인&nbsp;</label>
+              	<input type="radio" name="category" value="N" onclick="searchOnclick(this)" id="N"><label>&nbsp;거절</label>              	
                   <script>
                   	function searchOnclick(id){    
 	                  	$("#category").val($(id).val());   
                   		var page = $("#page").val();
                   		var category = $("#category").val();
-                  		alert("page"+page+"category"+category);
+                  		/* alert("page"+page+"category"+category); */
                   		location.href="mylistEditAdmin.do?category="+category+"&page="+page;
                   	}
                   </script>
               </div>
+              <!-- 처음  로딩티 조회 된것의 종류의 따라 클릭 되있도록-->
+              <script>
+              	$(function(){
+              		var cat = $("#category").val();
+              		if(cat ==1){
+              			$("#W").prop("checked", true);  
+              		}else if(cat ==2){
+              			$("#Y").prop("checked", true);
+              			$("#modalThemeInsertBtn").prop("disabled",true);
+              		}else if(cat ==3){
+              			$("#N").prop("checked", true);
+              			$("#modalThemeInsertBtn").prop("disabled",true);
+              		}
+              	})
+              	
+              </script>
           </div>
         </div>
         <div class="card mb-4">
@@ -82,7 +144,6 @@
                     <th>추천인</th>
                     <th>등록날짜</th>
                     <th>상태</th>
-                    <th>관리</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -101,20 +162,15 @@
 	                    <td>${m.mlTitle}</td>
 	                    <td>${m.mlWNickname }</td>
 	                    <td>${m.mlModifyDate }</td>
-	                    <c:if test="${m.mlModifyDate eq 'Y' }">
-		                    <td>승인</td>	                    
+	                    <c:if test="${m.approveTheme eq 'Y' }">
+		                    <td >승인</td>	                    
 	                    </c:if>
-	                    <c:if test="${m.mlModifyDate eq 'N' }">
+	                    <c:if test="${m.approveTheme eq 'N' }">
 		                    <td>승인거절</td>	                    
 	                    </c:if>
-	                    <c:if test="${m.mlModifyDate eq 'W' }">
+	                    <c:if test="${m.approveTheme eq 'W' }">
 		                    <td>승인대기</td>	                    
-	                    </c:if>
-	                    <th>
-	                      <button type="button" class="btn btn-primary" onclick="mylistEdit(this)" value="${m.mlId }"
-	                        style="background-color: white; color: rgb(204, 51, 98); border-color: gray;"><i
-	                          class="fas fa-trash-alt"></i></button>
-	                    </th>
+	                    </c:if>	                    
 	                  </tr>
                   	</c:forEach>
                 </c:if>
@@ -170,8 +226,7 @@
             </div>
           </div>
         </div>
-      </div>
-
+      </div>	
 	<!-- 이동 모달 영역 -->
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none" id="goModal">
@@ -180,7 +235,7 @@
 	
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
+	  <div class="modal-dialog modal-xl">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="exampleModalLabel">추천 마이리스트</h5>
@@ -188,12 +243,71 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <div class="modal-body" align="center">
-	      	
+	      <div class="modal-body" align="center" >
+	      	<div class="middle outside">
+				<div class="indiv"><h4><b>제목</b></h4></div>
+			</div>
+			<div id="test">
+			<!-- container 시작 -->
+		    <div class="container" style="height: 52rem; overflow-y : auto;">
+		        <div class="row">
+		            <div class="col-1"></div>
+		            <div class="col-10" style="overflow-y : auto; overflow-x: hidden;" id="forStart">
+		                <!-- for문 실행되는 음식점 리스트 시작 -->
+		                
+		                <div class="boundary mt-5">
+		                    <div class="row" style="height: 100%;">
+		                        <div class="col-5" align="center" style="vertical-align:middle;">
+		                            <img style="height: 80%; width: 90%;" class="bo mt-4">
+		                        </div>
+		                        <div class="col-7" style="margin: 0%; padding: 0%;">
+		                            <div style="height: 80%;" class="mt-4">
+		                                <div class="row bo" style="height: 25%;">
+		                                    <div class="col-7 bo" style="overflow-y : auto; height: 100%;">
+		                                        <div><p class="title">서울여관식당</p></div>
+		                                    </div>
+		                                    <div class="col-5 bo">
+		                                    	<i class="fas fa-star" id="star"></i>
+		                        				<h1 class="score">0.0</h1>
+		                                    </div>
+		                                </div>
+		                                <div class="row" style="height: 25%;">
+		                                    <div class="col-7 address" style="overflow-y : auto; height: 100%;">
+		                                        <div>경상북도 청송군 청송읍 약수길 18-1</div>
+		                                    </div>
+		                                </div>
+		                                <div class="row" style="height: 20%;">
+		                                    <div class="col-2 bo"><img class="bo"
+		                                            style="border-radius: 50%; width: 100%; height: 100%;"></div>
+		                                    <div class="col-5 nickname mt-2">닉네임</div>
+		                                </div>
+		                                <div class="row mt-2" style="height: 30%;">
+		                                    <div class="col-7 bo" style="overflow-y : auto; height: 100%;">
+		                                        <div class="content">음식점 너무 맛있고 좋고 좋요음식점 너무 맛있고 좋고 좋아요</div>
+		                                    </div>
+		                                    <div class="col-5 bo"><br>
+		                                    	<a href="#" class="detailInfo" value="#">
+		                                    	음식점 정보 더보기&nbsp;&nbsp;<i class="fas fa-arrow-right"></i></a>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div> 
+		                <!-- for문 종료 -->
+		            </div>
+		            <div class="col-1"></div>
+		        </div>
+		    </div>
+		    <!-- container 끝 -->						
+			
+			    </div>
+
 	      
 	      
-	       <!-- <button type="button" class="btn btn-primary mBtn" id="detailBtn" onclick="goDetail(this)">상세페이지 보기</button>
-	       <button type="button" class="btn btn-primary mBtn" id="modifyBtn" onclick="goModify(this)">수정하기</button> -->
+	       <div>
+		       <button type="submit" class="btn btn-primary mBtn" id="modifyBtn" id="modalThemeInsertBtn">테마등록</button>
+	       </div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>	        
@@ -207,23 +321,14 @@
          	var mlId = $(id).val();
         }
         $(function(){
-			$("#mylistTable").find("td").click(function(){
-				var redId = $(this).parents().children("td").eq(0).text();
-				$("#detailBtn").attr("value",redId);
-				$("#modifyBtn").attr("value",redId);				
-				$("#goModal").click();					
+			$("#mylistTable").find("td").click(function(){				
+				var mlId = $(this).parents().children("td").eq(0).text();
+				location.href="selectOneMylistAdmin.do?mlId="+mlId;
+				
+				
 			})
 		})
-		function goDetail(id){
-        	var resId = $(id).attr('value');
-        	/* alert(resId); */
-        	location.href="goDetailRestaurant.do?resId="+resId;
-        }
-		function goModify(id){
-			var resId = $(id).attr('value');
-			/* alert(resId); */
-        	location.href="detailRestaurantAdmin.do?resId="+resId;
-        }
+		
       </script>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
