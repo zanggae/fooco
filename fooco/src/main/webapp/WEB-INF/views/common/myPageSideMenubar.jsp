@@ -168,7 +168,7 @@ a {
 			</div>
 			<div class="row menubar_group">
 				<div class="row menubar_group_title">
-					<a href="#"><span style="font-family: 'bold';">&#x1F451;
+					<a href="myPageMembership.do"><span style="font-family: 'bold';">&#x1F451;
 							나의 멤버십</span></a>
 				</div>
 			</div>

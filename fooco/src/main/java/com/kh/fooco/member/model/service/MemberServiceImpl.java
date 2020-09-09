@@ -25,6 +25,8 @@ import com.kh.fooco.member.model.vo.MylistAdmin;
 import com.kh.fooco.member.model.vo.Select_Board;
 
 import com.kh.fooco.member.model.vo.Select_Checkin;
+import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.membership.model.vo.MemberShip;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -313,6 +315,21 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.updateBoardStatus(boardId);
 	}
 	
+	// 나의 멤버십 페이지 쿠폰 리스트 조회
+	@Override
+	public ArrayList<Select_Coupon> selectCouponList(int memberId) {
+		
+		return memberDao.selectCouponList(memberId);
+	}
+	
+	// 쿠폰 상태 변경 메소드
+	@Override
+	public int updatecStatus(int couponListId) {
+		
+		return memberDao.updatecStatus(couponListId);
+	}
+	
+	
 	// ================================== Mylist 영은==========================================
 
 	//마이리스트 등록 검색 
@@ -345,17 +362,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectmyPageMylist();
 	}
 
-	
-
-
-
-
-
-
-
-
-
-
+	/*
+	 * @Override public ArrayList<Mylist> mylistList() { return
+	 * memberDao.mylistList(); }
+	 */
 
 
 

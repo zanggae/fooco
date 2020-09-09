@@ -26,6 +26,8 @@ import com.kh.fooco.member.model.vo.MylistAdmin;
 import com.kh.fooco.member.model.vo.Select_Board;
 
 import com.kh.fooco.member.model.vo.Select_Checkin;
+import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.membership.model.vo.MemberShip;
 
 
 @Repository("memberDao")
@@ -264,6 +266,20 @@ public class MemberDao {
 		return sqlSessionTemplate.update("mypageMapper.updateBoardStatus",boardId);
 	}	
 	
+	// 나의 멤버십 페이지 쿠폰 리스트 조회
+	public ArrayList<Select_Coupon> selectCouponList(int memberId) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectCouponList",memberId);
+	}
+	
+	// 쿠폰 상태 변경 메소드
+	public int updatecStatus(int couponListId) {
+	
+		return sqlSessionTemplate.update("mypageMapper.updatecStatus",couponListId);
+	}
+	
+	
+	
 	// ================================== Mylist 영은 ===========================================
 
 	public ArrayList<Mylist> searchListRes(String searchRes) {
@@ -289,6 +305,10 @@ public class MemberDao {
 	public int insertMylistRes(String theme) {
 		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
 	}
+	
+
+
+
 
 
 
