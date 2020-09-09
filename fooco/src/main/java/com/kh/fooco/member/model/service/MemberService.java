@@ -91,6 +91,7 @@ public interface MemberService {
 	Info getRestaurantInfo(int resId);
 
 
+
 	// ================================== Mylist 영은 ===========================================
 
 
@@ -103,23 +104,7 @@ public interface MemberService {
 	int insertMylistRes(String th);
 
 
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-	
-
+	/* ArrayList<Mylist> mylistList(); */
 
 
 
@@ -128,5 +113,13 @@ public interface MemberService {
 
 
 	
+
+
+
+
+
+
+
+
 
 }

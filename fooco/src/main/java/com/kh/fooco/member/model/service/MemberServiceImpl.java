@@ -297,6 +297,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
+	/*
+	 * @Override public ArrayList<Mylist> mylistList() { return
+	 * memberDao.mylistList(); }
+	 */
 
 
 
@@ -307,21 +311,6 @@ public class MemberServiceImpl implements MemberService{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
 
 
 

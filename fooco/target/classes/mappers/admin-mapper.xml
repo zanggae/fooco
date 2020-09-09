@@ -123,6 +123,18 @@
       <result property="themeImageName" column="RES_IMAGE_NAME"/>       
 </resultMap>
 
+<!-- ============================ 마이리스트 resultMap ================================= -->
+<resultMap type="MyListAdmin" id="MylistResultSet">
+	<id property="mlId" column="ML_ID"/>
+      <result property="mlTitle" column="ML_TITLE"/>
+      <result property="mlUploadDate" column="ML_UPLOAD_DATE"/>
+      <result property="mlModifyDate" column="ML_MODIFY_DATE"/>
+      <result property="recommendationTheme" column="RECOMMENDATION_THEME"/>
+      <result property="approveTheme" column="APPROVE_THEME"/>
+      <result property="mlWriter" column="MEMBER_ID"/>
+      <result property="mlWNickname" column="NICKNAME"/>
+      <result property="mlImageName" column="RES_IMAGE_NAME"/>
+</resultMap>
 <!-- ============================ 회원 관련 쿼리문 작성 ============================  -->
 
 <!-- 방문자수 조회 -->
@@ -472,5 +484,14 @@
 	DELETE FROM THEME_RES WHERE THEME_ID=#{themeId}
 </delete>
 
+<!-- ======================= mylist 관리 ========================================= -->
+<!-- 추천되어진 마이리스트 개수 조회 -->
+<select id="selectOneMyListCount" parameterType="Search" resultType="_int">
+	SELECT COUNT(*) FROM SELECT_MYLIST_ADMIN WHERE RECOMMENDATION_THEME='Y' AND APPROVE_THEME ='W'
+</select>
 
+<!-- 추천되어진 마이리스트 리스트 조회 -->
+<select id="selectListMylistAdmin" parameterType="Search" resultMap="MylistResultSet">
+	SELECT * FROM SELECT_MYLIST_ADMIN WHERE RECOMMENDATION_THEME='Y' AND APPROVE_THEME ='W'
+</select>
 </mapper>

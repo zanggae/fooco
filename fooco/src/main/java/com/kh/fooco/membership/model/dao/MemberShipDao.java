@@ -1,6 +1,9 @@
 package com.kh.fooco.membership.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +38,6 @@ public class MemberShipDao {
 	public int insertSilverMembership(MemberShip membership) {
 		
 		return sqlSessionTemplate.insert("membershipMapper.insertSilverMembership",membership);
-	}
-
-	//결제 후 쿠폰 insert
-	public int insertCoupon1(MemberShip membership) {
-		
-		return sqlSessionTemplate.insert("membershipMapper.insertCoupon1",membership);
-	}
-	//결제 후 쿠폰 insert
-	public int insertCoupon2(MemberShip membership) {
-		
-		return sqlSessionTemplate.insert("membershipMapper.insertCoupon2",membership);
-	}
-	public int insertCoupon3(MemberShip membership) {
-		
-		return sqlSessionTemplate.insert("membershipMapper.insertCoupon3",membership);
 	}
 
 	//해당 회원 멤버십 select

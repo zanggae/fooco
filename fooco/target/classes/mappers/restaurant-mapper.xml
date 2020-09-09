@@ -284,4 +284,17 @@
 		LEFT JOIN FILTER F ON (FC.FILTER_ID = F.FILTER_ID)
 		WHERE     R.RES_ID = #{resId}
 	</select>
+	
+	<insert id="uploadReview" parameterType="hashmap">
+		INSERT ALL
+		INTO   REVIEW VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
+		<if test="imageList.size > 0">
+			<foreach collection="imageList" item="image" index="index">
+				INTO   IMAGE VALUES (SEQ_IMAGEID.NEXTVAL, #{image.imageOriginName}, #{image.imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.CURRVAL, SEQ_REVIEW.CURRVAL)
+		 	</foreach> 
+		</if>
+		SELECT *
+		FROM   DUAL
+	</insert>
 </mapper>

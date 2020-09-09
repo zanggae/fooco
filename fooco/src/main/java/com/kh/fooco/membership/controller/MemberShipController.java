@@ -30,21 +30,31 @@ public class MemberShipController {
 	//멤버십 메인 화면으로 이동 + 멤버십 조회
 	@RequestMapping("goMembershipInfo.do")
 	public ModelAndView selectMembershipList(MemberShip mebership,ModelAndView mv,HttpSession session) {
+		//멤버십조회
 		ArrayList<MemberShip> membershiplist = memberShipService.selectMembershipList(mebership);
+		
+		//쿠폰 조회
 		ArrayList<Coupon> couponList = memberShipService.selectCouponList();
+		
 
 		//회원 불러오기
 		int  MembershipUser= 0;
-        Member loginUser = (Member)session.getAttribute("loginUser");
-        MembershipUser = loginUser.getMemberId();
-        MemberShip m = memberShipService.checkmembership(MembershipUser);
+		//로그인한 회원이 있으면
+	    if((Member)session.getAttribute("loginUser")!=null) {
+	    	Member loginUser = (Member)session.getAttribute("loginUser");
+	    	MembershipUser = loginUser.getMemberId();
+	    	MemberShip m = memberShipService.checkmembership(MembershipUser);
+	    	mv.addObject("m", m);
+	    	mv.addObject("membershiplist", membershiplist);
+	    	mv.addObject("couponList", couponList);
+	    	mv.setViewName("membership/membershipInfo");
+	    //로그인 안했을 시
+	    }else {
+	    	mv.addObject("membershiplist", membershiplist);
+	    	mv.addObject("couponList", couponList);
+	    	mv.setViewName("membership/membershipInfo");
+	    }
 
-		
-		mv.addObject("m", m);
-		mv.addObject("membershiplist", membershiplist);
-		mv.addObject("couponList", couponList);
-		mv.setViewName("membership/membershipInfo");
-		
 		return mv;
 	}
 	
@@ -56,9 +66,7 @@ public class MemberShipController {
 			
 			//insert작업
 			int result = memberShipService.insertGoldMembership(membership);
-		    int result2 = memberShipService.insertCoupon1(membership);
-		    int result3= memberShipService.insertCoupon2(membership);
-			 
+
 //			관리자 테이블(static에 맴버십 컬럼 update)
 		    int result4 = memberShipService.updateStaticGoldCount();
 		   
@@ -79,10 +87,8 @@ public class MemberShipController {
 			System.out.println("잘오는건 맞나");
 			System.out.println("membership:" + membership);
 			
-			
-			 int result = memberShipService.insertSilverMembership(membership); 
-			 int result2 = memberShipService.insertCoupon1(membership); 
-			 int result3= memberShipService.insertCoupon3(membership);
+			int result = memberShipService.insertSilverMembership(membership); 
+
 			 
 //		  	  관리자 테이블(static에 맴버십 컬럼 update)
 	         int result4 = memberShipService.updateStaticSilverCount();
