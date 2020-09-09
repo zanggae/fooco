@@ -34,6 +34,9 @@
 		<typeAlias type="com.kh.fooco.member.model.vo.Select_Checkin" alias="Select_Checkin"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.Select_CheckinImage" alias="Select_CheckinImage"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.MZ" alias="MZ"/>
+		<typeAlias type="com.kh.fooco.member.model.vo.Select_Board" alias="Select_Board"/>
+		<typeAlias type="com.kh.fooco.member.model.vo.BoardInfo" alias="BoardInfo"/>
+		
 	</typeAliases>
 	
 	<mappers>

@@ -148,6 +148,7 @@
 						<div class="row row-cols-4 center_content shadow_sm">
 						
 							<c:forEach var="MZ" items="${MZList }">
+								<c:if test="${MZ.resBookMarkId != 0 }">
 					                <div class="card_div">
 					                  <div class="col card shadow-sm" style="height: 12rem;">
 					                  <c:url var="detailMZ" value="detailMZ.do">
@@ -175,6 +176,10 @@
 					                    </div>
 					                  </div>
 					                </div>
+					                </c:if>
+					                <c:if test="${MZ.resBookMarkId == 0 }">
+					                	즐겨찾기가 없습니다.
+					                </c:if>
 							</c:forEach>
 						</div>
 					</div>

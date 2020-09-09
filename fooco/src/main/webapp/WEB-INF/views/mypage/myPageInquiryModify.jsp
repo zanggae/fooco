@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!doctype html>
 <html lang="ko">
 
@@ -159,18 +160,19 @@ $('#summernote').summernote('redo');
 						<div class="inquiry_div shadow-sm">
 
 							<div class="col">
-								<form action="">
+								<form action="InquiryModifyBtn.do" method="post" enctype="Multipart/form-data" id="modifybtns">
+									<input type="hidden" name="boardId" value="${boardInfo.boardId }">
 									<div class="row" style="margin-bottom: 0.7rem;">
 										<div class="col-3" align="center">
 											<p class="inquiry_font">문의 유형</p>
 										</div>
 										<div class="col-9" id="select_area1">
 											<input class="form-control" style="width: 25rem;" type="text"
-												value="음식점 문의" readonly>
+												value="${boardInfo.inquiryName }" readonly>
 										</div>
 										<!-- 수정하기 버튼 누를 시 나오는 내용 -->
 										<div class="col-9" id="select_area2" style="display: none;">
-											<select class="form-control" style="width: 25rem;">
+											<select class="form-control" style="width: 25rem;" id="inquiryCode" name="inquiryCode">
 												<option selected value="">선택</option>
 												<option value="1">음식점 문의</option>
 												<option value="2">리뷰 문의</option>
@@ -185,7 +187,7 @@ $('#summernote').summernote('redo');
 											<p class="inquiry_font">제목</p>
 										</div>
 										<div class="col-9">
-											<input type="text" class="form-control" id="title"
+											<input type="text" class="form-control" id="boardTitle"  name="boardTitle" value="${boardInfo.boardTitle }"
 												placeholder="제목을 입력하세요" style="width: 25rem;" readonly>
 										</div>
 									</div>
@@ -196,8 +198,8 @@ $('#summernote').summernote('redo');
 											<p class="inquiry_font">내용</p>
 										</div>
 										<div class="col-9">
-										<textarea id="summernote" name="summernoteContent"
-										class="form-control" readonly> </textarea>
+										<textarea id="summernote" name="summerNoteContent"
+										class="form-control">${boardInfo.summerNoteContent }</textarea>
 										</div>
 									</div>
 
@@ -206,13 +208,16 @@ $('#summernote').summernote('redo');
 											<button type="button" class="btn btn-primary btn-sm"
 												onclick="change();">수정하기</button>
 											&nbsp;
-											<button type="button" class="btn btn-secondary btn-sm">삭제하기</button>
+											<c:url var="udateboardStatus" value="updateBoardStatus.do">
+												<c:param name="boardId" value="${boardInfo.boardId }"></c:param>
+											</c:url>
+											<a href="${udateboardStatus }"><button type="button" class="btn btn-secondary btn-sm">삭제하기</button></a>
 										</div>
-										<div class="col" id="modifycompletebtn" align="center"
-											style="display: none;">
-											<input type="submit" class="btn btn-primary btn-sm"
-												value="수정완료">&nbsp;
-											<button type="button" class="btn btn-secondary btn-sm">취소</button>
+										<div class="col" id="modifycompletebtn" align="center" style="display: none;">
+											<button type="button" class="btn btn-primary btn-sm" onclick="validate();">수정완료</button>&nbsp;
+											
+											
+											<button type="button" class="btn btn-secondary btn-sm" onclick="canclebtn();">취소</button>
 										</div>
 									</div>
 								</form>
@@ -247,8 +252,7 @@ $('#summernote').summernote('redo');
 <!-- 수정버튼 클릭 시 실행하는 script -->
 <script>
   function change(){
-    $("#title").prop("readonly",false)
-    $("#summernote").prop("readonly",false)
+    $("#boardTitle").prop("readonly",false)
     
     $("#select_area1").css("display","none");
     $("#select_area2").css("display","block");
@@ -256,6 +260,37 @@ $('#summernote').summernote('redo');
     $("#modifycompletebtn").css("display","block");
     $("#modifybtn").css("display","none");
   }
+</script>
+
+<script>
+function canclebtn(){
+	location.href="myPageInquiry.do"
+}
+
+function validate(){
+	
+	if($("#inquiryCode").val() == "")
+		{
+			alert("문의 유형을 선택하세요.")
+			return;
+		}
+	if($("#boardTitle").val() == "")
+		{
+			alert("제목을 입력하세요.");
+			return;
+		}
+	if($("#summernote").val() == "")
+		{
+			alert("내용을 입력하세요.");
+			return;
+		}
+	else{
+		$("#modifybtns").submit();
+	}
+	
+}
+
+
 </script>
 
 

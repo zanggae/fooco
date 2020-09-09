@@ -169,7 +169,23 @@
    	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>    	  
 </resultMap>
 
+<resultMap type="Select_Board" id="InquiryListResultSet">
+	<id property="boardId" column="BOARD_ID"/>
+ 	<result property="inquiryName" column="INQUIRY_NAME"/>   	
+ 	<result property="boardTitle" column="BOARD_TITLE"/>   	
+ 	<result property="boardCreateDate" column="BOARD_CREATE_DATE"/>   	
+ 	<result property="inquiryYN" column="INQUIRY_YN"/>   	
 
+</resultMap>
+
+<resultMap type="BoardInfo" id="BoardInfoResultSet">
+	<id property="boardId" column="BOARD_ID"/>
+ 	<result property="inquiryName" column="INQUIRY_NAME"/>
+ 	<result property="inquiryCode" column="INQUIRY_CODE"/>
+ 	<result property="boardTitle" column="BOARD_TITLE"/>   	
+ 	<result property="summerNoteContent" column="SUMMERNOTE_CONTENT"/>   	
+
+</resultMap>
 
 <!-- Mylist 영은 -->
 <resultMap type="Mylist" id="mylistResultSet">
@@ -482,8 +498,44 @@ WHERE RES_BOOKMARK_ID = #{resBookMarkId}
 	WHERE     R.RES_ID = #{resId}
 </select>
 
+<select id="selectInquiry" parameterType="_int" resultMap="InquiryListResultSet">
+SELECT B.BOARD_ID, IT.INQUIRY_NAME, B.BOARD_TITLE, B.BOARD_CREATE_DATE, I.INQUIRY_YN
+FROM BOARD B
+LEFT JOIN INQUIRY I ON (B.BOARD_ID = I.BOARD_ID)
+LEFT JOIN INQUIRY_TYPE IT ON(I.INQUIRY_CODE = IT.INQUIRY_CODE)
+WHERE B.BOARD_WRITER = #{memberId} AND B.BOARD_STATUS = 'Y'
+ORDER BY B.BOARD_ID ASC
+
+</select>
+
+<select id="selectBoardInfo" parameterType="_int" resultMap="BoardInfoResultSet">
+SELECT B.BOARD_ID, IT.INQUIRY_NAME, I.INQUIRY_CODE, B.BOARD_TITLE,B.SUMMERNOTE_CONTENT
+FROM BOARD B
+LEFT JOIN INQUIRY I ON (B.BOARD_ID = I.BOARD_ID)
+LEFT JOIN INQUIRY_TYPE IT ON(I.INQUIRY_CODE = IT.INQUIRY_CODE)
+WHERE B.BOARD_ID = #{boardId}
+
+</select>
+
+<update id="updateBoard" parameterType="BoardInfo">
+UPDATE BOARD
+	SET BOARD_TITLE = #{boardTitle}
+	, SUMMERNOTE_CONTENT = #{summerNoteContent}
+	WHERE BOARD_ID = #{boardId}
+</update>
 
 
+<update id="updateInquiry" parameterType="BoardInfo">
+UPDATE INQUIRY
+	SET INQUIRY_CODE = #{inquiryCode}
+	WHERE BOARD_ID = #{boardId}
+</update>
+
+<update id="updateBoardStatus" parameterType="_int">
+UPDATE BOARD
+	SET BOARD_STATUS = 'N'
+	WHERE BOARD_ID = #{boardId}
+</update>
 
 
 <!-- =========================== mylist 영은 ================================================ -->
