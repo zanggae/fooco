@@ -15,6 +15,7 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.MylistAdmin;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 
 public interface MemberService {
@@ -104,7 +105,10 @@ public interface MemberService {
 	int insertMylistRes(String th);
 
 
-	/* ArrayList<Mylist> mylistList(); */
+	ArrayList<MylistAdmin> selectmyPageMylist();
+
+
+
 
 
 

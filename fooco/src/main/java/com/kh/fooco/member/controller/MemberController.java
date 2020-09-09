@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -35,9 +36,10 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.vo.Board;
-
+import com.kh.fooco.board.model.vo.InsertBoard;
 import com.kh.fooco.common.model.vo.Image;
 
 import com.kh.fooco.member.model.exception.MemberException;
@@ -48,6 +50,8 @@ import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.MylistAdmin;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Info;
@@ -55,6 +59,7 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 
 import com.kh.fooco.theme.model.exception.ThemeException;
+import com.kh.fooco.theme.model.service.ThemeService;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 
@@ -819,17 +824,14 @@ public class MemberController {
 		
 // ================================== MyList 영은 ===========================================
 		
-		
-		@RequestMapping("mylist.do")
-		public String mylist() {
-			return "mypage/myPageMylist";
-		}
+
 		
 		@RequestMapping("mylistRegist.do")
 		public String mylistRegist() {
 			return "mypage/mypageMylistRegist";
 		}
 		
+		//마이리스트 - 등록 
 		@RequestMapping(value="insertMylist.do", method= {RequestMethod.GET,RequestMethod.POST})
 		public ModelAndView restaurantThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, String themeTitle) {
 			int themeRListResult = 0;
@@ -854,21 +856,40 @@ public class MemberController {
 			return mv;
 		}
 		
+	
+		
+		//마이리스트 - 리스트 확인
+		@RequestMapping("myPageMylist.do")
+		public ModelAndView selectmyPageMylist(ModelAndView mv,HttpSession session) {
+			int memberId =  ((Member) session.getAttribute("loginUser")).getMemberId();
+			
+		
+			ArrayList<MylistAdmin> mylist = memberService.selectmyPageMylist();
+			
+			System.out.println("mylist db조회 후 화면에 뿌리기 전 : " + mylist);
+			if(!mylist.isEmpty()) {
+				mv.addObject("mylist",mylist);
+				mv.setViewName("mypage/myPageMylist");
+			}else {
+				throw new MemberException("mylist 목록 보기 실패!");
+			}
+			return mv;
+		}
 		
 	/*
-	 * @RequestMapping("mylistList.do") public ModelAndView mylistList(ModelAndView
-	 * mv) { ArrayList<Mylist> mylist = memberService.mylistList();
-	 * System.out.println("mylist조회 후 화면에 뿌리기 전 :" + mylist);
+	 * @RequestMapping("mypageMylistModify.do") public ModelAndView
+	 * mypageMylistModify(HttpSession session, ModelAndView mv,String themeRList,
+	 * String themeTitle) {
 	 * 
-	 * if(!mylist.isEmpty()) { mv.addObject("mylist",mylist);
-	 * mv.setViewName("mypage/myPageMylist"); }else { throw new
-	 * ThemeException("Mylist목록 보기 실패!"); } }
+	 * int themeRListResult = 0;
+	 * 
+	 * int reulst = memberService.mypageMylistModify(themeTitle);
+	 * 
+	 * int deleteListRes = memberService.deleteRList(themeTitle);
+	 * 
+	 * String[] tRL = themeRList.split(","); for(String th : tRL) { themeRList =
+	 * memberService.insertMylistRestaurant(themeRList,themeTitle); }
+	 * 
+	 * return mv; }
 	 */
-		
-		
-		@RequestMapping("mypageMylistDetail.do")
-		public String mypageMylistDetail() {
-			return"mypage/mypageMylistDetail";
-		}
-
 }

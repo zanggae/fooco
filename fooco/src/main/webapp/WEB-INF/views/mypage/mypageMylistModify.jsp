@@ -97,17 +97,17 @@
              return 
           }          
 
-          if(confirm("테마를 등록 하시겠습니까?")){
+          if(confirm("마이리스트를 등록 하시겠습니까?")){
              $("#themeSubmit").submit();
           }          
        }       
     </script>
     <div style="text-align: center;">
       <br><br>
-      <h3>테마 수정</h3>
+      <h3>마이리스트 수정</h3>
       <br>
         <div class="form-group row" style="margin-left: 8rem; font-size: 1.2rem;">
-          <label for="inputEmail3" class="col-sm-3 col-form-label">테마 제목</label>
+          <label for="inputEmail3" class="col-sm-3 col-form-label">마이리스트 제목</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" name="themeTitle" style="width: 35rem; border:1px solid black; box-shadow: none;" id="themeTile" value="${ta.themeTitle }">
           </div>

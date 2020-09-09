@@ -143,29 +143,21 @@
 
 
 <!-- Mylist 영은 -->
-<resultMap type="Mylist" id="mylistResultSet">
-	<id property="resId" column="RES_ID"/>
-	<result property="resName" column="RES_NAME"/>
-	<result property="resAddress" column="RES_ADDRESS"/>
-	<result property="resStatus" column="RES_STATUS"/>
-	<result property="imageId" column="IMAGE_ID"/>
-	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/> 
-	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
-	<result property="filePath" column="IMAGE_FILEPATH"/>
-	<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
-	<result property="imageLevel" column="IMAGE_LEVEL"/>
-	<result property="imageStatus" column="IMAGE_STATUS"/>
-	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>
-	<result property="mlId" column="ML_ID"/>
+
+<resultMap type="MylistAdmin" id="mylistResultSet">
+	<id property="mlId" column="ML_ID"/>
+	<result property="Rn" column="RN"/>
 	<result property="mlTitle" column="ML_TITLE"/>
 	<result property="mlUploadDate" column="ML_UPLOAD_DATE"/>
-	<result property="modifyDate" column="ML_MODIFY_DATE"/>
+	<result property="mlModifyDate" column="ML_MODIFY_DATE"/>
 	<result property="recommendationTheme" column="RECOMMENDATION_THEME"/>
 	<result property="approveTheme" column="APPROVE_THEME"/>
 	<result property="memberId" column="MEMBER_ID"/>
+	<result property="nickname" column="NICKNAME"/>
+	<result property="resImageName" column="RES_IMAGE_NAME"/>
 	
-</resultMap>
 
+</resultMap>
 
 
 
@@ -465,11 +457,10 @@ INSERT INTO MYLIST VALUES
 	INSERT INTO MYLIST_RES VALUES(#{theme},SEQ_MLID.CURRVAL)
 </insert>
 
-<!-- 
-<select id="mylistList" parameterType="Mylist" resultMap="mylistResultSet">
-	SELECT 
-
+<select id="selectmyPageMylist" resultMap="mylistResultSet">
+	SELECT ML_ID, ML_TITLE, RES_IMAGE_NAME,MEMBER_ID
+	FROM SELECT_MYLIST_ADMIN
+	
 </select>
- -->
 
 </mapper>

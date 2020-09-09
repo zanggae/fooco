@@ -148,10 +148,10 @@
     					var $divT;
     					var $divA;    					
     					var $inputRId;
-    					
+    				
     					 if(data.restaurant.length > 0){	// 조회된 음식점이 존재하면
     						for(var i in data.restaurant){
-    							var src = "resources/buploadFiles/"+data.restaurant[i].resImageName;
+    							var src = "resources/restaurantImage/"+data.restaurant[i].resImageName;
     							var address = data.restaurant[i].resAddress.split(',').join(' ');
     							$div = $("<div class='pickDiv'>");
     							$img = $("<img class='img_set' id='divImg'>").attr("src",src);
