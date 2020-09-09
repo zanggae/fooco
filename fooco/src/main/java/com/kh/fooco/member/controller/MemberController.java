@@ -594,10 +594,22 @@ public class MemberController {
 		
 		
 		// 1:1문의 수정페이지 이동
-		@RequestMapping("inquiryes.do")
-		public String inquirypage() {
-			return "mypage/myPageInquiryModify";
+//		@RequestMapping("inquiryes.do")
+//		public String inquirypage() {
+//			return "mypage/myPageInquiryModify";
+//		}
+		
+		// 1:1문의 페이지 이동
+		@RequestMapping("myPageInquiry.do")
+		public ModelAndView myPageInquiryView(ModelAndView mv, HttpSession session) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+		    int memberId = loginUser.getMemberId();
+			
+		     
+			mv.setViewName("mypage/myPageInquiry");
+			return mv;
 		}
+		
 		
 		// 회원 탈퇴페이지 이동
 		@RequestMapping("myPageWithdrawal.do")
@@ -807,6 +819,22 @@ public class MemberController {
 			mv.setViewName("restaurant/detailRestaurant");
 			return mv;
 		}
+		
+		// 즐겨찾기 - 테마 조회
+		@RequestMapping("myPageFavoritesTM.do")
+		public ModelAndView myPageFavoritesTMView(ModelAndView mv, HttpSession session) {
+			 Member loginUser = (Member)session.getAttribute("loginUser");
+		     int memberId = loginUser.getMemberId();
+			
+		     // 즐겨찾기한 맛집 리스트 조회
+//		     ArrayList<MZ> MZList = memberService.selectMZ(memberId);
+//		      
+//		     System.out.println("맛집리스트 조회 결과 : " +MZList);
+//		    
+//		    mv.addObject("MZList",MZList);
+			mv.setViewName("mypage/myPageFavoritesTM");
+			return mv;
+		} 
 		
 		
 // ================================== MyList 영은 ===========================================
