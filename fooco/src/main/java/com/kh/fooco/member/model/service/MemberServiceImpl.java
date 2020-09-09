@@ -19,7 +19,11 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+
+import com.kh.fooco.member.model.vo.MylistAdmin;
+
 import com.kh.fooco.member.model.vo.Select_Board;
+
 import com.kh.fooco.member.model.vo.Select_Checkin;
 
 @Service("memberService")
@@ -316,23 +320,32 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<Mylist> searchListRes(String searchRes) {
 		return memberDao.searchListRes(searchRes);
 	}
-
+	
+	//마이리스트 리스트 
 	@Override
 	public Mylist selectmylist(int mlId1) {
 		return memberDao.selectmylist(mlId1);
 	}
 
+	//마이리스트 등록
 	@Override
 	public int insertMylist(String themeTitle, int themeWriter) {
 		return memberDao.insertMylist(themeTitle, themeWriter);
 	}
 
+	//음식점 등록
 	@Override
 	public int insertMylistRes(String th) {
 		return memberDao.insertMylistRes(th);
 	}
 
 
+	@Override
+	public ArrayList<MylistAdmin> selectmyPageMylist() {
+		return memberDao.selectmyPageMylist();
+	}
+
+	
 
 
 
@@ -341,10 +354,9 @@ public class MemberServiceImpl implements MemberService{
 
 
 
-	/*
-	 * @Override public ArrayList<Mylist> mylistList() { return
-	 * memberDao.mylistList(); }
-	 */
+
+
+
 
 
 

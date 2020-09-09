@@ -21,7 +21,10 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.MylistAdmin;
+
 import com.kh.fooco.member.model.vo.Select_Board;
+
 import com.kh.fooco.member.model.vo.Select_Checkin;
 
 
@@ -288,12 +291,13 @@ public class MemberDao {
 	}
 
 
-	
 
-	/*
-	 * public ArrayList<Mylist> mylistList() { return
-	 * (ArrayList)sqlSessionTemplate.selectList("mypageMapper.mylistList"); }
-	 */
+	public ArrayList<MylistAdmin> selectmyPageMylist() {
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectmyPageMylist");
+	}
+
+
+
 
 
 

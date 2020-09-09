@@ -139,7 +139,7 @@
                   	<c:param name="themeId" value="${t.themeId }"/>
                   	</c:url>
                   <div class="col" style="margin-bottom: 2.5rem;">
-                  <img src="resources/restaurantImage_ye/${t.themeImageName}" class="img1">
+                  <img src="resources/restaurantImage/${t.themeImageName}" class="img1">
                     <div class="text4"><a href="${themedetail }" class="titlefont">${t.themeTitle }</a></div>
                     <c:remove var="tt"/>
                     <c:forEach var="mt" items="${mytheme }">

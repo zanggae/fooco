@@ -47,10 +47,10 @@
   /*myList*/
   .edge {border: 0.1rem solid black; background-color: white; height: 10rem;}
   .img1 {margin-left:0; width: 11rem; height: 8rem; border-radius: 5%;}
-  .title {font-size: 1.1rem; font-weight: bold; margin-top: 3.5rem; text-align: center;}
+  .title {font-size: 1.3rem; font-family: 'bold'; margin-top: 1.5rem; text-align: center;}
   .content {font-size: 1rem;}
   .btn-light {background-color: rgb(204, 51, 98); border: rgb(204, 51, 98); box-shadow: none !important; width: 4.3rem; 
-  			  height: 1.8rem; font-size: 0.7rem; font-weight: bold; color: white; margin-top: 0.1rem; margin-bottom: 0.3rem;}
+  			  height: 1.8rem; font-size: 0.7rem; font-family: 'bold'; color: white; margin-top: 0.1rem; margin-bottom: 0.3rem;}
 
 
 </style>
@@ -77,13 +77,13 @@
                     <br>
                       <div class="row shadow-sm edge">
                         <div class="col-4 d-flex justify-content-center align-items-center">
-                          <img src="resources/restaurantImage/${my.imageNewName}" class="img1">
+                          <img src="resources/restaurantImage/${my.resImageName}" class="img1">
                         </div>
                             <div class="col-6">
                               <h6 class="title">${my.mlTitle}</h6>
                             </div>
                             <div class="col-2" style="margin-top: 1.5rem ;">
-                                <button type="button" class="btn btn-light">추천하기</button>
+                                <button type="button" class="btn btn-light" id="recommendBtn" onclick="recommend();">추천하기</button>
                                 <button type="button" class="btn btn-light">수정</button>
                                 <button type="button" class="btn btn-light">삭제</button>
                             </div>
@@ -102,6 +102,22 @@
 			</div>
 		</div>
 	</section>
+	
+	<script>
+		function recommend(){
+			if(confirm("마이리스트를 테마로 추천하시겠습니까? 승인여부는 언제알수있을까?")==true){
+				$.ajax({
+					url:"recommendationMylist.do",
+					success:function()
+				})
+			}
+			else{
+				return;
+			}
+		}
+	
+	</script>
+		
 
 </body>
 
