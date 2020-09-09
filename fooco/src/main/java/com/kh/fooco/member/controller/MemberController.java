@@ -872,6 +872,19 @@ public class MemberController {
 		} 
 		
 		
+		
+		// 나의 멤버십 페이지 이동
+		@RequestMapping("myPageMembership.do")
+		public ModelAndView myPageMembershipView(ModelAndView mv, HttpSession session) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+		    int memberId = loginUser.getMemberId();
+			
+		    
+		    
+			mv.setViewName("mypage/myPageMembership");
+			return mv;
+		}
+		
 // ================================== MyList 영은 ===========================================
 		
 		
