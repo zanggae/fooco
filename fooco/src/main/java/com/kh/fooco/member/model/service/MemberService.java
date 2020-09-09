@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.common.model.vo.Image;
+import com.kh.fooco.member.model.vo.BoardInfo;
 import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
@@ -15,6 +16,7 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Board;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 
 public interface MemberService {
@@ -90,8 +92,16 @@ public interface MemberService {
 
 	Info getRestaurantInfo(int resId);
 
+	ArrayList<Select_Board> selectInquiry(int memberId);
 
-
+	BoardInfo selectBoardInfo(int boardId);
+	
+	int updateBoard(BoardInfo boardInfo);
+	
+	int updateInquiry(BoardInfo boardInfo);
+	
+	int updateBoardStatus(int boardId);
+	
 	// ================================== Mylist 영은 ===========================================
 
 
@@ -102,6 +112,16 @@ public interface MemberService {
 	int insertMylist(String themeTitle, int themeWriter);
 
 	int insertMylistRes(String th);
+
+
+
+
+
+
+
+
+
+	
 
 
 	/* ArrayList<Mylist> mylistList(); */

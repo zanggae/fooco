@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.dao.MemberDao;
+import com.kh.fooco.member.model.vo.BoardInfo;
 import com.kh.fooco.member.model.vo.Checkin;
 import com.kh.fooco.member.model.vo.CheckinImage;
 import com.kh.fooco.member.model.vo.Follower;
@@ -18,6 +19,7 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Board;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 
 @Service("memberService")
@@ -272,6 +274,40 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.getRestaurantInfo(resId);
 	}
 	
+	// 1대1문의 리스트 조회 메소드
+	@Override
+	public ArrayList<Select_Board> selectInquiry(int memberId) {
+	
+		return memberDao.selectInquiry(memberId);
+	}
+	
+	// 1대1문의 수정페이지 이동 시 해당 정보 조회 메소드
+	@Override
+	public BoardInfo selectBoardInfo(int boardId) {
+		
+		return memberDao.selectBoardInfo(boardId);
+	}
+	
+	// 1대1문의 수정 버튼 클릭 시 board테이블 수정 작업
+	@Override
+	public int updateBoard(BoardInfo boardInfo) {
+		
+		return memberDao.updateBoard(boardInfo);
+	}
+
+	// 1대1문의 수정 버튼 클릭 시 inquiry테이블 수정 작업
+	@Override
+	public int updateInquiry(BoardInfo boardInfo) {
+		
+		return memberDao.updateInquiry(boardInfo);
+	}
+	
+	// 1대1 문의 삭제 버튼 클릭 시 boardStatus 상태 변경
+	@Override
+	public int updateBoardStatus(int boardId) {
+		
+		return memberDao.updateBoardStatus(boardId);
+	}
 	
 	// ================================== Mylist 영은==========================================
 
@@ -295,6 +331,14 @@ public class MemberServiceImpl implements MemberService{
 	public int insertMylistRes(String th) {
 		return memberDao.insertMylistRes(th);
 	}
+
+
+
+
+
+
+
+
 
 
 	/*

@@ -161,7 +161,7 @@ a {
 				<div class="col menubar_group_member">
 					<a href="myPageFavoritesMZ.do">
 						<p>맛집</p>
-					</a> <a href="#">
+					</a> <a href="myPageFavoritesTM.do">
 						<p>테마</p>
 					</a>
 				</div>
@@ -181,7 +181,7 @@ a {
 			</div>
 			<div class="row menubar_group">
 				<div class="row menubar_group_title">
-					<a href="inquiryes.do"><span style="font-family: 'bold';">&#x1F64B;
+					<a href="myPageInquiry.do"><span style="font-family: 'bold';">&#x1F64B;
 							1:1문의</span></a>
 				</div>
 			</div>

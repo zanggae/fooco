@@ -186,6 +186,8 @@
         #for_terms_modal:hover{
         	text-decoration: underline;
         }
+        /* 이메일 placeholder */
+        #email::placeholder { font-size: 11px; }
     </style>
   </head>
   <body>
@@ -211,7 +213,7 @@
             </tr>
             <tr>
               <td><i class="fas fa-utensils"></i>&nbsp;&nbsp;&nbsp;<label>이메일</label></td>
-              <td><input type="text" id="email" name="emailfront" required></td>
+              <td><input type="text" id="email" name="emailfront" placeholder="로그인 시 이용될 이메일 주소입니다" required></td>
               <td>
                 <span style="font-size: 17px;">@</span>&nbsp;
                 <input type="text" id="selfSiteName" name="emailself" required disabled>
