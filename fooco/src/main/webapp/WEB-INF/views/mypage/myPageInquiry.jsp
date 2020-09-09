@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,31 +98,28 @@
                     <!-- <tr>
                       <td>1:1 문의 내역이 없습니다.</td>
                     </tr> -->
-                    <tr id="inquiryNo" align="center" style="height: 2.5rem;">
-                      <input type="hidden" value="">
-                      <td>1</td>
-                      <td>불량 리뷰신고</td>
-                      <td>불량유저가 너무 많습니다. 고민이예요 신고합니다.</td>
-                      <td>2020-09-02</td>
+                    <c:forEach var="inquiry" items="${InquiryList }">
+                      <c:url var="inquirymodify" value="InquiryModify.do">
+                      	<c:param name="boardId" value="${ inquiry.boardId }"></c:param>
+                      </c:url>
+                    <tr id="inquiryNo" align="center" style="height: 2.5rem;" onClick="location.href='${inquirymodify}'">
+                      <td>${inquiry.boardId }</td>
+                      <td>${inquiry.inquiryName }</td>
+                      <td>${inquiry.boardTitle }</td>
+                      <td>${inquiry.boardCreateDate }</td>
+                      <c:if test="${inquiry.inquiryYN eq 'N'}">
                       <td>처리중</td>
+                      </c:if>
+                      <c:if test="${inquiry.inquiryYN eq 'Y'}">
+                      <td>답변완료</td>
+                      </c:if>
                     </tr>
+                   
+                    </c:forEach>
                   </tbody>
-                  <script>
-                    $(function(){
-                      $("#inquiryNo td").click(function(){
-                        var bid = (this).parent().children("input").val();
-                        location.href="수정 페이지로 이동"
-                      })
-                    })
-                  </script>
+                  
                 </table>
               </div>
-
-					
-
-						
-
-					
 					</div>
 				</div>
 				<!-- 오른쪽 광고 -->
@@ -132,5 +130,8 @@
 	</section>
 
 </body>
+
+
+
 
 </html>
