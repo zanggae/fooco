@@ -65,7 +65,7 @@
           <a href="boardEdit.do">게시판관리</a>
         </li>
         <li>
-          <a href="#">통계</a>
+          <a href="mylistEditAdmin.do">마이리스트관리</a>
         </li>
   
       </ul>

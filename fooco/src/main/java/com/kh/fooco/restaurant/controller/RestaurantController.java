@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
+import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.service.RestaurantService;
 import com.kh.fooco.restaurant.model.vo.Filter;
 import com.kh.fooco.restaurant.model.vo.Info;
@@ -34,6 +36,7 @@ public class RestaurantController {
 	
 	@Autowired
 	private RestaurantService restaurantService;
+	HttpSession session;
 	
 	@RequestMapping("goMain.do")    
 	public String goMain() {
@@ -50,9 +53,7 @@ public class RestaurantController {
 									 , @RequestParam(value="sortType", required=false, defaultValue="highrating") String sortType)
 	{		
 		int currentPage = page;
-		
-		System.out.println("page: " + page + ", keyword: " + keyword + ", locationId: " + locationId + ", sortType: " + sortType + ", filters: " + filters + ", categories: " + categories);
-		
+				
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
 		searchParameter.put("filters", filters);
 		searchParameter.put("keyword", keyword);
@@ -61,19 +62,16 @@ public class RestaurantController {
 		searchParameter.put("locationId", locationId);
 		
 		int howManyRestaurant = restaurantService.getListCount(searchParameter);
-		System.out.println(howManyRestaurant);
 		
 		PageInfo pi = getPageInfo(currentPage, howManyRestaurant);
 		
 		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
 		list = restaurantService.getList(searchParameter, pi);
 	
-		System.out.println(list);
 		String location = convertLocation(locationId);
 		if("all".equals(keyword)) {
 			keyword = "전체";
 		}
-		System.out.println("location: " + location + ", keyword: " + keyword);
 		
 		mv.addObject("pi", pi);
 		mv.addObject("list", list);
@@ -88,7 +86,6 @@ public class RestaurantController {
 	public ModelAndView goDetailRestaurant(ModelAndView mv, @RequestParam(value="resId") Integer resId
 														  , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType)
 	{
-		System.out.println(resId);
 		Res restaurant = restaurantService.getRestaurantDetail(resId);
 		Info info = restaurantService.getRestaurantInfo(resId);
 		
@@ -110,9 +107,6 @@ public class RestaurantController {
 		ArrayList<Image> photoList = new ArrayList<Image>();
 		photoList = restaurantService.getPhotoList(searchParameter, ppi);
 		
-		System.out.println(reviewList);
-		
-		System.out.println(restaurant);
 		mv.addObject("res", restaurant);
 		mv.addObject("info", info);
 		mv.addObject("reviewList", reviewList);
@@ -195,7 +189,7 @@ public class RestaurantController {
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		String realName = file.getOriginalFilename();
-		String fileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + realName.substring(realName.lastIndexOf(".") + 1);
+		String fileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + ((int)(Math.random() * 100000000) + 1) + "." + realName.substring(realName.lastIndexOf(".") + 1);
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\reviewImage";
 		
@@ -213,12 +207,45 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value="uploadReview.do", method={RequestMethod.GET, RequestMethod.POST})
-	public void uploadReview(HttpServletRequest request
+	public void uploadReview(HttpServletRequest request, Review review
 			, @RequestParam(value="realname", required=false) String realname
 			, @RequestParam(value="filename", required=false) String filename
 			, @RequestParam(value="filesize", required=false) String filesize)
 	{
-		System.out.println("realname: " + realname + ", filename: " + filename + ", filesize: " + filesize);
+		review.setMemberId(500);
+		review.setReviewRating((review.getReviewTasterating() + review.getReviewPricerating() + review.getReviewServicerating())/3);
+		
+		System.out.println(review);
+		
+		String[] realnameArray = realname.split(",");
+		String[] filenameArray = filename.split(",");
+		
+		Image image = new Image();
+		ArrayList<Image> imageList = new ArrayList<Image>();
+		
+		for(int i=0; i<realnameArray.length; i++) {
+			image.setImageOriginName(realnameArray[i].toString());
+			image.setImageNewName(filenameArray[i].toString());			
+			imageList.add(image);
+		}
+		
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("review", review);
+		parameters.put("imageList", imageList);
+		
+		int result = restaurantService.uploadReview(parameters);
+
+		System.out.println(result);
 	}
+		
+		
+		
+		
+		
+		
+		
+		
+
+	
 	
 }

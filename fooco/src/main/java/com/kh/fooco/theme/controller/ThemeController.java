@@ -85,7 +85,7 @@ public class ThemeController {
 	// 즐겨찾기 취소
 	@RequestMapping("heartClickCancle.do")
 	public ModelAndView heartClickCancle(ModelAndView mv, String bookmarkId) {
-		int themeWriter = 81;
+		int themeWriter = 3001;
 //      Member loginUser = (Member)session.getAttribute("loginUser");
 //      themeWriter = loginUser.getMemberId();   
 

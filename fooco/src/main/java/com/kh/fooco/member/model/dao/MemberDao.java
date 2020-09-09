@@ -255,7 +255,11 @@ public class MemberDao {
 	public int insertMylistRes(String theme) {
 		return sqlSessionTemplate.insert("mypageMapper.insertMylistRes",theme);
 	}
-	
+
+	/*
+	 * public ArrayList<Mylist> mylistList() { return
+	 * (ArrayList)sqlSessionTemplate.selectList("mypageMapper.mylistList"); }
+	 */
 
 
 

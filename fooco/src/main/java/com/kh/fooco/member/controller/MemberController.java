@@ -35,7 +35,11 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.fooco.board.model.exception.BoardException;
+import com.kh.fooco.board.model.vo.Board;
+
 import com.kh.fooco.common.model.vo.Image;
+
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
 import com.kh.fooco.member.model.vo.Checkin;
@@ -49,6 +53,10 @@ import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+
+import com.kh.fooco.theme.model.exception.ThemeException;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
+
 
 @SessionAttributes("loginUser")
 @Controller
@@ -819,14 +827,14 @@ public class MemberController {
 		
 		@RequestMapping("mylistRegist.do")
 		public String mylistRegist() {
-			return "mypage/mylistRegist";
+			return "mypage/mypageMylistRegist";
 		}
 		
 		@RequestMapping(value="insertMylist.do", method= {RequestMethod.GET,RequestMethod.POST})
 		public ModelAndView restaurantThemeAdmin(HttpSession session, ModelAndView mv, String themeRList, String themeTitle) {
 			int themeRListResult = 0;
 			
-			int themeWriter = 81;
+			int themeWriter = 3002;
 //			Member loginUser = (Member)session.getAttribute("loginUser");
 //			themeWriter = loginUser.getMemberId();				
 			
@@ -847,6 +855,20 @@ public class MemberController {
 		}
 		
 		
+	/*
+	 * @RequestMapping("mylistList.do") public ModelAndView mylistList(ModelAndView
+	 * mv) { ArrayList<Mylist> mylist = memberService.mylistList();
+	 * System.out.println("mylist조회 후 화면에 뿌리기 전 :" + mylist);
+	 * 
+	 * if(!mylist.isEmpty()) { mv.addObject("mylist",mylist);
+	 * mv.setViewName("mypage/myPageMylist"); }else { throw new
+	 * ThemeException("Mylist목록 보기 실패!"); } }
+	 */
 		
+		
+		@RequestMapping("mypageMylistDetail.do")
+		public String mypageMylistDetail() {
+			return"mypage/mypageMylistDetail";
+		}
 
 }

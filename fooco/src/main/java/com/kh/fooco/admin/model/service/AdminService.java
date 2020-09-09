@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
+import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.Search;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
@@ -124,6 +125,10 @@ public interface AdminService {
 	int deleteRList(ThemeAdmin ta);
 
 	int insertThemeRestaurant2(String th, ThemeAdmin ta);
+
+	int selectOneMyListCount(Search search);
+
+	ArrayList<MyListAdmin> selectListMylistAdmin(Search search, PageInfo pi);
 
 	
 }

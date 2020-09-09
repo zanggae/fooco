@@ -28,5 +28,7 @@ public interface RestaurantService {
 
 	ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter, PageInfo ppi);
 
+	int uploadReview(HashMap<String, Object> parameters);
+
 }
 
