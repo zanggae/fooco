@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -276,7 +279,7 @@
 				
 			},
 			error:function(request, status, errorData){
-				alert("error code: " + request.status + "\n"
+				swal("error code: " + request.status + "\n"
 						+"message: " + request.responseText
 						+"error: " + errorData);
 			}
