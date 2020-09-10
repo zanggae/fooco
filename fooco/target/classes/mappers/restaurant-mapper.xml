@@ -283,20 +283,47 @@
 	</select>
 	
 	<insert id="uploadReview" parameterType="hashmap">
-		<selectKey keyProperty="rvid, imid" resultType="int" order="BEFORE">
-			SELECT SEQ_REVIEW.NEXTVAL as 'rvid', SEQ_IMAGEID.NEXTVAL as 'imid'
-			FROM DUAL
-		</selectKey>
-		INSERT ALL
-		INTO   REVIEW VALUES (#{rvid}, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
-		<foreach collection="imageList" item="image" index="index">
-			<if test="!''.equals(image.imageOriginName)">
-				INTO   IMAGE VALUES (#{imid}, #{image.imageOriginName}, #{image.imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
-				INTO   REVIEW_IMAGE VALUES (#{imid}, #{rvid})
-			</if>
-		</foreach> 	
-		SELECT *
-		FROM DUAL	
+		<choose>
+			<when test="''.equals(imageList[0].imageOriginName)">
+				INSERT INTO REVIEW VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
+			</when>
+			<when test="imageList.size() == 2">
+				INSERT ALL
+				INTO   REVIEW       VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL, #{imageList[0].imageOriginName}, #{imageList[0].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL, SEQ_REVIEW.NEXTVAL)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL+1, #{imageList[1].imageOriginName}, #{imageList[1].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL+1, SEQ_REVIEW.NEXTVAL)
+				SELECT *
+				FROM   DUAL
+			</when>
+			<when test="imageList.size() == 3">
+				INSERT ALL
+				INTO   REVIEW       VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL, #{imageList[0].imageOriginName}, #{imageList[0].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL, SEQ_REVIEW.NEXTVAL)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL+1, #{imageList[1].imageOriginName}, #{imageList[1].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL+1, SEQ_REVIEW.NEXTVAL)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL+2, #{imageList[2].imageOriginName}, #{imageList[2].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL+2, SEQ_REVIEW.NEXTVAL)
+				SELECT *
+				FROM   DUAL
+			</when>
+			<when test="imageList.size() == 4">
+				INSERT ALL
+				INTO   REVIEW       VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL, #{imageList[0].imageOriginName}, #{imageList[0].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL, SEQ_REVIEW.NEXTVAL)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL+1, #{imageList[1].imageOriginName}, #{imageList[1].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL+1, SEQ_REVIEW.NEXTVAL)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL+2, #{imageList[2].imageOriginName}, #{imageList[2].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL+2, SEQ_REVIEW.NEXTVAL)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL+3, #{imageList[3].imageOriginName}, #{imageList[3].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL+3, SEQ_REVIEW.NEXTVAL)
+				SELECT *
+				FROM   DUAL
+			</when>
+		</choose>
 	</insert>
 	
 	<update id="upViewCount" parameterType="_int">
@@ -314,7 +341,7 @@
 	<select id="alreadyEnroll" parameterType="Bookmark" resultType="_int">
 		SELECT COUNT(RB.RES_BOOKMARK_ID)
 		FROM   RES_BOOKMARK RB
-		WHERE  RB.RES_STATUS = 'Y' AND RB.RES_ID = #{resId} AND RB.MEMBER_ID = #{memberId}
+		WHERE  RB.RES_ID = #{resId} AND RB.MEMBER_ID = #{memberId}
 	</select>
 	
 	<select id="sameLocationBestRestaurant" parameterType="hashmap" resultMap="RestaurantListMap">

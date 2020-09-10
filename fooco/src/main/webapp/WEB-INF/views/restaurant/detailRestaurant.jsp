@@ -158,8 +158,32 @@
 								</div>
 								<div class="ml-auto mz-buttons d-flex">
 									<input type="button" value="&#x1F495; 즐겨찾기" class="form-control mz-bookmark-button shadow-sm" onclick="enrollBookmark()">
-									<input type="button" value="&#x1F4DD; 리뷰쓰기" class="form-control mz-review-button shadow-sm" data-toggle="modal" data-target="#write-review">
+									<input type="button" value="&#x1F4DD; 리뷰쓰기" class="form-control mz-review-button shadow-sm" onclick="certificateReview()">
+									<input type="hidden" id="goReviewRealBtn" data-toggle="modal" data-target="#write-review">
 								</div>
+								<script>
+									function certificateReview() {
+										$.ajax({
+											url:"certificateReview.do",
+											type:"POST",
+											success:function(data){
+												if("notvalid" == data) {
+													swal("로그인이 필요한 서비스입니다.");
+												}else if("success" == data){
+													var success = $("#goReviewRealBtn");
+													success.click();
+												}else if("notStatus" == data) {
+													swal("리뷰 작성이 제한된 회원입니다.");
+												}else {
+													swal("리뷰쓰기에 실패하였습니다.");
+												}
+											},
+											error:function(request, status, errorData){
+												swal("error code: " + request.status + "\n" + "message: " + request.responseText + "error: " + errorData);
+											}
+										})
+									}
+								</script>
 								<script>
 									function enrollBookmark() {
 										var resId = document.getElementById("hiddenResId").value;

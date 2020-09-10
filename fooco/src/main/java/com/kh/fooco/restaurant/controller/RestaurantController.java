@@ -265,7 +265,6 @@ public class RestaurantController {
 		parameters.put("imageList", imageList);
 		
 		int result = restaurantService.uploadReview(parameters);
-
 		System.out.println(result);
 	}
 	
@@ -390,6 +389,30 @@ public class RestaurantController {
 		
 		out.close();
 	}
+	
+	@RequestMapping(value="certificateReview.do", method=RequestMethod.POST)
+	public void certificateReview(HttpServletResponse response) throws IOException
+	{
+		PrintWriter out = response.getWriter();
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		if(m == null) {
+			// 로그인 확인
+			out.append("notvalid");
+			out.flush();
+		}else if("N".equals(m.getMemberStatus())) {
+			// 리뷰쓰기가 제한된 회원
+			out.append("notStatus");
+			out.flush();
+		}else {
+			// 리뷰쓰기 허용
+			out.append("success");
+			out.flush();
+		}
+		
+		out.close();
+	}
+
 
 	public ArrayList<Integer> convertCategory(String category)
 	{
