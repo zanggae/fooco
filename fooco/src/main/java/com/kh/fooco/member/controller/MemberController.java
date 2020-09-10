@@ -998,8 +998,6 @@ public class MemberController {
 		mv.setViewName("redirect:myPageMylist.do");
 		return mv;
 		
-		
-		
 	}
 	
 	//마이리스트 - 삭제 
@@ -1016,7 +1014,6 @@ public class MemberController {
 			
 			return mv;
 		}
-		
 		
 		
 	//마이리스트 - 추천
