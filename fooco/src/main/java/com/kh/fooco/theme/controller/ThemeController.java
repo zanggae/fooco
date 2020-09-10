@@ -70,7 +70,7 @@ public class ThemeController {
 
 		    Member loginUser = (Member)session.getAttribute("loginUser");
 		    int themeWriter = loginUser.getMemberId();   
-
+		    
 		int result = themeService.insertBookmark(bookmarkId, themeWriter);
 
 		if (result > 0) {

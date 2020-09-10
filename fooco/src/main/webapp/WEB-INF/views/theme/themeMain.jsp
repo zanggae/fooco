@@ -149,9 +149,9 @@
                     	</c:if>
                     </c:forEach>
                     <c:if test="${empty tt}">
-                    	<%-- <c:if test="${!empty loginUser }"> --%>
+                    	<c:if test="${!empty loginUser }">
                     		<div onclick="heartClick(this)" id="heartt" value="${t.themeId }"><i class="far fa-heart" id="heart"></i></div>
-                    	<%-- </c:if> --%>
+                    	</c:if>
                     </c:if>
                   </div>
                 </c:forEach> 
