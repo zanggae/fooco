@@ -18,6 +18,8 @@
 <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
 <!-- gu-upload -->
 <script type="text/javascript" src="${contextPath}/resources/gu-upload/guuploadManager.js"></script>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Insert title here</title>
 <style>
 	/* 폰트 */
@@ -132,6 +134,7 @@
 						<div class="row mz-content-top">
 							<div class="col-8">
 								<div class="row mz-title">
+									<input type="hidden" value="${res.resId}" id="hiddenResId"/>
 									<span style="font-family: 'heavy'; font-size: 2.5rem;">${res.resName}</span>
 								</div>
 								<div class="row">
@@ -154,9 +157,32 @@
 									</span>
 								</div>
 								<div class="ml-auto mz-buttons d-flex">
-									<input type="button" value="&#x1F495; 즐겨찾기" class="form-control mz-bookmark-button shadow-sm" data-toggle="modal" data-target="#view-photoDetail">
+									<input type="button" value="&#x1F495; 즐겨찾기" class="form-control mz-bookmark-button shadow-sm" onclick="enrollBookmark()">
 									<input type="button" value="&#x1F4DD; 리뷰쓰기" class="form-control mz-review-button shadow-sm" data-toggle="modal" data-target="#write-review">
 								</div>
+								<script>
+									function enrollBookmark() {
+										var resId = document.getElementById("hiddenResId").value;
+										
+										$.ajax({
+											url:"enrollBookmark.do",
+											data:{resId:resId},
+											type:"POST",
+											success:function(data){
+												if("notvalid" == data) {
+													swal("로그인이 필요한 서비스입니다.")
+												}else if("success" == data){
+													swal("즐겨찾기에 추가되었습니다.")
+												}else {
+													swal("즐겨찾기 추가에 실패하였습니다.")
+												}
+											},
+											error:function(request, status, errorData){
+												swal("error code: " + request.status + "\n" + "message: " + request.responseText + "error: " + errorData);
+											}
+										})
+									}
+								</script>
 							</div>
 						</div>
 						<div class="row mz-content-bottom">

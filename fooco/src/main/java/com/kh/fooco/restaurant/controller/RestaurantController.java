@@ -5,6 +5,7 @@ import static com.kh.fooco.common.Pagination.getPhotoPageInfo;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.service.RestaurantService;
-import com.kh.fooco.restaurant.model.vo.Filter;
+import com.kh.fooco.restaurant.model.vo.Bookmark;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
@@ -47,21 +48,31 @@ public class RestaurantController {
 	
 	@RequestMapping("goSearchedRestaurant.do")
 	public ModelAndView goSearchedRestaurant(ModelAndView mv
-									 , @RequestParam(value="filters", required=false) ArrayList<Filter> filters
-									 , @RequestParam(value="categories", required=false) ArrayList<Integer> categories
+									 , @RequestParam(value="filters", required=false, defaultValue="defaultFilter") String filters
+									 , @RequestParam(value="categories", required=false, defaultValue="defaultCategory") String categories
 									 , @RequestParam(value="page", required=false, defaultValue="1") Integer page
 									 , @RequestParam(value="keyword", required=false, defaultValue="all") String keyword
 									 , @RequestParam(value="locationId", required=false, defaultValue="0") Integer locationId
 									 , @RequestParam(value="sortType", required=false, defaultValue="highrating") String sortType)
 	{		
 		int currentPage = page;
-				
+		ArrayList<Integer> changedCategories = new ArrayList<>();
+		ArrayList<Integer> changedFilters = new ArrayList<>();
+		
+		if(!"defaultCategory".equals(categories)) {
+			changedCategories = convertCategory(categories);			
+		}
+		
+		if(!"defaultFilter".equals(filters)) {
+			changedFilters = convertFilter(filters);
+		}
+	
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
-		searchParameter.put("filters", filters);
 		searchParameter.put("keyword", keyword);
 		searchParameter.put("sortType", sortType);
-		searchParameter.put("categories", categories);
 		searchParameter.put("locationId", locationId);
+		searchParameter.put("filters", changedFilters);
+		searchParameter.put("categories", changedCategories);
 		
 		int howManyRestaurant = restaurantService.getListCount(searchParameter);
 		
@@ -72,7 +83,7 @@ public class RestaurantController {
 	
 		String location = convertLocation(locationId);
 		
-		String changedKeyword = "";
+		String changedKeyword = keyword;
 		
 		if("all".equals(keyword)) {
 			changedKeyword = "전체";
@@ -85,12 +96,13 @@ public class RestaurantController {
 		mv.addObject("keyword", keyword);
 		mv.addObject("changedKeyword", changedKeyword);
 		mv.addObject("filters", filters);
+		mv.addObject("categories", categories);
 		mv.addObject("sortType", sortType);
 		mv.setViewName("restaurant/searchedRestaurant");
+		System.out.println(mv);
 		return mv;
 	}
 	
-
 	@RequestMapping("goDetailRestaurant.do")
 	public ModelAndView goDetailRestaurant(ModelAndView mv, @RequestParam(value="resId") Integer resId
 														  , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType)
@@ -102,6 +114,8 @@ public class RestaurantController {
 		
 		int howManyReview = restaurantService.getReviewListCount(resId);
 		PageInfo pi = getPageInfo(currentPage, howManyReview);
+		
+		int upViewCount = restaurantService.upViewCount(resId);
 		
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
 		searchParameter.put("resId", resId);
@@ -143,10 +157,9 @@ public class RestaurantController {
 		
 		mv.addObject("pi", pi);
 		mv.addObject("reviewList", reviewList);
-		mv.setViewName("restaurant/detailRestaurant");
+		mv.setViewName("restaurant/restaurantReview");
 		return mv;
 	}
-	
 	
 	@RequestMapping("goRestaurantPhoto.do")
 	public ModelAndView goRestaurantPhoto(ModelAndView mv, @RequestParam(value="resId", required=false) Integer resId
@@ -170,8 +183,6 @@ public class RestaurantController {
 		mv.setViewName("restaurant/detailRestaurant");
 		return mv;
 	}
-	
-	
 	
 	public String convertLocation(int locationId) {
 		
@@ -245,8 +256,64 @@ public class RestaurantController {
 
 		System.out.println(result);
 	}
+	
+	@RequestMapping(value="enrollBookmark.do", method=RequestMethod.POST)
+	public void EnrollBookmark(HttpServletResponse response, Integer resId) throws IOException
+	{
 		
+		PrintWriter out = response.getWriter();
+		Member m = (Member)session.getAttribute("loginUser");
+
+		int result = 0;
 		
+		if((Member)session.getAttribute("loginUser") == null) {
+			out.append("notvalid");
+			out.flush();
+		}else {
+			Bookmark bm = new Bookmark();
+			bm.setMemberId(m.getMemberId());
+			bm.setResId(resId);
+			result = restaurantService.enrollBookmark(bm);
+			
+			if(result >= 1) {
+				out.append("success");
+				out.flush();
+			}else {
+				out.append("FAIL");
+				out.flush();
+			}
+		}
+		
+		out.close();
+	}
+
+	public ArrayList<Integer> convertCategory(String category)
+	{
+		ArrayList<Integer> al = new ArrayList<>();
+		
+		String[] arr = category.split(",");
+		
+		for(int i = 0; i < arr.length; i ++) {
+			al.add(Integer.parseInt(arr[i].toString()));					
+		}
+		
+		return al;
+	}
+	
+	public ArrayList<Integer> convertFilter(String filter)
+	{
+		ArrayList<Integer> al = new ArrayList<>();
+		
+		String[] arr = filter.split(",");
+		
+		for(int i = 0; i < arr.length; i ++) {
+			al.add(Integer.parseInt(arr[i].toString()));					
+		}
+		
+		return al;
+	}
+	
+	
 		
 		
 		

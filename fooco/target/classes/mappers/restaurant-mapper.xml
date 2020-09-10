@@ -203,16 +203,13 @@
 			]]>
 			</when>
 		</choose>
-		<if test="locationId!=0">
-		 	AND SR.LOCATION_ID = #{locationId}
-		</if>
-		<if test="categories!=null">
+		<if test="categories.size() > 0">
 			AND SR.RES_CATEGORY_ID IN
 			<foreach collection="categories" item="category" index="index" separator="," open="(" close=")">
 		 		#{category}
 		 	</foreach>
 		</if>
-		<if test="filters!=null">
+		<if test="filters.size() > 0">
 			AND SF.FILTER_ID IN
 			<foreach collection="filters" item="filter" index="index" separator="," open="(" close=")">
 		 		#{filter}
@@ -240,13 +237,13 @@
 			]]>
 			</when>
 		</choose>
-		<if test="categories!=null">
+		<if test="categories.size() > 0">
 			AND SR.RES_CATEGORY_ID IN
 			<foreach collection="categories" item="category" index="index" separator="," open="(" close=")">
 		 		#{category}
 		 	</foreach>
 		</if>
-		<if test="filters!=null">
+		<if test="filters.size() > 0">
 			AND SF.FILTER_ID IN
 			<foreach collection="filters" item="filter" index="index" separator="," open="(" close=")">
 		 		#{filter}
@@ -300,5 +297,17 @@
 		</foreach> 	
 		SELECT *
 		FROM DUAL	
+	</insert>
+	
+	<update id="upViewCount" parameterType="_int">
+		UPDATE RESTAURANT
+		SET    RES_VIEWCOUNT = RES_VIEWCOUNT + 1
+		WHERE  RES_ID = #{resId}
+	</update>
+	
+	<insert id="enrollBookmark" parameterType="Bookmark">
+		INSERT
+		INTO   RES_BOOKMARK
+		VALUES (SEQ_BOOKMARK.NEXTVAL, #{memberId}, #{resId})
 	</insert>
 </mapper>
