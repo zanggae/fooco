@@ -3,9 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- sweet alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -127,6 +124,13 @@
 
 </body>
 
+
+<script>
+  function withdrawalcheck(){
+    alert("그 동안 이용해주셔서 감사합니다.")
+  }
+</script>
+
 <script>
  // 비밀번호 확인 후 내정보 수정하기 이동하는 ajax
   	$("#withdrawalbtn").click(function(){
@@ -137,7 +141,7 @@
   			data:{memberPwd:memberPwd,email:email},
   			success:function(data){
   				if(data == "true" &&  $("#memberPwd1").val() == $("#memberPwd2").val()){
-  					 swal("그 동안 이용해주셔서 감사합니다.")
+  					 alert("그 동안 이용해주셔서 감사합니다.")
   					$("#infoPwdCheckForm1").submit();
   				}else{
   					alert("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.")

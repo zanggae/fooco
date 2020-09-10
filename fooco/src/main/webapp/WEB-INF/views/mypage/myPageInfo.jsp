@@ -4,9 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- sweet alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -312,7 +309,7 @@
 		
 		filesArr.forEach(function(f){
 			if(!f.type.match("image.*")){
-				swal("확장자는 이미지 확장자만 가능합니다.");
+				alert("확장자는 이미지 확장자만 가능합니다.");
 				return;
 			}
 			
@@ -328,5 +325,6 @@
 	}
 
 </script>
+
 
 </html>

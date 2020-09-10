@@ -193,16 +193,5 @@
 
 </body>
 
-<script>
-/* $("#heart").click(function(){
-	var resBookMarkId = $("#resBookMarkId").val()
-	location.href="deleteMZ.do?resBookMarkId="+resBookMarkId; 
-}) */
-
-
-
-
-</script>
-
 
 </html>

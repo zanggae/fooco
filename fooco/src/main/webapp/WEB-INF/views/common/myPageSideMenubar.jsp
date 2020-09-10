@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -168,7 +169,7 @@ a {
 			</div>
 			<div class="row menubar_group">
 				<div class="row menubar_group_title">
-					<a href="myPageMembership.do"><span style="font-family: 'bold';">&#x1F451;
+					<a href="#"><span style="font-family: 'bold';">&#x1F451;
 							나의 멤버십</span></a>
 				</div>
 			</div>
@@ -270,6 +271,7 @@ $(document).keypress(function(e) {
 
   	
   </script>
+
 
 
 </html>
