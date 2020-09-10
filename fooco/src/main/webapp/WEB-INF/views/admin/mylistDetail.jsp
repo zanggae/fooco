@@ -87,8 +87,7 @@
   		if(confirm("마이리스트를 테마로 등록하시겠습니까?")){
 	  		$("#mylistThemeinsert").submit();  			
   		}  	
-  	}
-  	
+  	}  	
   	function goback(){
   		location.href="mylistEditAdmin.do";
   	}
