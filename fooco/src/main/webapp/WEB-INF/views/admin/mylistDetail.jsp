@@ -88,6 +88,7 @@
 	  		$("#mylistThemeinsert").submit();  			
   		}  	
   	}
+  	
   	function goback(){
   		location.href="mylistEditAdmin.do";
   	}
