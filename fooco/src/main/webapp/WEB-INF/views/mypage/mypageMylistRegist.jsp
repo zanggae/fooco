@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!doctype html>
 <html lang="ko">
 
@@ -90,12 +92,12 @@
     <script>
     	function onsubmitTheme(){
     		if($("#themeTile").val() == ""){
-    			alert("제목을 입력해 주세요");
+    			swal("제목을 입력해 주세요");
     			$("#themeTile").focus();
     			return
     		}
     		if($(".themeRList").val() == null){
-    			alert("음식점을 추가해 주세요");
+    			swal("음식점을 추가해 주세요");
     			return 
     		}    		
 
@@ -132,7 +134,7 @@
         	function searchRestaurant(){
         		var search = $("#searchInput").val();
         		if(search == ""){
-        			alert("검색어를 입력하세요");
+        			swal("검색어를 입력하세요");
         			return;
         		}
         		$.ajax({
@@ -190,7 +192,7 @@
         			
         			/* 중복여부 확인 */
         			if(check.indexOf(resId)>-1){
-        				alert("중복된 음식점은 추가할 수 없습니다.");
+        				swal("중복된 음식점은 추가할 수 없습니다.");
         				return;
         			}else{
 	        			check.push(resId);        				

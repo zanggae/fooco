@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.vo.BoardInfo;
@@ -21,7 +22,6 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
-import com.kh.fooco.member.model.vo.MylistAdmin;
 
 import com.kh.fooco.member.model.vo.Select_Board;
 
@@ -292,9 +292,46 @@ public class MemberDao {
 
 
 
-	public ArrayList<MylistAdmin> selectmyPageMylist() {
+	public ArrayList<MyListAdmin> selectmyPageMylist() {
 		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectmyPageMylist");
 	}
+
+	public int deleteMylistR(MyListAdmin ma) {
+		return sqlSessionTemplate.delete("mypageMapper.deleteMylistR",ma);
+	}
+
+	public int deleteMylist(MyListAdmin ma) {
+		return sqlSessionTemplate.delete("mypageMapper.deleteMylist",ma);
+	}
+
+	public MyListAdmin selectOneMylist(MyListAdmin ma) {
+		return sqlSessionTemplate.selectOne("mypageMapper.selectOneMylist",ma);
+	}
+
+	public ArrayList<Restaurant> selectListMylistRestaurant(MyListAdmin ma) {
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectListMylistRestaurant",ma);
+	}
+
+	public int modifyMylist(MyListAdmin ma) {
+		return sqlSessionTemplate.update("mypageMapper.modifyMylist",ma);
+	}
+
+	public int deleteRList(MyListAdmin ma) {
+		return sqlSessionTemplate.delete("mypageMapper.deleteRList",ma);
+	}
+
+	public int insertMylistRestaurant(String mh, MyListAdmin ma) {
+		int mId = ma.getMlId();
+		HashMap<String, Object> updateParameter = new HashMap<String, Object>();
+		updateParameter.put("mId", mId);
+		updateParameter.put("mylist",mh);		
+		return sqlSessionTemplate.insert("mypageMapper.insertMylistRestaurant",updateParameter);
+	}
+
+	public int recommendMylst(int mlId) {
+		return sqlSessionTemplate.update("mypageMapper.recommendMylst",mlId);
+	}
+	
 
 
 

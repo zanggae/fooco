@@ -2,6 +2,7 @@ package com.kh.fooco.member.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.vo.BoardInfo;
@@ -17,7 +18,6 @@ import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
 
-import com.kh.fooco.member.model.vo.MylistAdmin;
 
 import com.kh.fooco.member.model.vo.Select_Board;
 
@@ -117,8 +117,23 @@ public interface MemberService {
 
 	int insertMylistRes(String th);
 
+	ArrayList<MyListAdmin> selectmyPageMylist();
 
-	ArrayList<MylistAdmin> selectmyPageMylist();
+	int deleteMylistR(MyListAdmin ma);
+
+	int deleteMylist(MyListAdmin ma);
+
+	MyListAdmin selectOneMylist(MyListAdmin ma);
+
+	ArrayList<Restaurant> selectListMylistRestaurant(MyListAdmin ma);
+
+	int modifyMylist(MyListAdmin ma);
+
+	int deleteRList(MyListAdmin ma);
+
+	int insertMylistRestaurant(String mh, MyListAdmin ma);
+
+	int recommendMylst(int mlId);
 
 
 
@@ -132,7 +147,7 @@ public interface MemberService {
 	
 
 
-	/* ArrayList<Mylist> mylistList(); */
+	
 
 
 
