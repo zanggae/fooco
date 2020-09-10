@@ -94,13 +94,14 @@
     .sr-recommend-boundary {padding:0.1rem; margin-bottom:0.3rem;}
     .sr-recommend-boundary .row {margin:0;}
     .sr-recommend-card {background-color:white; border-radius:0.5rem; margin:0;}
+    .sr-recommend-card:hover {cursor:pointer;}
     .sr-recommend-card-title {height:2rem;}
     .sr-recommend-card-content {padding:0.5rem;}
     .sr-recommend-card-img {padding:0.5rem; height:4.5rem;}
     .sr-recommend-card-img img {width:100%;}
 
     /* 파트너 음식점 추천 */
-    .sr-partner-col {padding:1rem; height:20rem; background-color:#ECECEC; border-radius:0.5rem;}
+    .sr-partner-col {padding:0.5rem; background-color:#ECECEC; border-radius:0.5rem;}
     .sr-partner-title-row {margin:0;}
 </style>
 </head>
@@ -360,6 +361,7 @@
 									</div>
 									<div class="row sr-mz-address d-flex align-items-center">
 										<i class="fas fa-map-marker-alt"></i>
+										<input type="hidden" id="listLocation" value="${res.locationId}"/>
 										<span style="font-family: 'medium'; font-size: 1rem;">${res.locationName}</span>
 										<span style="font-size: 0.8rem;">${res.resAddress}</span>
 									</div>
@@ -466,6 +468,7 @@
 	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<footer>
 	</footer>
+	
 
 	<!-- select option을 선택하면 -->
 	<script>
@@ -489,7 +492,8 @@
     </script>
 	<script>
 		function goDetail(resId) {
-			window.location.href="goDetailRestaurant.do?resId=" + resId;
+			var locationId = document.getElementById("listLocation").value;
+			window.location.href="goDetailRestaurant.do?resId=" + resId+"&locationId="+locationId;
 		};
 	</script>
 

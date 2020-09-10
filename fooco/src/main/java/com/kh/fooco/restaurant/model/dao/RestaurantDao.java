@@ -79,5 +79,29 @@ public class RestaurantDao {
 	public int enrollBookmark(Bookmark bm) {
 		return sqlSessionTemplate.insert("restaurantMapper.enrollBookmark", bm);
 	}
+
+	public int alreadyEnroll(Bookmark bm) {
+		return sqlSessionTemplate.selectOne("restaurantMapper.alreadyEnroll", bm);
+	}
+
+	public ArrayList<Restaurant> sameLocationBestRestaurant(HashMap<String, Object> searchParameter) {
+		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.sameLocationBestRestaurant", searchParameter);
+	}
+
+	public ArrayList<Restaurant> membershipRestaurant(HashMap<String, Object> searchParameter) {
+		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.membershipRestaurant", searchParameter);
+	}
+
+	public int upGood(Review rv) {
+		return sqlSessionTemplate.insert("restaurantMapper.upGood", rv);
+	}
+
+	public int alreadyFollowRelationship(HashMap<String, Object> searchParameters) {
+		return sqlSessionTemplate.selectOne("restaurantMapper.alreadyFollowRelationship", searchParameters);
+	}
+
+	public int followReviewer(HashMap<String, Object> searchParameters) {
+		return sqlSessionTemplate.insert("restaurantMapper.followReviewer", searchParameters);
+	}
 	
 }

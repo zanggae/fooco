@@ -85,6 +85,9 @@ public class RestaurantController {
 		
 		String changedKeyword = keyword;
 		
+		ArrayList<Restaurant> sameLocationBestRestaurant = getSameLocationRestaurant(searchParameter);		
+		ArrayList<Restaurant> membershipRestaurant = getMembershipRestaurant(searchParameter);
+		
 		if("all".equals(keyword)) {
 			changedKeyword = "전체";
 		}
@@ -98,6 +101,8 @@ public class RestaurantController {
 		mv.addObject("filters", filters);
 		mv.addObject("categories", categories);
 		mv.addObject("sortType", sortType);
+		mv.addObject("sameLocationBestRestaurant", sameLocationBestRestaurant);
+		mv.addObject("membershipRestaurant", membershipRestaurant);
 		mv.setViewName("restaurant/searchedRestaurant");
 		System.out.println(mv);
 		return mv;
@@ -105,6 +110,7 @@ public class RestaurantController {
 	
 	@RequestMapping("goDetailRestaurant.do")
 	public ModelAndView goDetailRestaurant(ModelAndView mv, @RequestParam(value="resId") Integer resId
+														  , @RequestParam(value="locationId", required=false, defaultValue="0") Integer locationId
 														  , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType)
 	{
 		Res restaurant = restaurantService.getRestaurantDetail(resId);
@@ -119,6 +125,7 @@ public class RestaurantController {
 		
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
 		searchParameter.put("resId", resId);
+		searchParameter.put("locationId", locationId);
 		searchParameter.put("sortType", sortType);
 		
 		ArrayList<Review> reviewList = new ArrayList<Review>();		
@@ -127,12 +134,17 @@ public class RestaurantController {
 		int howManyReviewPhoto = restaurantService.getPhotoCount(resId);
 		PageInfo ppi = getPhotoPageInfo(currentPage, howManyReviewPhoto);
 		
+		ArrayList<Restaurant> sameLocationBestRestaurant = getSameLocationRestaurant(searchParameter);		
+		ArrayList<Restaurant> membershipRestaurant = getMembershipRestaurant(searchParameter);
+		
 		ArrayList<Image> photoList = new ArrayList<Image>();
 		photoList = restaurantService.getPhotoList(searchParameter, ppi);
 		
 		mv.addObject("res", restaurant);
 		mv.addObject("info", info);
 		mv.addObject("reviewList", reviewList);
+		mv.addObject("sameLocationBestRestaurant", sameLocationBestRestaurant);
+		mv.addObject("membershipRestaurant", membershipRestaurant);
 		mv.addObject("photoList", photoList);
 		mv.setViewName("restaurant/detailRestaurant");
 		return mv;
@@ -267,13 +279,56 @@ public class RestaurantController {
 		int result = 0;
 		
 		if((Member)session.getAttribute("loginUser") == null) {
+			// 로그인 확인
 			out.append("notvalid");
 			out.flush();
 		}else {
 			Bookmark bm = new Bookmark();
 			bm.setMemberId(m.getMemberId());
 			bm.setResId(resId);
-			result = restaurantService.enrollBookmark(bm);
+
+			// 로그인 했으면 이미 북마크에 등록되어 있는지 확인
+			int alreadyEnroll = restaurantService.alreadyEnroll(bm);
+			
+			if(alreadyEnroll > 0) {
+				out.append("already");
+				out.flush();				
+			}else {				
+				// 로그인도 했고, 북마크에 등록이 안되어 있는 사람만 등록하기
+				result = restaurantService.enrollBookmark(bm);
+					
+				if(result >= 1) {
+					out.append("success");
+					out.flush();
+				}else {
+					out.append("FAIL");
+					out.flush();
+				}
+			}
+		}
+		
+		out.close();
+	}
+	
+	@RequestMapping(value="upGood.do", method=RequestMethod.POST)
+	public void UpGood(HttpServletResponse response, Integer reviewId) throws IOException
+	{
+		
+		PrintWriter out = response.getWriter();
+		Member m = (Member)session.getAttribute("loginUser");
+
+		int result = 0;
+		
+		if((Member)session.getAttribute("loginUser") == null) {
+			// 로그인 확인
+			out.append("notvalid");
+			out.flush();
+		}else {			
+			Review rv = new Review();
+			rv.setMemberId(m.getMemberId());
+			rv.setReviewId(reviewId);
+			
+			result = restaurantService.upGood(rv);
 			
 			if(result >= 1) {
 				out.append("success");
@@ -281,6 +336,55 @@ public class RestaurantController {
 			}else {
 				out.append("FAIL");
 				out.flush();
+			}
+		}
+		
+		out.close();
+	}
+	
+	@RequestMapping(value="followReviewer.do", method=RequestMethod.POST)
+	public void followReviewer(HttpServletResponse response, Integer memberId) throws IOException
+	{
+		PrintWriter out = response.getWriter();
+		Member m = (Member)session.getAttribute("loginUser");
+
+		int result = 0;
+		
+		if((Member)session.getAttribute("loginUser") == null) {
+			// 로그인 확인
+			out.append("notvalid");
+			out.flush();
+		}else {
+			Integer followerId = m.getMemberId();
+			Integer followingId = memberId;
+			
+			if(memberId == m.getMemberId()) {
+				// 로그인한 사람과 리뷰어가 동일 인물이면
+				out.append("itsme");
+				out.flush();
+			}else {
+				HashMap<String, Object> searchParameters = new HashMap<>();
+				searchParameters.put("followerId", followerId);
+				searchParameters.put("followingId", followingId);			
+
+				// 로그인 했으면 이미 팔로우 관계인지 확인
+				int alreadyFollowRelationship = restaurantService.alreadyFollowRelationship(searchParameters);
+				
+				if(alreadyFollowRelationship > 0) {
+					out.append("already");
+					out.flush();				
+				}else {				
+					// 로그인도 했고, 팔로우 관계가 아닌 사람만 팔로우
+					result = restaurantService.followReviewer(searchParameters);
+						
+					if(result >= 1) {
+						out.append("success");
+						out.flush();
+					}else {
+						out.append("FAIL");
+						out.flush();
+					}
+				}
 			}
 		}
 		
@@ -313,7 +417,23 @@ public class RestaurantController {
 		return al;
 	}
 	
+	public ArrayList<Restaurant> getSameLocationRestaurant(HashMap<String, Object> searchParameter) {
+		
+		ArrayList<Restaurant> al = new ArrayList<>();
+		
+		al = restaurantService.sameLocationBestRestaurant(searchParameter);
+		
+		return al; 
+	}
 	
+	public ArrayList<Restaurant> getMembershipRestaurant(HashMap<String, Object> searchParameter) {
+		
+		ArrayList<Restaurant> al = new ArrayList<>();
+		
+		al = restaurantService.membershipRestaurant(searchParameter);
+		
+		return al; 
+	}
 		
 		
 		

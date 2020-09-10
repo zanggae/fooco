@@ -222,7 +222,7 @@
 	</select>
 	
 	<select id="getList" parameterType="hashmap" resultMap="RestaurantListMap">
-		SELECT    DISTINCT SR.RES_ID, SR.RES_NAME, SR.REVIEW_RATING, SR.LOCATION_NAME, SR.RES_ADDRESS, SR.RES_CONTENT, SR.RES_VIEWCOUNT, SR.BOOKMARK_COUNT, SR.REVIEW_COUNT
+		SELECT    DISTINCT SR.RES_ID, SR.RES_NAME, SR.REVIEW_RATING, SR.LOCATION_ID, SR.LOCATION_NAME, SR.RES_ADDRESS, SR.RES_CONTENT, SR.RES_VIEWCOUNT, SR.BOOKMARK_COUNT, SR.REVIEW_COUNT
 		FROM      SELECT_RES SR
 		LEFT JOIN SELECT_FILTER SF ON (SR.RES_ID = SF.RES_ID)
 		LEFT JOIN BESTMENU BM ON (SR.RES_ID = BM.RES_ID)
@@ -309,5 +309,59 @@
 		INSERT
 		INTO   RES_BOOKMARK
 		VALUES (SEQ_BOOKMARK.NEXTVAL, #{memberId}, #{resId})
+	</insert>
+	
+	<select id="alreadyEnroll" parameterType="Bookmark" resultType="_int">
+		SELECT COUNT(RB.RES_BOOKMARK_ID)
+		FROM   RES_BOOKMARK RB
+		WHERE  RB.RES_STATUS = 'Y' AND RB.RES_ID = #{resId} AND RB.MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="sameLocationBestRestaurant" parameterType="hashmap" resultMap="RestaurantListMap">
+		SELECT SR2.*
+		FROM   (SELECT SR.RES_ID, SR.RES_NAME, SR.LOCATION_NAME, SR.REVIEW_RATING
+		        FROM   SELECT_RESTAURANT SR
+		        WHERE  SR.RES_STATUS = 'Y'
+		        <if test="locationId!=0">
+		        	AND SR.LOCATION_ID = #{locationId}
+		        </if>
+		        ORDER BY SR.REVIEW_RATING DESC NULLS LAST) SR2
+		<![CDATA[
+		WHERE ROWNUM <= 4
+		]]>
+	</select>
+	
+	<select id="membershipRestaurant" parameterType="hashmap" resultMap="RestaurantListMap">
+		SELECT SR2.*
+		FROM   (SELECT    SR.RES_ID, SR.RES_NAME, SR.LOCATION_NAME, SR.REVIEW_RATING
+		        FROM      SELECT_RESTAURANT SR
+		        LEFT JOIN FILTER_CATEGORY FC ON (SR.RES_ID = FC.RES_ID)
+		        WHERE     SR.RES_STATUS = 'Y'
+		        <if test="locationId!=0">
+		        	AND SR.LOCATION_ID = #{locationId}
+		        </if>
+		        AND FC.FILTER_ID = 7
+		        ORDER BY SR.REVIEW_RATING DESC NULLS LAST) SR2
+		<![CDATA[
+		WHERE ROWNUM <= 6
+		]]>
+	</select>
+	
+	<update id="upGood" parameterType="Review">
+		UPDATE REVIEW
+		SET    REVIEW_GOODCOUNT = REVIEW_GOODCOUNT + 1
+		WHERE  REVIEW_ID = #{reviewId}
+	</update>
+	
+	<select id="alreadyFollowRelationship" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(F.FOLLOW_ID)
+		FROM   FOLLOW F
+		WHERE  F.FOLLOWER_ID = #{followerId} AND F.FOLLOWING_ID = #{followingId}
+	</select>
+	
+	<insert id="followReviewer" parameterType="hashmap">
+		INSERT 
+		INTO   FOLLOW
+		VALUES (SEQ_FOLLOW.NEXTVAL, #{followerId}, #{followingId}, SYSDATE)
 	</insert>
 </mapper>

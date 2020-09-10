@@ -69,11 +69,11 @@
 
 	/* 비슷한 음식점 */
 	.sr-recommend-div {padding:1rem; padding-top:0;}
-	.sr-recommend-col {padding:0.5rem; background-color:#ECECEC; border-radius:0.5rem; margin-bottom:1rem;}
+	.sr-recommend-col {padding:0.5rem; padding-bottom:0; background-color:#ECECEC; border-radius:0.5rem; margin-bottom:1rem;}
 
 
 	/* 파트너 음식점 추천 */
-	.sr-partner-col {padding:1rem; height:20rem; background-color:#ECECEC; border-radius:0.5rem;}
+	.sr-partner-col {padding:0.5rem; padding-bottom:0; background-color:#ECECEC; border-radius:0.5rem;}
 
 
 	/* 리뷰 작성하기 모달 */
@@ -170,11 +170,13 @@
 											type:"POST",
 											success:function(data){
 												if("notvalid" == data) {
-													swal("로그인이 필요한 서비스입니다.")
+													swal("로그인이 필요한 서비스입니다.");
 												}else if("success" == data){
-													swal("즐겨찾기에 추가되었습니다.")
+													swal("즐겨찾기에 추가되었습니다.");
+												}else if("already" == data) {
+													swal("이미 즐겨찾기 목록에 추가되어 있습니다.");
 												}else {
-													swal("즐겨찾기 추가에 실패하였습니다.")
+													swal("즐겨찾기 추가에 실패하였습니다.");
 												}
 											},
 											error:function(request, status, errorData){
