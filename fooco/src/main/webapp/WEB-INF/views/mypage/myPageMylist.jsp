@@ -87,9 +87,9 @@
                             </div>
                             <div class="col-2" style="margin-top: 1.5rem ;">
                                 <button type="button" class="btn btn-light" id="recommendBtn" onclick="recommend(this)">추천하기</button>
-                                <button type="button" class="btn btn-light" onclick="goModify(this)">수정</button>
+                                <button type="button" class="btn btn-light" onclick="goModify()">수정하기</button>
                                 <button type="button" class="btn btn-light" 
-                                onclick="deleteMylist(this)" value="${my.mlId }">삭제</button>
+                                onclick="deleteMylist(this)" value="${my.mlId }">삭제하기</button>
                             </div>
                       </div>
                       </c:forEach>
@@ -112,6 +112,8 @@
 			if(confirm("마이리스트를 삭제하시겠습니까?")){
 				var mlId = $(id).val();
 				location.href="deleteMylist.do?mlId="+mlId;
+			}else{
+				return;
 			}
 		}
 		
@@ -123,8 +125,10 @@
 		
 		function recommend(){
 				if(confirm("마이리스트를 테마로 추천하시겠습니까? 승인되면 마이리스트가 테마로 등록됩니다.")){
-					var mlId = $(id).attr('value');
+					var mlId = $(id).val();
 					location.href="recommendMylst.do?mlId="+mlId;
+				}else{
+					return;
 				}
 				
 		}
