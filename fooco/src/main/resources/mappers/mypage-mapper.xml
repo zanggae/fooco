@@ -5,193 +5,210 @@
 
 <!-- 맴버 (맴버 테이블 + 맴버십이름 + 프로필 사진) -->
 <resultMap type="Member" id="memberListResultSet">
-	<id property="memberId" column="MEMBER_ID"></id>
-	<result property="memberName" column="MEMBER_NAME"></result>
-	<result property="memberPwd" column="MEMBER_PWD"></result>
-	<result property="email" column="EMAIL"></result>
-	<result property="nickName" column="NICKNAME"></result>
-	<result property="gender" column="GENDER"></result>
-	<result property="phone" column="PHONE"></result>
-	<result property="address" column="ADDRESS"></result>
-	<result property="memberEnrolldate" column="MEMBER_ENROLLDATE"></result>
-	<result property="memberModifydate" column="MEMBER_MODIFYDATE"></result>
-	<result property="memberAccessdate" column="MEMBER_ACCESSDATE"></result>
-	<result property="memberStatus" column="MEMBER_STATUS"></result>
-	<result property="memberJoinType" column="MEMBERJOIN_TYPE"></result>
-	<result property="reviewStatus" column="REVIEW_STATUS"></result>
-	<result property="membershipName" column="MEMBERSHIP_NAME"></result>
-	<result property="profileId" column="PROFILE_ID"></result>
-	<result property="originalName" column="ORIGINAL_NAME"></result>
-	<result property="renameName" column="RENAME_NAME"></result>
-	<result property="uploadDate" column="UPLOAD_DATE"></result>
-	<result property="file_path" column="FILE_PATH"></result>	
+   <id property="memberId" column="MEMBER_ID"></id>
+   <result property="memberName" column="MEMBER_NAME"></result>
+   <result property="memberPwd" column="MEMBER_PWD"></result>
+   <result property="email" column="EMAIL"></result>
+   <result property="nickName" column="NICKNAME"></result>
+   <result property="gender" column="GENDER"></result>
+   <result property="phone" column="PHONE"></result>
+   <result property="address" column="ADDRESS"></result>
+   <result property="memberEnrolldate" column="MEMBER_ENROLLDATE"></result>
+   <result property="memberModifydate" column="MEMBER_MODIFYDATE"></result>
+   <result property="memberAccessdate" column="MEMBER_ACCESSDATE"></result>
+   <result property="memberStatus" column="MEMBER_STATUS"></result>
+   <result property="memberJoinType" column="MEMBERJOIN_TYPE"></result>
+   <result property="reviewStatus" column="REVIEW_STATUS"></result>
+   <result property="membershipName" column="MEMBERSHIP_NAME"></result>
+   <result property="profileId" column="PROFILE_ID"></result>
+   <result property="originalName" column="ORIGINAL_NAME"></result>
+   <result property="renameName" column="RENAME_NAME"></result>
+   <result property="uploadDate" column="UPLOAD_DATE"></result>
+   <result property="file_path" column="FILE_PATH"></result>   
 </resultMap>
 
 <resultMap type="Follower" id="followerListResultSet">
-	<result property="memberId" column="MEMBER_ID"></result>
-	<result property="nickName" column="NICKNAME"></result>
-	<result property="renameName" column="RENAME_NAME"></result>
-	<result property="followerCount" column="FOLLOWER_COUNT"></result>
-	<result property="followingCount" column="FOLLOWING_COUNT"></result>	
+   <result property="memberId" column="MEMBER_ID"></result>
+   <result property="nickName" column="NICKNAME"></result>
+   <result property="renameName" column="RENAME_NAME"></result>
+   <result property="followerCount" column="FOLLOWER_COUNT"></result>
+   <result property="followingCount" column="FOLLOWING_COUNT"></result>   
 </resultMap>
 
 <resultMap type="Restaurant" id="restaurantListResultSet">
-		<id property="resId" column="RES_ID" />
-		<result property="resCategoryId" column="RES_CATEGORY_ID" />
-		<result property="locationId" column="LOCATION_ID" />
-		<result property="resName" column="RES_NAME" />
-		<result property="resAddress" column="RES_ADDRESS" />
-		<result property="resContent" column="RES_CONTENT" />
-		<result property="resViewCount" column="RES_VIEWCOUNT" />
-		<result property="resTime" column="RES_TIME" />
-		<result property="resStatus" column="RES_STATUS" />
-		<result property="resCreateDate" column="RES_CREATE_DATE" />
-		<result property="resUpdateDate" column="RES_UPDATE_DATE" />
-		<result property="resPhone" column="RES_PHONE"/>
-		<result property="resImageName" column="RES_IMAGE_NAME"/>
+      <id property="resId" column="RES_ID" />
+      <result property="resCategoryId" column="RES_CATEGORY_ID" />
+      <result property="locationId" column="LOCATION_ID" />
+      <result property="resName" column="RES_NAME" />
+      <result property="resAddress" column="RES_ADDRESS" />
+      <result property="resContent" column="RES_CONTENT" />
+      <result property="resViewCount" column="RES_VIEWCOUNT" />
+      <result property="resTime" column="RES_TIME" />
+      <result property="resStatus" column="RES_STATUS" />
+      <result property="resCreateDate" column="RES_CREATE_DATE" />
+      <result property="resUpdateDate" column="RES_UPDATE_DATE" />
+      <result property="resPhone" column="RES_PHONE"/>
+      <result property="resImageName" column="RES_IMAGE_NAME"/>
 </resultMap>
 
 
 <resultMap type="Select_Checkin" id="CheckinListResultSet">
-	<id property="checkinId" column="CHECKIN_ID" />
-	<result property="memberId" column="MEMBER_ID" />
-	<result property="resId" column="RES_ID" />
-	<result property="checkinCreateDate" column="CHECKIN_CREATE_DATE" />
-	<result property="checkinUpdateDate" column="CHECKIN_UPDATE_DATE" />
-	<result property="checkinVisitDate" column="CHECKIN_VISIT_DATE" />
-	<result property="checkinContent" column="CHECKIN_CONTENT" />
-	<result property="resName" column="RES_NAME" />
-	<result property="resImage" column="IMAGE_NEW_NAME" />
-	<collection property="checkinImageList" column="CHECKIN_ID" ofType="Select_CheckinImage" select="getCheckinImageList"/>
+   <id property="checkinId" column="CHECKIN_ID" />
+   <result property="memberId" column="MEMBER_ID" />
+   <result property="resId" column="RES_ID" />
+   <result property="checkinCreateDate" column="CHECKIN_CREATE_DATE" />
+   <result property="checkinUpdateDate" column="CHECKIN_UPDATE_DATE" />
+   <result property="checkinVisitDate" column="CHECKIN_VISIT_DATE" />
+   <result property="checkinContent" column="CHECKIN_CONTENT" />
+   <result property="resName" column="RES_NAME" />
+   <result property="resImage" column="IMAGE_NEW_NAME" />
+   <collection property="checkinImageList" column="CHECKIN_ID" ofType="Select_CheckinImage" select="getCheckinImageList"/>
 </resultMap>
 
 
 
 <resultMap type="Select_CheckinImage" id="CheckinImageListResultSet">
-	<id property="imageId" column="IMAGE_ID" />
-	<result property="checkinId" column="CHECKIN_ID" />
-	<result property="imageNewName" column="IMAGE_NEW_NAME" />
+   <id property="imageId" column="IMAGE_ID" />
+   <result property="checkinId" column="CHECKIN_ID" />
+   <result property="imageNewName" column="IMAGE_NEW_NAME" />
 </resultMap>
 
 
 <resultMap type="MZ" id="MZListResultSet">
-	<id property="resBookMarkId" column="RES_BOOKMARK_ID"/>
-	<result property="resId" column="RES_ID"/>
-	<result property="resName" column="RES_NAME"/>
-	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
-	<result property="locationName" column="LOCATION_NAME"/>
+   <id property="resBookMarkId" column="RES_BOOKMARK_ID"/>
+   <result property="resId" column="RES_ID"/>
+   <result property="resName" column="RES_NAME"/>
+   <result property="imageNewName" column="IMAGE_NEW_NAME"/>
+   <result property="locationName" column="LOCATION_NAME"/>
 
 </resultMap>
 
 <resultMap type="Res" id="RestaurantDetailMap">
-	<id property="resId" column="RES_ID" jdbcType="INTEGER"/>
-	<result property="resCategoryId" column="RES_CATEGORY_ID"/>
-	<result property="resCategoryName" column="RES_CATEGORY_NAME"/>
-	<result property="locationId" column="LOCATION_ID"/>
-	<result property="locationName" column="LOCATION_NAME"/>
-	<result property="resName" column="RES_NAME"/>
-	<result property="resAddress" column="RES_ADDRESS"/>
-	<result property="resContent" column="RES_CONTENT"/>
-	<result property="resTime" column="RES_TIME"/>
-	<result property="resStatus" column="RES_STATUS"/>
-	<result property="resCreateDate" column="RES_CREATE_DATE"/>
-	<result property="resUpdateDate" column="RES_UPDATE_DATE"/>
-	<result property="reviewRating" column="REVIEW_RATING"/>
-	<result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
-	<result property="resReviewCount" column="REVIEW_COUNT"/>
-	<result property="resViewCount" column="RES_VIEWCOUNT"/>
-	<association property="resThumbnailImage" column="RES_ID" javaType="ResImage" select="getResThumbnailImage"/>
-	<collection property="resLatestImages" column="RES_ID" ofType="Image" select="getResLatestImages"/>
+   <id property="resId" column="RES_ID" jdbcType="INTEGER"/>
+   <result property="resCategoryId" column="RES_CATEGORY_ID"/>
+   <result property="resCategoryName" column="RES_CATEGORY_NAME"/>
+   <result property="locationId" column="LOCATION_ID"/>
+   <result property="locationName" column="LOCATION_NAME"/>
+   <result property="resName" column="RES_NAME"/>
+   <result property="resAddress" column="RES_ADDRESS"/>
+   <result property="resContent" column="RES_CONTENT"/>
+   <result property="resTime" column="RES_TIME"/>
+   <result property="resStatus" column="RES_STATUS"/>
+   <result property="resCreateDate" column="RES_CREATE_DATE"/>
+   <result property="resUpdateDate" column="RES_UPDATE_DATE"/>
+   <result property="reviewRating" column="REVIEW_RATING"/>
+   <result property="resBookmarkCount" column="BOOKMARK_COUNT"/>
+   <result property="resReviewCount" column="REVIEW_COUNT"/>
+   <result property="resViewCount" column="RES_VIEWCOUNT"/>
+   <association property="resThumbnailImage" column="RES_ID" javaType="ResImage" select="getResThumbnailImage"/>
+   <collection property="resLatestImages" column="RES_ID" ofType="Image" select="getResLatestImages"/>
 </resultMap>
 
 <resultMap type="Info" id="InfoMap">
-	<id property="resId" column="RES_ID"/>
-	<result property="infoCategoryName" column="RES_CATEGORY_NAME"/>
-	<result property="infoOperatingTime" column="RES_TIME"/>
-	<collection property="infoFilter" ofType="Filter">
-		<id property="filterId" column="FILTER_ID"/>
-		<result property="filterName" column="FILTER_NAME"/>
-	</collection>
-	<collection property="bestmenu" ofType="Bestmenu">
-		<id property="bestmenuId" column="BESTMENU_ID"/>
-		<result property="bestmenuName" column="BESTMENU_NAME"/>
-	</collection>
+   <id property="resId" column="RES_ID"/>
+   <result property="infoCategoryName" column="RES_CATEGORY_NAME"/>
+   <result property="infoOperatingTime" column="RES_TIME"/>
+   <collection property="infoFilter" ofType="Filter">
+      <id property="filterId" column="FILTER_ID"/>
+      <result property="filterName" column="FILTER_NAME"/>
+   </collection>
+   <collection property="bestmenu" ofType="Bestmenu">
+      <id property="bestmenuId" column="BESTMENU_ID"/>
+      <result property="bestmenuName" column="BESTMENU_NAME"/>
+   </collection>
 </resultMap>
 
 <resultMap type="Image" id="ImageMap">
-	<id property="imageId" column="IMAGE_ID"/>
-	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
-	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
-	<result property="imageFilepath" column="IMAGE_FILEPATH"/>
-	<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
-	<result property="imageLevel" column="IMAGE_LEVEL"/>
-	<result property="imageStatus" column="IMAGE_STATUS"/>
-	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>
+   <id property="imageId" column="IMAGE_ID"/>
+   <result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
+   <result property="imageNewName" column="IMAGE_NEW_NAME"/>
+   <result property="imageFilepath" column="IMAGE_FILEPATH"/>
+   <result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
+   <result property="imageLevel" column="IMAGE_LEVEL"/>
+   <result property="imageStatus" column="IMAGE_STATUS"/>
+   <result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>
 </resultMap>
-	
+   
 <resultMap type="ResImage" id="ResImageMap">
-		<result property="resId" column="RES_ID"/>
-		<result property="imageId" column="IMAGE_ID"/>
-		<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
-		<result property="imageNewName" column="IMAGE_NEW_NAME"/>
-		<result property="imageFilepath" column="IMAGE_FILEPATH"/>
-		<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
-		<result property="imageLevel" column="IMAGE_LEVEL"/>
-		<result property="imageStatus" column="IMAGE_STATUS"/>
-		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>	
+      <result property="resId" column="RES_ID"/>
+      <result property="imageId" column="IMAGE_ID"/>
+      <result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/>
+      <result property="imageNewName" column="IMAGE_NEW_NAME"/>
+      <result property="imageFilepath" column="IMAGE_FILEPATH"/>
+      <result property="imageCreateDate" column="IMAGE_CREATE_DATE"/>
+      <result property="imageLevel" column="IMAGE_LEVEL"/>
+      <result property="imageStatus" column="IMAGE_STATUS"/>
+      <result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>   
 </resultMap>
 
  <resultMap type="Board" id="BoardResultSet">
-	<id property="boardId" column="BOARD_ID"/>
-   	<result property="boardWriter" column="BOARD_WRITER"/>
-   	<result property="categoryNo" column="CATEGORY_NO"/>
-   	<result property="boardTitle" column="BOARD_TITLE"/>
-   	<result property="boardContent" column="BOARD_CONTENT"/>
-   	<result property="boardCount" column="BOARD_COUNT"/>
-   	<result property="boardCreateDate" column="BOARD_CREATE_DATE"/> 
-   	<result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
-   	<result property="boardStatus" column="BOARD_STATUS"/>
-   	<result property="answerContent" column="ANSWER_CONTENT"/>
-   	<result property="summernoteContent" column="SUMMERNOTE_CONTENT"/>
-   	<result property="nickname" column="NICKNAME"/>   	
-   	<result property="inquiryCode" column="INQUIRY_CODE"/> 
-   	<result property="inquiryContent" column="INQUIRY_CONTENT"/>
-   	<result property="inquiryDate" column="INQUIRY_DATE"/>
-   	<result property="inquiryYN" column="INQUIRY_YN"/> 
-   	<result property="inquiryName" column="INQUIRY_NAME"/>
-   	<result property="imageId" column="IMAGE_ID"/>
-   	<result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/> 
-   	<result property="imageNewName" column="IMAGE_NEW_NAME"/>
-   	<result property="imageFilepath" column="IMAGE_FILEPATH"/>
-   	<result property="imageCreateDate" column="IMAGE_CREATE_DATE"/> 
-   	<result property="imageLevel" column="IMAGE_LEVEL"/>
-   	<result property="imageStatus" column="IMAGE_STATUS"/>
-   	<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>    	  
+   <id property="boardId" column="BOARD_ID"/>
+      <result property="boardWriter" column="BOARD_WRITER"/>
+      <result property="categoryNo" column="CATEGORY_NO"/>
+      <result property="boardTitle" column="BOARD_TITLE"/>
+      <result property="boardContent" column="BOARD_CONTENT"/>
+      <result property="boardCount" column="BOARD_COUNT"/>
+      <result property="boardCreateDate" column="BOARD_CREATE_DATE"/> 
+      <result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
+      <result property="boardStatus" column="BOARD_STATUS"/>
+      <result property="answerContent" column="ANSWER_CONTENT"/>
+      <result property="summernoteContent" column="SUMMERNOTE_CONTENT"/>
+      <result property="nickname" column="NICKNAME"/>      
+      <result property="inquiryCode" column="INQUIRY_CODE"/> 
+      <result property="inquiryContent" column="INQUIRY_CONTENT"/>
+      <result property="inquiryDate" column="INQUIRY_DATE"/>
+      <result property="inquiryYN" column="INQUIRY_YN"/> 
+      <result property="inquiryName" column="INQUIRY_NAME"/>
+      <result property="imageId" column="IMAGE_ID"/>
+      <result property="imageOriginName" column="IMAGE_ORIGIN_NAME"/> 
+      <result property="imageNewName" column="IMAGE_NEW_NAME"/>
+      <result property="imageFilepath" column="IMAGE_FILEPATH"/>
+      <result property="imageCreateDate" column="IMAGE_CREATE_DATE"/> 
+      <result property="imageLevel" column="IMAGE_LEVEL"/>
+      <result property="imageStatus" column="IMAGE_STATUS"/>
+      <result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>         
 </resultMap>
 
 <resultMap type="Select_Board" id="InquiryListResultSet">
-	<id property="boardId" column="BOARD_ID"/>
- 	<result property="inquiryName" column="INQUIRY_NAME"/>   	
- 	<result property="boardTitle" column="BOARD_TITLE"/>   	
- 	<result property="boardCreateDate" column="BOARD_CREATE_DATE"/>   	
- 	<result property="inquiryYN" column="INQUIRY_YN"/>   	
+   <id property="boardId" column="BOARD_ID"/>
+    <result property="inquiryName" column="INQUIRY_NAME"/>      
+    <result property="boardTitle" column="BOARD_TITLE"/>      
+    <result property="boardCreateDate" column="BOARD_CREATE_DATE"/>      
+    <result property="inquiryYN" column="INQUIRY_YN"/>      
 
 </resultMap>
 
 <resultMap type="BoardInfo" id="BoardInfoResultSet">
-	<id property="boardId" column="BOARD_ID"/>
- 	<result property="inquiryName" column="INQUIRY_NAME"/>
- 	<result property="inquiryCode" column="INQUIRY_CODE"/>
- 	<result property="boardTitle" column="BOARD_TITLE"/>   	
- 	<result property="summerNoteContent" column="SUMMERNOTE_CONTENT"/>   	
+   <id property="boardId" column="BOARD_ID"/>
+    <result property="inquiryName" column="INQUIRY_NAME"/>
+    <result property="inquiryCode" column="INQUIRY_CODE"/>
+    <result property="boardTitle" column="BOARD_TITLE"/>      
+    <result property="summerNoteContent" column="SUMMERNOTE_CONTENT"/>      
 
 </resultMap>
 
-<!-- =====================  mylist영은 ===================================== -->
+<resultMap type="Select_Coupon" id="SelectCouponResultSet">
+   <id property="couponListId" column="COUPON_LIST_ID"/>
+    <result property="couponStartDate" column="COUPON_START_DATE"/>
+    <result property="couponExpireDate" column="COUPON_EXPIREDATE"/>
+    <result property="cStatus" column="C_STATUS"/>      
+    <result property="couponContent" column="COUPON_CONTENT"/>      
+
+</resultMap>
+
+<resultMap type="TM" id="TMListResultSet">
+   <id property="themeBookMarkId" column="THEME_BOOKMARK_ID"/>
+    <result property="themeId" column="THEME_ID"/>
+    <result property="themeTitle" column="THEME_TITLE"/>
+    <result property="resImageName" column="RES_IMAGE_NAME"/>      
+
+</resultMap>
+
+<!-- ================================Mylist 영은 ResultMap=================================================-->
 
 <!-- 마이리스트 관련 resultMap -->
 <resultMap type="MyListAdmin" id="MylistResultSet">
-	<id property="mlId" column="ML_ID"/>
+   <id property="mlId" column="ML_ID"/>
       <result property="mlTitle" column="ML_TITLE"/>
       <result property="mlUploadDate" column="ML_UPLOAD_DATE"/>
       <result property="mlModifyDate" column="ML_MODIFY_DATE"/>
@@ -205,7 +222,7 @@
 
 <!-- 음식점 관련 resultMap -->
 <resultMap type="Restaurant" id="RestaurantResultSet">
-	<id property="resId" column="RES_ID"/>
+   <id property="resId" column="RES_ID"/>
       <result property="resCategoryId" column="RES_CATEGORY_ID"/>
       <result property="locationId" column="LOCATION_ID"/>
       <result property="resName" column="RES_NAME"/>
@@ -328,19 +345,19 @@ WHERE NICKNAME = #{nickName}
 
 <!-- 내정보 수정 쿼리 -->
 <update id="updateMemberInfo" parameterType="Member">
-	UPDATE MEMBER
-	SET MEMBER_PWD=#{memberPwd}
-	, NICKNAME=#{nickName}
-	, PHONE=#{phone}
-	, ADDRESS=#{address}
-	WHERE MEMBER_ID = #{memberId}
+   UPDATE MEMBER
+   SET MEMBER_PWD=#{memberPwd}
+   , NICKNAME=#{nickName}
+   , PHONE=#{phone}
+   , ADDRESS=#{address}
+   WHERE MEMBER_ID = #{memberId}
 </update>
 
 <!-- 회원탈퇴 쿼리 -->
 <update id="updateMemberWithdrawal" parameterType="Member">
-	UPDATE MEMBER
-	SET MEMBER_STATUS = 'N'
-	WHERE MEMBER_ID = #{memberId}
+   UPDATE MEMBER
+   SET MEMBER_STATUS = 'N'
+   WHERE MEMBER_ID = #{memberId}
 </update>
 
 
@@ -355,35 +372,35 @@ WHERE RES_NAME LIKE '%'||#{resName}||'%' AND RES_STATUS = 'Y'
 <!-- 체크인 테이블에 값 넣는 쿼리 -->
 <insert id="insertCheckin" parameterType="Checkin">
 INSERT INTO CHECKIN VALUES(
-		SEQ_CHECKINID.NEXTVAL
-		,#{memberId}
-		,#{resId}
-		,SYSDATE
-		,SYSDATE
-		,#{checkinVisitDate}
-		,#{checkinContent}
+      SEQ_CHECKINID.NEXTVAL
+      ,#{memberId}
+      ,#{resId}
+      ,SYSDATE
+      ,SYSDATE
+      ,#{checkinVisitDate}
+      ,#{checkinContent}
 )
 </insert>
 
 <!-- 체크인 이미지 테이블에 값을 넣는 쿼리 -->
 <insert id="insertCheckinImage" parameterType="CheckinImage">
 INSERT INTO CHECKIN_IMAGE VALUES(
-	SEQ_IMAGEID.CURRVAL
-	,SEQ_CHECKINID.CURRVAL
+   SEQ_IMAGEID.CURRVAL
+   ,SEQ_CHECKINID.CURRVAL
 )
 </insert>
 
 <!-- 이미지 테이블에 값을 넣는 쿼리 -->
 <insert id="insertImage" parameterType="Image">
 INSERT INTO IMAGE VALUES(
-	SEQ_IMAGEID.NEXTVAL
-	,#{imageOriginName}
-	,#{imageNewName}
-	,'checkinImage'
-	,SYSDATE
-	,'1'
-	,'Y'
-	,'0'
+   SEQ_IMAGEID.NEXTVAL
+   ,#{imageOriginName}
+   ,#{imageNewName}
+   ,'checkinImage'
+   ,SYSDATE
+   ,'1'
+   ,'Y'
+   ,'0'
 )
 </insert>
 
@@ -406,7 +423,7 @@ FROM CHECKIN CK
 LEFT JOIN CHECKIN_IMAGE CIMG ON(CK.CHECKIN_ID = CIMG.CHECKIN_ID)
 LEFT JOIN IMAGE IMG ON(CIMG.IMAGE_ID = IMG.IMAGE_ID)
 WHERE CK.CHECKIN_ID = #{checkinId}
-</select>	
+</select>   
 
 <!-- 체크인 수정페이지에 조회되는 체크인 리스트 -->
 
@@ -423,11 +440,11 @@ WHERE CK.CHECKIN_ID = #{checkinId}
 <!-- 체크인 테이블 수정 쿼리 -->
 <update id="updateCheckin" parameterType="Checkin">
 UPDATE CHECKIN
-	SET RES_ID = #{resId}
-	, CHECKIN_UPDATE_DATE = SYSDATE
-	, CHECKIN_VISIT_DATE = #{checkinVisitDate}
-	, CHECKIN_CONTENT = #{checkinContent}
-	WHERE CHECKIN_ID = #{checkinId}
+   SET RES_ID = #{resId}
+   , CHECKIN_UPDATE_DATE = SYSDATE
+   , CHECKIN_VISIT_DATE = #{checkinVisitDate}
+   , CHECKIN_CONTENT = #{checkinContent}
+   WHERE CHECKIN_ID = #{checkinId}
 
 </update>
 
@@ -449,8 +466,8 @@ WHERE IMAGE_ID = #{imageId}
 <!-- 체크인 수정 시 체크인 이미지 테이블에 값을 넣는 쿼리 -->
 <insert id="insertCheckinImage2" parameterType="CheckinImage">
 INSERT INTO CHECKIN_IMAGE VALUES(
-	SEQ_IMAGEID.CURRVAL
-	,#{checkinId}
+   SEQ_IMAGEID.CURRVAL
+   ,#{checkinId}
 )
 </insert>
 
@@ -488,36 +505,37 @@ WHERE RES_BOOKMARK_ID = #{resBookMarkId}
 </delete>
 
 <select id="getRestaurantDetail" parameterType="_int" resultMap="RestaurantDetailMap">
-	SELECT R.RES_ID, R.RES_NAME, R.LOCATION_NAME, R.RES_ADDRESS, R.REVIEW_RATING, R.RES_CONTENT
-   	FROM   SELECT_RES R
-	WHERE  R.RES_ID = #{resId}
+   SELECT R.RES_ID, R.RES_NAME, R.LOCATION_NAME, R.RES_ADDRESS, R.REVIEW_RATING, R.RES_CONTENT
+      FROM   SELECT_RES R
+   WHERE  R.RES_ID = #{resId}
 </select>
 
 <select id="getRestaurantInfo" parameterType="_int" resultMap="InfoMap">
-	SELECT    R.RES_ID, R.RES_CATEGORY_NAME, R.RES_TIME
-			  ,BM.BESTMENU_ID, BM.BESTMENU_NAME
-			  ,F.FILTER_ID, F.FILTER_NAME
-	FROM      SELECT_RES R
-	LEFT JOIN BESTMENU BM ON (R.RES_ID = BM.RES_ID)
-	LEFT JOIN FILTER_CATEGORY FC ON (R.RES_ID = FC.RES_ID)
-	LEFT JOIN FILTER F ON (FC.FILTER_ID = F.FILTER_ID)
-	WHERE     R.RES_ID = #{resId}
+   SELECT    R.RES_ID, R.RES_CATEGORY_NAME, R.RES_TIME
+           ,BM.BESTMENU_ID, BM.BESTMENU_NAME
+           ,F.FILTER_ID, F.FILTER_NAME
+   FROM      SELECT_RES R
+   LEFT JOIN BESTMENU BM ON (R.RES_ID = BM.RES_ID)
+   LEFT JOIN FILTER_CATEGORY FC ON (R.RES_ID = FC.RES_ID)
+   LEFT JOIN FILTER F ON (FC.FILTER_ID = F.FILTER_ID)
+   WHERE     R.RES_ID = #{resId}
 </select>
 
 <select id="getResLatestImages" resultMap="ImageMap">
-	SELECT LI.*
-	FROM   SELECT_RES_LATEST_IMAGES LI
-	WHERE  LI.RES_ID = #{resId}
+   SELECT LI.*
+   FROM   SELECT_RES_LATEST_IMAGES LI
+   WHERE  LI.RES_ID = #{resId}
 </select>
 
 <select id="getResThumbnailImage" resultMap="ResImageMap">
-	SELECT    R.RES_ID, I.*
-	FROM      IMAGE I
-	LEFT JOIN RES_IMAGE RI ON (I.IMAGE_ID = RI.IMAGE_ID)
-	LEFT JOIN RESTAURANT R ON (R.RES_ID = RI.RES_ID)
-	WHERE     R.RES_ID = #{resId}
+   SELECT    R.RES_ID, I.*
+   FROM      IMAGE I
+   LEFT JOIN RES_IMAGE RI ON (I.IMAGE_ID = RI.IMAGE_ID)
+   LEFT JOIN RESTAURANT R ON (R.RES_ID = RI.RES_ID)
+   WHERE     R.RES_ID = #{resId}
 </select>
 
+<!-- 1대1문의 리스트 조회  -->
 <select id="selectInquiry" parameterType="_int" resultMap="InquiryListResultSet">
 SELECT B.BOARD_ID, IT.INQUIRY_NAME, B.BOARD_TITLE, B.BOARD_CREATE_DATE, I.INQUIRY_YN
 FROM BOARD B
@@ -528,6 +546,7 @@ ORDER BY B.BOARD_ID ASC
 
 </select>
 
+<!-- 수정하기 버튼 클릭 시 넘어가는 문의 정보 조회 -->
 <select id="selectBoardInfo" parameterType="_int" resultMap="BoardInfoResultSet">
 SELECT B.BOARD_ID, IT.INQUIRY_NAME, I.INQUIRY_CODE, B.BOARD_TITLE,B.SUMMERNOTE_CONTENT
 FROM BOARD B
@@ -537,26 +556,63 @@ WHERE B.BOARD_ID = #{boardId}
 
 </select>
 
+<!-- 수정 버튼 클릭 시 board테이블 수정 -->
 <update id="updateBoard" parameterType="BoardInfo">
 UPDATE BOARD
-	SET BOARD_TITLE = #{boardTitle}
-	, SUMMERNOTE_CONTENT = #{summerNoteContent}
-	WHERE BOARD_ID = #{boardId}
+   SET BOARD_TITLE = #{boardTitle}
+   , SUMMERNOTE_CONTENT = #{summerNoteContent}
+   WHERE BOARD_ID = #{boardId}
 </update>
 
-
+<!-- 수정 버튼 클릭 시 inquiry테이블 수정 -->
 <update id="updateInquiry" parameterType="BoardInfo">
 UPDATE INQUIRY
-	SET INQUIRY_CODE = #{inquiryCode}
-	WHERE BOARD_ID = #{boardId}
+   SET INQUIRY_CODE = #{inquiryCode}
+   WHERE BOARD_ID = #{boardId}
 </update>
 
+<!-- 삭제 버튼 클릭 시 board 상태 수정 -->
 <update id="updateBoardStatus" parameterType="_int">
 UPDATE BOARD
-	SET BOARD_STATUS = 'N'
-	WHERE BOARD_ID = #{boardId}
+   SET BOARD_STATUS = 'N'
+   WHERE BOARD_ID = #{boardId}
 </update>
 
+<!-- 나의 쿠폰 리스트 조회 -->
+<select id="selectCouponList" parameterType="_int" resultMap="SelectCouponResultSet">
+SELECT CL.COUPON_LIST_ID, CL.COUPON_START_DATE, CL.COUPON_EXPIREDATE, CL.C_STATUS, C.COUPON_CONTENT
+FROM MEMBERSHIP_LIST ML
+LEFT JOIN COUPON_LIST CL ON (ML.MEMBERSHIP_LIST_ID = CL.MEMBERSHIP_LIST_ID)
+LEFT JOIN COUPON C ON(CL.COUPON_ID = C.COUPON_ID)
+WHERE MEMBER_ID = #{memberId}
+
+</select>
+
+<!-- 쿠폰 버튼 클릭 시 상태 변경 -->
+<update id="updatecStatus" parameterType="_int">
+UPDATE COUPON_LIST
+   SET C_STATUS = 'Y'
+   WHERE COUPON_LIST_ID = #{couponListId}
+
+</update>
+
+<!-- 테마 즐찾 목록 조회 -->
+<select id="selectTM" parameterType="_int" resultMap="TMListResultSet">
+SELECT STA.THEME_ID
+, STA.THEME_TITLE
+, STA.RES_IMAGE_NAME
+, TB.THEME_BOOKMARK_ID
+FROM SELECT_THEME_ADMIN STA
+LEFT JOIN THEME_BOOKMARK TB ON (STA.THEME_ID = TB.THEME_NO)
+WHERE TB.MEMBER_NO = #{memberId}
+
+</select>
+
+<!-- 테마 즐찾 목록 삭제 -->
+<delete id="deleteTM" parameterType="_int">
+DELETE FROM THEME_BOOKMARK
+WHERE THEME_BOOKMARK_ID = #{themeBookMarkId}
+</delete>
 
 <!-- =========================== mylist 영은 ================================================ -->
 
@@ -567,63 +623,60 @@ INSERT INTO MYLIST VALUES
 </insert>
 
 <insert id="insertMylistRes" parameterType="string">
-	INSERT INTO MYLIST_RES VALUES(#{theme},SEQ_MLID.CURRVAL)
+   INSERT INTO MYLIST_RES VALUES(#{theme},SEQ_MLID.CURRVAL)
 </insert>
 
 <select id="selectmyPageMylist" resultMap="MylistResultSet">
-	SELECT ML_ID, ML_TITLE, RES_IMAGE_NAME,MEMBER_ID,RECOMMENDATION_THEME
-	FROM SELECT_MYLIST_ADMIN
-	
+   SELECT ML_ID, ML_TITLE, RES_IMAGE_NAME,MEMBER_ID,RECOMMENDATION_THEME
+   FROM SELECT_MYLIST_ADMIN
+   
 </select>
 <!-- mylist 수정 -->
 
 <!-- 마이리스트 조회 -->
 <select id="selectOneMylist" parameterType="MyListAdmin" resultMap="MylistResultSet">
-	SELECT * FROM SELECT_MYLIST_ADMIN WHERE ML_ID = #{mlId}
+   SELECT * FROM SELECT_MYLIST_ADMIN WHERE ML_ID = #{mlId}
 </select>
 
 <!-- 마이리스트 음식점 내용 조회 -->
 <select id="selectListMylistRestaurant" parameterType="MyListAdmin" resultMap="RestaurantResultSet">
-	SELECT * FROM SELECT_RESTAURANT R
-	LEFT JOIN MYLIST_RES MR ON(R.RES_ID = MR.RES_ID)
-	WHERE MR.ML_ID = #{mlId}
+   SELECT * FROM SELECT_RESTAURANT R
+   LEFT JOIN MYLIST_RES MR ON(R.RES_ID = MR.RES_ID)
+   WHERE MR.ML_ID = #{mlId}
 </select>
 
-<!-- 테마 수정 -->
+<!-- 마이리스트 수정 -->
 <update id="modifyMylist" parameterType="MyListAdmin">
-	UPDATE MYLIST SET ML_TITLE=#{mlTitle}, ML_MODIFY_DATE=SYSDATE 
-	WHERE ML_ID = #{mlId}
+   UPDATE MYLIST SET ML_TITLE=#{mlTitle}, ML_MODIFY_DATE=SYSDATE 
+   WHERE ML_ID = #{mlId}
 </update>
 
-<!-- 테마 수정시 기존에 있던 restaurant리스트 삭제 -->
+<!-- 마이리스트 수정시 기존에 있던 restaurant리스트 삭제 -->
 <delete id="deleteRList" parameterType="MyListAdmin">
-	DELETE FROM MYLIST_RES WHERE ML_ID=#{mlId}
-</delete>	
+   DELETE FROM MYLIST_RES WHERE ML_ID=#{mlId}
+</delete>   
 
-<!-- 테마수정시 새로운 음식점 리스트 등록 -->
+<!-- 마이리스트 수정시 새로운 음식점 리스트 등록 -->
 <insert id="insertMylistRestaurant" parameterType="hashmap">
-	INSERT INTO MYLIST_RES VALUES(#{mId},#{mylist})
+   INSERT INTO MYLIST_RES VALUES(#{mId},#{mylist})
 </insert>
 
 
 <!-- 마이리스트 삭제시 마이리스트음식점리스트에 등록된 값들 삭제 -->
 <delete id="deleteMylistR" parameterType="MyListAdmin">
-	DELETE FROM MYLIST_RES
-	WHERE ML_ID = #{mlId}
+   DELETE FROM MYLIST_RES
+   WHERE ML_ID = #{mlId}
 </delete>
 
 <!-- 마이리스트 삭제 -->
 <delete id="deleteMylist" parameterType="MyListAdmin">
-	DELETE FROM MYLIST
-	WHERE ML_ID = #{mlId}
+   DELETE FROM MYLIST
+   WHERE ML_ID = #{mlId}
 </delete>
 <!-- 마이리스트 추천 -->
 <update id="recommendMylst" parameterType="MyListAdmin">
-	UPDATE MYLIST SET RECOMMENDATION_THEME ='Y'
-	WHERE ML_ID = #{mlId}
+   UPDATE MYLIST SET RECOMMENDATION_THEME ='Y'
+   WHERE ML_ID = #{mlId}
 </update>
 
 </mapper>
-
-
-
