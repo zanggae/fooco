@@ -8,8 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<!-- fontawesome -->
-<script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -366,6 +364,11 @@
 										<span style="font-size: 0.8rem;">${res.resAddress}</span>
 									</div>
 									<div class="row" class="sr-mz-bestReview" style="margin-top:0.5rem;">
+										<c:if test="${empty res.bestReview}">
+											<p>
+												'${res.resName}'을 방문하시고 제일 먼저 댓글을 남겨 보세요!
+											<p>
+										</c:if>
 										<c:if test="${not empty res.bestReview}">
 											<div class="col-2 sr-mz-bestReview-profile d-flex justify-content-center">
 												<div class="sr-mz-bestReview-profile-div">
@@ -489,5 +492,8 @@
 			window.location.href="goDetailRestaurant.do?resId=" + resId;
 		};
 	</script>
+
+<!-- fontawesome -->
+<script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
 </body>
 </html>
