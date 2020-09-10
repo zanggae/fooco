@@ -10,6 +10,7 @@ import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.Search;
+import com.kh.fooco.admin.model.vo.Static;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.Image;
@@ -341,6 +342,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ArrayList<MyListAdmin> selectListMyListD() {
 		return adminDao.selectListMyListD();
+	}
+
+	@Override
+	public ArrayList<Static> selectListStatic() {
+		return adminDao.selectListStatic();
 	}
 
 	

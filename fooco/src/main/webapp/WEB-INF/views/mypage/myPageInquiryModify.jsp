@@ -5,9 +5,6 @@
 <html lang="ko">
 
 <head>
-<!-- sweet alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -274,17 +271,17 @@ function validate(){
 	
 	if($("#inquiryCode").val() == "")
 		{
-			swal("문의 유형을 선택하세요.")
+			alert("문의 유형을 선택하세요.")
 			return;
 		}
 	if($("#boardTitle").val() == "")
 		{
-			swal("제목을 입력하세요.");
+			alert("제목을 입력하세요.");
 			return;
 		}
 	if($("#summernote").val() == "")
 		{
-			swal("내용을 입력하세요.");
+			alert("내용을 입력하세요.");
 			return;
 		}
 	else{
@@ -295,8 +292,6 @@ function validate(){
 
 
 </script>
-
-
 
 
 </html>

@@ -196,24 +196,58 @@
 
 </resultMap>
 
-
-
-<!-- Mylist 영은 -->
-
-<resultMap type="MylistAdmin" id="mylistResultSet">
-	<id property="mlId" column="ML_ID"/>
-	<result property="Rn" column="RN"/>
-	<result property="mlTitle" column="ML_TITLE"/>
-	<result property="mlUploadDate" column="ML_UPLOAD_DATE"/>
-	<result property="mlModifyDate" column="ML_MODIFY_DATE"/>
-	<result property="recommendationTheme" column="RECOMMENDATION_THEME"/>
-	<result property="approveTheme" column="APPROVE_THEME"/>
-	<result property="memberId" column="MEMBER_ID"/>
-	<result property="nickname" column="NICKNAME"/>
-	<result property="resImageName" column="RES_IMAGE_NAME"/>
-	
+<resultMap type="TM" id="TMListResultSet">
+	<id property="themeBookMarkId" column="THEME_BOOKMARK_ID"/>
+ 	<result property="themeId" column="THEME_ID"/>
+ 	<result property="themeTitle" column="THEME_TITLE"/>
+ 	<result property="resImageName" column="RES_IMAGE_NAME"/>   	
 
 </resultMap>
+
+<!-- ================================Mylist 영은 ResultMap=================================================-->
+
+<!-- 마이리스트 관련 resultMap -->
+<resultMap type="MyListAdmin" id="MylistResultSet">
+   <id property="mlId" column="ML_ID"/>
+      <result property="mlTitle" column="ML_TITLE"/>
+      <result property="mlUploadDate" column="ML_UPLOAD_DATE"/>
+      <result property="mlModifyDate" column="ML_MODIFY_DATE"/>
+      <result property="recommendationTheme" column="RECOMMENDATION_THEME"/>
+      <result property="approveTheme" column="APPROVE_THEME"/>
+      <result property="mlWriter" column="MEMBER_ID"/>
+      <result property="mlWNickname" column="NICKNAME"/>
+      <result property="mlImageName" column="RES_IMAGE_NAME"/>
+</resultMap>
+
+
+<!-- 음식점 관련 resultMap -->
+<resultMap type="Restaurant" id="RestaurantResultSet">
+   <id property="resId" column="RES_ID"/>
+      <result property="resCategoryId" column="RES_CATEGORY_ID"/>
+      <result property="locationId" column="LOCATION_ID"/>
+      <result property="resName" column="RES_NAME"/>
+      <result property="resAddress" column="RES_ADDRESS"/>
+      <result property="resContent" column="RES_CONTENT"/>
+      <result property="resViewCount" column="RES_VIEWCOUNT"/> 
+      <result property="resTime" column="RES_TIME"/>
+      <result property="resStatus" column="RES_STATUS"/>
+      <result property="resCreateDate" column="RES_CREATE_DATE"/>
+      <result property="resUpdateDate" column="RES_UPDATE_DATE"/>  
+      <result property="resPhone" column="RES_PHONE"/>     
+      <result property="resImageName" column="RES_IMAGE_NAME"/> 
+      <result property="resImageFilepath" column="RES_IMAGE_FILEPATH"/>
+      <result property="locationName" column="LOCATION_NAME"/>
+      <result property="reviewId" column="REVIEW_ID"/>
+      <result property="reviewContent" column="REVIEW_CONTENT"/>
+      <result property="reviewRatingAvg" column="REVIEW_RATING"/>
+      <result property="reviewProfileImageName" column="REVIEW_PROFILE_IMAGE_NAME"/>
+      <result property="reviewProfileImageFilepath" column="REVIEW_PROFILE_IMAGE_FILEPATH"/> 
+      <result property="reviewNickname" column="REVIEW_NICKNAME"/>
+      <result property="bookmarkCount" column="BOOKMARK_COUNT"/>
+      <result property="reviewCount" column="REVIEW_COUNT"/> 
+      <result property="resCategoryName" column="RES_CATEGORY_NAME"/>      
+</resultMap>
+
 
 
 
@@ -554,6 +588,7 @@ WHERE MEMBER_ID = #{memberId}
 
 </select>
 
+<!-- 쿠폰 버튼 클릭 시 상태 변경 -->
 <update id="updatecStatus" parameterType="_int">
 UPDATE COUPON_LIST
 	SET C_STATUS = 'Y'
@@ -561,7 +596,23 @@ UPDATE COUPON_LIST
 
 </update>
 
+<!-- 테마 즐찾 목록 조회 -->
+<select id="selectTM" parameterType="_int" resultMap="TMListResultSet">
+SELECT STA.THEME_ID
+, STA.THEME_TITLE
+, STA.RES_IMAGE_NAME
+, TB.THEME_BOOKMARK_ID
+FROM SELECT_THEME_ADMIN STA
+LEFT JOIN THEME_BOOKMARK TB ON (STA.THEME_ID = TB.THEME_NO)
+WHERE TB.MEMBER_NO = #{memberId}
 
+</select>
+
+<!-- 테마 즐찾 목록 삭제 -->
+<delete id="deleteTM" parameterType="_int">
+DELETE FROM THEME_BOOKMARK
+WHERE THEME_BOOKMARK_ID = #{themeBookMarkId}
+</delete>
 
 <!-- =========================== mylist 영은 ================================================ -->
 
@@ -572,13 +623,61 @@ INSERT INTO MYLIST VALUES
 </insert>
 
 <insert id="insertMylistRes" parameterType="string">
-	INSERT INTO MYLIST_RES VALUES(#{theme},SEQ_MLID.CURRVAL)
+   INSERT INTO MYLIST_RES VALUES(#{theme},SEQ_MLID.CURRVAL)
 </insert>
 
-<select id="selectmyPageMylist" resultMap="mylistResultSet">
-	SELECT ML_ID, ML_TITLE, RES_IMAGE_NAME,MEMBER_ID
-	FROM SELECT_MYLIST_ADMIN
-	
+<select id="selectmyPageMylist" resultMap="MylistResultSet">
+   SELECT ML_ID, ML_TITLE, RES_IMAGE_NAME,MEMBER_ID,RECOMMENDATION_THEME
+   FROM SELECT_MYLIST_ADMIN
+   
 </select>
+<!-- mylist 수정 -->
+
+<!-- 마이리스트 조회 -->
+<select id="selectOneMylist" parameterType="MyListAdmin" resultMap="MylistResultSet">
+   SELECT * FROM SELECT_MYLIST_ADMIN WHERE ML_ID = #{mlId}
+</select>
+
+<!-- 마이리스트 음식점 내용 조회 -->
+<select id="selectListMylistRestaurant" parameterType="MyListAdmin" resultMap="RestaurantResultSet">
+   SELECT * FROM SELECT_RESTAURANT R
+   LEFT JOIN MYLIST_RES MR ON(R.RES_ID = MR.RES_ID)
+   WHERE MR.ML_ID = #{mlId}
+</select>
+
+<!-- 마이리스트 수정 -->
+<update id="modifyMylist" parameterType="MyListAdmin">
+   UPDATE MYLIST SET ML_TITLE=#{mlTitle}, ML_MODIFY_DATE=SYSDATE 
+   WHERE ML_ID = #{mlId}
+</update>
+
+<!-- 마이리스트 수정시 기존에 있던 restaurant리스트 삭제 -->
+<delete id="deleteRList" parameterType="MyListAdmin">
+   DELETE FROM MYLIST_RES WHERE ML_ID=#{mlId}
+</delete>   
+
+<!-- 마이리스트 수정시 새로운 음식점 리스트 등록 -->
+<insert id="insertMylistRestaurant" parameterType="hashmap">
+   INSERT INTO MYLIST_RES VALUES(#{mId},#{mylist})
+</insert>
+
+
+<!-- 마이리스트 삭제시 마이리스트음식점리스트에 등록된 값들 삭제 -->
+<delete id="deleteMylistR" parameterType="MyListAdmin">
+   DELETE FROM MYLIST_RES
+   WHERE ML_ID = #{mlId}
+</delete>
+
+<!-- 마이리스트 삭제 -->
+<delete id="deleteMylist" parameterType="MyListAdmin">
+   DELETE FROM MYLIST
+   WHERE ML_ID = #{mlId}
+</delete>
+<!-- 마이리스트 추천 -->
+<update id="recommendMylst" parameterType="MyListAdmin">
+   UPDATE MYLIST SET RECOMMENDATION_THEME ='Y'
+   WHERE ML_ID = #{mlId}
+</update>
+
 
 </mapper>

@@ -51,8 +51,15 @@
    <result property="file_path" column="FILE_PATH"></result>   
 </resultMap>
 
-
-
+<!-- static resultMap -->
+<resultMap type="Static" id="StaticResultSet">
+	<id property="staticId" column="STATIC_ID"></id>
+   <result property="staticDate" column="STATIC_DATE"></result>
+   <result property="staticCount" column="STATIC_COUNT"></result>
+   <result property="staticTCount" column="STATIC_T_COUNT"></result>
+   <result property="goldCount" column="GOLD_COUNT"></result>
+   <result property="silverCount" column="SILVER_COUNT"></result>
+</resultMap>
 <!-- ============================ 게시판 관련 resultMap 작성 ============================ -->
 
 <!-- board 조회 resultMap -->
@@ -548,6 +555,12 @@
 <select id="selectListMyListD" resultMap="MylistResultSet">
 <![CDATA[
 	SELECT * FROM SELECT_MYLIST_ADMIN WHERE APPROVE_THEME = 'W' AND RECOMMENDATION_THEME = 'Y' AND ROWNUM <=5
+]]>
+</select>
+
+<select id="selectListStatic" resultMap="StaticResultSet">
+<![CDATA[
+	SELECT * FROM STATIC WHERE TO_CHAR(STATIC_DATE,'YYYYMM')>=TO_CHAR(SYSDATE,'YYYYMM')-1
 ]]>
 </select>
 </mapper>

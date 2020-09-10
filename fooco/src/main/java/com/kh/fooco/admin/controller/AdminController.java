@@ -34,6 +34,7 @@ import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.Search;
+import com.kh.fooco.admin.model.vo.Static;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.exception.BoardException;
 import com.kh.fooco.board.model.vo.Board;
@@ -81,8 +82,11 @@ public class AdminController {
 		
 		// 마이리스트 추천 조회
 		ArrayList<MyListAdmin> mylist = adminService.selectListMyListD();
-			
 		
+		// 그래프를 위한 현황리스트 조회
+		ArrayList<Static> st = adminService.selectListStatic();
+		System.out.println(st);
+			mv.addObject("st",st);
 			mv.addObject("notice", notice);		
 			mv.addObject("faq", faq);
 			mv.addObject("mylist", mylist);

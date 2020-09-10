@@ -170,7 +170,7 @@
 	<select id="getReviewList" parameterType="hashmap" resultMap="ReviewMap">
 		SELECT SR.*
 		FROM   SELECT_REVIEW SR
-		WHERE  SR.REVIEW_STATUS = 'Y' AND sR.RES_ID = #{resId}
+		WHERE  SR.REVIEW_STATUS = 'Y' AND SR.RES_ID = #{resId}
 		<choose>
 			<when test="'latest'.equals(sortType)">
 		 		ORDER BY SR.REVIEW_CREATE_DATE DESC
