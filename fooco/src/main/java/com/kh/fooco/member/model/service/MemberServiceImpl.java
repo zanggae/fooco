@@ -26,6 +26,7 @@ import com.kh.fooco.member.model.vo.Select_Board;
 
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.member.model.vo.TM;
 import com.kh.fooco.membership.model.vo.MemberShip;
 
 @Service("memberService")
@@ -329,6 +330,19 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.updatecStatus(couponListId);
 	}
 	
+	// 즐겨찾기 - 테마 리스트 조회 메소드
+	@Override
+	public ArrayList<TM> selectTM(int memberId) {
+	
+		return memberDao.selectTM(memberId);
+	}
+	
+	// 즐겨찾기 - 테마 목록 삭제
+	@Override
+	public int deleteTM(int themeBookMarkId) {
+		
+		return memberDao.deleteTM(themeBookMarkId);
+	}
 	
 	// ================================== Mylist 영은==========================================
 
@@ -361,6 +375,10 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<MylistAdmin> selectmyPageMylist() {
 		return memberDao.selectmyPageMylist();
 	}
+
+
+
+
 
 	/*
 	 * @Override public ArrayList<Mylist> mylistList() { return

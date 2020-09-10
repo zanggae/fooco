@@ -27,6 +27,7 @@ import com.kh.fooco.member.model.vo.Select_Board;
 
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.member.model.vo.TM;
 import com.kh.fooco.membership.model.vo.MemberShip;
 
 
@@ -278,7 +279,18 @@ public class MemberDao {
 		return sqlSessionTemplate.update("mypageMapper.updatecStatus",couponListId);
 	}
 	
+	// 즐겨찾기 - 테마 리스트 조회 메소드
+	public ArrayList<TM> selectTM(int memberId) {
+		
+		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectTM",memberId);
+	}
 	
+	// 즐겨찾기 - 테마 목록 삭제
+	public int deleteTM(int themeBookMarkId) {
+		
+		return sqlSessionTemplate.delete("mypageMapper.deleteTM",themeBookMarkId);
+	}
+
 	
 	// ================================== Mylist 영은 ===========================================
 
@@ -315,6 +327,7 @@ public class MemberDao {
 	public ArrayList<MylistAdmin> selectmyPageMylist() {
 		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectmyPageMylist");
 	}
+
 
 
 

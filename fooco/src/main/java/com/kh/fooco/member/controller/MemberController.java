@@ -7,7 +7,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -37,10 +36,6 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
-import com.kh.fooco.admin.model.vo.Search;
-import com.kh.fooco.board.model.exception.BoardException;
-import com.kh.fooco.board.model.vo.Board;
-import com.kh.fooco.board.model.vo.InsertBoard;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.exception.MemberException;
 import com.kh.fooco.member.model.service.MemberService;
@@ -51,20 +46,15 @@ import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
-import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.model.vo.MylistAdmin;
 import com.kh.fooco.member.model.vo.Select_Board;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.member.model.vo.TM;
 import com.kh.fooco.member.naver.NaverLoginBO;
-import com.kh.fooco.membership.model.vo.MemberShip;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
-
-import com.kh.fooco.theme.model.exception.ThemeException;
-import com.kh.fooco.theme.model.service.ThemeService;
-import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 
 
@@ -844,7 +834,7 @@ public class MemberController {
 			return mv;
 		}
 		
-		// 즐겨찾기 - 맛집 삭제
+		// 즐겨찾기 - 맛집 목록 삭제
 		@RequestMapping("deleteMZ.do")
 		public ModelAndView deleteMZ(ModelAndView mv, int resBookMarkId) {
 			System.out.println("클릭한 resBookMark번호 :" + resBookMarkId);
@@ -877,16 +867,25 @@ public class MemberController {
 		     int memberId = loginUser.getMemberId();
 			
 		     // 즐겨찾기한 맛집 리스트 조회
-//		     ArrayList<MZ> MZList = memberService.selectMZ(memberId);
-//		      
-//		     System.out.println("맛집리스트 조회 결과 : " +MZList);
-//		    
-//		    mv.addObject("MZList",MZList);
+		     ArrayList<TM> TMList = memberService.selectTM(memberId);
+		      
+		     System.out.println("맛집리스트 조회 결과 : " +TMList);
+		    
+		    mv.addObject("TMList",TMList);
 			mv.setViewName("mypage/myPageFavoritesTM");
 			return mv;
 		} 
 		
-		
+		// 즐겨찾기 - 테마 목록 삭제
+		@RequestMapping("deleteTM.do")
+		public ModelAndView deleteTM(ModelAndView mv, int themeBookMarkId) {
+			System.out.println("클릭한 themeBookMarkId :" + themeBookMarkId);
+			
+			int result = memberService.deleteTM(themeBookMarkId);
+		    
+			mv.setViewName("redirect:myPageFavoritesTM.do");
+			return mv;
+		}
 		
 		// 나의 멤버십 페이지 이동
 		@RequestMapping("myPageMembership.do")

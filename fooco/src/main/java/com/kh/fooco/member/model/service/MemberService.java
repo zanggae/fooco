@@ -2,7 +2,6 @@ package com.kh.fooco.member.model.service;
 
 import java.util.ArrayList;
 
-import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.vo.BoardInfo;
 import com.kh.fooco.member.model.vo.Checkin;
@@ -11,19 +10,15 @@ import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.MylistAdmin;
+import com.kh.fooco.member.model.vo.Select_Board;
+import com.kh.fooco.member.model.vo.Select_Checkin;
+import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.member.model.vo.TM;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
-import com.kh.fooco.theme.model.vo.ThemeAdmin;
-import com.kh.fooco.member.model.vo.Mylist;
-
-import com.kh.fooco.member.model.vo.MylistAdmin;
-
-import com.kh.fooco.member.model.vo.Select_Board;
-
-import com.kh.fooco.member.model.vo.Select_Checkin;
-import com.kh.fooco.member.model.vo.Select_Coupon;
-import com.kh.fooco.membership.model.vo.MemberShip;
 
 public interface MemberService {
 
@@ -112,6 +107,9 @@ public interface MemberService {
 	
 	int updatecStatus(int couponListId);
 	
+	ArrayList<TM> selectTM(int memberId);
+	
+	int deleteTM(int themeBookMarkId);
 	
 	// ================================== Mylist 영은 ===========================================
 
@@ -125,6 +123,10 @@ public interface MemberService {
 	int insertMylistRes(String th);
 
 	ArrayList<MylistAdmin> selectmyPageMylist();
+
+
+
+
 
 
 

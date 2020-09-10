@@ -162,7 +162,6 @@
 					                      <img src="${contextPath }/resources/restaurantImage/${MZ.imageNewName}" class="card-img-top" style="z-index: 0; width:8.5rem; height:5.5rem;">
 					                    </div>
 					                   </a>
-					                    <input type="hidden" id="resBookMarkId" value="${MZ.resBookMarkId}">
 					                    <!-- 즐겨찾기 해제 시 목록에서 없애려고 넘기는값 -->
 					                    <c:url var="deleteMZ" value="deleteMZ.do">
 					                    	<c:param name="resBookMarkId" value="${MZ.resBookMarkId}"></c:param>

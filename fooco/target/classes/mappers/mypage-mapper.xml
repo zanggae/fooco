@@ -196,7 +196,13 @@
 
 </resultMap>
 
+<resultMap type="TM" id="TMListResultSet">
+	<id property="themeBookMarkId" column="THEME_BOOKMARK_ID"/>
+ 	<result property="themeId" column="THEME_ID"/>
+ 	<result property="themeTitle" column="THEME_TITLE"/>
+ 	<result property="resImageName" column="RES_IMAGE_NAME"/>   	
 
+</resultMap>
 
 <!-- Mylist 영은 -->
 
@@ -561,7 +567,21 @@ UPDATE COUPON_LIST
 
 </update>
 
+<select id="selectTM" parameterType="_int" resultMap="TMListResultSet">
+SELECT STA.THEME_ID
+, STA.THEME_TITLE
+, STA.RES_IMAGE_NAME
+, TB.THEME_BOOKMARK_ID
+FROM SELECT_THEME_ADMIN STA
+LEFT JOIN THEME_BOOKMARK TB ON (STA.THEME_ID = TB.THEME_NO)
+WHERE TB.MEMBER_NO = #{memberId}
 
+</select>
+
+<delete id="deleteTM" parameterType="_int">
+DELETE FROM THEME_BOOKMARK
+WHERE THEME_BOOKMARK_ID = #{themeBookMarkId}
+</delete>
 
 <!-- =========================== mylist 영은 ================================================ -->
 
