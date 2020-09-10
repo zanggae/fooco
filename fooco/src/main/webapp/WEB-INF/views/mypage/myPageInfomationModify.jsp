@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -393,7 +396,7 @@ $("#nickName").on("keyup", function(){
 			}
 		},
 		error:function(request, status, errorData){
-			alert("error code: " + request.status + "\n"
+			swal("error code: " + request.status + "\n"
 					+"message: " + request.responseText
 					+"error: " + errorData);
 		}
@@ -406,23 +409,23 @@ $("#nickName").on("keyup", function(){
 // 조건 맞으면 submit
 function validate(){
 if($("#nickNameDuplicateCheck").val() == 0){
-	alert("사용 가능한 닉네임를 입력해 주세요.");
+	swal("사용 가능한 닉네임를 입력해 주세요.");
 	$("#nickName").focus();
 	return;
 } 
 if($("#userPwd1").val()==""){
-    alert("새 비밀번호를 입력하세요");
+    swal("새 비밀번호를 입력하세요");
     $("#userPwd1").focus();
     return;
   }
 if($("#userPwd1").val()!= $("#userPwd2").val()){
-    alert("새 비밀번호 확인해 주세요");
+    swal("새 비밀번호 확인해 주세요");
     $("#userPwd2").focus();
     return;
   }  
   
 	$("#infoModifyForm").submit();
-	alert("전송이 되었습니다.");
+	swal("전송이 되었습니다.");
 
 }
 

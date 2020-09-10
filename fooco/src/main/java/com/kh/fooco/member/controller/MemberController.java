@@ -991,7 +991,6 @@ public class MemberController {
 		}
 		
 	
-		
 		//마이리스트 - 리스트 확인
 		@RequestMapping("myPageMylist.do")
 		public ModelAndView selectmyPageMylist(ModelAndView mv,HttpSession session) {
