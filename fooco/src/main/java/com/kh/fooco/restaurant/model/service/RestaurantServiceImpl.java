@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.restaurant.model.dao.RestaurantDao;
+import com.kh.fooco.restaurant.model.vo.Bookmark;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
@@ -63,6 +64,16 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public int uploadReview(HashMap<String, Object> parameters) {
 		return restaurantDao.uploadReview(parameters);
+	}
+
+	@Override
+	public int upViewCount(Integer resId) {
+		return restaurantDao.upViewCount(resId);
+	}
+
+	@Override
+	public int enrollBookmark(Bookmark bm) {
+		return restaurantDao.enrollBookmark(bm);
 	}
 
 

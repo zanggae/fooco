@@ -11,7 +11,7 @@
 		<typeAlias type="com.kh.fooco.admin.model.vo.MembershipStatus" alias="MembershipStatus"/>
 		<typeAlias type="com.kh.fooco.admin.model.vo.MembershipCount" alias="MembershipCount"/>
 		<typeAlias type="com.kh.fooco.admin.model.vo.Search" alias="Search"/>
-		<typeAlias type="com.kh.fooco.admin.model.vo.MyListAdmin" alias="MyListAdmin"/>		
+	 	<typeAlias type="com.kh.fooco.admin.model.vo.MyListAdmin" alias="MyListAdmin"/>		 
 		<typeAlias type="com.kh.fooco.member.model.vo.Member" alias="Member"/>	
 		<typeAlias type="com.kh.fooco.board.model.vo.Board" alias="Board"/>	
 		<typeAlias type="com.kh.fooco.board.model.vo.InsertBoard" alias="InsertBoard"/>	
@@ -23,7 +23,9 @@
 		<typeAlias type="com.kh.fooco.member.model.vo.Follower" alias="Follower"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Review" alias="Review"/>
 		<typeAlias type="com.kh.fooco.common.model.vo.Image" alias="Image"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.MylistAdmin" alias="MylistAdmins"/>
+
+		<typeAlias type="com.kh.fooco.member.model.vo.Mylist" alias="Mylist"/>
+
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Res" alias="Res"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Filter" alias="Filter"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Info" alias="Info"/>
@@ -37,7 +39,7 @@
 		<typeAlias type="com.kh.fooco.member.model.vo.Select_Board" alias="Select_Board"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.BoardInfo" alias="BoardInfo"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.Select_Coupon" alias="Select_Coupon"/>
-		
+		<typeAlias type="com.kh.fooco.restaurant.model.vo.Bookmark" alias="Bookmark"/>
 	</typeAliases>
 	
 	<mappers>

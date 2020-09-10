@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.dao.MemberDao;
 import com.kh.fooco.member.model.vo.BoardInfo;
@@ -19,8 +20,6 @@ import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
-
-import com.kh.fooco.member.model.vo.MylistAdmin;
 
 import com.kh.fooco.member.model.vo.Select_Board;
 
@@ -358,20 +357,50 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public ArrayList<MylistAdmin> selectmyPageMylist() {
+	public ArrayList<MyListAdmin> selectmyPageMylist() {
 		return memberDao.selectmyPageMylist();
 	}
 
-	/*
-	 * @Override public ArrayList<Mylist> mylistList() { return
-	 * memberDao.mylistList(); }
-	 */
+	
+	@Override
+	public int deleteMylistR(MyListAdmin ma) {
+		return memberDao.deleteMylistR(ma);
+	}
+	
+	@Override
+	public int deleteMylist(MyListAdmin ma) {
+		return memberDao.deleteMylist(ma);
+	}
 
+	@Override
+	public MyListAdmin selectOneMylist(MyListAdmin ma) {
+		return memberDao.selectOneMylist(ma);
+	}
 
+	@Override
+	public ArrayList<Restaurant> selectListMylistRestaurant(MyListAdmin ma) {
+		return memberDao.selectListMylistRestaurant(ma);
+	}
 
+	@Override
+	public int modifyMylist(MyListAdmin ma) {
+		return memberDao.modifyMylist(ma);
+	}
 
+	@Override
+	public int deleteRList(MyListAdmin ma) {
+		return memberDao.deleteRList(ma);
+	}
 
+	@Override
+	public int insertMylistRestaurant(String mh, MyListAdmin ma) {
+		return memberDao.insertMylistRestaurant(mh,ma);
+	}
 
+	@Override
+	public int recommendMylst(int mlId) {
+		return memberDao.recommendMylst(mlId);
+	}
 
 
 

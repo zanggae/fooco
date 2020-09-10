@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -77,15 +80,16 @@
                     <br>
                       <div class="row shadow-sm edge">
                         <div class="col-4 d-flex justify-content-center align-items-center">
-                          <img src="resources/restaurantImage/${my.resImageName}" class="img1">
+                          <img src="resources/restaurantImage/${my.mlImageName}" class="img1">
                         </div>
                             <div class="col-6">
                               <h6 class="title">${my.mlTitle}</h6>
                             </div>
                             <div class="col-2" style="margin-top: 1.5rem ;">
-                                <button type="button" class="btn btn-light" id="recommendBtn" onclick="recommend();">추천하기</button>
-                                <button type="button" class="btn btn-light">수정</button>
-                                <button type="button" class="btn btn-light">삭제</button>
+                                <button type="button" class="btn btn-light" id="recommendBtn" onclick="recommend(this)">추천하기</button>
+                                <button type="button" class="btn btn-light" onclick="goModify(this)">수정</button>
+                                <button type="button" class="btn btn-light" 
+                                onclick="deleteMylist(this)" value="${my.mlId }">삭제</button>
                             </div>
                       </div>
                       </c:forEach>
@@ -104,7 +108,31 @@
 	</section>
 	
 	<script>
+		function deleteMylist(id){
+			if(confirm("마이리스트를 삭제하시겠습니까?")){
+				var mlId = $(id).val();
+				location.href="deleteMylist.do?mlId="+mlId;
+			}
+		}
+		
+		function goModify(id){
+			var mlId = $(id).attr('value');
+			
+			location.href="moveMylistModifyPage.do?mlId="+mlId;
+		}
+		
 		function recommend(){
+				if(confirm("마이리스트를 테마로 추천하시겠습니까? 승인되면 마이리스트가 테마로 등록됩니다.")){
+					var mlId = $(id).attr('value');
+					location.href="recommendMylst.do?mlId="+mlId;
+				}
+				
+		}
+
+		
+	
+	
+		/* function recommend(){
 			if(confirm("마이리스트를 테마로 추천하시겠습니까? 승인여부는 언제알수있을까?")==true){
 				$.ajax({
 					url:"recommendationMylist.do",
@@ -114,7 +142,7 @@
 			else{
 				return;
 			}
-		}
+		} */
 	
 	</script>
 		
