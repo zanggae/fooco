@@ -54,4 +54,3 @@
 		<mapper resource="/mappers/restaurant-mapper.xml"/>
 	</mappers>
 </configuration>
->>>>>>> refs/remotes/origin/master
