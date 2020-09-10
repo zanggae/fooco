@@ -42,7 +42,7 @@
   <body>
   	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
     <div style="height: 100%; width:13%; position: fixed; background-color: rgb(253, 215, 129);">
-      <div align="center" style="" onclick="location.href='home.do'"><img src="resources/logo/logo.png" width="80%" height="10%" style="cursor:pointer;"></div>
+      <div align="center" style="" onclick="location.href='main.do'"><img src="resources/logo/logo.png" width="80%" height="10%" style="cursor:pointer;"></div>
   
       <h4 class="ml-4" style="color: rgb(204, 51, 98);"><b>관리자</b></h4>
       <ul class="mt-3" id="sideMenubar">

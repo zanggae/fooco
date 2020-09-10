@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!doctype html>
 <html lang="ko">
 
@@ -124,7 +125,7 @@
 		                                    </div>
 		                                    <div class="col-5 bo">
 		                                    	<i class="fas fa-star" id="star"></i>
-		                        				<h1 class="score">${mlR.reviewRatingAvg }</h1>
+		                        				<h1 class="score"><fmt:formatNumber type="number" value="${mlR.reviewRatingAvg }" pattern="0.0"/></h1>
 		                                    </div>
 		                                </div>
 		                                <div class="row" style="height: 20%;">
