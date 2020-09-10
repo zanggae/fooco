@@ -27,7 +27,6 @@ import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.service.RestaurantService;
 import com.kh.fooco.restaurant.model.vo.Bookmark;
-import com.kh.fooco.restaurant.model.vo.Filter;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
@@ -49,21 +48,31 @@ public class RestaurantController {
 	
 	@RequestMapping("goSearchedRestaurant.do")
 	public ModelAndView goSearchedRestaurant(ModelAndView mv
-									 , @RequestParam(value="filters", required=false) ArrayList<Filter> filters
-									 , @RequestParam(value="categories", required=false) ArrayList<Integer> categories
+									 , @RequestParam(value="filters", required=false, defaultValue="defaultFilter") String filters
+									 , @RequestParam(value="categories", required=false, defaultValue="defaultCategory") String categories
 									 , @RequestParam(value="page", required=false, defaultValue="1") Integer page
 									 , @RequestParam(value="keyword", required=false, defaultValue="all") String keyword
 									 , @RequestParam(value="locationId", required=false, defaultValue="0") Integer locationId
 									 , @RequestParam(value="sortType", required=false, defaultValue="highrating") String sortType)
 	{		
 		int currentPage = page;
-				
+		ArrayList<Integer> changedCategories = new ArrayList<>();
+		ArrayList<Integer> changedFilters = new ArrayList<>();
+		
+		if(!"defaultCategory".equals(categories)) {
+			changedCategories = convertCategory(categories);			
+		}
+		
+		if(!"defaultFilter".equals(filters)) {
+			changedFilters = convertFilter(filters);
+		}
+	
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
-		searchParameter.put("filters", filters);
 		searchParameter.put("keyword", keyword);
 		searchParameter.put("sortType", sortType);
-		searchParameter.put("categories", categories);
 		searchParameter.put("locationId", locationId);
+		searchParameter.put("filters", changedFilters);
+		searchParameter.put("categories", changedCategories);
 		
 		int howManyRestaurant = restaurantService.getListCount(searchParameter);
 		
@@ -278,7 +287,33 @@ public class RestaurantController {
 		out.close();
 	}
 
+	public ArrayList<Integer> convertCategory(String category)
+	{
+		ArrayList<Integer> al = new ArrayList<>();
 		
+		String[] arr = category.split(",");
+		
+		for(int i = 0; i < arr.length; i ++) {
+			al.add(Integer.parseInt(arr[i].toString()));					
+		}
+		
+		return al;
+	}
+	
+	public ArrayList<Integer> convertFilter(String filter)
+	{
+		ArrayList<Integer> al = new ArrayList<>();
+		
+		String[] arr = filter.split(",");
+		
+		for(int i = 0; i < arr.length; i ++) {
+			al.add(Integer.parseInt(arr[i].toString()));					
+		}
+		
+		return al;
+	}
+	
+	
 		
 		
 		
