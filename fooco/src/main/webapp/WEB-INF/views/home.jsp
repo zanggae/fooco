@@ -7,15 +7,12 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-
-	<a href="dashboard.do">admin dashboard page test </a><br>
 	<c:if test="${!empty sessionScope.loginUser }">
 	 		<h3 align="right">
 	 			<c:out value="${loginUser.name }님 환영합니다"></c:out>
 	 		</h3>
 	 	</c:if>
 	<a href="main.do">Go Main</a>
-	<a href="notice.do">gg</a>
 
 </body>
 </html>
