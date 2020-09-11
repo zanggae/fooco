@@ -34,12 +34,12 @@ public class ThemeController {
 	}
 
 	@RequestMapping("themeMain.do")
-	public ModelAndView themeMain(ModelAndView mv,
+	public ModelAndView themeMain(ModelAndView mv, HttpSession session,
 			@RequestParam(value = "searchTheme", required = false) String searchTheme) {
 
 		int themeWriter = 81;
-//      Member loginUser = (Member)session.getAttribute("loginUser");
-//      themeWriter = loginUser.getMemberId();   
+      Member loginUser = (Member)session.getAttribute("loginUser");
+      themeWriter = loginUser.getMemberId();   
 
 		ArrayList<ThemeAdmin> theme = new ArrayList<ThemeAdmin>();
 
@@ -54,7 +54,7 @@ public class ThemeController {
 		}
 
 		ArrayList<Integer> mytheme = themeService.mythemeList(themeWriter);
-
+//		System.out.println(mytheme);
 		mv.addObject("theme", theme);
 		mv.addObject("searchTheme", searchTheme);
 		mv.addObject("mytheme", mytheme);

@@ -675,7 +675,7 @@ INSERT INTO MYLIST VALUES
 
 <!-- 마이리스트 추천 -->
 <update id="recommendMylist" parameterType="MyListAdmin">
-   UPDATE MYLIST SET RECOMMENDATION_THEME ='Y'
+   UPDATE MYLIST SET RECOMMENDATION_THEME ='Y', APPROVE_THEME ='W'
    WHERE ML_ID = #{mlId}
 </update>
 
