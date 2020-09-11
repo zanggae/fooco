@@ -97,6 +97,7 @@
                 </div>
 
                 
+              <input type="hidden" value="${searchTheme }" name="searchTheme1" id="searchTheme1">
               
               <c:if test="${empty theme }">
               
@@ -114,9 +115,9 @@
               </c:if>
                 
                 <c:if test="${!empty theme }">
-               <c:url var="themeMain" value="themeMain.do">
-                <c:param name="searchTheme" value="${searchTheme }"/>
-               </c:url>
+	               <c:url var="themeMain" value="themeMain.do">
+	                	<c:param name="searchTheme" value="${searchTheme }"/>
+	               </c:url>
                 <div class="container">
                 <div class="bottom">
                 <c:if test="${empty searchTheme }">
@@ -126,23 +127,25 @@
                   <h1 class="text3">'${searchTheme }'&nbsp;검색 결과</h1>
                   </c:if>
                   
-            
-          	
-                  
-                  
-                  
                 </div>
+                
+                
+                
+                
+                
+                
+                
                 <br>
                 <div class="row row-cols-2" id="position">
               	<c:forEach var="t" items="${theme }">
               	
                   	<c:url var="themedetail" value="themedetail.do">
-                  	<c:param name="themeId" value="${t.themeId }"/>
+                  		<c:param name="themeId" value="${t.themeId }"/>
                   	</c:url>
                   <div class="col" style="margin-bottom: 2.5rem;">
                   <img src="resources/restaurantImage/${t.themeImageName}" class="img1">
                     <div class="text4"><a href="${themedetail }" class="titlefont">${t.themeTitle }</a></div>
-                   <%--  <c:remove var="tt"/>
+                    <c:remove var="tt"/>
                     <c:forEach var="mt" items="${mytheme }">
                     	<c:if test="${t.themeId eq mt }">
 	                     <div onclick="heartClickCancle(this)" id="heartt" value="${t.themeId }"><i class="fas fa-heart" id="heart"></i></div>
@@ -150,46 +153,26 @@
                     	</c:if>
                     </c:forEach>
                     <c:if test="${empty tt}">
-                    	<c:if test="${!empty loginUser }"> --%>
-                    		<div onclick="heartClick(this)" id="heartt" value="${t.themeId }"><i class="fas fa-heart" id="heart"></i></div>
+                    	<c:if test="${!empty loginUser }">
+                    		<div onclick="heartClick(this)" id="heartt" value="${t.themeId }"><i class="far fa-heart" id="heart"></i></div>
                     	</c:if>
-                   <%--  </c:if> --%>
-                  	 </div> 
-                 </c:forEach>  
-                   </div>
+                    </c:if>
+                  </div>
+                </c:forEach> 
+                  </div>
                 </div>
-                <%-- </c:if> --%>
+                </c:if>
                 <script>
-                	function heartClick(){
-                		var themeId = document.getElementById("hiddenThemeId").value;
-                		
-                		$.ajax({
-                			url : "ThemeBookmark.do"
-                			data{themeId:themeId},
-                			type:"POST",
-                			success:function(data){
-                				if("novalid" == data){
-                					swal("로그인이 필요합니다. 로그인해주세요")
-                				}else if("success" == data){
-                					swal("즐겨찾기에 추가되었습니다.")
-                				}else {
-                					swal("즐겨찾기 추가에 실패하였습니다.")
-                				}
-                			},
-                			error:function(request,status,enrollData){
-                				swal('error code : '+ request.status + "\n" + "message: " + request.responseText + "error: " + errorData);
-                			
-                		})
-                	}
-					                
-                	/* function heartClick(id){
+                	function heartClick(id){
                 		var bookmarkId = $(id).attr('value');
-                		location.href="insertBookmark.do?bookmarkId="+bookmarkId;
+                		var search = $("#searchTheme1").val();
+                		location.href="insertBookmark.do?bookmarkId="+bookmarkId+"&search="+search;
                 	}
                 	function heartClickCancle(id){
                 		var bookmarkId = $(id).attr('value');
-                		location.href="heartClickCancle.do?bookmarkId="+bookmarkId;
-                	} */
+                		var search = $("#searchTheme1").val();
+                		location.href="heartClickCancle.do?bookmarkId="+bookmarkId+"&search="+search;
+                	}
                 </script>
         	
         		
