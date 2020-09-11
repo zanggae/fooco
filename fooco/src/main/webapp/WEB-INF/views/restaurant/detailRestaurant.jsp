@@ -251,7 +251,7 @@
 
 
 		<!-- 리뷰 작성하기 모달 -->
-		<form id="uploadReview" name="uploadReview" action="uploadReview.do" method="POST">
+		<form id="uploadReview" name="uploadReview" action="uploadReview.do" method="POST" encType="multipart/form-data">
 		<div class="modal fade" id="write-review" data-backdrop="static"
 			data-keyboard="false" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
@@ -263,14 +263,14 @@
 						<div class="row d-block">
 							<div class="row">
 								<input type="hidden" name="resId" value="${res.resId}">
-								<span style="font-family: 'bold'; font-size: 1.3rem;">경남스시</span>
+								<span style="font-family: 'bold'; font-size: 1.3rem;">${res.resName}</span>
 							</div>
 							<div class="row d-flex align-items-center">
 								<i class="fas fa-map-marker-alt" style="color: rgb(204, 51, 98); font-size: 1.3rem; margin-right: 0.3rem;"></i>
-								<span style="font-family: 'medium'; font-size: 1rem;">인천</span>
+								<span style="font-family: 'medium'; font-size: 1rem;">${res.locationName}</span>
 							</div>
 							<div class="row">
-								<span style="font-size: 0.8rem;">인천시 남동구 서창동 661-3</span>
+								<span style="font-size: 0.8rem;">${res.resAddress}</span>
 							</div>
 						</div>
 						<hr>
@@ -342,9 +342,9 @@
 					<div class="modal-footer">
 						<button type="button" class="btn" data-dismiss="modal" style="font-family:'heavy'; font-size:1.1rem;">취소하기</button>
 						<button type="button" class="btn" onclick="formSubmit();" style="font-family:'heavy'; font-size:1.1rem;">등록하기</button>
-						<input type="hidden" id="realname" name="realname"/>
-						<input type="hidden" id="filename" name="filename"/>
-						<input type="hidden" id="filesize" name="filesize"/>
+						<input type="hidden" id="realname" name="realname" value=""/>
+						<input type="hidden" id="filename" name="filename" value=""/>
+						<input type="hidden" id="filesize" name="filesize" value=""/>
 					</div>
 				</div>
 			</div>
@@ -450,7 +450,7 @@
                 document.uploadReview.submit();
             }
         </script>
->
+
 
 
 		<!-- 사진 자세히보기 모달 -->

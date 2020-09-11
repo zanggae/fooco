@@ -984,7 +984,7 @@ public class MemberController {
          themeRListResult = memberService.insertMylistRes(th);
       }
 
-      mv.setViewName("redirect:inquiryRegistrationFin.do");
+      mv.setViewName("redirect:mylistRegistrationFin.do");
       return mv;
    }
 

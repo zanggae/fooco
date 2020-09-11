@@ -287,6 +287,14 @@
 			<when test="''.equals(imageList[0].imageOriginName)">
 				INSERT INTO REVIEW VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
 			</when>
+			<when test="!''.equals(imageList[0].imageOriginName) and imageList.size() == 1">
+				INSERT ALL
+				INTO   REVIEW       VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
+				INTO   IMAGE        VALUES (SEQ_IMAGEID.NEXTVAL, #{imageList[0].imageOriginName}, #{imageList[0].imageNewName}, 'reviewImage', SYSDATE, 2, 'Y', 0)
+				INTO   REVIEW_IMAGE VALUES (SEQ_IMAGEID.NEXTVAL, SEQ_REVIEW.NEXTVAL)
+				SELECT *
+				FROM   DUAL
+			</when>
 			<when test="imageList.size() == 2">
 				INSERT ALL
 				INTO   REVIEW       VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
@@ -391,4 +399,10 @@
 		INTO   FOLLOW
 		VALUES (SEQ_FOLLOW.NEXTVAL, #{followerId}, #{followingId}, SYSDATE)
 	</insert>
+	
+	<update id="deleteReview" parameterType="_int">
+		UPDATE REVIEW
+		SET    REVIEW_STATUS = 'N'
+		WHERE  REVIEW_ID = #{reviewId}
+	</update>
 </mapper>

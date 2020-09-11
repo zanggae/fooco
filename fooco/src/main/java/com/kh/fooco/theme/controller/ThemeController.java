@@ -34,15 +34,19 @@ public class ThemeController {
 	}
 
 	@RequestMapping("themeMain.do")
-	public ModelAndView themeMain(ModelAndView mv, HttpSession session, String ad,
+	public ModelAndView themeMain(ModelAndView mv, HttpSession session, 
 			@RequestParam(value = "searchTheme", required = false) String searchTheme) {
-System.out.println("나 나와>?"+ad);
 		int themeWriter = 81;
       Member loginUser = (Member)session.getAttribute("loginUser");
-      themeWriter = loginUser.getMemberId();   
+      if(loginUser == null) {
+    	  
+      }else {
+    	  themeWriter = loginUser.getMemberId();       	  
+      }
 
 		ArrayList<ThemeAdmin> theme = new ArrayList<ThemeAdmin>();
-
+		
+		
 		if (searchTheme == null) {
 
 			theme = themeService.selectListTheme();
