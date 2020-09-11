@@ -54,7 +54,8 @@
   .content {font-size: 1rem;}
   .btn-light {background-color: rgb(204, 51, 98); border: rgb(204, 51, 98); box-shadow: none !important; width: 4.3rem; 
   			  height: 1.8rem; font-size: 0.7rem; font-family: 'bold'; color: white; margin-top: 0.1rem; margin-bottom: 0.3rem;}
-
+  .title{text-align : center; font-size:1.3rem; margin-top:4rem; font-family:'medium';}
+ #makemylist:hover{text-decoration: underline;}
 
 </style>
 
@@ -74,28 +75,44 @@
 							<p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F618; 나의 활동 - 마이리스트</p>
               			</div>
 
-                  <h5 style="margin-left: 27.5rem;"><a href="mylistRegist.do"><i class="far fa-check-square"
+                  <h5 style="margin-left: 27.5rem;"><a href="mylistRegist.do"  id="makemylist"><i class="far fa-check-square"
                       style="font-size: 1.6rem;"></i>&nbsp;마이리스트 만들기</a></h5>
-                    <c:forEach var="my" items="${mylist }">
                     <br>
+                    
+                      <c:if test="${empty mylist }">
+	                  	<p class="title">나만의 맛집을 만들어보세요!</p>
+	                  </c:if>
+	                  
+                    <c:if test="${!empty mylist }">
+                    <c:forEach var="my" items="${mylist }">
+	                  <br>
                       <div class="row shadow-sm edge">
                         <div class="col-4 d-flex justify-content-center align-items-center">
                           <img src="resources/restaurantImage/${my.mlImageName}" class="img1">
                         </div>
+ 
                             <div class="col-6">
-                              <h6 class="title">${my.mlTitle}</h6>
+                            <c:url var="MylistDetail" value="MylistDetail.do">
+                            <c:param name="mlId" value="${my.mlId }"/>
+                            </c:url>
+                              <a href="${MylistDetail}"><h6 class="title">${my.mlTitle}</h6></a>
                             </div>
                             <div class="col-2" style="margin-top: 1.5rem ;">
-                                <button type="button" class="btn btn-light" id="recommendBtn" onclick="recommend(this)">추천하기</button>
-                                <button type="button" class="btn btn-light" onclick="goModify()">수정하기</button>
-                                <button type="button" class="btn btn-light" 
-                                onclick="deleteMylist(this)" value="${my.mlId }">삭제하기</button>
+                            	<c:if test="${my.recommendationTheme eq 'Y'}">
+               
+                            	 <button type="button" class="btn btn-light" id="recommendBtn"  onclick="recommend(this)"	disabled='disabled'>추천하기</button>
+						 		</c:if>
+						 		<c:if test="${my.recommendationTheme eq 'N'}">
+                                <button type="button" class="btn btn-light" id="recommendBtn" onclick="recommend(this)"  value="${my.mlId }">추천하기</button>
+                                </c:if>
+                                <button type="button" class="btn btn-light" onclick="goModify(this)" value="${my.mlId }">수정하기</button>
+                                <button type="button" class="btn btn-light" onclick="deleteMylist(this)" value="${my.mlId }">삭제하기</button>
                             </div>
                       </div>
                       </c:forEach>
-						
+                      </c:if>
 
-						
+						 <br>
 
 					
 					</div>
@@ -108,6 +125,25 @@
 	</section>
 	
 	<script>
+		//마이리스트 수정
+		function goModify(id){
+			var mlId = $(id).val();
+		location.href="moveMylistModifyPage.do?mlId="+mlId;
+	}
+	
+	
+	
+	
+	
+	
+		function recommend(id){
+			if(confirm("마이리스트를 테마로 추천하시겠습니까? 승인되면 마이리스트가 테마로 등록됩니다.")){
+				var mlId = $(id).val();
+				location.href="recommendMylist.do?mlId="+mlId;
+			}
+				
+		}
+	
 		function deleteMylist(id){
 			if(confirm("마이리스트를 삭제하시겠습니까?")){
 				var mlId = $(id).val();
@@ -117,36 +153,12 @@
 			}
 		}
 		
-		function goModify(id){
-			var mlId = $(id).attr('value');
-			
-			location.href="moveMylistModifyPage.do?mlId="+mlId;
-		}
 		
-		function recommend(){
-				if(confirm("마이리스트를 테마로 추천하시겠습니까? 승인되면 마이리스트가 테마로 등록됩니다.")){
-					var mlId = $(id).val();
-					location.href="recommendMylst.do?mlId="+mlId;
-				}else{
-					return;
-				}
+		
 				
-		}
+		
 
 		
-	
-	
-		/* function recommend(){
-			if(confirm("마이리스트를 테마로 추천하시겠습니까? 승인여부는 언제알수있을까?")==true){
-				$.ajax({
-					url:"recommendationMylist.do",
-					success:function()
-				})
-			}
-			else{
-				return;
-			}
-		} */
 	
 	</script>
 		

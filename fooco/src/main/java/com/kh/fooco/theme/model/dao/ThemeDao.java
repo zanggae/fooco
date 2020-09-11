@@ -80,11 +80,10 @@ public class ThemeDao {
 
 
 
+	public int updateCount(ThemeAdmin theme) {
+		return sqlSessionTemplate.update("themeMapper.updateCount",theme);
+		
+	}
 
-	
 
-
-	
 }
-
-
