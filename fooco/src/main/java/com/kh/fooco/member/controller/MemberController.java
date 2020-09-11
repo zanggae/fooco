@@ -22,6 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -126,7 +131,7 @@ public class MemberController {
 
    // 08.18 로그인 - 지민
    @RequestMapping(value = "mlogin.do", method = RequestMethod.POST)
-   public String loginMember(Member m, Model model, HttpServletResponse response) throws IOException {
+   public String loginMember(Member m, Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
       Member loginUser = memberService.loginMember(m);
 
@@ -139,7 +144,14 @@ public class MemberController {
       } else if (bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
          model.addAttribute("loginUser", loginUser);
          System.out.println("로그인 성공");
-         return "common/main";
+         
+         //이전 페이지 정보 가져오기
+         String referer = request.getHeader("Referer");
+ 		 request.getSession().setAttribute("redirectURI", referer);
+ 		 String result = referer.substring(referer.lastIndexOf("/")+1);
+ 		 
+ 		 return "redirect:"+result;
+        
       } else {
          System.out.println("로그인 실패");
          response.setContentType("text/html; charset=UTF-8");
@@ -147,7 +159,7 @@ public class MemberController {
          out.println("<script>alert('비밀번호를 다시 확인해주세요'); history.go(-1);</script>");
          out.flush();
       }
-      return "common/main";
+		return "common/main";  
    }
 
    // 0819 로그아웃 - 지민

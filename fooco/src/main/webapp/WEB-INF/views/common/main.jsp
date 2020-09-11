@@ -211,7 +211,7 @@
                 <div class="container ms-container">
                     <div class="row row-cols-1 ms-row">
                         <div class="col ms-title-col">
-                        	 <p style="font-size:22px;">&#x1F33C;&#x2728;&#x1F61B;&#x1F386;&#x1F31F;</p>
+                        	 <p style="font-size:25px;">&#x1F340;</p>
                             <span class="ms-title" style="font-family:'heavy'">진짜 맛집을 알려줄게!</span>
                         </div>
 						<div class="input-group input-group-lg">													
