@@ -170,10 +170,8 @@
 	<script>
 		$(function(){
 			var ch = $("#check").val();
-			if(ch=='W'){
-				
-			}else{
-				$(".check").prop("disabled",true);
+			if(ch=='Y'){
+				$(".check").prop("disabled",true);				
 			}
 		})
 	</script>
