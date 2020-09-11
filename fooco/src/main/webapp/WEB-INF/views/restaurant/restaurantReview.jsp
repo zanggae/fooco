@@ -151,7 +151,7 @@
 							<span style="font-size: 0.7rem; color: gray;">좋아요 <fmt:formatNumber type="number" value="${review.reviewGoodcount}"/>개</span>
 						</div>
 						<div class="row mz-review-rating-good-btn">
-							<a class="review-content-good-btn" id="review-content-good-btn" onclick="upGood()" style="font-size: 0.8rem; color: mediumseagreen; font-family: 'medium'; cursor: pointer;">&#x1F44D; 좋아요</a>
+							<a class="review-content-good-btn" id="review-content-good-btn" onclick="upGood(${review.reviewId})" style="font-size: 0.8rem; color: mediumseagreen; font-family: 'medium'; cursor: pointer;">&#x1F44D; 좋아요</a>
 						</div>
 						<div class="row row-cols-4 mz-reviewPhoto-row">
 							<c:if test="${0 ne review.reviewImages[0].imageId}">
@@ -171,72 +171,7 @@
 	</div>
 	
 	<script>
-		var isEnd = false;
-		
-		$(function(){
-			$(window).scroll(function(){
-				let $window = $(this);
-				let scrollTop = $window.scrollTop();
-				let windowHeight = $window.height();
-				let documentHeight = $(document).height();
-				
-				console.log("documentHeight: " + documentHeight + ", scrollTop: " + scrollTop + ", windowHeight: " + windowHeight);
-				
-				if(scrollTop + windowHeight + 30 > documentHeight) {
-					fetchList();
-	            }
-				fetchList();
-			})
-		})
-		
-		let fetchList = function(){
-			let page = 1;
-			var resId = document.getElementById("hiddenResId").value;
-			
-			if(isEnd == true) {
-				return
-			}
-			
-			++page 
-			
-			$.ajax({
-				url:"goRestaurantReview?page=" + page + "&resId=" + resId,
-				type: "POST",
-				dataType: "json",
-				success: function(data){
-					let length = data.reviewList.length;
-					if(length < 5) {
-						isEnd = true;
-					}
-					$.each(data.reviewList, function(index, vo){
-						renderList(false, vo);
-					})
-				}
-			});
-		}
-		
-		let renderList = function(mode, vo){
-	        let html =
-	        	"<li data-no='"+ vo.no +"'>" +
-	            "<strong>"+ vo.name +"</strong>" +
-	            "<p>"+ vo.content.replace(/\n/gi, "<br>") +"</p>" +
-	            "<strong></strong>" +
-	            "<a href='#' data-no='"+ vo.no +"'>삭제</a>" +
-	            "</li>"
-	        
-	        if( mode ){
-	            $("#list-guestbook").prepend(html);
-	        }
-	        else{
-	            $("#list-guestbook").append(html);
-	        }
-	    }
-	</script>
-	
-	<script>
-		function upGood() {
-			var selectedReview = document.getElementById("hiddenReviewId");
-			var reviewId = document.getElementById("hiddenReviewId").value;
+		function upGood(reviewId) {
 			
 			$.ajax({
 				url:"upGood.do",
@@ -246,7 +181,12 @@
 					if("notvalid" == data) {
 						swal("로그인이 필요한 서비스입니다.");
 					}else if("success" == data){
-						swal("해당 리뷰를 '좋아요' 하였습니다.");
+						swal({
+							text:"해당 리뷰를 '좋아요' 하였습니다.",
+							button:"확인"
+						}).then(function(isConfirm){
+							window.location.reload();
+						})
 					}else {
 						swal("좋아요에 실패하였습니다.");
 					}					
