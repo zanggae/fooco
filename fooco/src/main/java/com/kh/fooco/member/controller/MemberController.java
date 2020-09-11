@@ -942,7 +942,15 @@ public class MemberController {
 			    
 				return "redirect:myPageMembership.do";
 			}
-						
+			
+			// 마이리뷰 페이지 이동
+			@RequestMapping("myPageReview.do")
+			public ModelAndView myPageReviewView(ModelAndView mv) {
+				
+				mv.setViewName("mypage/myPageReview");
+				return mv;
+			}
+			
 			
 	// ================================== MyList 영은 ===========================================
 	
@@ -975,22 +983,20 @@ public class MemberController {
 		return mv;
 	}
 
-	// 마이리스트 - 리스트 확인
-	@RequestMapping("myPageMylist.do")
-	public ModelAndView selectmyPageMylist(ModelAndView mv, HttpSession session) {
-		int memberId = ((Member) session.getAttribute("loginUser")).getMemberId();
+	 // 마이리스트 - 리스트 확인
+	   @RequestMapping("myPageMylist.do")
+	   public ModelAndView selectmyPageMylist(ModelAndView mv, HttpSession session) {
+	      int memberId = ((Member) session.getAttribute("loginUser")).getMemberId();
 
-		ArrayList<MyListAdmin> mylist = memberService.selectmyPageMylist();
+	      ArrayList<MyListAdmin> mylist = memberService.selectmyPageMylist();
 
-		System.out.println("mylist db조회 후 화면에 뿌리기 전 : " + mylist);
-		if (!mylist.isEmpty()) {
-			mv.addObject("mylist", mylist);
-			mv.setViewName("mypage/myPageMylist");
-		} else {
-			throw new MemberException("mylist 목록 보기 실패!");
-		}
-		return mv;
-	}
+	      System.out.println("mylist db조회 후 화면에 뿌리기 전 : " + mylist);
+	 
+	         mv.addObject("mylist", mylist);
+	         mv.setViewName("mypage/myPageMylist");
+	       
+	      return mv;
+	   }
 
 	//마이리스트 - 수정 
 	@RequestMapping("moveMylistModifyPage.do")

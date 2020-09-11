@@ -75,7 +75,7 @@
 <insert id="insertBookmark" parameterType="hashmap">
 	
 	INSERT INTO THEME_BOOKMARK VALUES(
-	SEQ_THEME_BOOKMARKID.NEXTVAL, #{themeWriter}, #{bookmarkId},'N')
+	SEQ_THEME_BOOKMARKID.NEXTVAL, #{themeWriter}, #{bookmarkId})
 	
 </insert>
 

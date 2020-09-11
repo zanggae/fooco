@@ -147,7 +147,7 @@ a {
 						<p>팔로우</p>
 					</a> <a href="${checkin}">
 						<p>체크인</p>
-					</a> <a href="#">
+					</a> <a href="myPageReview.do">
 						<p>마이리뷰</p>
 					</a> <a href="myPageMylist.do">
 						<p>마이리스트</p>
@@ -169,7 +169,7 @@ a {
 			</div>
 			<div class="row menubar_group">
 				<div class="row menubar_group_title">
-					<a href="#"><span style="font-family: 'bold';">&#x1F451;
+					<a href="myPageMembership.do"><span style="font-family: 'bold';">&#x1F451;
 							나의 멤버십</span></a>
 				</div>
 			</div>

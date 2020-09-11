@@ -65,11 +65,10 @@ public class ThemeController {
 
 	// 즐겨찾기 추가
 	@RequestMapping("insertBookmark.do")
-	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId) {
+	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId, HttpSession session) {
 
-		int themeWriter = 81;
-//      Member loginUser = (Member)session.getAttribute("loginUser");
-//      themeWriter = loginUser.getMemberId();   
+		 Member loginUser = (Member)session.getAttribute("loginUser");
+         int themeWriter = loginUser.getMemberId();     
 
 		int result = themeService.insertBookmark(bookmarkId, themeWriter);
 
