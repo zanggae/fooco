@@ -59,7 +59,8 @@
         .mainSearch {height:23rem; background-color:rgb(204,51,98); display:flex; justify-content:center; align-items:center;}
         .ms-container {display:flex; justify-content:center; align-items:center;}
         .ms-title-col {text-align:center; vertical-align:middle; margin-bottom:1.5rem;}
-        .ms-title {color:white; font-size:3rem;}
+        .ms-title {color:white; font-size:3rem; display: inline-block;  transition: .3s;-webkit-transform: scale(1);transform: scale(1);}
+        .ms-title:hover { -webkit-transform: scale(1.1);transform: scale(1.1);}
         .ms-input-col {text-align:center; vertical-align:middle;}
         .inputAppend {border-top-left-radius:0; border-bottom-left-radius:0; cursor:pointer;}
 
