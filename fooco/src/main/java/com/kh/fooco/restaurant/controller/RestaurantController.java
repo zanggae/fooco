@@ -129,6 +129,7 @@ public class RestaurantController {
 		searchParameter.put("sortType", sortType);
 		
 		ArrayList<Review> reviewList = new ArrayList<Review>();		
+		
 		reviewList = restaurantService.getReviewList(searchParameter, pi);
 		
 		int howManyReviewPhoto = restaurantService.getPhotoCount(resId);

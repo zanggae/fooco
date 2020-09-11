@@ -20,6 +20,7 @@ import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.restaurant.model.vo.Review;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 import com.kh.fooco.member.model.vo.Mylist;
@@ -288,10 +289,26 @@ public class MemberDao {
    
    // 즐겨찾기 - 테마 목록 삭제
    public int deleteTM(int themeBookMarkId) {
-      
-      return sqlSessionTemplate.delete("mypageMapper.deleteTM",themeBookMarkId);
-   }
 
+	   return sqlSessionTemplate.delete("mypageMapper.deleteTM",themeBookMarkId);
+   }
+   // 마이리뷰 리스트 조회 메소드
+   public ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter) {
+	  
+	   return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getReviewList",searchParameter);
+   }
+   
+   // 마이리뷰 삭제 버튼 클릭시
+ 	public int deleteReview(int reviewId) {
+ 		
+ 		return sqlSessionTemplate.delete("mypageMapper.deleteReview", reviewId);
+ 	}
+ 	
+    // 리뷰 수정 버튼 클릭 시 해당 리뷰정보 조회 
+ 	public Review selectReviewInfo(int reviewId) {
+ 		
+ 		return sqlSessionTemplate.selectOne("mypageMapper.selectReviewInfo", reviewId);
+ 	}
    
    // ================================== Mylist 영은 ===========================================
 
@@ -360,6 +377,8 @@ public class MemberDao {
    public int recommendMylst(int mlId) {
       return sqlSessionTemplate.update("mypageMapper.recommendMylst",mlId);
    }
+
+ 
    
 
 

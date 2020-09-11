@@ -170,7 +170,13 @@
 	<select id="getReviewList" parameterType="hashmap" resultMap="ReviewMap">
 		SELECT SR.*
 		FROM   SELECT_REVIEW SR
-		WHERE  SR.REVIEW_STATUS = 'Y' AND SR.RES_ID = #{resId}
+		WHERE  SR.REVIEW_STATUS = 'Y'
+		<if test="resId != null">
+			AND SR.RES_ID = #{resId}
+		</if>
+		<if test="memberId != null">
+			AND SR.MEMBER_ID = #{memberId}
+		</if>
 		<choose>
 			<when test="'latest'.equals(sortType)">
 		 		ORDER BY SR.REVIEW_CREATE_DATE DESC
@@ -285,6 +291,9 @@
 	<insert id="uploadReview" parameterType="hashmap">
 		<choose>
 			<when test="''.equals(imageList[0].imageOriginName)">
+				INSERT INTO REVIEW VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
+			</when>
+			<when test="!''.equals(imageList[0].imageOriginName)">
 				INSERT INTO REVIEW VALUES (SEQ_REVIEW.NEXTVAL, #{review.resId}, #{review.memberId}, SYSDATE, SYSDATE, #{review.reviewContent}, 0, #{review.reviewRating}, #{review.reviewTasterating}, #{review.reviewPricerating}, #{review.reviewServicerating}, DEFAULT)
 			</when>
 			<when test="imageList.size() == 2">

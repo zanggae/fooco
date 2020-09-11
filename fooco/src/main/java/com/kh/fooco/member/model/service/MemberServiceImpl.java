@@ -1,6 +1,7 @@
 package com.kh.fooco.member.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import com.kh.fooco.member.model.vo.Member;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.restaurant.model.vo.Review;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
 
@@ -343,6 +345,27 @@ public class MemberServiceImpl implements MemberService{
       return memberDao.deleteTM(themeBookMarkId);
    }
    
+   // 마이리뷰 리스트 조회 메소드
+   @Override
+   public ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter) {
+
+   	return memberDao.getReviewList(searchParameter);
+   }
+   
+   // 마이리뷰 삭제 버튼 클릭시
+   @Override
+   public int deleteReview(int reviewId) {
+   	
+   	return memberDao.deleteReview(reviewId);
+   }
+   
+   // 리뷰 수정 버튼 클릭 시 해당 리뷰정보 조회 
+   @Override
+   public Review selectReviewInfo(int reviewId) {
+   
+   	return memberDao.selectReviewInfo(reviewId);
+   }
+   
    // ================================== Mylist 영은==========================================
 
    //마이리스트 등록 검색 
@@ -415,6 +438,12 @@ public class MemberServiceImpl implements MemberService{
    public int recommendMylst(int mlId) {
       return memberDao.recommendMylst(mlId);
    }
+
+
+
+
+
+
 
 
 

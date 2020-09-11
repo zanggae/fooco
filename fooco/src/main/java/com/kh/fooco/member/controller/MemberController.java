@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -55,6 +56,7 @@ import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.restaurant.model.vo.Review;
 
 
 @SessionAttributes("loginUser")
@@ -945,19 +947,50 @@ public class MemberController {
 			
 			// 마이리뷰 페이지 이동
 			@RequestMapping("myPageReview.do")
-			public ModelAndView myPageReviewView(ModelAndView mv) {
+			public ModelAndView myPageReviewView(ModelAndView mv, HttpSession session) {
+				Member loginUser = (Member)session.getAttribute("loginUser");
+			    int memberId = loginUser.getMemberId();
 				
+			    ArrayList<Review> reviewList = new ArrayList<Review>();		
+				
+			    
+			    HashMap<String, Object> searchParameter = new HashMap<>();
+				searchParameter.put("memberId", memberId);
+			    
+				reviewList = memberService.getReviewList(searchParameter);
+				
+				System.out.println(reviewList);
+				
+				
+				mv.addObject("reviewList",reviewList);
 				mv.setViewName("mypage/myPageReview");
 				return mv;
 			}
 			
          
- 
+			// 마이리뷰 삭제 버튼 클릭 시
+			@RequestMapping("deleteReview.do")
+			public String deleteReview(int reviewId) {
+				
+				// 리뷰 삭제 작업 메소드
+				int result = memberService.deleteReview(reviewId);
+				
+				return "redirect:myPageReview.do";
+			}
 			
 			
-			
-			
-			
+			// 마이리뷰 수정 버튼 클릭 시 모달 ajax
+			@RequestMapping("selectReviewInfo.do")
+			public void selectReviewInfo(HttpServletResponse response, int reviewId) throws JsonIOException, IOException {
+	            response.setContentType("application/json;charset=utf-8");
+	            
+	            System.out.println(reviewId);
+	            Review reviewInfo = memberService.selectReviewInfo(reviewId);
+	            
+	            new Gson().toJson(reviewInfo, response.getWriter());
+	            System.out.println(reviewInfo);
+	            
+	         }
 			
 			
 			

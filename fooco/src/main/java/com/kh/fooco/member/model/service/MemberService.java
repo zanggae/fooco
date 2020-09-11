@@ -1,6 +1,8 @@
 package com.kh.fooco.member.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.common.model.vo.Image;
@@ -19,6 +21,7 @@ import com.kh.fooco.member.model.vo.TM;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.restaurant.model.vo.Review;
 import com.kh.fooco.theme.model.vo.ThemeAdmin;
 import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.model.vo.Select_Board;
@@ -117,6 +120,13 @@ int chekchemailDup(String email);
    
    int deleteTM(int themeBookMarkId);
    
+   ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter);
+   
+   int deleteReview(int reviewId);
+   
+   Review selectReviewInfo(int reviewId);
+
+   
 // ================================== Mylist 영은 ===========================================
 
 
@@ -145,6 +155,11 @@ int chekchemailDup(String email);
    int insertMylistRestaurant(String mh, MyListAdmin ma);
 
    int recommendMylst(int mlId);
+
+
+
+
+
 
 
 

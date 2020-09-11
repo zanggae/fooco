@@ -204,6 +204,30 @@
 
 </resultMap>
 
+
+	<resultMap type="Review" id="ReviewMap">
+		<id property="reviewId" column="REVIEW_ID"/>
+		<result property="resId" column="RES_ID"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="reviewCreateDate" column="REVIEW_CREATE_DATE"/>
+		<result property="reviewUpdateDate" column="REVIEW_UPDATE_DATE"/>
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="reviewGoodcount" column="REVIEW_GOODCOUNT"/>
+		<result property="reviewRating" column="REVIEW_RATING"/>
+		<result property="reviewTasterating" column="REVIEW_TASTERATING"/>
+		<result property="reviewPricerating" column="REVIEW_PRICERATING"/>
+		<result property="reviewServicerating" column="REVIEW_SERVICERATING"/>
+		<result property="reviewStatus" column="REVIEW_STATUS"/>
+		<result property="nickname" column="NICKNAME"/>
+		<result property="reviewerProfileId" column="REVIEWER_PROFILE_ID"/>
+		<result property="reviewerProfileImg" column="REVIEWER_PROFILE_IMG"/>
+		<result property="reviewerProfilePath" column="REVIEWER_PROFILE_PATH"/>
+		<result property="reviewerReviewCount" column="REVIEWER_REVIEW_COUNT"/>
+		<result property="reviewerFollowerCount" column="REVIEWER_FOLLOWER_COUNT"/>
+	</resultMap>
+
+
+
 <!-- ================================Mylist 영은 ResultMap=================================================-->
 
 <!-- 마이리스트 관련 resultMap -->
@@ -613,6 +637,20 @@ WHERE TB.MEMBER_NO = #{memberId}
 DELETE FROM THEME_BOOKMARK
 WHERE THEME_BOOKMARK_ID = #{themeBookMarkId}
 </delete>
+
+<!-- 마이 리뷰 삭제 버튼 클릭 시 -->
+<delete id="deleteReview" parameterType="_int">
+DELETE FROM REVIEW
+WHERE REVIEW_ID = #{reviewId}
+
+</delete>
+
+<select id="selectReviewInfo" parameterType="_int" resultMap="ReviewMap">
+SELECT *
+FROM REVIEW
+WHERE REVIEW_ID = #{reviewId}
+
+</select>
 
 <!-- =========================== mylist 영은 ================================================ -->
 
