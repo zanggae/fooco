@@ -263,6 +263,19 @@
  			width:200px;
  			margin-left:40px;
  		}
+ 		/* 글자애니매이션 */
+ 		#SelectText{
+ 			display: inline-block;  transition: .3s;-webkit-transform: scale(1);transform: scale(1);
+ 		}
+ 		#SelectText:hover{
+ 			-webkit-transform: scale(1.1);transform: scale(1.1);
+ 		}
+ 		#easyuseText{
+ 			display: inline-block;  transition: .3s;-webkit-transform: scale(1);transform: scale(1);
+ 		}
+ 		#easyuseText:hover{
+ 			-webkit-transform: scale(1.1);transform: scale(1.1);
+ 		}
  		/* 메인 푸터 */
         .mainFooter{
         	height:21rem; background-color:rgb(248,248,248);        	     	
@@ -305,6 +318,7 @@
         	margin-top:15px;
         	font-size:13px;
         }
+        
     </style>
 
 </head>
@@ -342,7 +356,7 @@
         </div><br><br><br>
         <!--멤버십 선택 영역-->
         <div id="membership_area">
-            <h3 style="font-family:bold;">SELECT YOUR MEMBERSHIP</h3>
+            <h3 style="font-family:bold;" id="SelectText">SELECT YOUR MEMBERSHIP</h3>
             <h3><i class="fas fa-caret-down"></i></h3><br><br>
             <span id="membership_area1">
                 <p></p>
@@ -366,7 +380,7 @@
 		
 		<!--쓰는방법 소개 영역-->
         <div id="howtouse">
-        	<h5 style="font-family:bold;"><i class="far fa-kiss-beam"></i>&nbsp;&nbsp;완전 쉬운 Fooco 멤버십 사용방법!&nbsp;&nbsp;<i class="far fa-grin-squint"></i></h5><br><br>
+        	<h5 style="font-family:bold;" id="easyuseText"><i class="far fa-kiss-beam"></i>&nbsp;&nbsp;완전 쉬운 Fooco 멤버십 사용방법!&nbsp;&nbsp;<i class="far fa-grin-squint"></i></h5><br><br>
             <span id="howtouse1">
                 <img src="resources/etcimage/membershiplistimg1.png">
                 <p>Step 1</p>
