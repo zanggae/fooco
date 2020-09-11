@@ -47,5 +47,7 @@ public interface RestaurantService {
 
 	int followReviewer(HashMap<String, Object> searchParameters);
 
+	int deleteReview(Integer reviewId);
+
 }
 
