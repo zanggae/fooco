@@ -171,23 +171,66 @@
 	</div>
 	
 	<script>
+		var isEnd = false;
 		
-		function nextLoading() {
-			$.ajax({
-				type:"POST",
-				url:"nextReview.do",
-				data:{resId:resId, page:page}
+		$(function(){
+			$(window).scroll(function(){
+				let $window = $(this);
+				let scrollTop = $window.scrollTop();
+				let windowHeight = $window.height();
+				let documentHeight = $(document).height();
+				
+				console.log("documentHeight: " + documentHeight + ", scrollTop: " + scrollTop + ", windowHeight: " + windowHeight);
+				
+				if(scrollTop + windowHeight + 30 > documentHeight) {
+					fetchList();
+	            }
+				fetchList();
 			})
+		})
+		
+		let fetchList = function(){
+			let page = 1;
+			var resId = document.getElementById("hiddenResId").value;
+			
+			if(isEnd == true) {
+				return
+			}
+			
+			++page 
+			
+			$.ajax({
+				url:"goRestaurantReview?page=" + page + "&resId=" + resId,
+				type: "POST",
+				dataType: "json",
+				success: function(data){
+					let length = data.reviewList.length;
+					if(length < 5) {
+						isEnd = true;
+					}
+					$.each(data.reviewList, function(index, vo){
+						renderList(false, vo);
+					})
+				}
+			});
 		}
 		
-		$(window).scroll(function(){			
-		    if($(window).scrollTop()+200 >= $(document).height() - $(window).height()) {
-		    	loading = true;
-		    	nextLoading();
-		    }else {
-		    	swal("다음 페이지를 로딩 중입니다.");
-		    }
-		}); 
+		let renderList = function(mode, vo){
+	        let html =
+	        	"<li data-no='"+ vo.no +"'>" +
+	            "<strong>"+ vo.name +"</strong>" +
+	            "<p>"+ vo.content.replace(/\n/gi, "<br>") +"</p>" +
+	            "<strong></strong>" +
+	            "<a href='#' data-no='"+ vo.no +"'>삭제</a>" +
+	            "</li>"
+	        
+	        if( mode ){
+	            $("#list-guestbook").prepend(html);
+	        }
+	        else{
+	            $("#list-guestbook").append(html);
+	        }
+	    }
 	</script>
 	
 	<script>
