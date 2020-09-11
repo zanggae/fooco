@@ -52,8 +52,8 @@
     <div class="container" style="padding: 5%;">
       <h2>1:1문의 답변하기</h2>
       <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="#">관리자페이지</a></li>
-        <li class="breadcrumb-item"><a href="#">1:1 문의 관리</a></li>
+        <li class="breadcrumb-item"><a href="dashboard.do">관리자페이지</a></li>
+        <li class="breadcrumb-item"><a href="inquiryEdit.do">1:1 문의 관리</a></li>
         <li class="breadcrumb-item active">1:1문의 답변하기</li>
       </ol>
       <br>

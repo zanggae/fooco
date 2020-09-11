@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html>
 <head>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -103,6 +107,10 @@
   .card_heart{color: rgb(204,51,98); position: absolute; z-index: 1; top: 7.7rem; left: 9.3rem; font-size: 2.5rem;}
   .card {padding:0.5rem; height: 11rem;}
   .thema_title{z-index: 2; position: absolute; top: 3rem; word-break: break-all; width: 11.5rem; font-size: 0.8rem; font-family: 'bold'; padding-left: 0.4rem; padding-right:0.4rem;}
+#heart:hover{
+	color:yellow;
+}
+
 </style>
 
 <body>
@@ -121,89 +129,33 @@
               </div>
               <div class="row row-cols-3 center_content shadow_sm">
                 
-                <a href="#">
+                <c:forEach var="TM" items="${TMList }">
+                <c:if test="${!empty TMList }">
                 <div class="card_div">
                   <div class="col card shadow-sm">
+                  	 <c:url var="detailTM" value="themedetail.do">
+	                  	<c:param name="themeId" value="${TM.themeId }"></c:param>
+	                  </c:url>
+	                <a href="${detailTM }">
                     <div style="position: relative;">
-                      <img src="img/버거테마.PNG" class="card-img-top" style="z-index: 0; height: 10rem;">
+                      <img src="${contextPath }/resources/restaurantImage/${TM.resImageName}" class="card-img-top" style="z-index: 0; height: 10rem;">
                     </div>
-                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!소개합니다 정말 맛있어요</p>
-                    <i class="fas fa-heart card_heart"></i>
-                  
+                    </a>
+                    <p class="thema_title" align="center">${TM.themeTitle }</p>
+					 <!-- 즐겨찾기 해제 시 목록에서 없애려고 넘기는값 -->
+                    <c:url var="deleteTM" value="deleteTM.do">
+                    	<c:param name="themeBookMarkId" value="${TM.themeBookMarkId}"></c:param>
+                    </c:url>                   
+                    <a href="${deleteTM }"><i class="fas fa-heart card_heart" id="heart"></i></a>
                   </div>
                 </div>
-              </a>
-
-
-              <a href="#">
-                <div class="card_div">
-                  <div class="col card shadow-sm">
-                    <div style="position: relative;">
-                      <img src="img/버거테마.PNG" class="card-img-top" style="z-index: 0; height: 10rem;">
-                    </div>
-                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!</p>
-                    <i class="fas fa-heart card_heart"></i>
-                  
-                  </div>
-                </div>
-              </a>
-
-              <a href="#">
-                <div class="card_div">
-                  <div class="col card shadow-sm">
-                    <div style="position: relative;">
-                      <img src="resources/logo/galbi.jpg" class="card-img-top" style="z-index: 0; height: 10rem; margin:0rem;">
-                    </div>
-                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!</p>
-                    <i class="fas fa-heart card_heart"></i>
-                  
-                  </div>
-                </div>
-              </a>
-
-              <a href="#">
-                <div class="card_div">
-                  <div class="col card shadow-sm">
-                    <div style="position: relative;">
-                      <img src="img/버거테마.PNG" class="card-img-top" style="z-index: 0; height: 10rem;">
-                    </div>
-                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!</p>
-                    <i class="fas fa-heart card_heart"></i>
-                  
-                  </div>
-                </div>
-              </a>
-
-              <a href="#">
-                <div class="card_div">
-                  <div class="col card shadow-sm">
-                    <div style="position: relative;">
-                      <img src="img/버거테마.PNG" class="card-img-top" style="z-index: 0; height: 10rem;">
-                    </div>
-                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!</p>
-                    <i class="fas fa-heart card_heart"></i>
-                  
-                  </div>
-                </div>
-              </a>
-
-
-              <a href="#">
-                <div class="card_div">
-                  <div class="col card shadow-sm">
-                    <div style="position: relative;">
-                      <img src="img/버거테마.PNG" class="card-img-top" style="z-index: 0; height: 10rem;">
-                    </div>
-                    <p class="thema_title" align="center">서울 버거 맛집 Best 5!</p>
-                    <i class="fas fa-heart card_heart"></i>
-                  
-                  </div>
-                </div>
-              </a>
-
+                </c:if>
+				</c:forEach>
 
               </div>
-
+				<c:if test="${empty TMList}">
+                 	즐겨찾기가 없습니다.
+                 </c:if>
 					
 
 						
@@ -219,8 +171,6 @@
 	</section>
 
 </body>
-
-
 
 
 </html>

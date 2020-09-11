@@ -55,97 +55,164 @@
 		</div>
 	</div>
 	<div class="row row-cols-1 mz-review-list">
-		<div class="col" style="padding:0; margin:0;">
-		<c:forEach var="review" items="${reviewList}">
-		<div class="row mz-review-div shadow-sm">
-			<div class="col-1 mz-review-userProfile-div">
-				<div class="mz-userProfile-img">
-					<img src="${contextPath}/resources/${review.reviewerProfilePath}/${review.reviewerProfileImg}" class="mz-userProfile">
-				</div>
-			</div>
-			<div class="col-11 mz-review-content-div">
-				<div class="row" style="padding-right: 0.5rem;">
-					<div class="col-9">
-						<div class="row">
-							<span style="font-size: 1.2rem; font-family: 'bold';">${review.nickname}</span>
-						</div>
-						<div class="row">
-							<span style="font-size: 0.7rem; color: gray;">리뷰 	<fmt:formatNumber type="number" value="${review.reviewerReviewCount}"/>개 · 팔로워 <fmt:formatNumber type="number" value="${review.reviewerFollowerCount}"/>명</span>
+		<div class="col" style="padding: 0; margin: 0;">
+			<c:forEach var="review" items="${reviewList}">
+				<div class="row mz-review-div shadow-sm">
+					<div class="col-1 mz-review-userProfile-div">
+						<div class="mz-userProfile-img">
+							<img src="${contextPath}/resources/${review.reviewerProfilePath}/${review.reviewerProfileImg}" class="mz-userProfile">
 						</div>
 					</div>
-					<div class="col-3">
-						<div class="mz-review-follow-btn-div" style="text-align: end;">
-							<input type="button" value="팔로우" class="mz-review-follow-btn" style="margin-top: 0.5rem;">
+					<div class="col-11 mz-review-content-div">
+						<div class="row" style="padding-right: 0.5rem;">
+							<div class="col-9">
+								<div class="row">
+									<input type="hidden" id="hiddenReviewId" value="${review.reviewId}"/>
+									<span style="font-size: 1.2rem; font-family: 'bold';">${review.nickname}</span>
+								</div>
+								<div class="row">
+									<span style="font-size: 0.7rem; color: gray;">리뷰 <fmt:formatNumber type="number" value="${review.reviewerReviewCount}" />개 · 팔로워 <fmt:formatNumber type="number" value="${review.reviewerFollowerCount}" />명</span>
+								</div>
+							</div>
+							<div class="col-3">
+								<div class="mz-review-follow-btn-div" style="text-align: end;">
+									<input type="button" value="팔로우" class="mz-review-follow-btn" style="margin-top: 0.5rem;" onclick="followReviewer(${review.memberId})">
+								</div>
+							</div>
+						</div>
+						<div class="row mz-review-rating-row">
+							<div class="row">
+								<div class="col-1">
+									<span style="font-family: 'bold';">맛</span>
+								</div>
+								<div class="col-11">
+									<c:forEach var="i" begin="1" end="5">
+										<c:choose>
+											<c:when test="${review.reviewTasterating ge i}">
+												<i class="fas fa-star"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="far fa-star"></i>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-1">
+									<span style="font-family: 'bold';">가격</span>
+								</div>
+								<div class="col-11">
+									<c:forEach var="i" begin="1" end="5">
+										<c:choose>
+											<c:when test="${review.reviewPricerating ge i}">
+												<i class="fas fa-star"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="far fa-star"></i>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-1">
+									<span style="font-family: 'bold';">서비스</span>
+								</div>
+								<div class="col-11">
+									<c:forEach var="i" begin="1" end="5">
+										<c:choose>
+											<c:when test="${review.reviewServicerating ge i}">
+												<i class="fas fa-star"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="far fa-star"></i>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+						<div class="row mz-review-rating-date">
+							<span style="font-size: 0.7rem; color:gray;">${review.reviewCreateDate}</span>
+						</div>
+						<div class="row" style="padding-right:0.5rem;">
+							<p style="font-size: 0.8rem; margin: 0;">${review.reviewContent}</p>
+						</div>
+						<div class="row mz-review-rating-good">
+							<span style="font-size: 0.7rem; color: gray;">좋아요 <fmt:formatNumber type="number" value="${review.reviewGoodcount}"/>개</span>
+						</div>
+						<div class="row mz-review-rating-good-btn">
+							<a class="review-content-good-btn" id="review-content-good-btn" onclick="upGood()" style="font-size: 0.8rem; color: mediumseagreen; font-family: 'medium'; cursor: pointer;">&#x1F44D; 좋아요</a>
+						</div>
+						<div class="row row-cols-4 mz-reviewPhoto-row">
+							<c:if test="${0 ne review.reviewImages[0].imageId}">
+								<c:forEach var="reviewImages" items="${review.reviewImages}">
+									<div class="col mz-reviewPhoto-col">
+										<div class="mz-reviewPhoto-div">
+											<img src="${contextPath}/resources/${reviewImages.imageFilepath}/${reviewImages.imageNewName}" class="mz-reviewPhoto">
+										</div>
+									</div>
+								</c:forEach>
+							</c:if>
 						</div>
 					</div>
 				</div>
-				<div class="row mz-review-rating-row">
-					<div class="row">
-						<div class="col-1">
-							<span style="font-family: 'bold';">맛</span>
-						</div>
-						<div class="col-11">
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-1">
-							<span style="font-family: 'bold';">가격</span>
-						</div>
-						<div class="col-11">
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-1">
-							<span style="font-family: 'bold';">서비스</span>
-						</div>
-						<div class="col-11">
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-						</div>
-					</div>
-				</div>
-				<div class="row mz-review-rating-date">
-					<span style="font-size: 0.7rem; color: gray;">${review.reviewCreateDate}</span>
-				</div>
-				<div class="row" style="padding-right: 0.5rem;">
-					<p style="font-size: 0.8rem; margin: 0;">
-						${review.reviewContent}
-					</p>
-				</div>
-				<div class="row mz-review-rating-good">
-					<span style="font-size: 0.7rem; color: gray;">좋아요 <fmt:formatNumber type="number" value="${review.reviewGoodcount}"/>개</span>
-				</div>
-				<div class="row mz-review-rating-good-btn">
-					<a class="review-content-good-btn" id="review-content-good-btn" onclick="pushGood()" style="font-size: 0.8rem; color: mediumseagreen; font-family: 'medium'; cursor: pointer;">&#x1F44D; 좋아요</a>
-				</div>		
-				<div class="row row-cols-4 mz-reviewPhoto-row">
-					<c:if test="${0 ne review.reviewImages[0].imageId}">
-					<c:forEach var="reviewImages" items="${review.reviewImages}">
-					<div class="col mz-reviewPhoto-col">
-						<div class="mz-reviewPhoto-div">
-							<img src="${contextPath}/resources/${reviewImages.imageFilepath}/${reviewImages.imageNewName}" class="mz-reviewPhoto">
-						</div>
-					</div>
-					</c:forEach>
-					</c:if>
-				</div>
-			</div>
-		</div>
-		</c:forEach>
+			</c:forEach>
 		</div>
 	</div>
+	
+	<script>
+		function upGood() {
+			var selectedReview = document.getElementById("hiddenReviewId");
+			var reviewId = document.getElementById("hiddenReviewId").value;
+			
+			$.ajax({
+				url:"upGood.do",
+				data:{reviewId:reviewId},
+				type:"POST",
+				success:function(data){
+					if("notvalid" == data) {
+						swal("로그인이 필요한 서비스입니다.");
+					}else if("success" == data){
+						swal("해당 리뷰를 '좋아요' 하였습니다.");
+					}else {
+						swal("좋아요에 실패하였습니다.");
+					}					
+				},
+				error:function(request, status, errorData){
+					swal("error code: " + request.status + "\n" + "message: " + request.responseText + "error: " + errorData);
+				}
+			})
+		}
+	</script>
+	
+	<script>
+		function followReviewer(memberId) {
+			
+			$.ajax({
+				url:"followReviewer.do",
+				data:{memberId:memberId},
+				type:"POST",
+				success:function(data){
+					if("notvalid" == data) {
+						swal("로그인이 필요한 서비스입니다.");
+					}else if("success" == data){
+						swal("해당 리뷰어를 팔로우 하였습니다.");
+					}else if("already" == data) {
+						swal("이미 팔로우한 리뷰어입니다.");
+					}else if("itsme" == data) {
+						swal("본인과 팔로우 할 수 없습니다.");
+					}else {
+						swal("팔로우에 실패하였습니다.");
+					}					
+				},
+				error:function(request, status, errorData){
+					swal("error code: " + request.status + "\n" + "message: " + request.responseText + "error: " + errorData);
+				}
+			});
+			
+		}
+	</script>
 </body>
 </html>

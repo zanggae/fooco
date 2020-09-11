@@ -294,6 +294,4 @@ function validate(){
 </script>
 
 
-
-
 </html>

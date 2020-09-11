@@ -13,7 +13,7 @@
 		<h2 style="color:red;">
 			${requestScope['javax.servlet.error.message'] }
 		</h2>
-		<a href="home.do">시작 페이지로 돌아가기</a>
+		<a href="main.do">시작 페이지로 돌아가기</a>
 	</div>
 </body>
 </html>

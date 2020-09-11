@@ -93,7 +93,7 @@
           </div>
 
           <div class="col-5">
-			 <c:if test="${loginUser.memberName eq '관리자' }">   
+			 <c:if test="${loginUser.nickName eq '관리자' }">   
         	 
         	 <button type="button" class="btn btn-secondary" id="button" onclick="location.href='boardEdit.do'">수정하기</button>
         	 

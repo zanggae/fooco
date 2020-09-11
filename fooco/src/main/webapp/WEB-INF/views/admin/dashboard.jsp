@@ -15,7 +15,7 @@
 
   <title>Hello, world!</title>
   <style>
-    
+  .DCard{height: 210px;}
   </style>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -94,10 +94,12 @@
                 <div class="card">
                   <div class="card-header">미답변 문의</div>
                   <div class="card-body">
+                  <div class="DCard">                  
                   	<c:forEach var="iq" items="${inquiry }">
                     <p>${iq.boardTitle }</p>
                     <hr>
                     </c:forEach>
+                    </div>
                     <p class="card-text"></p>
                     <a href="inquiryEdit.do" class="btn btn-primary">더보러 가기</a>
                   </div>
@@ -106,13 +108,20 @@
               <div class="col-6">
                 <div class="card">
                   <div class="card-header">공지사항</div>
-                  <div class="card-body">
+                  <div class="card-body" >
+                  <div class="DCard" >
                     <c:forEach var="no" items="${notice }">
                     <p>${no.boardTitle }</p>
                     <hr>
                     </c:forEach>
+                  </div>
                     <p class="card-text"></p>
-                    <a href="#" class="btn btn-primary">더보러 가기</a>
+                    <a href="#" onclick="aNotice()"class="btn btn-primary">더보러 가기</a>
+                    <script>
+                    	function aNotice(){
+	                    	location.href="boardEdit.do?categoryNo=1";                    		
+                    	}
+                    </script>
                   </div>
                 </div>
               </div>
@@ -122,12 +131,19 @@
                 <div class="card">
                   <div class="card-header">FAQ</div>
                   <div class="card-body">
+                  <div class="DCard">
                     <c:forEach var="fa" items="${faq }">
                     <p>${fa.boardTitle }</p>
                     <hr>
                     </c:forEach>
+                    </div>
                     <p class="card-text"></p>
-                    <a href="#" class="btn btn-primary">더보러 가기</a>
+                    <a href="#" onclick="aFaq()" class="btn btn-primary">더보러 가기</a>
+                    <script>
+                    	function aFaq(){
+	                    	location.href="boardEdit.do?categoryNo=2";                    		
+                    	}
+                    </script>
                   </div>
                 </div>
               </div>
@@ -135,17 +151,25 @@
                 <div class="card">
                   <div class="card-header">마이리스트 추천</div>
                   <div class="card-body">
+                  <div class="DCard">
                     <c:forEach var="ml" items="${mylist }">
                     <p>${ml.mlTitle }</p>
                     <hr>
                     </c:forEach>
+                    </div>
                     <p class="card-text"></p>
-                    <a href="#" class="btn btn-primary">더보러 가기</a>
+                    <a href="mylistEditAdmin.do" class="btn btn-primary">더보러 가기</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <c:forEach var="s" items="${st }" varStatus="status">
+             <input type="hidden" value="${s.staticDate }" name="sdate">
+             <input type="hidden" value="${s.staticCount }" name="scount">
+             <input type="hidden" value="${s.goldCount }" name="goldCount">
+             <input type="hidden" value="${s.silverCount }" name="silverCount">           
+          </c:forEach>         
           <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
           <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
           <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -236,23 +260,27 @@
           var data = new google.visualization.DataTable();
           //그래프에 표시할 컬럼 추가
           data.addColumn('datetime', '날짜');
-          data.addColumn('number', '남성');
-          data.addColumn('number', '여성');
-          data.addColumn('number', '전체');
+          data.addColumn('number', '방문자수');
 
           //그래프에 표시할 데이터
           var dataRow = [];
-
-          for (var i = 0; i <= 29; i++) { //랜덤 데이터 생성
-            var total = Math.floor(Math.random() * 300) + 1;
-            var man = Math.floor(Math.random() * total) + 1;
-            var woman = total - man;
-
-            dataRow = [new Date('2017', '09', i, '10'), man, woman, total];
-            data.addRow(dataRow);
-          }
-
-
+		
+          var list = new Array();
+     	  $("input[name=scount]").each(function(index, item){     		  
+     		 list.push($(item).val());
+     	   });          
+          
+     	  $("input[name=sdate]").each(function(index, item){
+     		  var sdate = sqlToJsDate($(item).val());
+     		  /* console.log(sdate); */
+     		  var count = list[index];
+     		  count *= 1;
+     		  /* console.log(count); */
+     		 dataRow = [sdate, count];
+             data.addRow(dataRow);
+     	   });
+          
+          
           var chart = new google.visualization.ChartWrapper({
             chartType: 'LineChart',
             containerId: 'lineChartArea', //라인 차트 생성할 영역
@@ -347,21 +375,51 @@
           var data = new google.visualization.DataTable();
           //그래프에 표시할 컬럼 추가
           data.addColumn('datetime', '날짜');
-          data.addColumn('number', '남성');
-          data.addColumn('number', '여성');
+          data.addColumn('number', '골드');
+          data.addColumn('number', '실버');
           data.addColumn('number', '전체');
 
           //그래프에 표시할 데이터
           var dataRow = [];
 
-          for (var i = 0; i <= 29; i++) { //랜덤 데이터 생성
+          
+          var list2 = new Array();
+     	  $("input[name=goldCount]").each(function(index, item){     		  
+     		 list2.push($(item).val());     		 
+     	   });          
+     	  var list3 = new Array();
+    	  $("input[name=silverCount]").each(function(index, item){     		  
+    		 list3.push($(item).val());
+    	   });
+    	  
+     	  $("input[name=sdate]").each(function(index, item){
+     		  var sdate = sqlToJsDate($(item).val());
+     		  console.log(sdate);
+     		  var goldCount1 = list2[index];
+     		 console.log(goldCount1);
+     		  var silverCount1 = list3[index];
+     		 console.log(silverCount1);
+     		 goldCount1 *= 1;
+     		 silverCount1 *= 1;
+    		  var total = goldCount1+silverCount1;
+    		 
+     		 dataRow = [sdate, goldCount1,silverCount1,total];
+             data.addRow(dataRow);
+     	   });
+          
+          
+          
+          
+          
+          
+          /* for (var i = 0; i <= 29; i++) { //랜덤 데이터 생성
             var total = Math.floor(Math.random() * 300) + 1;
             var man = Math.floor(Math.random() * total) + 1;
             var woman = total - man;
 
             dataRow = [new Date('2018', '09', i, '11'), man, woman, total];
             data.addRow(dataRow);
-          }
+          } */
 
 
           var chart = new google.visualization.ChartWrapper({
@@ -446,6 +504,17 @@
       chartDrowFun.chartDrow(); //chartDrow() 실행
       chartDrowFun1.chartDrow1(); //chartDrow() 실행
     });
+    
+    function sqlToJsDate(sqlDate){
+        //sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
+        var sqlDateArr1 = sqlDate.split("-");
+        //format of sqlDateArr1[] = ['yyyy','mm','dd hh:mm:ms']
+        var sYear = sqlDateArr1[0];
+        var sMonth = (Number(sqlDateArr1[1]) - 1).toString();
+        var sDay = sqlDateArr1[2];
+        var sHour = '10';
+    return new Date(sYear,sMonth,sDay,sHour);
+    }
   </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

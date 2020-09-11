@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -148,7 +149,7 @@ a {
 						<p>체크인</p>
 					</a> <a href="#">
 						<p>마이리뷰</p>
-					</a> <a href="mylist.do">
+					</a> <a href="myPageMylist.do">
 						<p>마이리스트</p>
 					</a>
 				</div>
@@ -270,6 +271,7 @@ $(document).keypress(function(e) {
 
   	
   </script>
+
 
 
 </html>
