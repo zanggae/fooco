@@ -72,6 +72,11 @@
       width: 5.5rem;
       float: right;
     }
+    
+    .pickDiv{cursor: pointer;} 
+ 	.pickDiv:hover{text-decoration: underline;}
+ 	.selectDiv{cursor: pointer;} 
+ 	.selectDiv:hover{text-decoration:underline;}
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>

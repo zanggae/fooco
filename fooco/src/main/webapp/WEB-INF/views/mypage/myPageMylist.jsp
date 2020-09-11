@@ -56,6 +56,7 @@
   			  height: 1.8rem; font-size: 0.7rem; font-family: 'bold'; color: white; margin-top: 0.1rem; margin-bottom: 0.3rem;}
   .title{text-align : center; font-size:1.3rem; margin-top:4rem; font-family:'medium';}
  #makemylist:hover{text-decoration: underline;}
+ .title:hover{text-decoration:underline;}
 
 </style>
 
