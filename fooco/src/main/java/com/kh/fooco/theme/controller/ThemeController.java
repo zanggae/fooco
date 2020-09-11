@@ -38,10 +38,15 @@ public class ThemeController {
 			@RequestParam(value = "searchTheme", required = false) String searchTheme) {
 		int themeWriter = 81;
       Member loginUser = (Member)session.getAttribute("loginUser");
-      themeWriter = loginUser.getMemberId();   
+      if(loginUser == null) {
+    	  
+      }else {
+    	  themeWriter = loginUser.getMemberId();       	  
+      }
 
 		ArrayList<ThemeAdmin> theme = new ArrayList<ThemeAdmin>();
-
+		
+		
 		if (searchTheme == null) {
 
 			theme = themeService.selectListTheme();
