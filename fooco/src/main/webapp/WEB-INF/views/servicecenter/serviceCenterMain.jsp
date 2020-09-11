@@ -81,7 +81,8 @@
         <script>
         function button_click(){
         	if(confirm("1:1 문의 등록은 로그인 후 가능합니다. 로그인 하시겠습니까?")==true){
-        		location.href="main.do";
+        		$("#for_login_modal").click();
+        		/* location.href="main.do"; */
         	}else{
         		return;
         	}

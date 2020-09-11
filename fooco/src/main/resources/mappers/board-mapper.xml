@@ -64,6 +64,13 @@
     FROM DUAL
 </insert>
 
+<!-- 공지사항 조회수 증가 쿼리 -->
+<update id="updateCount" parameterType="int">
+	UPDATE BOARD
+	SET BOARD_COUNT = BOARD_COUNT + 1
+	WHERE BOARD_ID = #{boardId}
+</update>
+
 </mapper>
 
 

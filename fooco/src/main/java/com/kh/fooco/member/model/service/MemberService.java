@@ -154,7 +154,12 @@ int chekchemailDup(String email);
 
    int insertMylistRestaurant(String mh, MyListAdmin ma);
 
-   int recommendMylst(int mlId);
+
+   MyListAdmin mylistDetail(MyListAdmin mylist);
+
+   ArrayList<Restaurant> mylistDetailR(MyListAdmin mylist);
+
+   int recommendMylist(MyListAdmin ma);
 
 
 

@@ -370,15 +370,22 @@ public class MemberDao {
       int mId = ma.getMlId();
       HashMap<String, Object> updateParameter = new HashMap<String, Object>();
       updateParameter.put("mId", mId);
-      updateParameter.put("mylist",mh);      
+      updateParameter.put("mylistRList",mh);      
       return sqlSessionTemplate.insert("mypageMapper.insertMylistRestaurant",updateParameter);
    }
 
-   public int recommendMylst(int mlId) {
-      return sqlSessionTemplate.update("mypageMapper.recommendMylst",mlId);
-   }
 
- 
+public MyListAdmin mylistDetail(MyListAdmin mylist) {
+	return sqlSessionTemplate.selectOne("mypageMapper.mylistDetail",mylist);
+}
+
+public ArrayList<Restaurant> mylistDetailR(MyListAdmin mylist) {
+	return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.mylistDetailR",mylist);
+}
+
+	public int recommendMylist(MyListAdmin ma) {
+	return sqlSessionTemplate.update("mypageMapper.recommendMylist",ma);
+}
    
 
 

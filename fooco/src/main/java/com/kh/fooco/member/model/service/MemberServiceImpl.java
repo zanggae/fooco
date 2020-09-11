@@ -434,10 +434,21 @@ public class MemberServiceImpl implements MemberService{
       return memberDao.insertMylistRestaurant(mh,ma);
    }
 
+
    @Override
-   public int recommendMylst(int mlId) {
-      return memberDao.recommendMylst(mlId);
+   public MyListAdmin mylistDetail(MyListAdmin mylist) {
+	return memberDao.mylistDetail(mylist);
    }
+
+   @Override
+   public ArrayList<Restaurant> mylistDetailR(MyListAdmin mylist) {
+	return memberDao.mylistDetailR(mylist);
+   }
+
+   @Override
+   public int recommendMylist(MyListAdmin ma) {
+	return memberDao.recommendMylist(ma);
+}
 
 
 

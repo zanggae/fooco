@@ -252,15 +252,15 @@ public class RestaurantController {
 		String[] realnameArray = realname.split(",");
 		String[] filenameArray = filename.split(",");
 		
-		Image image = new Image();
 		ArrayList<Image> imageList = new ArrayList<Image>();
 		
 		for(int i=0; i<realnameArray.length; i++) {
+			Image image = new Image();
 			image.setImageOriginName(realnameArray[i].toString());
-			image.setImageNewName(filenameArray[i].toString());			
+			image.setImageNewName(filenameArray[i].toString());	
 			imageList.add(image);
 		}
-		
+				
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("review", review);
 		parameters.put("imageList", imageList);
@@ -413,7 +413,48 @@ public class RestaurantController {
 		
 		out.close();
 	}
-
+	
+	@RequestMapping(value="nextReview.do", method=RequestMethod.POST)
+	public void nextReview(HttpServletResponse response
+			, @RequestParam(value="resId", required=false) Integer resId
+			, @RequestParam(value="sortType", required=false) String sortType
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer page) throws IOException
+	{		
+		PrintWriter out = response.getWriter();
+		int currentPage = page;
+		
+		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
+		searchParameter.put("resId", resId);
+		searchParameter.put("sortType", sortType);
+		
+		int howManyReview = restaurantService.getReviewListCount(resId);
+		PageInfo pi = getPageInfo(currentPage, howManyReview);
+		
+		ArrayList<Review> reviewList = new ArrayList<Review>();		
+		reviewList = restaurantService.getReviewList(searchParameter, pi);
+		
+		
+		
+	}
+	
+	@RequestMapping(value="deleteReview.do", method=RequestMethod.POST)
+	public void deleteReview(HttpServletResponse response, Integer reviewId) throws IOException {
+		
+		PrintWriter out = response.getWriter();
+		int result = 0;
+		
+		result = restaurantService.deleteReview(reviewId);
+		
+		if(result > 0) {
+			out.append("success");
+			out.flush();
+		}else {
+			out.append("fail");
+			out.flush();
+		}
+		
+		out.close();
+	}
 
 	public ArrayList<Integer> convertCategory(String category)
 	{
@@ -459,12 +500,4 @@ public class RestaurantController {
 		return al; 
 	}
 		
-		
-		
-		
-		
-		
-
-	
-	
 }

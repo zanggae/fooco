@@ -61,7 +61,8 @@
       #position{margin-left: 11rem; width: 50.5rem; text-align: center;}	
       #noneResult{font-family:'heavy'; font-size:2rem; margin-left:4.5rem; margin-top:7rem;}
       
-      
+      #heart{cursor: pointer;} 
+ 	}
 
       /* 메인 푸터 */
       .mainFooter {height:10rem; background-color:rgb(253,215,129);}
@@ -96,6 +97,7 @@
                 </div>
 
                 
+              <input type="hidden" value="${searchTheme }" name="searchTheme1" id="searchTheme1">
               
               <c:if test="${empty theme }">
               
@@ -113,9 +115,9 @@
               </c:if>
                 
                 <c:if test="${!empty theme }">
-               <c:url var="themeMain" value="themeMain.do">
-                <c:param name="searchTheme" value="${searchTheme }"/>
-               </c:url>
+	               <c:url var="themeMain" value="themeMain.do">
+	                	<c:param name="searchTheme" value="${searchTheme }"/>
+	               </c:url>
                 <div class="container">
                 <div class="bottom">
                 <c:if test="${empty searchTheme }">
@@ -125,18 +127,20 @@
                   <h1 class="text3">'${searchTheme }'&nbsp;검색 결과</h1>
                   </c:if>
                   
-            
-          	
-                  
-                  
-                  
                 </div>
+                
+                
+                
+                
+                
+                
+                
                 <br>
                 <div class="row row-cols-2" id="position">
               	<c:forEach var="t" items="${theme }">
               	
                   	<c:url var="themedetail" value="themedetail.do">
-                  	<c:param name="themeId" value="${t.themeId }"/>
+                  		<c:param name="themeId" value="${t.themeId }"/>
                   	</c:url>
                   <div class="col" style="margin-bottom: 2.5rem;">
                   <img src="resources/restaurantImage/${t.themeImageName}" class="img1">
@@ -161,11 +165,13 @@
                 <script>
                 	function heartClick(id){
                 		var bookmarkId = $(id).attr('value');
-                		location.href="insertBookmark.do?bookmarkId="+bookmarkId;
+                		var search = $("#searchTheme1").val();
+                		location.href="insertBookmark.do?bookmarkId="+bookmarkId+"&search="+search;
                 	}
                 	function heartClickCancle(id){
                 		var bookmarkId = $(id).attr('value');
-                		location.href="heartClickCancle.do?bookmarkId="+bookmarkId;
+                		var search = $("#searchTheme1").val();
+                		location.href="heartClickCancle.do?bookmarkId="+bookmarkId+"&search="+search;
                 	}
                 </script>
         	

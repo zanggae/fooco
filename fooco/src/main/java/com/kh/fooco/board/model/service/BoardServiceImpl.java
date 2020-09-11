@@ -14,7 +14,7 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	private BoardDao boardDao;
 
-
+	
 	@Override
 	public ArrayList<Board> selectListNotice() {
 		
@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public Board selectNoticeDetail(int boardId) {
-
+				boardDao.updateCount(boardId);
 		return boardDao.selectNoticeDetail(boardId);
 	}
 

@@ -482,8 +482,8 @@
     		alert("이미 사용 중인 멤버십이 존재합니다");
     		return;
     	}else{
-    		/* requestPay1(); */
-    		$("#mbuyFormGold").submit(); 
+    		 requestPay1();
+    		/* $("#mbuyFormGold").submit();  */
         	alert("결제성공");  
     	}
     }
@@ -500,8 +500,8 @@
     		alert("이미 사용 중인 멤버십이 존재합니다");
     		return;
     	}else{
-    		/* requestPay2(); */
-    		$("#mbuyFormSilver").submit(); 
+    		requestPay2(); 
+    		/* $("#mbuyFormSilver").submit();  */
         	alert("결제성공"); 
     	}
     }

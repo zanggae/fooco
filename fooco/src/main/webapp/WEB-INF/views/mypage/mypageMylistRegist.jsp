@@ -20,7 +20,23 @@
 
   <title>Hello, world!</title>
   <style>
-   
+     @font-face {font-family: 'heavy';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+      font-weight: bold; font-style: normal;}
+
+    @font-face {font-family: 'bold';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+      font-weight: normal; font-style: normal;}
+
+    @font-face {font-family: 'medium';
+                src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+                font-weight: normal; font-style: normal;}
+
+    @font-face { font-family: 'light';
+                src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+                font-weight: normal; font-style: normal;}
+
+    * {font-family: 'light';}
     .table td {
       vertical-align: middle;
     }
@@ -55,7 +71,7 @@
       -webkit-border-radius: 7px;
       -moz-border-radius: 5px;
       border-radius: 5px !important;
-      box-shadow: none;
+      box-shadow: none !important;
     }
 
     /*선택된 맛집*/
@@ -78,8 +94,10 @@
       float: right;
     }
     
-    .pickDiv{cursor: pointer;} 
+   	.pickDiv{cursor: pointer;} 
  	.pickDiv:hover{text-decoration: underline;}
+ 	.selectDiv{cursor: pointer;} 
+ 	.selectDiv:hover{text-decoration:underline;}
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
@@ -127,8 +145,8 @@
       <div class="col-4" align="center">      
         <h3>맛집 추가</h3>
         <hr>
-        <div class="input-group" style="width:16em; margin-left: 3rem; box-shadow: none !important;">
-          <input type="text" class="form-control search" placeholder="음식점 검색" id="searchInput">
+        <div class="input-group" style="width:16em; margin-left: 3rem;">
+          <input type="text" class="form-control search" placeholder="음식점 검색" id="searchInput" class="search">
           <button type="button" class="btn btn-warning btn1" id="searchBtn" onclick="searchRestaurant()"><i class="fas fa-search searchIcon" id="searchIcon"></i></button>
         </div>
         <script>

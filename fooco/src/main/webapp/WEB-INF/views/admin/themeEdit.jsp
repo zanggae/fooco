@@ -22,6 +22,10 @@
     .mBtn{
 		width: 200px; background:rgb(253, 215, 129) !important; color:rgb(204, 51, 98) !important;	border: 0px solid black !important;
 	}
+	.title{cursor: pointer;} 
+ 	.title:hover{text-decoration: underline;}
+ 	.img{cursor: pointer;} 
+ 	.img{text-decoration: underline;}
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
@@ -97,7 +101,7 @@
 	                  	<td align="center">
 	                      <img src="resources/restaurantImage/${t.themeImageName}" width="60" height="60">
 	                    </td>	                    
-	                    <td>${t.themeTitle}</td>
+	                    <td class="title">${t.themeTitle}</td>
 	                    <td>${t.themeModifyDate }</td>
 	                    <td>${t.themeCount }</td>
 	                    <th>

@@ -106,6 +106,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantDao.followReviewer(searchParameters);
 	}
 
+	@Override
+	public int deleteReview(Integer reviewId) {
+		return restaurantDao.deleteReview(reviewId);
+	}
+
 
 
 }

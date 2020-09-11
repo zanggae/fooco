@@ -41,5 +41,10 @@ public class BoardDao {
 	}
 
 
+	public int updateCount(int boardId) {
+		return sqlSessionTemplate.update("boardMapper.updateCount",boardId);
+	}
+
+
 	
 }

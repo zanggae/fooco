@@ -22,6 +22,7 @@
 	.mz-review-content-div > div > div {padding:0;}
 	.mz-review-follow-btn-div {padding:0 !important;}
 	.mz-review-follow-btn {margin:0 !important; background:rgb(204,51,98); border:none; height:2rem; border-radius:0.2rem; color:white; font-family:'medium'; font-size:1rem; width:6rem;}
+	.mz-review-delete-btn {margin:0 !important; background:rgb(204,51,98); border:none; height:2rem; border-radius:0.2rem; color:white; font-family:'medium'; font-size:1rem; width:7rem;}
 	.mz-review-rating-row {font-size:0.8rem; display:block; margin-top:0.5rem !important;}
 	.mz-review-rating-row > div > div {padding:0;}
 	.mz-review-rating-row .col-11 {color:#F4E04E;}
@@ -57,7 +58,7 @@
 	<div class="row row-cols-1 mz-review-list">
 		<div class="col" style="padding: 0; margin: 0;">
 			<c:forEach var="review" items="${reviewList}">
-				<div class="row mz-review-div shadow-sm">
+				<div class="row mz-review-div shadow-sm" id="mz-review-div">
 					<div class="col-1 mz-review-userProfile-div">
 						<div class="mz-userProfile-img">
 							<img src="${contextPath}/resources/${review.reviewerProfilePath}/${review.reviewerProfileImg}" class="mz-userProfile">
@@ -76,7 +77,14 @@
 							</div>
 							<div class="col-3">
 								<div class="mz-review-follow-btn-div" style="text-align: end;">
-									<input type="button" value="팔로우" class="mz-review-follow-btn" style="margin-top: 0.5rem;" onclick="followReviewer(${review.memberId})">
+									<c:choose>
+										<c:when test="${'관리자' eq loginUser.nickName}">
+											<input type="button" value="리뷰 삭제하기" class="mz-review-delete-btn" style="margin-top: 0.5rem;" onclick="deleteReview(${review.reviewId})">
+										</c:when>
+										<c:otherwise>
+											<input type="button" value="팔로우" class="mz-review-follow-btn" style="margin-top: 0.5rem;" onclick="followReviewer(${review.memberId})">
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>
@@ -163,6 +171,26 @@
 	</div>
 	
 	<script>
+		
+		function nextLoading() {
+			$.ajax({
+				type:"POST",
+				url:"nextReview.do",
+				data:{resId:resId, page:page}
+			})
+		}
+		
+		$(window).scroll(function(){			
+		    if($(window).scrollTop()+200 >= $(document).height() - $(window).height()) {
+		    	loading = true;
+		    	nextLoading();
+		    }else {
+		    	swal("다음 페이지를 로딩 중입니다.");
+		    }
+		}); 
+	</script>
+	
+	<script>
 		function upGood() {
 			var selectedReview = document.getElementById("hiddenReviewId");
 			var reviewId = document.getElementById("hiddenReviewId").value;
@@ -183,6 +211,36 @@
 				error:function(request, status, errorData){
 					swal("error code: " + request.status + "\n" + "message: " + request.responseText + "error: " + errorData);
 				}
+			})
+		}
+	</script>
+	
+	<script>
+		function deleteReview(reviewId) {
+			
+			swal({
+				text:"해당 리뷰를 삭제하시겠습니까?",
+				buttons:["아니요", "예"]
+			}).then(function(isConfirm){
+				if(isConfirm) {
+					$.ajax({
+						url:"deleteReview.do",
+						data:{reviewId:reviewId},
+						type:"POST",
+						success:function(data) {
+							if("success" == data) {
+								swal({
+									text:"리뷰를 삭제하였습니다.",
+									button:"확인"
+								}).then(function(isConfirm){
+									location.reload();
+								})
+							}else {
+								swal("리뷰를 삭제하지 못 했습니다.");
+							}
+						}
+					})
+				}		
 			})
 		}
 	</script>

@@ -34,6 +34,8 @@
     select::-ms-expand {
       display: none;
     }
+    .title{cursor: pointer;} 
+ 	.title:hover{text-decoration:underline;}
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
@@ -94,7 +96,7 @@
                		<c:forEach var="b" items="${boardList }">               	
 	                  <tr >
 	                  	<td style="display:none;">${b.boardId}</td>
-	                    <td>${b.boardTitle }</td>	                    
+	                    <td class="title">${b.boardTitle }</td>	                    
 	                    <td>${b.boardCreateDate }</td>
 	                    <td>${b.boardCount }</td>
 	                    <th>
