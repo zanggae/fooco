@@ -22,6 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +60,7 @@ import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
+import com.kh.fooco.theme.model.service.ThemeService;
 
 
 @SessionAttributes("loginUser")
@@ -125,7 +131,7 @@ public class MemberController {
 
    // 08.18 로그인 - 지민
    @RequestMapping(value = "mlogin.do", method = RequestMethod.POST)
-   public String loginMember(Member m, Model model, HttpServletResponse response) throws IOException {
+   public String loginMember(Member m, Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
       Member loginUser = memberService.loginMember(m);
 
@@ -138,7 +144,14 @@ public class MemberController {
       } else if (bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
          model.addAttribute("loginUser", loginUser);
          System.out.println("로그인 성공");
-         return "common/main";
+         
+         //이전 페이지 정보 가져오기
+         String referer = request.getHeader("Referer");
+ 		 request.getSession().setAttribute("redirectURI", referer);
+ 		 String result = referer.substring(referer.lastIndexOf("/")+1);
+ 		 
+ 		 return "redirect:"+result;
+        
       } else {
          System.out.println("로그인 실패");
          response.setContentType("text/html; charset=UTF-8");
@@ -146,7 +159,7 @@ public class MemberController {
          out.println("<script>alert('비밀번호를 다시 확인해주세요'); history.go(-1);</script>");
          out.flush();
       }
-      return "common/main";
+		return "common/main";  
    }
 
    // 0819 로그아웃 - 지민
@@ -971,7 +984,7 @@ public class MemberController {
          themeRListResult = memberService.insertMylistRes(th);
       }
 
-      mv.setViewName("redirect:inquiryRegistrationFin.do");
+      mv.setViewName("redirect:mylistRegistrationFin.do");
       return mv;
    }
 
@@ -983,32 +996,34 @@ public class MemberController {
       ArrayList<MyListAdmin> mylist = memberService.selectmyPageMylist();
 
       System.out.println("mylist db조회 후 화면에 뿌리기 전 : " + mylist);
-      if (!mylist.isEmpty()) {
+ 
          mv.addObject("mylist", mylist);
          mv.setViewName("mypage/myPageMylist");
-      } else {
-         throw new MemberException("mylist 목록 보기 실패!");
-      }
+       
       return mv;
    }
 
-   //마이리스트 - 수정 
+   //마이리스트 - 수정페이지에 나올 내용
    @RequestMapping("moveMylistModifyPage.do")
    public ModelAndView MylistModifyPage(ModelAndView mv, MyListAdmin ma) {
       MyListAdmin mylistAdmin = memberService.selectOneMylist(ma);
       
       ArrayList<Restaurant> mylistRlist = memberService.selectListMylistRestaurant(ma);
-      System.out.println(mylistRegist());
+      System.out.println(mylistRlist);
+      
+      mv.addObject("ma",mylistAdmin);
+      mv.addObject("mylistRList",mylistRlist);
+      mv.setViewName("mypage/mypageMylistModify");
       return mv;
    }
 
    
    //마이리스트 - 수정완료 후
    @RequestMapping("ModifyMylist.do")
-   public ModelAndView MylistModifyPage(HttpSession session, ModelAndView mv, 
-   String mylistRList, MyListAdmin ma) {
+   public ModelAndView MylistModifyPage(HttpSession session, ModelAndView mv, String mylistRList, MyListAdmin ma) {
       int mylistRListResult = 0;
-      
+      System.out.println(ma);
+      System.out.println(mylistRList);
       //마이리스트 수정
       int result = memberService.modifyMylist(ma);
       
@@ -1025,7 +1040,7 @@ public class MemberController {
       
    }
    
-   //마이리스트 - 삭제 
+   		//마이리스트 - 삭제 
       @RequestMapping("deleteMylist.do")
       public ModelAndView deleteMylist(ModelAndView mv, MyListAdmin ma) {
          int resultR = memberService.deleteMylistR(ma);
@@ -1041,13 +1056,35 @@ public class MemberController {
       }
       
       
-   //마이리스트 - 추천
-      @RequestMapping("recommendMylst.do")
-      public String recommendMylst(int mlId, Model model) {
-         int result = memberService.recommendMylst(mlId);
-         
-         return "mypage/myPageMylist";
+      //마이리스트 - 추천
+      @RequestMapping("recommendMylist.do")
+      public ModelAndView recommendMylist(ModelAndView mv, MyListAdmin ma) {
+    	  System.out.println(ma);
+         int result = memberService.recommendMylist(ma);
+         if(result > 0) {
+        	 mv.setViewName("redirect:myPageMylist.do");
+        	
+         }else {
+        	 throw new MemberException("추천하기 실패!");
+         }
                
+         return mv;
       }
-   
+      
+      
+      //마이리스트 디테일 
+      @RequestMapping("MylistDetail.do")
+      public ModelAndView mylistDetail(ModelAndView mv, MyListAdmin mylist, Restaurant res) {
+    	  MyListAdmin ma = memberService.mylistDetail(mylist);
+    	  ArrayList<Restaurant> restaurant = memberService.mylistDetailR(mylist);
+    	  System.out.println("마이리스트 디테일 : " + restaurant);
+    	  mv.addObject("mylist",ma);
+    	  mv.addObject("restaurant", restaurant);
+    	  mv.setViewName("mypage/mypageMylistDetail");
+    	  
+    	  return mv;
+      }
+      
+      
+      
 }

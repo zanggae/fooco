@@ -75,7 +75,7 @@
 <insert id="insertBookmark" parameterType="hashmap">
 	
 	INSERT INTO THEME_BOOKMARK VALUES(
-	SEQ_THEME_BOOKMARKID.NEXTVAL, #{themeWriter}, #{bookmarkId},'N')
+	SEQ_THEME_BOOKMARKID.NEXTVAL, #{themeWriter}, #{bookmarkId})
 	
 </insert>
 
@@ -86,7 +86,7 @@
 
 </delete>
 
-
+<!-- 테마 상세보기 쿼리  -->
 <select id="themedetail" parameterType="ThemeAdmin" resultMap="ThemeResultSet">
 
 SELECT * 
@@ -96,6 +96,7 @@ WHERE THEME_ID = #{themeId}
 
 </select>
 
+<!-- 테마 레스토랑 상세보기 쿼리 -->
 <select id="themedetailR" parameterType="Restaurant" resultMap="RestaurantResultSet">
 SELECT *
 FROM 
@@ -104,6 +105,15 @@ LEFT JOIN THEME_RES TR ON(R.RES_ID = TR.RES_ID)
 WHERE THEME_ID=#{themeId}
 
 </select>
-	
+
+<!-- 테마 조회수 증가 쿼리 -->
+<update id="updateCount" parameterType="int">
+	UPDATE THEME
+	SET THEME_COUNT = THEME_COUNT + 1
+	WHERE THEME_ID = #{themeId}
+</update>
+
 
 </mapper>
+
+

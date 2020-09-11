@@ -73,7 +73,7 @@
                      </div>
                      
                      <div class="col-4" style="margin-left : 1rem; margin-top:-0.1rem">
-                      <a href="main.do" id="list">마이페이지로 가기&nbsp;<i class="fas fa-arrow-right"></i></a>
+                      <a href="myPageMylist.do" id="list">마이페이지로 가기&nbsp;<i class="fas fa-arrow-right"></i></a>
                     </div>
                     </div>
 					</div>

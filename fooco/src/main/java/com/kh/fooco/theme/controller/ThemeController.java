@@ -34,15 +34,19 @@ public class ThemeController {
 	}
 
 	@RequestMapping("themeMain.do")
-	public ModelAndView themeMain(ModelAndView mv,
+	public ModelAndView themeMain(ModelAndView mv, HttpSession session, 
 			@RequestParam(value = "searchTheme", required = false) String searchTheme) {
-
 		int themeWriter = 81;
-//      Member loginUser = (Member)session.getAttribute("loginUser");
-//      themeWriter = loginUser.getMemberId();   
+      Member loginUser = (Member)session.getAttribute("loginUser");
+      if(loginUser == null) {
+    	  
+      }else {
+    	  themeWriter = loginUser.getMemberId();       	  
+      }
 
 		ArrayList<ThemeAdmin> theme = new ArrayList<ThemeAdmin>();
-
+		
+		
 		if (searchTheme == null) {
 
 			theme = themeService.selectListTheme();
@@ -66,7 +70,7 @@ public class ThemeController {
 
 	// 즐겨찾기 추가
 	@RequestMapping("insertBookmark.do")
-	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId,HttpSession session) {
+	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId,HttpSession session, String search) {
 
 		    Member loginUser = (Member)session.getAttribute("loginUser");
 		    int themeWriter = loginUser.getMemberId();   
@@ -74,6 +78,7 @@ public class ThemeController {
 		int result = themeService.insertBookmark(bookmarkId, themeWriter);
 
 		if (result > 0) {
+			mv.addObject("searchTheme",search);
 			mv.setViewName("redirect:themeMain.do");
 		} else {
 			throw new ThemeException("즐겨찾기 등록 실패");
@@ -84,14 +89,15 @@ public class ThemeController {
 
 	// 즐겨찾기 취소
 	@RequestMapping("heartClickCancle.do")
-	public ModelAndView heartClickCancle(ModelAndView mv, String bookmarkId) {
-		int themeWriter = 3001;
-//      Member loginUser = (Member)session.getAttribute("loginUser");
-//      themeWriter = loginUser.getMemberId();   
+	public ModelAndView heartClickCancle(ModelAndView mv, String bookmarkId, HttpSession session, String search) {
+	
+      Member loginUser = (Member)session.getAttribute("loginUser");
+      int  themeWriter = loginUser.getMemberId();   
 
 		int result = themeService.deleteBookmark(bookmarkId, themeWriter);
 
 		if (result > 0) {
+			mv.addObject("searchTheme",search);
 			mv.setViewName("redirect:themeMain.do");
 		} else {
 			throw new ThemeException("즐겨찾기 등록 실패");
@@ -106,6 +112,7 @@ public class ThemeController {
 
 		ThemeAdmin ta = themeService.themedetail(theme);
 		ArrayList<Restaurant> restaurant = themeService.themedetailR(theme);
+		
 		System.out.println("테마디테일 " + restaurant);
 		mv.addObject("theme", ta);
 		mv.addObject("restaurant1", restaurant);

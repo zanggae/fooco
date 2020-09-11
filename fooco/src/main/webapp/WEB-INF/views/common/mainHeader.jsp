@@ -243,7 +243,7 @@
                                     </c:if>
                                     <c:if test="${!empty loginUser }">
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃 &#x1F64B;</a>
+                                    <a class="dropdown-item mh-dropdown-item" href="mlogout.do">로그아웃 &#x1F494;</a>
                                     </c:if>
                                 </div>
                             </div>

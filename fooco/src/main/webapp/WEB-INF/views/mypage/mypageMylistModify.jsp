@@ -5,9 +5,6 @@
 <html lang="ko">
 
 <head>
-<!-- sweet alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -75,33 +72,38 @@
       width: 5.5rem;
       float: right;
     }
+    
+    .pickDiv{cursor: pointer;} 
+ 	.pickDiv:hover{text-decoration: underline;}
+ 	.selectDiv{cursor: pointer;} 
+ 	.selectDiv:hover{text-decoration:underline;}
   </style>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://kit.fontawesome.com/0d9e858b34.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <jsp:include page="../common/adminSideMenubar.jsp"></jsp:include>
+  <jsp:include page="../common/commonHeader.jsp"></jsp:include>
   
-  <div style="margin-left: 13%;">
+  
     <div class="container">
 
-    <form action="restaurantThemeAdmin.do" method="get" id="themeSubmit">
-    <input type="hidden" name="themeId" value="${ta.themeId }">
+    <form action="ModifyMylist.do" method="get" id="mylistSubmit">
+    <input type="hidden" name="mlId" value="${ma.mlId }">
     <script>
-       function onsubmitTheme(){
-          if($("#themeTile").val() == ""){
+       function onsubmitMylist(){
+          if($("#mylistTitle").val() == ""){
              alert("제목을 입력해 주세요");
-             $("#themeTile").focus();
+             $("#mylistTile").focus();
              return
           }
-          if($(".themeRList").val() == null){
+          if($(".mylistRList").val() == null){
              alert("음식점을 추가해 주세요");
              return 
           }          
 
-          if(confirm("마이리스트를 등록 하시겠습니까?")){
-             $("#themeSubmit").submit();
+          if(confirm("마이리스트를 수정 하시겠습니까?")){
+             $("#mylistSubmit").submit();
           }          
        }       
     </script>
@@ -112,7 +114,7 @@
         <div class="form-group row" style="margin-left: 8rem; font-size: 1.2rem;">
           <label for="inputEmail3" class="col-sm-3 col-form-label">마이리스트 제목</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" name="themeTitle" style="width: 35rem; border:1px solid black; box-shadow: none;" id="themeTile" value="${ta.themeTitle }">
+            <input type="text" class="form-control" name="mlTitle" style="width: 35rem; border:1px solid black; box-shadow: none;" id="mylistTitle" value="${ma.mlTitle }">
           </div>
         </div>
 
@@ -130,7 +132,7 @@
         <script>
            var check = new Array();
            $(function(){
-                <c:forEach items="${themeRList}" var="item"> 
+                <c:forEach items="${mylistRList}" var="item"> 
                    check.push("${item.resId}"); 
                 </c:forEach>
                 deleteRestaurant();              
@@ -222,7 +224,7 @@
                $h5T = $("<h5 style='font-weight: bold; text-align: center;'>").text(title);
                $divA = $("<div style='text-align: center;'>").html(address);
                
-               $inputRId = $("<input type='hidden' id='resId' name='themeRList' class='themeRList'>").attr('value',resId);                         
+               $inputRId = $("<input type='hidden' id='resId' name='mylistRList' class='mylistRList'>").attr('value',resId);                         
                
                $divI.append($img);
                $divCon.append($h5T);
@@ -272,7 +274,7 @@
 
         <div style="height : 40rem; overflow-y : auto; overflow-x : hidden; border: solid lightgray 1px; border-radius: 10px !important;">
           <div style="text-align: center;" id="subDiv">
-             <c:forEach var="tRL" items="${themeRList }">
+             <c:forEach var="tRL" items="${mylistRList }">
                 <div class='row selectDiv'>
                    <div class='col-5 position1' id='pickRImg'>
                       <img class='img_set2' src="resources/restaurantImage/${tRL.resImageName}">
@@ -280,7 +282,7 @@
                    <div class='col-5 position1' id='pickRCon'>
                       <h5 style='font-weight: bold; text-align: center;'>${tRL.resName }</h5>
                       <div style='text-align: center;'>${tRL.resAddress}</div>
-                      <input type='hidden' id='resId' name='themeRList' class='themeRList' value="${tRL.resId }">
+                      <input type='hidden' id='resId' name='mylistRList' class='mylistRList' value="${tRL.resId }">
                    </div>
                 </div>
              </c:forEach>
@@ -292,13 +294,12 @@
     <br><br>
     <div class="row">
       <div class="col-11">
-        <button type="button" class="btn btn-warning btn2" id="submitBtn" onclick="onsubmitTheme()">수정하기</button>
+        <button type="button" class="btn btn-warning btn2" id="submitBtn" onclick="onsubmitMylist()">수정하기</button>
       </div>
     </div>
   </form>
   </div>
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  </div>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

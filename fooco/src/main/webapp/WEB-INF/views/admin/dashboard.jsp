@@ -15,7 +15,7 @@
 
   <title>Hello, world!</title>
   <style>
-    
+  .DCard{height: 210px;}
   </style>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -94,10 +94,12 @@
                 <div class="card">
                   <div class="card-header">미답변 문의</div>
                   <div class="card-body">
+                  <div class="DCard">                  
                   	<c:forEach var="iq" items="${inquiry }">
                     <p>${iq.boardTitle }</p>
                     <hr>
                     </c:forEach>
+                    </div>
                     <p class="card-text"></p>
                     <a href="inquiryEdit.do" class="btn btn-primary">더보러 가기</a>
                   </div>
@@ -106,13 +108,20 @@
               <div class="col-6">
                 <div class="card">
                   <div class="card-header">공지사항</div>
-                  <div class="card-body">
+                  <div class="card-body" >
+                  <div class="DCard" >
                     <c:forEach var="no" items="${notice }">
                     <p>${no.boardTitle }</p>
                     <hr>
                     </c:forEach>
+                  </div>
                     <p class="card-text"></p>
-                    <a href="#" class="btn btn-primary">더보러 가기</a>
+                    <a href="#" onclick="aNotice()"class="btn btn-primary">더보러 가기</a>
+                    <script>
+                    	function aNotice(){
+	                    	location.href="boardEdit.do?categoryNo=1";                    		
+                    	}
+                    </script>
                   </div>
                 </div>
               </div>
@@ -122,12 +131,19 @@
                 <div class="card">
                   <div class="card-header">FAQ</div>
                   <div class="card-body">
+                  <div class="DCard">
                     <c:forEach var="fa" items="${faq }">
                     <p>${fa.boardTitle }</p>
                     <hr>
                     </c:forEach>
+                    </div>
                     <p class="card-text"></p>
-                    <a href="#" class="btn btn-primary">더보러 가기</a>
+                    <a href="#" onclick="aFaq()" class="btn btn-primary">더보러 가기</a>
+                    <script>
+                    	function aFaq(){
+	                    	location.href="boardEdit.do?categoryNo=2";                    		
+                    	}
+                    </script>
                   </div>
                 </div>
               </div>
@@ -135,12 +151,14 @@
                 <div class="card">
                   <div class="card-header">마이리스트 추천</div>
                   <div class="card-body">
+                  <div class="DCard">
                     <c:forEach var="ml" items="${mylist }">
                     <p>${ml.mlTitle }</p>
                     <hr>
                     </c:forEach>
+                    </div>
                     <p class="card-text"></p>
-                    <a href="#" class="btn btn-primary">더보러 가기</a>
+                    <a href="mylistEditAdmin.do" class="btn btn-primary">더보러 가기</a>
                   </div>
                 </div>
               </div>

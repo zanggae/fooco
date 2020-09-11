@@ -58,6 +58,7 @@ public class ThemeServiceImpl implements ThemeService{
 
 	@Override
 	public ThemeAdmin themedetail(ThemeAdmin theme) {
+		themeDao.updateCount(theme);
 		return themeDao.themedetail(theme);
 	}
 
@@ -65,6 +66,9 @@ public class ThemeServiceImpl implements ThemeService{
 	public ArrayList<Restaurant> themedetailR(ThemeAdmin theme) {
 		return themeDao.themedetailR(theme);
 	}
+
+	
+
 
 
 }
