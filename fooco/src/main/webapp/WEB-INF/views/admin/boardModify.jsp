@@ -52,8 +52,8 @@
     <div class="container" style="padding: 5%;">
       <h2>게시물 수정</h2>
       <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="#">관리자페이지</a></li>
-        <li class="breadcrumb-item"><a href="#">게시물관리</a></li>
+        <li class="breadcrumb-item"><a href="dashboard.do">관리자페이지</a></li>
+        <li class="breadcrumb-item"><a href="boardEdit.do">게시물관리</a></li>
         <li class="breadcrumb-item active">게시물 수정</li>
       </ol>
       <br>
