@@ -1010,7 +1010,8 @@ public class MemberController {
    @RequestMapping("ModifyMylist.do")
    public ModelAndView MylistModifyPage(HttpSession session, ModelAndView mv, String mylistRList, MyListAdmin ma) {
       int mylistRListResult = 0;
-      
+      System.out.println(ma);
+      System.out.println(mylistRList);
       //마이리스트 수정
       int result = memberService.modifyMylist(ma);
       

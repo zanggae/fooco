@@ -44,11 +44,11 @@
     }
 
     .search {
-      height: 2rem;
-      border: 1px solid black;
-      color: gold;
-      -webkit-border-radius: 7px;
-      -moz-border-radius: 5px;
+      height: 2rem !important ;
+      border: 1px solid black !important;
+      color: gold !important;
+      /* -webkit-border-radius: 7px !important; */
+      -moz-border-radius: 5px !important; 
       border-radius: 5px !important;
       box-shadow: none !important;
     }

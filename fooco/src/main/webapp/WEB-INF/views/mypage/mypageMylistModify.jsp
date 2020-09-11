@@ -78,9 +78,9 @@
 </head>
 
 <body>
-  <jsp:include page="../common/adminSideMenubar.jsp"></jsp:include>
+  <jsp:include page="../common/commonHeader.jsp"></jsp:include>
   
-  <div style="margin-left: 13%;">
+  
     <div class="container">
 
     <form action="ModifyMylist.do" method="get" id="mylistSubmit">
@@ -295,7 +295,6 @@
   </form>
   </div>
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  </div>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
