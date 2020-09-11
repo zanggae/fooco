@@ -76,6 +76,36 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restaurantDao.enrollBookmark(bm);
 	}
 
+	@Override
+	public int alreadyEnroll(Bookmark bm) {
+		return restaurantDao.alreadyEnroll(bm);
+	}
+
+	@Override
+	public ArrayList<Restaurant> sameLocationBestRestaurant(HashMap<String, Object> searchParameter) {
+		return restaurantDao.sameLocationBestRestaurant(searchParameter);
+	}
+
+	@Override
+	public ArrayList<Restaurant> membershipRestaurant(HashMap<String, Object> searchParameter) {
+		return restaurantDao.membershipRestaurant(searchParameter);
+	}
+
+	@Override
+	public int upGood(Review rv) {
+		return restaurantDao.upGood(rv);
+	}
+
+	@Override
+	public int alreadyFollowRelationship(HashMap<String, Object> searchParameters) {
+		return restaurantDao.alreadyFollowRelationship(searchParameters);
+	}
+
+	@Override
+	public int followReviewer(HashMap<String, Object> searchParameters) {
+		return restaurantDao.followReviewer(searchParameters);
+	}
+
 
 
 }

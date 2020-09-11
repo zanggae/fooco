@@ -679,4 +679,5 @@ INSERT INTO MYLIST VALUES
    WHERE ML_ID = #{mlId}
 </update>
 
+
 </mapper>

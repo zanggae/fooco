@@ -52,18 +52,18 @@
     <div class="container" style="padding: 5%;">
       <h2>게시판 등록하기</h2>
       <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="#">관리자페이지</a></li>
-        <li class="breadcrumb-item"><a href="#">게시판 관리</a></li>
+        <li class="breadcrumb-item"><a href="dashboard.do">관리자페이지</a></li>
+        <li class="breadcrumb-item"><a href="boardEdit.do">게시판 관리</a></li>
         <li class="breadcrumb-item active">게시판 등록하기</li>
       </ol>
       <br>
       <div class="container my-4" id="post">
         <div class="container my-3">
-            <form class="form-group" action="registrationBoard.do" method="post" enctype="multipart/form-data">
+            <form class="form-group" action="registrationBoard.do" method="post" enctype="multipart/form-data" id="bform">
                 <div class="row">
                     <div class="col-md-2"><label>카테고리</label></div>
                     <div class="col-md-4">
-                    <select name="categoryNo" class="form-control" style="width:80%" onchange="change(this)">
+                    <select name="categoryNo" class="form-control" id="categoryNo" style="width:80%" onchange="change(this)">
                     	<option value="0" selected="selected">선택</option>
                     	<option value="1">공지사항</option>
                     	<option value="2">FAQ</option>
@@ -105,8 +105,17 @@
                      <div class="col text-center">
                          <button type="button" class="btn inquiryBtn"
                               onclick="goInquiryEdit()">목록으로</button>							
-                         	<button class="btn inquiryBtn">작성완료</button>                         	
-                         	
+                         <button type="button" onclick="bSubmit()" class="btn inquiryBtn">작성완료</button>                         	
+                         <script>
+                         	function bSubmit(){
+                         		if($("#categoryNo").val()==0){
+                         			alert("카테고리를 선택하세요.")
+                         		}else{
+                         			$("#bform").submit();                         			
+                         		}
+                         			
+                         	}
+                         </script>
                      </div>
                  </div>
         </form>

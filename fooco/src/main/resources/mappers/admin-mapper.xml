@@ -51,8 +51,15 @@
    <result property="file_path" column="FILE_PATH"></result>   
 </resultMap>
 
-
-
+<!-- static resultMap -->
+<resultMap type="Static" id="StaticResultSet">
+	<id property="staticId" column="STATIC_ID"></id>
+   <result property="staticDate" column="STATIC_DATE"></result>
+   <result property="staticCount" column="STATIC_COUNT"></result>
+   <result property="staticTCount" column="STATIC_T_COUNT"></result>
+   <result property="goldCount" column="GOLD_COUNT"></result>
+   <result property="silverCount" column="SILVER_COUNT"></result>
+</resultMap>
 <!-- ============================ 게시판 관련 resultMap 작성 ============================ -->
 
 <!-- board 조회 resultMap -->
@@ -223,10 +230,10 @@
 
 <!-- ============================ 게시판 관련 쿼리문 작성 ============================ -->
  
- <!-- dashboard에서 사용되는 미답변 문의글 5개 조회 -->
+ <!-- dashboard에서 사용되는 미답변 문의글 4개 조회 -->
 <select id="selectListInquiryD" resultMap="BoardResultSet">
 <![CDATA[
-   SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3 AND INQUIRY_YN = 'N' AND ROWNUM <=5
+   SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 3 AND INQUIRY_YN = 'N' AND ROWNUM <=4
 ]]>
 </select>
 
@@ -535,19 +542,25 @@
 
 <select id="selectListNoticeD" resultMap="BoardResultSet">
 <![CDATA[
-	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 1 AND ROWNUM <=5
+	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 1 AND ROWNUM <=4
 ]]>
 </select>
 
 <select id="selectListFAQD" resultMap="BoardResultSet">
 <![CDATA[
-	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 2 AND ROWNUM <=5
+	SELECT * FROM SELECT_BOARD WHERE BOARD_STATUS = 'Y' AND CATEGORY_NO = 2 AND ROWNUM <=4
 ]]>
 </select>
 
 <select id="selectListMyListD" resultMap="MylistResultSet">
 <![CDATA[
-	SELECT * FROM SELECT_MYLIST_ADMIN WHERE APPROVE_THEME = 'W' AND RECOMMENDATION_THEME = 'Y' AND ROWNUM <=5
+	SELECT * FROM SELECT_MYLIST_ADMIN WHERE APPROVE_THEME = 'W' AND RECOMMENDATION_THEME = 'Y' AND ROWNUM <=4
+]]>
+</select>
+
+<select id="selectListStatic" resultMap="StaticResultSet">
+<![CDATA[
+	SELECT * FROM STATIC WHERE TO_CHAR(STATIC_DATE,'YYYYMM')>=TO_CHAR(SYSDATE,'YYYYMM')-1
 ]]>
 </select>
 </mapper>

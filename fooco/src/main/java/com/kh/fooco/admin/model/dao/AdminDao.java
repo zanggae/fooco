@@ -12,6 +12,7 @@ import com.kh.fooco.admin.model.vo.MembershipCount;
 import com.kh.fooco.admin.model.vo.MembershipStatus;
 import com.kh.fooco.admin.model.vo.MyListAdmin;
 import com.kh.fooco.admin.model.vo.Search;
+import com.kh.fooco.admin.model.vo.Static;
 import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.Image;
@@ -321,6 +322,10 @@ public class AdminDao {
 
 	public int permitMylist(String mlId) {
 		return  sqlSessionTemplate.update("adminMapper.permitMylist", mlId);
+	}
+
+	public ArrayList<Static> selectListStatic() {
+		return (ArrayList)sqlSessionTemplate.selectList("adminMapper.selectListStatic");
 	}
 
 	

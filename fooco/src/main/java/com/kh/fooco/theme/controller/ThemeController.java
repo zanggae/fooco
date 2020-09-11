@@ -2,6 +2,7 @@ package com.kh.fooco.theme.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,11 +66,12 @@ public class ThemeController {
 
 	// 즐겨찾기 추가
 	@RequestMapping("insertBookmark.do")
-	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId, HttpSession session) {
 
-		 Member loginUser = (Member)session.getAttribute("loginUser");
-         int themeWriter = loginUser.getMemberId();     
+	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId,HttpSession session) {
 
+		    Member loginUser = (Member)session.getAttribute("loginUser");
+		    int themeWriter = loginUser.getMemberId();   
+		    
 		int result = themeService.insertBookmark(bookmarkId, themeWriter);
 
 		if (result > 0) {

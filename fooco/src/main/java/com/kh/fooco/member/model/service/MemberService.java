@@ -43,80 +43,80 @@ int chekchemailDup(String email);
 
 // ================================== MyPage 동원 ===========================================
 
-	int selectOneFollowCount(Member m);
+   int selectOneFollowCount(Member m);
 
-	int selectOneFollowingCount(Member m);
+   int selectOneFollowingCount(Member m);
 
-	String selectOneProFile(Member m);
+   String selectOneProFile(Member m);
 
-	int updateMemberProfile(Member m);
+   int updateMemberProfile(Member m);
 
-	ArrayList<Follower> selectFollower(Member m);
+   ArrayList<Follower> selectFollower(Member m);
 
-	ArrayList<Following> selectFollowing(Member m);
+   ArrayList<Following> selectFollowing(Member m);
 
-	int checkNickNameDup(String nickName);
+   int checkNickNameDup(String nickName);
 
-	int updateMemberInfo(Member m);
+   int updateMemberInfo(Member m);
 
-	int updateMemberWithdrawal(Member m);
+   int updateMemberWithdrawal(Member m);
 
-	int selectOneReviewCount(Member m);
+   int selectOneReviewCount(Member m);
 
-	int selectOneMyListCount(Member m);
+   int selectOneMyListCount(Member m);
 
-	int selectOneCheckInCount(Member m);
+   int selectOneCheckInCount(Member m);
 
-	ArrayList<Restaurant> selectListRestaurant(String restitle);
-	
-	int insertCheckin(Checkin ck);
-	
-	int insertImage(Image img);
-	
-	int insertCheckinImage(CheckinImage ckimg);
-	
-	ArrayList<Select_Checkin> selectCheckinList(int memberId);
-	
-	ArrayList<Select_Checkin> selectModifyCheckinList(int checkinId);
-	
-	int updateCheckin(Checkin ck);
-	
-	int deleteImage(String imageNum);
-	
-	int deleteCheckinImage(String imageNum);
-	
-	int insertCheckinImage2(CheckinImage ckimg);
-	
-	int deleteCheckin(int checkinId);
-	
-	int deleteCheckinImage2(int checkinId);
-	
-	ArrayList<MZ> selectMZ(int memberId);
-	
-	int deleteMZ(int resBookMarkId);
-	
-	Res getRestaurantDetail(int resId);
+   ArrayList<Restaurant> selectListRestaurant(String restitle);
+   
+   int insertCheckin(Checkin ck);
+   
+   int insertImage(Image img);
+   
+   int insertCheckinImage(CheckinImage ckimg);
+   
+   ArrayList<Select_Checkin> selectCheckinList(int memberId);
+   
+   ArrayList<Select_Checkin> selectModifyCheckinList(int checkinId);
+   
+   int updateCheckin(Checkin ck);
+   
+   int deleteImage(String imageNum);
+   
+   int deleteCheckinImage(String imageNum);
+   
+   int insertCheckinImage2(CheckinImage ckimg);
+   
+   int deleteCheckin(int checkinId);
+   
+   int deleteCheckinImage2(int checkinId);
+   
+   ArrayList<MZ> selectMZ(int memberId);
+   
+   int deleteMZ(int resBookMarkId);
+   
+   Res getRestaurantDetail(int resId);
 
-	Info getRestaurantInfo(int resId);
+   Info getRestaurantInfo(int resId);
 
-	ArrayList<Select_Board> selectInquiry(int memberId);
+   ArrayList<Select_Board> selectInquiry(int memberId);
 
-	BoardInfo selectBoardInfo(int boardId);
-	
-	int updateBoard(BoardInfo boardInfo);
-	
-	int updateInquiry(BoardInfo boardInfo);
-	
-	int updateBoardStatus(int boardId);
-	
-	ArrayList<Select_Coupon> selectCouponList(int memberId);
-	
-	int updatecStatus(int couponListId);
-	
-	ArrayList<TM> selectTM(int memberId);
-	
-	int deleteTM(int themeBookMarkId);
-	
+   BoardInfo selectBoardInfo(int boardId);
+   
+   int updateBoard(BoardInfo boardInfo);
+   
+   int updateInquiry(BoardInfo boardInfo);
+   
+   int updateBoardStatus(int boardId);
+   
+   ArrayList<Select_Coupon> selectCouponList(int memberId);
+   
+   int updatecStatus(int couponListId);
+   
+   ArrayList<TM> selectTM(int memberId);
+   
+   int deleteTM(int themeBookMarkId);
+   
 // ================================== Mylist 영은 ===========================================
 
 
