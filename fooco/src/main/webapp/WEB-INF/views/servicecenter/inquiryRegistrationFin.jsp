@@ -39,8 +39,8 @@
      A:active {text-decoration: none; color:#646464;} 
     A:hover {text-decoration: none; color:rgb(204,51,98);}
     
-   	.text{font-family:'medium';margin-left:4rem;}
-    #list{font-size : 1.5rem; color:#646464; margin-left: 3rem; margin-bottom: 4rem; font-family: 'medium'!important;}
+   	.text{font-family:'medium';margin-left:6.5rem; font-size : 2.5rem;}
+    #list{font-size : 1.5rem; color:#646464; margin-left: 3rem; margin-bottom: 5rem; font-family: 'medium'!important;}
 	</style>
 	
 </head>
@@ -59,7 +59,7 @@
                     <div class="col-3">
                     </div>
                     <div class="col-6">
-                        <h1 class="text">등록이 완료되었습니다..</h1>
+                        <h1 class="text">등록이 완료되었습니다.</h1>
                     </div>
                     <div class="col-3">
                     </div>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,33 +112,34 @@
 				<div class="col-7 main_content" style="padding:0;">
 					<div class="main_content_div shadow-sm">
 						<div class="row center_title">
-							<p
-								style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F618;
+							<p style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F618;
 								나의 활동 - 마이리스트 </p>
 						</div>
                         <br>
-                        <div class="text1">맛있는 피자 TOP3</div>
-
+                        <div class="text1">${mylist.mlTitle }</div>
+						 <c:forEach var="r" items="${restaurant }">
                         <br>
                         <div class="row shadow-sm edge">
                           <div class="col-4 d-flex justify-content-center align-items-center">
-                            <img src="img/sushi3.jpg" class="img1">
+                            <img src="resources/restaurantImage/${r.resImageName}" class="img1">
                           </div>
                               <div class="col-6">
-                                <h6 class="text2">와니초밥와니초밥와니초밥와니초밥</h6>
-                                <h6 class="text3">경기도 평택시 경기대로 1166 14403-5045-45-4504-504-54-50</h6>
+                                <h6 class="text2">${r.resName }</h6>
+                                <h6 class="text3">${r.resAddress }</h6>
                               </div>
                             <div class="col-2" id="more">
-
-                                <a href="#">더보기&nbsp;&nbsp;<i class="fas fa-arrow-right"></i></a>
+								<c:url var="detailRes" value="goDetailRestaurant.do">
+                  					<c:param name="resId" value="${r.resId }"/>
+                  					</c:url>
+                                <a href="${detailRes}">더보기&nbsp;&nbsp;<i class="fas fa-arrow-right"></i></a>
 
                             </div>
                               
                         </div>
-				
-
-						
-
+						</c:forEach>
+ 
+                   
+					<br>
 					
 					</div>
 				</div>
@@ -147,6 +148,7 @@
 
 			</div>
 		</div>
+		<br><br>
 	</section>
 
 </body>

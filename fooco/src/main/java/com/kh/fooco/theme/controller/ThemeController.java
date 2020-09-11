@@ -84,10 +84,10 @@ public class ThemeController {
 
 	// 즐겨찾기 취소
 	@RequestMapping("heartClickCancle.do")
-	public ModelAndView heartClickCancle(ModelAndView mv, String bookmarkId) {
-		int themeWriter = 3001;
-//      Member loginUser = (Member)session.getAttribute("loginUser");
-//      themeWriter = loginUser.getMemberId();   
+	public ModelAndView heartClickCancle(ModelAndView mv, String bookmarkId, HttpSession session) {
+	
+      Member loginUser = (Member)session.getAttribute("loginUser");
+      int  themeWriter = loginUser.getMemberId();   
 
 		int result = themeService.deleteBookmark(bookmarkId, themeWriter);
 
@@ -106,6 +106,7 @@ public class ThemeController {
 
 		ThemeAdmin ta = themeService.themedetail(theme);
 		ArrayList<Restaurant> restaurant = themeService.themedetailR(theme);
+		
 		System.out.println("테마디테일 " + restaurant);
 		mv.addObject("theme", ta);
 		mv.addObject("restaurant1", restaurant);

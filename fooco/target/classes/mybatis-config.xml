@@ -1,56 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-
-	<settings>
-		<setting name="jdbcTypeForNull" value="NULL"/>
-		<setting name="returnInstanceForEmptyRow" value="true"/>
-	</settings>
-	
-	<typeAliases>	
-		<typeAlias type="com.kh.fooco.admin.model.vo.VisitorCount" alias="VisitorCount"/>
-		<typeAlias type="com.kh.fooco.admin.model.vo.MembershipStatus" alias="MembershipStatus"/>
-		<typeAlias type="com.kh.fooco.admin.model.vo.MembershipCount" alias="MembershipCount"/>
-		<typeAlias type="com.kh.fooco.admin.model.vo.Search" alias="Search"/>
-	 	<typeAlias type="com.kh.fooco.admin.model.vo.MyListAdmin" alias="MyListAdmin"/>		 
-		<typeAlias type="com.kh.fooco.member.model.vo.Member" alias="Member"/>	
-		<typeAlias type="com.kh.fooco.board.model.vo.Board" alias="Board"/>	
-		<typeAlias type="com.kh.fooco.board.model.vo.InsertBoard" alias="InsertBoard"/>	
-		<typeAlias type="com.kh.fooco.membership.model.vo.MemberShip" alias="Membership"/>	
-		<typeAlias type="com.kh.fooco.membership.model.vo.Coupon" alias="Coupon"/>	
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.Restaurant" alias="Restaurant"/>
-		<typeAlias type="com.kh.fooco.theme.model.vo.ThemeBookmark" alias="ThemeBookmark"/>
-		<typeAlias type="com.kh.fooco.theme.model.vo.ThemeAdmin" alias="ThemeAdmin"/>		
-		<typeAlias type="com.kh.fooco.member.model.vo.Follower" alias="Follower"/>
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.Review" alias="Review"/>
-		<typeAlias type="com.kh.fooco.common.model.vo.Image" alias="Image"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.Mylist" alias="Mylist"/>
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.Res" alias="Res"/>
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.Filter" alias="Filter"/>
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.Info" alias="Info"/>
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.Bestmenu" alias="Bestmenu"/>
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.ResImage" alias="ResImage"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.Checkin" alias="Checkin"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.CheckinImage" alias="CheckinImage"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.Select_Checkin" alias="Select_Checkin"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.Select_CheckinImage" alias="Select_CheckinImage"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.MZ" alias="MZ"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.Select_Board" alias="Select_Board"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.BoardInfo" alias="BoardInfo"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.Select_Coupon" alias="Select_Coupon"/>
-		<typeAlias type="com.kh.fooco.restaurant.model.vo.Bookmark" alias="Bookmark"/>
-		<typeAlias type="com.kh.fooco.member.model.vo.TM" alias="TM"/>
-	</typeAliases>
-	
-	<mappers>
-		<mapper resource="/mappers/member-mapper.xml"/>
-		<mapper resource="/mappers/board-mapper.xml"/>
-		<mapper resource="/mappers/admin-mapper.xml"/>
-		<mapper resource="/mappers/membership-mapper.xml"/>
-		<mapper resource="/mappers/coupon-mapper.xml"/>
-		<mapper resource="/mappers/mypage-mapper.xml"/>
-		<mapper resource="/mappers/theme-mapper.xml"/>
-		<mapper resource="/mappers/restaurant-mapper.xml"/>
-	</mappers>
+   <settings>
+      <setting name="jdbcTypeForNull" value="NULL"/>
+      <setting name="returnInstanceForEmptyRow" value="true"/>
+   </settings>
+   
+   <typeAliases>   
+      <typeAlias type="com.kh.fooco.admin.model.vo.VisitorCount" alias="VisitorCount"/>
+      <typeAlias type="com.kh.fooco.admin.model.vo.MembershipStatus" alias="MembershipStatus"/>
+      <typeAlias type="com.kh.fooco.admin.model.vo.MembershipCount" alias="MembershipCount"/>
+      <typeAlias type="com.kh.fooco.admin.model.vo.Search" alias="Search"/>
+       <typeAlias type="com.kh.fooco.admin.model.vo.MyListAdmin" alias="MyListAdmin"/>       
+      <typeAlias type="com.kh.fooco.member.model.vo.Member" alias="Member"/>   
+      <typeAlias type="com.kh.fooco.board.model.vo.Board" alias="Board"/>   
+      <typeAlias type="com.kh.fooco.board.model.vo.InsertBoard" alias="InsertBoard"/>   
+      <typeAlias type="com.kh.fooco.membership.model.vo.MemberShip" alias="Membership"/>   
+      <typeAlias type="com.kh.fooco.membership.model.vo.Coupon" alias="Coupon"/>   
+      <typeAlias type="com.kh.fooco.restaurant.model.vo.Restaurant" alias="Restaurant"/>
+      <typeAlias type="com.kh.fooco.theme.model.vo.ThemeBookmark" alias="ThemeBookmark"/>
+      <typeAlias type="com.kh.fooco.theme.model.vo.ThemeAdmin" alias="ThemeAdmin"/>      
+      <typeAlias type="com.kh.fooco.member.model.vo.Follower" alias="Follower"/>
+      <typeAlias type="com.kh.fooco.restaurant.model.vo.Review" alias="Review"/>
+      <typeAlias type="com.kh.fooco.common.model.vo.Image" alias="Image"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.Mylist" alias="Mylist"/>
+      <typeAlias type="com.kh.fooco.restaurant.model.vo.Res" alias="Res"/>
+      <typeAlias type="com.kh.fooco.restaurant.model.vo.Filter" alias="Filter"/>
+      <typeAlias type="com.kh.fooco.restaurant.model.vo.Info" alias="Info"/>
+      <typeAlias type="com.kh.fooco.restaurant.model.vo.Bestmenu" alias="Bestmenu"/>
+      <typeAlias type="com.kh.fooco.restaurant.model.vo.ResImage" alias="ResImage"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.Checkin" alias="Checkin"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.CheckinImage" alias="CheckinImage"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.Select_Checkin" alias="Select_Checkin"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.Select_CheckinImage" alias="Select_CheckinImage"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.MZ" alias="MZ"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.Select_Board" alias="Select_Board"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.BoardInfo" alias="BoardInfo"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.Select_Coupon" alias="Select_Coupon"/>
+      <typeAlias type="com.kh.fooco.restaurant.model.vo.Bookmark" alias="Bookmark"/>
+      <typeAlias type="com.kh.fooco.member.model.vo.TM" alias="TM"/>
+   </typeAliases>
+   
+   <mappers>
+      <mapper resource="/mappers/member-mapper.xml"/>
+      <mapper resource="/mappers/board-mapper.xml"/>
+      <mapper resource="/mappers/admin-mapper.xml"/>
+      <mapper resource="/mappers/membership-mapper.xml"/>
+      <mapper resource="/mappers/coupon-mapper.xml"/>
+      <mapper resource="/mappers/mypage-mapper.xml"/>
+      <mapper resource="/mappers/theme-mapper.xml"/>
+      <mapper resource="/mappers/restaurant-mapper.xml"/>
+   </mappers>
 </configuration>
->>>>>>> refs/remotes/origin/master

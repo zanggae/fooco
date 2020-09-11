@@ -61,7 +61,8 @@
       #position{margin-left: 11rem; width: 50.5rem; text-align: center;}	
       #noneResult{font-family:'heavy'; font-size:2rem; margin-left:4.5rem; margin-top:7rem;}
       
-      
+      #heart{cursor: pointer;} 
+ 	}
 
       /* 메인 푸터 */
       .mainFooter {height:10rem; background-color:rgb(253,215,129);}
@@ -141,7 +142,7 @@
                   <div class="col" style="margin-bottom: 2.5rem;">
                   <img src="resources/restaurantImage/${t.themeImageName}" class="img1">
                     <div class="text4"><a href="${themedetail }" class="titlefont">${t.themeTitle }</a></div>
-                    <c:remove var="tt"/>
+                   <%--  <c:remove var="tt"/>
                     <c:forEach var="mt" items="${mytheme }">
                     	<c:if test="${t.themeId eq mt }">
 	                     <div onclick="heartClickCancle(this)" id="heartt" value="${t.themeId }"><i class="fas fa-heart" id="heart"></i></div>
@@ -149,24 +150,46 @@
                     	</c:if>
                     </c:forEach>
                     <c:if test="${empty tt}">
-                    	<c:if test="${!empty loginUser }">
-                    		<div onclick="heartClick(this)" id="heartt" value="${t.themeId }"><i class="far fa-heart" id="heart"></i></div>
+                    	<c:if test="${!empty loginUser }"> --%>
+                    		<div onclick="heartClick(this)" id="heartt" value="${t.themeId }"><i class="fas fa-heart" id="heart"></i></div>
                     	</c:if>
-                    </c:if>
-                  </div>
-                </c:forEach> 
-                  </div>
+                   <%--  </c:if> --%>
+                  	 </div> 
+                 </c:forEach>  
+                   </div>
                 </div>
-                </c:if>
+                <%-- </c:if> --%>
                 <script>
-                	function heartClick(id){
+                	function heartClick(){
+                		var themeId = document.getElementById("hiddenThemeId").value;
+                		
+                		$.ajax({
+                			url : "ThemeBookmark.do"
+                			data{themeId:themeId},
+                			type:"POST",
+                			success:function(data){
+                				if("novalid" == data){
+                					swal("로그인이 필요합니다. 로그인해주세요")
+                				}else if("success" == data){
+                					swal("즐겨찾기에 추가되었습니다.")
+                				}else {
+                					swal("즐겨찾기 추가에 실패하였습니다.")
+                				}
+                			},
+                			error:function(request,status,enrollData){
+                				swal('error code : '+ request.status + "\n" + "message: " + request.responseText + "error: " + errorData);
+                			
+                		})
+                	}
+					                
+                	/* function heartClick(id){
                 		var bookmarkId = $(id).attr('value');
                 		location.href="insertBookmark.do?bookmarkId="+bookmarkId;
                 	}
                 	function heartClickCancle(id){
                 		var bookmarkId = $(id).attr('value');
                 		location.href="heartClickCancle.do?bookmarkId="+bookmarkId;
-                	}
+                	} */
                 </script>
         	
         		
