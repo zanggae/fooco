@@ -35,5 +35,17 @@ public interface RestaurantService {
 
 	int enrollBookmark(Bookmark bm);
 
+	int alreadyEnroll(Bookmark bm);
+
+	ArrayList<Restaurant> sameLocationBestRestaurant(HashMap<String, Object> searchParameter);
+
+	ArrayList<Restaurant> membershipRestaurant(HashMap<String, Object> searchParameter);
+
+	int upGood(Review rv);
+
+	int alreadyFollowRelationship(HashMap<String, Object> searchParameters);
+
+	int followReviewer(HashMap<String, Object> searchParameters);
+
 }
 
