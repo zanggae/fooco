@@ -58,6 +58,15 @@
  #makemylist:hover{text-decoration: underline;}
  .title:hover{text-decoration:underline;}
 
+/*네온 글씨효과*/
+.ttex{
+font-size: 1rem;
+font-family: 'Futura';
+color: blue;
+text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+text-align: center;
+}
+
 </style>
 
 <body>
@@ -80,6 +89,7 @@
                       style="font-size: 1.6rem;"></i>&nbsp;마이리스트 만들기</a></h5>
                     <br>
                     
+                    	<!-- 등록된 마이리스트가 없을 시 나오는 화면 -->
                       <c:if test="${empty mylist }">
 	                  	<p class="title">나만의 맛집을 만들어보세요!</p>
 	                  </c:if>
@@ -99,10 +109,17 @@
                               <a href="${MylistDetail}"><h6 class="title">${my.mlTitle}</h6></a>
                             </div>
                             <div class="col-2" style="margin-top: 1.5rem ;">
-                            	<c:if test="${my.recommendationTheme eq 'Y'}">
-               
-                            	 <button type="button" class="btn btn-light" id="recommendBtn"  onclick="recommend(this)"	disabled='disabled'>추천하기</button>
+                            	
+                            	
+               					<c:if test="${my.approveTheme eq 'W'}">
+                            	<div class="ttex">승인대기</div> 
 						 		</c:if>
+						 		<c:if test="${my.approveTheme eq 'Y'}">
+                            	 승인
+						 		</c:if>
+						 		<c:if test="${my.approveTheme eq 'N'}">
+                            	 거절
+						 		</c:if>						 		
 						 		<c:if test="${my.recommendationTheme eq 'N'}">
                                 <button type="button" class="btn btn-light" id="recommendBtn" onclick="recommend(this)"  value="${my.mlId }">추천하기</button>
                                 </c:if>

@@ -957,7 +957,7 @@ public class MemberController {
          }
                   
          
-   // ================================== MyList 영은 ===========================================
+   // ================================== MyList 영은 ===============================================
    
    // 마이리스트 등록 페이지로 이동
    @RequestMapping("mylistRegist.do")
@@ -984,11 +984,12 @@ public class MemberController {
          themeRListResult = memberService.insertMylistRes(th);
       }
 
-      mv.setViewName("redirect:mylistRegistrationFin.do");
+      mv.setViewName("redirect:main.do");
+      
       return mv;
    }
 
-   // 마이리스트 - 리스트 확인
+   // 마이리스트 - 등록된 마이리스트 확인
    @RequestMapping("myPageMylist.do")
    public ModelAndView selectmyPageMylist(ModelAndView mv, HttpSession session) {
       int memberId = ((Member) session.getAttribute("loginUser")).getMemberId();
@@ -1003,7 +1004,7 @@ public class MemberController {
       return mv;
    }
 
-   //마이리스트 - 수정페이지에 나올 내용
+   //마이리스트 - 수정페이지로 이동
    @RequestMapping("moveMylistModifyPage.do")
    public ModelAndView MylistModifyPage(ModelAndView mv, MyListAdmin ma) {
       MyListAdmin mylistAdmin = memberService.selectOneMylist(ma);
@@ -1018,7 +1019,7 @@ public class MemberController {
    }
 
    
-   //마이리스트 - 수정완료 후
+   //마이리스트 - 수정완료 후 이동되는 화면
    @RequestMapping("ModifyMylist.do")
    public ModelAndView MylistModifyPage(HttpSession session, ModelAndView mv, String mylistRList, MyListAdmin ma) {
       int mylistRListResult = 0;
@@ -1072,7 +1073,7 @@ public class MemberController {
       }
       
       
-      //마이리스트 디테일 
+      //마이리스트 -상세보기
       @RequestMapping("MylistDetail.do")
       public ModelAndView mylistDetail(ModelAndView mv, MyListAdmin mylist, Restaurant res) {
     	  MyListAdmin ma = memberService.mylistDetail(mylist);
