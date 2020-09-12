@@ -191,8 +191,8 @@
                         </div>
                       </div>
                       
-                      <!-- address값이 null일때 -->
-                      <c:if test="${empty loginUser.address }">
+                                           <!-- address값이 null일때 -->
+                      <c:if test="${empty loginUser.address || loginUser.address == ',,' }">
                       <div class="row" style="margin-bottom: 1rem;">
                         <div class="col-4">
                           <span>우편번호</span>

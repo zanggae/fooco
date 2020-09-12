@@ -861,120 +861,120 @@ public class MemberController {
 				return mv;
 			}
 			
-			// 즐겨찾기 - 테마 조회
-			@RequestMapping("myPageFavoritesTM.do")
-			public ModelAndView myPageFavoritesTMView(ModelAndView mv, HttpSession session) {
-				 Member loginUser = (Member)session.getAttribute("loginUser");
-			     int memberId = loginUser.getMemberId();
-				
-			     // 즐겨찾기한 맛집 리스트 조회
-			     ArrayList<TM> TMList = memberService.selectTM(memberId);
-			      
-			     System.out.println("맛집리스트 조회 결과 : " +TMList);
-			    
-			    mv.addObject("TMList",TMList);
-				mv.setViewName("mypage/myPageFavoritesTM");
-				return mv;
-			} 
-			
-			// 즐겨찾기 - 테마 목록 삭제
-			@RequestMapping("deleteTM.do")
-			public ModelAndView deleteTM(ModelAndView mv, int themeBookMarkId) {
-				System.out.println("클릭한 themeBookMarkId :" + themeBookMarkId);
-				
-				int result = memberService.deleteTM(themeBookMarkId);
-			    
-				mv.setViewName("redirect:myPageFavoritesTM.do");
-				return mv;
-			}
-			
-			// 나의 멤버십 페이지 이동
-			@RequestMapping("myPageMembership.do")
-			public ModelAndView myPageMembershipView(ModelAndView mv, HttpSession session) {
-				Member loginUser = (Member)session.getAttribute("loginUser");
-			    int memberId = loginUser.getMemberId();
-				
-			    ArrayList<Select_Coupon> couponList = memberService.selectCouponList(memberId);
-			    
-			    System.out.println(couponList);
-			    
-			    mv.addObject("couponList",couponList);
-				mv.setViewName("mypage/myPageMembership");
-				return mv;
-			}
-			
-			// 쿠폰 상태 변경 및 이메일 전송
-			@RequestMapping("cStatusChange.do")
-			public String cStatusChange(int couponListId, HttpSession session, Date couponStartDate, Date couponExpireDate) throws IOException {
-				Member loginUser = (Member)session.getAttribute("loginUser");
-			    String email = loginUser.getEmail();
-				
-			    // 쿠폰 상태 N -> Y
-			    int result = memberService.updatecStatus(couponListId);
-			    
-			    
-			    Random r = new Random();
-				int dice = r.nextInt(4589362) + 49311;	//이메일로 받는 인증코드 부분(난수)
-				
-				String setfrom = "fooco@gmail.com";		//보내는 사람
-				String title = "Fooco 인증 메일입니다";				//메일제목
-				String content = "안녕하세요! Fooco입니다."+
-						System.getProperty("line.separator")+
-						System.getProperty("line.separator")+
-						"★★★★★유효기간은 "+ couponStartDate + " 부터 " +
-						couponExpireDate + " 까지입니다.★★★★★" +
-						System.getProperty("line.separator")+
-						System.getProperty("line.separator")+
-						"쿠폰 코드번호는 " + dice+ "입니다"+
-						System.getProperty("line.separator")+
-						System.getProperty("line.separator")+
-						"위의 코드번호를 사용하여 서비스를 제공받으세요!";
-			    
-				
-			    try {
-					MimeMessage message = mailSender.createMimeMessage();
-					MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
-					
-					 messageHelper.setFrom(setfrom); 	// 보내는사람 생략하면 정상작동을 안함
-		             messageHelper.setTo(email); 		// 받는사람 이메일
-		             messageHelper.setSubject(title); 	// 메일제목은 생략가능
-		             messageHelper.setText(content); 	// 메일 내용
-		            
-		             mailSender.send(message);
-		             System.out.println("이메일 전송됨!_!");
-					
-				} catch (MessagingException e) {
-					e.printStackTrace();
-					System.out.println(e);
-				}
-			    
-			    
-				return "redirect:myPageMembership.do";
-			}
-			
-			// 마이리뷰 페이지 이동
-			@RequestMapping("myPageReview.do")
-			public ModelAndView myPageReviewView(ModelAndView mv, HttpSession session) {
-				Member loginUser = (Member)session.getAttribute("loginUser");
-			    int memberId = loginUser.getMemberId();
-				
-			    ArrayList<Review> reviewList = new ArrayList<Review>();		
-				
-			    
-			    HashMap<String, Object> searchParameter = new HashMap<>();
-				searchParameter.put("memberId", memberId);
-			    
-				reviewList = memberService.getReviewList(searchParameter);
-				
-				System.out.println(reviewList);
-				
-				
-				mv.addObject("reviewList",reviewList);
-				mv.setViewName("mypage/myPageReview");
-				return mv;
-			}
-			
+         // 즐겨찾기 - 테마 조회
+         @RequestMapping("myPageFavoritesTM.do")
+         public ModelAndView myPageFavoritesTMView(ModelAndView mv, HttpSession session) {
+             Member loginUser = (Member)session.getAttribute("loginUser");
+              int memberId = loginUser.getMemberId();
+            
+              // 즐겨찾기한 맛집 리스트 조회
+              ArrayList<TM> TMList = memberService.selectTM(memberId);
+               
+              System.out.println("맛집리스트 조회 결과 : " +TMList);
+             
+             mv.addObject("TMList",TMList);
+            mv.setViewName("mypage/myPageFavoritesTM");
+            return mv;
+         } 
          
+         // 즐겨찾기 - 테마 목록 삭제
+         @RequestMapping("deleteTM.do")
+         public ModelAndView deleteTM(ModelAndView mv, int themeBookMarkId) {
+            System.out.println("클릭한 themeBookMarkId :" + themeBookMarkId);
+            
+            int result = memberService.deleteTM(themeBookMarkId);
+             
+            mv.setViewName("redirect:myPageFavoritesTM.do");
+            return mv;
+         }
+         
+         // 나의 멤버십 페이지 이동
+         @RequestMapping("myPageMembership.do")
+         public ModelAndView myPageMembershipView(ModelAndView mv, HttpSession session) {
+            Member loginUser = (Member)session.getAttribute("loginUser");
+             int memberId = loginUser.getMemberId();
+            
+             ArrayList<Select_Coupon> couponList = memberService.selectCouponList(memberId);
+             
+             System.out.println(couponList);
+             
+             mv.addObject("couponList",couponList);
+            mv.setViewName("mypage/myPageMembership");
+            return mv;
+         }
+         
+         // 쿠폰 상태 변경 및 이메일 전송
+         @RequestMapping("cStatusChange.do")
+         public String cStatusChange(int couponListId, HttpSession session, Date couponStartDate, Date couponExpireDate) throws IOException {
+            Member loginUser = (Member)session.getAttribute("loginUser");
+             String email = loginUser.getEmail();
+            
+             // 쿠폰 상태 N -> Y
+             int result = memberService.updatecStatus(couponListId);
+             
+             
+             Random r = new Random();
+            int dice = r.nextInt(4589362) + 49311;   //이메일로 받는 인증코드 부분(난수)
+            
+            String setfrom = "fooco@gmail.com";      //보내는 사람
+            String title = "Fooco 인증 메일입니다";            //메일제목
+            String content = "안녕하세요! Fooco입니다."+
+                  System.getProperty("line.separator")+
+                  System.getProperty("line.separator")+
+                  "★★★★★유효기간은 "+ couponStartDate + " 부터 " +
+                  couponExpireDate + " 까지입니다.★★★★★" +
+                  System.getProperty("line.separator")+
+                  System.getProperty("line.separator")+
+                  "쿠폰 코드번호는 " + dice+ "입니다"+
+                  System.getProperty("line.separator")+
+                  System.getProperty("line.separator")+
+                  "위의 코드번호를 사용하여 서비스를 제공받으세요!";
+             
+            
+             try {
+               MimeMessage message = mailSender.createMimeMessage();
+               MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"utf-8");
+               
+                messageHelper.setFrom(setfrom);    // 보내는사람 생략하면 정상작동을 안함
+                   messageHelper.setTo(email);       // 받는사람 이메일
+                   messageHelper.setSubject(title);    // 메일제목은 생략가능
+                   messageHelper.setText(content);    // 메일 내용
+                  
+                   mailSender.send(message);
+                   System.out.println("이메일 전송됨!_!");
+               
+            } catch (MessagingException e) {
+               e.printStackTrace();
+               System.out.println(e);
+            }
+             
+             
+            return "redirect:myPageMembership.do";
+         }
+         
+         
+         	// 마이리뷰 페이지 이동
+      			@RequestMapping("myPageReview.do")
+      			public ModelAndView myPageReviewView(ModelAndView mv, HttpSession session) {
+      				Member loginUser = (Member)session.getAttribute("loginUser");
+      			    int memberId = loginUser.getMemberId();
+      				
+      			    ArrayList<Review> reviewList = new ArrayList<Review>();		
+      				
+      			    
+      			    HashMap<String, Object> searchParameter = new HashMap<>();
+      				searchParameter.put("memberId", memberId);
+      			    
+      				reviewList = memberService.getReviewList(searchParameter);
+      				
+      				System.out.println(reviewList);
+      				
+      				
+      				mv.addObject("reviewList",reviewList);
+      				mv.setViewName("mypage/myPageReview");
+      				return mv;
+      			}
+                           
 			// 마이리뷰 삭제 버튼 클릭 시
 			@RequestMapping("deleteReview.do")
 			public String deleteReview(int reviewId) {
@@ -1080,24 +1080,7 @@ public class MemberController {
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+	
 			
 			
 			
@@ -1109,6 +1092,7 @@ public class MemberController {
 			
 			
    // ================================== MyList 영은 ===========================================
+
    
    // 마이리스트 등록 페이지로 이동
    @RequestMapping("mylistRegist.do")
@@ -1135,11 +1119,12 @@ public class MemberController {
          themeRListResult = memberService.insertMylistRes(th);
       }
 
-      mv.setViewName("redirect:mylistRegistrationFin.do");
+      mv.setViewName("redirect:main.do");
+      
       return mv;
    }
 
-   // 마이리스트 - 리스트 확인
+   // 마이리스트 - 등록된 마이리스트 확인
    @RequestMapping("myPageMylist.do")
    public ModelAndView selectmyPageMylist(ModelAndView mv, HttpSession session) {
       int memberId = ((Member) session.getAttribute("loginUser")).getMemberId();
@@ -1154,7 +1139,7 @@ public class MemberController {
       return mv;
    }
 
-   //마이리스트 - 수정페이지에 나올 내용
+   //마이리스트 - 수정페이지로 이동
    @RequestMapping("moveMylistModifyPage.do")
    public ModelAndView MylistModifyPage(ModelAndView mv, MyListAdmin ma) {
       MyListAdmin mylistAdmin = memberService.selectOneMylist(ma);
@@ -1169,7 +1154,7 @@ public class MemberController {
    }
 
    
-   //마이리스트 - 수정완료 후
+   //마이리스트 - 수정완료 후 이동되는 화면
    @RequestMapping("ModifyMylist.do")
    public ModelAndView MylistModifyPage(HttpSession session, ModelAndView mv, String mylistRList, MyListAdmin ma) {
       int mylistRListResult = 0;
@@ -1223,7 +1208,7 @@ public class MemberController {
       }
       
       
-      //마이리스트 디테일 
+      //마이리스트 -상세보기
       @RequestMapping("MylistDetail.do")
       public ModelAndView mylistDetail(ModelAndView mv, MyListAdmin mylist, Restaurant res) {
     	  MyListAdmin ma = memberService.mylistDetail(mylist);

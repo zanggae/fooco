@@ -69,11 +69,11 @@
                      <div class="col-3">
           			</div> 
           			<div class="col-3">
-            		<a href="main.do" id="list"><i class="fas fa-arrow-left"></i>&nbsp;홈으로 가기</a>
+            		<a href="main.do" id="list"><i class="fas fa-arrow-left"></i>&nbsp;메인화면으로</a>
                      </div>
                      
                      <div class="col-4" style="margin-left : 1rem; margin-top:-0.1rem">
-                      <a href="main.do" id="list">마이페이지로 가기&nbsp;<i class="fas fa-arrow-right"></i></a>
+                      <a href="myPageInquiry.do" id="list">등록한글 확인&nbsp;<i class="fas fa-arrow-right"></i></a>
                     </div>
                     </div>
 					</div>

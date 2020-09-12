@@ -94,11 +94,13 @@
 
           <div class="col-5">
 			 <c:if test="${loginUser.nickName eq '관리자' }">   
-        	 
-        	 <button type="button" class="btn btn-secondary" id="button" onclick="location.href='boardEdit.do'">수정하기</button>
-        	 
+			 
+        	 <c:url var="noticedetail" value="selectBoardOneAdmin.do">
+            	<c:param name="boardId" value="${board.boardId }"/>
+            </c:url>
+        	 <button type="button" class="btn btn-secondary" id="button" onclick="location.href='${noticedetail}'">수정하기</button>
          	 </c:if> 
-				
+         	 <a href="${contextPath }//resources/buploadFiles/${board.imageOriginName}" download>${board.imageOriginName}</a>
           </div>
 
         </div>

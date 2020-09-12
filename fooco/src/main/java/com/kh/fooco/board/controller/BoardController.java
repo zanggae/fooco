@@ -43,18 +43,18 @@ public class BoardController {
    private BoardService boardService;
    HttpSession session;
    
-   //0821 서비스센터 메인화면 
+   //서비스센터 메인화면 
    @RequestMapping("serviceCenterMain.do")
       public String serviceCenterMain() {
          return "servicecenter/serviceCenterMain";
       }
    
-   //0826 문의 등록 완료 페이지 
+   //문의 등록 완료 페이지 
    @RequestMapping("inquiryRegistrationFin.do")
       public String inquiryRegistrationFin() {
       return "servicecenter/inquiryRegistrationFin";
    }
-
+   //문의등록 페이지
    @RequestMapping("inquiry.do")
       public String inquiry() {
          return "servicecenter/inquiry";
@@ -66,40 +66,34 @@ public class BoardController {
    }
    
 
-   //0821 공지사항 게시물 불러오기 (notice.jsp)
+   //공지사항 게시물 불러오기
    @RequestMapping("notice.do")
    public ModelAndView noticeList(ModelAndView mv) {
       ArrayList<Board> notice = boardService.selectListNotice();
       System.out.println("DB조회 후 화면에 뿌려지기 전 : " + notice);
       
       //비어있지 않으면 공지 글들이 조회된 것 
-      if(!notice.isEmpty()) {
+      
          mv.addObject("notice",notice);   
          mv.setViewName("servicecenter/notice");
-      }else {
-         throw new BoardException("공지사항 목록 보기 실패 !");
-      }
+     
       return mv;
+   
    }
    
-   
-   //0822 FAQ 게시물 불러오기
+   //FAQ 게시물 불러오기
    @RequestMapping("FAQ.do")
    public ModelAndView FAQList(ModelAndView mv) {
       ArrayList<Board> FAQ = boardService.selectListFAQ();
       System.out.println("FAQ_DB 조회 후 화면에 뿌리기 전 : " + FAQ);
       
-      //비어있지 않으면 FAQ 글들이 조회된 것
-      if(!FAQ.isEmpty()) {
          mv.addObject("FAQ", FAQ);
          mv.setViewName("servicecenter/FAQ");
-      }else {
-         throw new BoardException("FAQ 목록 보기 실패!");
-      }
-      
+    
       return mv;
       
    }
+   
    //0824 공지사항 상세내용 불러오기
    @RequestMapping("noticeDetail.do")
    public String noticeDetail(Model model, int boardId, Board b) {
@@ -108,11 +102,9 @@ public class BoardController {
       
       System.out.println("화면에 뿌려주기 전 조회된 상세 공지사항 : " + b);
       
-      if(b != null) {
+   
          model.addAttribute("board", b);
-      }else {
-         throw new BoardException("공지사항 상세 보기 실패!");
-      }
+     
       return "servicecenter/noticeDetail";
    }
    
@@ -127,12 +119,8 @@ public class BoardController {
 	   System.out.println(b);
 	   
 	   int result = boardService.inquiryInsert(b);
-         
- 	
-         
 	
       if(result > 0 ) {
-			/* session.setAttribute(name, value); */
          return "redirect:inquiryRegistrationFin.do";
       }
       else {
