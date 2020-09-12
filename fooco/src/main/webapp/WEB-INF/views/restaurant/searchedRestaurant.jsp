@@ -84,7 +84,7 @@
     .pagination {margin-bottom:0;}
 
     /* 광고 */
-    .sr-ad-col {height:9rem; margin-bottom:1rem; background-color:#ECECEC; border-radius:0.5rem;}
+    .sr-ad-col {height:9rem; margin-bottom:1rem; background-color:#ECECEC; border-radius:0.5rem; padding:0.5rem;}
 
     /* 비슷한 음식점 */
     .sr-recommend-div {padding:1rem;}

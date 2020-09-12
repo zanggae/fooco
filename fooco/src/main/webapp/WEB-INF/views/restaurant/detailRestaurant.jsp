@@ -63,7 +63,7 @@
 	
 	
 	/* 광고 */
-	.sr-ad-col {height:9rem; margin-bottom:1rem; background-color:#ECECEC; border-radius:0.5rem;}
+	.sr-ad-col {height:9rem; margin-bottom:1rem; background-color:#ECECEC; border-radius:0.5rem; padding:0.5rem;}
 
 
 	/* 비슷한 음식점 */
@@ -92,7 +92,7 @@
 	.carousel-control-next-icon {color:rgb(204,51,98);}
 	.photoDetail-img {height:30rem; border-radius:0.5rem;}
 	.mz-review-rating-row .col-10 {color:#F4E04E;}
-	.
+	.noLatestImage {background:#ECECEC;}
 </style>
 </head>
 <body>
@@ -120,11 +120,23 @@
 						<div class="col mz-img-small-col">
 							<div class="row row-cols-2">
 								<c:forEach var="images" items="${res.resLatestImages}">
-								<div class="col mz-img-small-col-inner">
-									<div class="mz-img-small-div">
-										<img src="${contextPath}/resources/${images.imageFilepath}/${images.imageNewName}" class="mz-img-small"/>
-									</div>
-								</div>
+									<c:choose>
+										<c:when test="${not empty images.imageId}">
+											<div class="col mz-img-small-col-inner">
+												<div class="mz-img-small-div">
+													<img src="${contextPath}/resources/${images.imageFilepath}/${images.imageNewName}" class="mz-img-small" />
+												</div>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="col mz-img-small-col-inner">
+												<div class="mz-img-small-div">
+													<img src="#" class="mz-img-small noLatestImage"/>
+												</div>
+											</div>
+										</c:otherwise>
+									</c:choose>
+								
 								</c:forEach>
 							</div>
 						</div>
@@ -270,7 +282,7 @@
 		<script>
 			var scrollmem = $("html,body").scrollTop();
 			window.location.hash = hash;
-			$("html,body").scrollTop(0);
+			$("html,body").scrollTop();
 		</script>
 	
 

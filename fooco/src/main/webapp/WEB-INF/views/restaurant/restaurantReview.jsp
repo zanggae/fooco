@@ -55,6 +55,15 @@
 			</div>
 		</div>
 	</div>
+	<c:choose>
+		<c:when test="${empty reviewList}">
+			<div class="row row-cols-1 mz-review-list">
+				<div class="emptyReviewList" style="color:rgb(204,51,98); font-family:'bold'; font-size:1.2rem;">
+					&#x1F645; 등록된 리뷰가 없습니다.
+				</div>
+			</div>
+		</c:when>
+		<c:otherwise>
 	<div class="row row-cols-1 mz-review-list">
 		<div class="col" style="padding: 0; margin: 0;">
 			<c:forEach var="review" items="${reviewList}">
@@ -169,6 +178,8 @@
 			</c:forEach>
 		</div>
 	</div>
+	</c:otherwise>
+	</c:choose>
 	
 	<script>
 		function upGood(reviewId) {
