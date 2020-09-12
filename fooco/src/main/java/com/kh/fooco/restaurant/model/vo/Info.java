@@ -9,16 +9,18 @@ public class Info implements Serializable {
 	
 	private int resId;
 	private String infoCategoryName;
+	private String infoPhone;
 	private String infoOperatingTime;
 	private ArrayList<Filter> infoFilter;	
 	private ArrayList<Bestmenu> bestmenu;
 	
 	public Info() {}
-	public Info(int resId, String infoCategoryName, String infoOperatingTime, ArrayList<Filter> infoFilter,
-			ArrayList<Bestmenu> bestmenu) {
+	public Info(int resId, String infoCategoryName, String infoPhone, String infoOperatingTime,
+			ArrayList<Filter> infoFilter, ArrayList<Bestmenu> bestmenu) {
 		super();
 		this.resId = resId;
 		this.infoCategoryName = infoCategoryName;
+		this.infoPhone = infoPhone;
 		this.infoOperatingTime = infoOperatingTime;
 		this.infoFilter = infoFilter;
 		this.bestmenu = bestmenu;
@@ -34,6 +36,12 @@ public class Info implements Serializable {
 	}
 	public void setInfoCategoryName(String infoCategoryName) {
 		this.infoCategoryName = infoCategoryName;
+	}
+	public String getInfoPhone() {
+		return infoPhone;
+	}
+	public void setInfoPhone(String infoPhone) {
+		this.infoPhone = infoPhone;
 	}
 	public String getInfoOperatingTime() {
 		return infoOperatingTime;
@@ -55,8 +63,9 @@ public class Info implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Info [resId=" + resId + ", infoCategoryName=" + infoCategoryName + ", infoOperatingTime="
-				+ infoOperatingTime + ", infoFilter=" + infoFilter + ", bestmenu=" + bestmenu + "]";
+		return "Info [resId=" + resId + ", infoCategoryName=" + infoCategoryName + ", infoPhone=" + infoPhone
+				+ ", infoOperatingTime=" + infoOperatingTime + ", infoFilter=" + infoFilter + ", bestmenu=" + bestmenu
+				+ "]";
 	}
 	
 }

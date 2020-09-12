@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,7 @@
 	.mz-photo-div {border-radius:0.3rem; overflow:hidden;}
 	.mz-photo {width:100%; height:8rem; border-radius:0.3rem; transition-duration:0.3s; transition-timing-function:ease;}
 	.mz-photo-div:hover .mz-photo {transform:scale(1.1);}
+	.emptyPhotoListContainer {height:11rem;}	
 </style>
 </head>
 <body>
@@ -36,17 +38,30 @@
 			</div>
 		</div>
 	</div>
-	<div class="row mz-photo-container">
-		<div class="row row-cols-4 mz-photo-row">
-			<c:forEach var="photo" items="${photoList}">
-				<div class="col mz-photo-col">
-					<div class="mz-photo-div">
-						<img src="${contextPath}/resources/${photo.imageFilepath}/${photo.imageNewName}" class="mz-photo">
-					</div>
+	<c:choose>
+		<c:when test="${empty photoList}">
+			<div class="row mz-photo-container d-flex justify-content-center align-items-center emptyPhotoListContainer">
+				<div class="emptyPhotoList" style="color:rgb(204,51,98); font-family:'bold'; font-size:1.2rem;">
+					&#x1F645; 등록된 사진이 없습니다.
 				</div>
-			</c:forEach>
-		</div>
-	</div>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="row mz-photo-container">
+				<div class="row row-cols-4 mz-photo-row">
+					<c:forEach var="photo" items="${photoList}">
+						<div class="col mz-photo-col">
+							<div class="mz-photo-div">
+								<img src="${contextPath}/resources/${photo.imageFilepath}/${photo.imageNewName}" class="mz-photo">
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</c:otherwise>
+	</c:choose>
+	
+	
 
 	<!-- 사진 자세히보기 모달 -->
 	<div class="modal fade" id="view-photoDetail" tabindex="-1">

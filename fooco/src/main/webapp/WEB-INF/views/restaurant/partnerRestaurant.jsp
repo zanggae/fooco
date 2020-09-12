@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +37,7 @@
 						<span style="font-size: 0.9rem; line-height: 0.9rem; font-family:'medium';">${list.resName}</span>
 					</div>
 					<div class="row sr-partner-card-rating">
-						<span style="color: #F4E04E; font-family:'bold'"><i class="fas fa-star"></i>${list.reviewRating}</span>
+						<span style="color: #F4E04E; font-family:'bold'"><i class="fas fa-star"></i><fmt:formatNumber value="${list.reviewRating}" pattern="0.0"/></span>
 					</div>
 					<div class="row sr-partner-card-location d-flex align-items-center">
 						<i class="fas fa-map-marker-alt" style="font-size: 0.8rem; margin-right: 0.2rem;"></i>

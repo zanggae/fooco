@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
@@ -151,11 +154,12 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping("goRestaurantReview.do")
-	public ModelAndView goRestaurantReview(ModelAndView mv, @RequestParam(value="resId", required=false) Integer resId
-														  , @RequestParam(value="sortType", required=false) String sortType
-														  , @RequestParam(value="page", required=false, defaultValue="1") Integer page)
+	public void goRestaurantReview(HttpServletResponse response, @RequestParam(value="resId", required=false) Integer resId
+														  	   , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType
+														  	   , @RequestParam(value="page", required=false, defaultValue="1") Integer page) throws JsonIOException, IOException
 	{
-		int currentPage = page;		
+		int currentPage = page;
+		
 		int howManyReview = restaurantService.getReviewListCount(resId);
 		
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
@@ -167,10 +171,10 @@ public class RestaurantController {
 		ArrayList<Review> reviewList = new ArrayList<Review>();
 		reviewList = restaurantService.getReviewList(searchParameter, pi);
 		
-		mv.addObject("pi", pi);
-		mv.addObject("reviewList", reviewList);
-		mv.setViewName("restaurant/restaurantReview");
-		return mv;
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(reviewList, response.getWriter());		
+		
 	}
 	
 	@RequestMapping("goRestaurantPhoto.do")

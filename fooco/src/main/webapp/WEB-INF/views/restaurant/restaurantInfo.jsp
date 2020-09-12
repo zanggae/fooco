@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +40,12 @@
 				<span style="font-family: 'bold';" class="mz-moreInfo-title">영업시간</span>
 			</div>
 			<div class="row">${info.infoOperatingTime}</div>
+		</div>
+		<div class="row d-block">
+			<div class="row">
+				<span style="font-family: 'bold';" class="mz-moreInfo-title">연락처</span>
+			</div>
+			<div class="row">${info.infoPhone}</div>
 		</div>
 		<div class="row d-block">
 			<div class="row">

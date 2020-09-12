@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -83,7 +84,7 @@
     .pagination {margin-bottom:0;}
 
     /* 광고 */
-    .sr-ad-col {height:9rem; margin-bottom:1rem; background-color:#ECECEC; border-radius:0.5rem;}
+    .sr-ad-col {height:9rem; margin-bottom:1rem; background-color:#ECECEC; border-radius:0.5rem; padding:0.5rem;}
 
     /* 비슷한 음식점 */
     .sr-recommend-div {padding:1rem;}
@@ -356,14 +357,15 @@
 											<span style="font-family: 'bold'; font-size: 1.5rem; color:black;">${res.resName}</span>
 										</div>
 										<div class="col-3 sr-mz-rating">
-											<span><i class="fas fa-star"></i><fmt:formatNumber type="number" value="${res.reviewRating}" pattern="0.0"/></span>
+											<span><i class="fas fa-star"></i><fmt:formatNumber value="${res.reviewRating}" pattern="0.0"/></span>
 										</div>
 									</div>
 									<div class="row sr-mz-address d-flex align-items-center">
 										<i class="fas fa-map-marker-alt"></i>
 										<input type="hidden" id="listLocation" value="${res.locationId}"/>
 										<span style="font-family: 'medium'; font-size: 1rem;">${res.locationName}</span>
-										<span style="font-size: 0.8rem;">${res.resAddress}</span>
+										<c:set var="address" value="${fn:split(res.resAddress,',')}"/>
+										<span style="font-size: 0.8rem;">${address[1]}</span>
 									</div>
 									<div class="row" class="sr-mz-bestReview" style="margin-top:0.5rem;">
 										<c:if test="${empty res.bestReview}">
