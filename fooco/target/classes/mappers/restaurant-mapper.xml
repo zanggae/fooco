@@ -193,12 +193,12 @@
 		FROM      SELECT_RES SR
 		LEFT JOIN SELECT_FILTER SF ON (SR.RES_ID = SF.RES_ID)
 		LEFT JOIN BESTMENU BM ON (SR.RES_ID = BM.RES_ID)
-		WHERE     RES_STATUS = 'Y'
+		WHERE     SR.RES_STATUS = 'Y'
 		<choose>
 			<when test="locationId!=0">
 				AND SR.LOCATION_ID = #{locationId}
 			</when>
-			<when test="locationId>=9">
+			<when test="locationId>9">
 			<![CDATA[
 				AND SR.LOCATION_ID >= #{locationId}
 			]]>
