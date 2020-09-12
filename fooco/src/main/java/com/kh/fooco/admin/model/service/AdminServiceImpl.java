@@ -120,8 +120,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public ArrayList<Board> selectBoardList(Board board, PageInfo pi) {
-		return adminDao.selectBoardList(board,pi);
+	public ArrayList<Board> selectBoardList(Board board) {
+		return adminDao.selectBoardList(board);
 	}
 
 	@Override
