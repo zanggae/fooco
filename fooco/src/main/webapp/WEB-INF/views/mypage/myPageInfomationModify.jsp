@@ -151,12 +151,7 @@
                           <span>닉네임</span>
                         </div>
                         <div class="col-8">
-                          <input type="text" id="nickName" class="nickNames" name="nickName">
-                          <span style="font-size: 0.7rem;">3-6자의 한글만 사용 가능</span>
-                        
-						<label class="guide ok">이 닉네임은 사용 가능합니다.</label>
-						<label class="guide error">이 닉네임은 사용할 수 없습니다.</label>
-						<input type="hidden" id="nickNameDuplicateCheck" value="0">
+                          <input type="text" id="nickName" class="nickNames" name="nickName" value="${loginUser.nickName }" readonly>
                         </div>
                       </div>
                       <div class="row" style="margin-bottom: 1rem;">
@@ -359,60 +354,12 @@
 	  })
 </script>
 
-<script>
 
-// 닉네임 정규표현식
-$(function(){
-	$(".nickNames").change(function(){
-	      var regEx = /^[가-힣]{3,6}$/;
-	      if(!regEx.test($("#nickName").val())){
-	        $(this).val('').focus();
-	        $(".error").show();
-			$(".ok").hide();
-			$("#nickNameDuplicateCheck").val(0);
-	      }
-})
-})
-
-
-//닉네임 중복 확인
-$(function(){
-$("#nickName").on("keyup", function(){
-	
-	var nickName = $(this).val().trim();
-	
-	$.ajax({
-		url:"dupNickName.do",
-		data:{nickName:nickName},
-		success:function(data){
-		 	if(data == "true" && nickName != null){
-				$(".error").hide();
-				$(".ok").show();
-				$("#nickNameDuplicateCheck").val(1);
-			}else{
-				$(".error").show();
-				$(".ok").hide();
-				$("#nickNameDuplicateCheck").val(0);
-			}
-		},
-		error:function(request, status, errorData){
-			swal("error code: " + request.status + "\n"
-					+"message: " + request.responseText
-					+"error: " + errorData);
-		}
-	})
-})
-})
-</script>
 
 <script>
 // 조건 맞으면 submit
 function validate(){
-if($("#nickNameDuplicateCheck").val() == 0){
-	swal("사용 가능한 닉네임를 입력해 주세요.");
-	$("#nickName").focus();
-	return;
-} 
+
 if($("#userPwd1").val()==""){
     swal("새 비밀번호를 입력하세요");
     $("#userPwd1").focus();

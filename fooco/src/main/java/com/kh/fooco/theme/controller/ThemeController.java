@@ -71,6 +71,7 @@ public class ThemeController {
 
 	// 즐겨찾기 추가
 	@RequestMapping("insertBookmark.do")
+
 	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId,HttpSession session, String search) {
 
 		    Member loginUser = (Member)session.getAttribute("loginUser");
