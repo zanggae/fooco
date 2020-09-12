@@ -46,8 +46,9 @@
 	.mz-content {position:sticky; top:0; background:white; z-index:2;}
 	.mz-content > div {padding:0;}
 	.mz-content-top > div {padding:0;}
-	.mz-content-bottom ul {width:100%;}    
-	.mz-rating {color:#F4E04E; margin:0; text-align:end;}
+	.mz-content-bottom ul {width:100%;}
+	.resContentP {min-width:35rem; margin-right:5rem;}
+ 	.mz-rating {color:#F4E04E; margin:0; text-align:end;}
 	.mz-explanation {padding-top:0.5rem; padding-bottom:0.5rem;}
 	.mz-buttons {padding-top:0.5rem; padding-bottom:0.5rem;}   
 	.mz-location {padding:0;}
@@ -159,7 +160,7 @@
 									</div>
 								</div>
 								<div class="row mz-explanation">
-									<span style="font-size: 0.9rem;">${res.resContent}</span>
+									<p style="font-size: 0.9rem;" class="resContentP">${res.resContent}</p>
 								</div>
 							</div>
 							<div class="col-4 d-flex align-items-start flex-column">
