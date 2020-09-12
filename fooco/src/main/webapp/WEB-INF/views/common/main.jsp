@@ -59,39 +59,10 @@
         .mainSearch {height:23rem; background-color:rgb(204,51,98); display:flex; justify-content:center; align-items:center;}
         .ms-container {display:flex; justify-content:center; align-items:center;}
         .ms-title-col {text-align:center; vertical-align:middle; margin-bottom:1.5rem;}
-        /* 진짜맛집을 알려줄게 글씨 애니메이션 */
-		#realText.ms-title{
-			color:white;
-		 	font-size:40px;
-  			position:relative;
-  			display: inline-block;
-  			height: 50px;
-  			overflow: hidden;
-  			animation: typingAni 3s steps(30, end) 1;
-			}
-		#realText.ms-title::after{
-  			position:absolute; 
-  			display:block;
-  			content:""; 
- 			width: 20px; 
-  			height: 50px;
-  			top : 3px;
-  			right:0; 
-  			border-right: 1px solid #000;
-  			animation: cursor 1s step-end infinite;
-		}
-		@keyframes typingAni {
-  			0%{width:0%}
-  			100%{width: 400px};
-		}
-		@keyframes cursor{
-  			0%{opacity:0;}
-  			50%{opacity:1;}
-  			100%{opacity:0;}
-		}
+		.ms-title {color:white; font-size:3rem;}
         .ms-input-col {text-align:center; vertical-align:middle;}
         .inputAppend {border-top-left-radius:0; border-bottom-left-radius:0; cursor:pointer;}
-
+		
         /* 지역 맛집 */
         .mainLocal {margin-top:8rem; margin-bottom:8rem;}
         .ml-container {display:flex; justify-content:center; align-items:center;}

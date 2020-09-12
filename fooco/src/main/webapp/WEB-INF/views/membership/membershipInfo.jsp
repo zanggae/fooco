@@ -521,7 +521,7 @@
     }
     //결제!_! 결제 안되도록 우선 주석처리 해 둠!_! 결제 없이 바로 INSERT되도록 임시로 적용해놓음
     //1. gold 멤버십 구매
-    /* function requestPay1() {
+     function requestPay1() {
       	//멤버십 정보 받아오기
       	//1. gold 멤버십
         var Membershipname = $("#GoldMembershipName").val();
@@ -586,7 +586,7 @@
               }
           });
         } 
-     */
+   
 	</script>
 	
 	<!-- 멤버십 조회 페이지로 넘어가는 script -->
