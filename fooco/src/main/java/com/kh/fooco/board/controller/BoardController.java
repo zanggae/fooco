@@ -73,15 +73,13 @@ public class BoardController {
       System.out.println("DB조회 후 화면에 뿌려지기 전 : " + notice);
       
       //비어있지 않으면 공지 글들이 조회된 것 
-      if(!notice.isEmpty()) {
+      
          mv.addObject("notice",notice);   
          mv.setViewName("servicecenter/notice");
-      }else {
-         throw new BoardException("공지사항 목록 보기 실패 !");
-      }
+     
       return mv;
-   }
    
+   }
    
    //FAQ 게시물 불러오기
    @RequestMapping("FAQ.do")

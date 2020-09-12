@@ -53,7 +53,7 @@ public interface AdminService {
 
 	int selectInquiryCount(Board board);
 
-	ArrayList<Board> selectBoardList(Board board, PageInfo pi);
+	ArrayList<Board> selectBoardList(Board board);
 
 	int selectBoardCount(Board board);
 

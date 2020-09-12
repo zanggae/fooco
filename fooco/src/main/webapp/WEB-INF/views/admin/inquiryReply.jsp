@@ -82,7 +82,8 @@
                 
                 <div class="mt-2">
                 	<label class="form-control"
-                     	style="width:100%; height:300px; resize:none; text-align:left;">${inquiry.summernoteContent }</label>
+              
+                     	style="width:100%; height:300px; resize:none; text-align:left; overflow-x:hidden; overflow-y : auto; ">${inquiry.summernoteContent }</label>
                 </div>
                 <div class="mx-3">
                   <div class="row">
