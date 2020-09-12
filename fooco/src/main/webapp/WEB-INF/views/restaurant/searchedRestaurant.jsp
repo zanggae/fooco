@@ -495,7 +495,7 @@
 	<script>
 		function goDetail(resId) {
 			var locationId = document.getElementById("listLocation").value;
-			window.location.href="goDetailRestaurant.do?resId=" + resId+"&locationId="+locationId;
+			window.location.href="goDetailRestaurant.do?resId=" + resId;
 		};
 	</script>
 
