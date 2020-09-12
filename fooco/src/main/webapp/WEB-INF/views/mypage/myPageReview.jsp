@@ -121,8 +121,7 @@
 
 
 						<div class="col" style="padding: 0; margin: 0;">
-							<c:forEach var="review" items="${reviewList}">
-								<c:out value="${review.reviewId }"></c:out>
+							<c:forEach var="review" items="${reviewList}">						
 								<div class="row mz-review-div shadow-sm">
 									<div class="col-2 mz-review-userProfile-div" align="center">
 										<div class="mz-userProfile-img">
@@ -133,7 +132,7 @@
 									</div>
 									<div class="col-10 mz-review-content-div">
 										<div class="row" style="padding-right: 0.5rem;">
-											<div class="col-9">
+											<div class="col-6">
 												<div class="row">
 													<input type="hidden" id="hiddenReviewId" value="${review.reviewId}" /> <span
 														style="font-size: 1.2rem; font-family: 'bold';">${review.nickname}</span>
@@ -148,15 +147,22 @@
 											</div>
 											<div class="col-3">
 												<div class="mz-review-follow-btn-div"
-													style="text-align: end;">
+													style="text-align: end; margin-right:0.3rem;">
 													<button type="button" value="${review.reviewId }" class="form-control mz-review-button shadow-sm" onclick="goReview(this)">리뷰수정</button>
 													<input type="hidden" id="showmodal" data-toggle="modal" data-target="#write-review">
-									<c:url var="deleteReview" value="deleteReview.do">
-										<c:param name="reviewId" value="${review.reviewId }"></c:param>
-									</c:url>
 									
-									<a href="${deleteReview }"><button type="button" class="form-control mz-bookmark-button shadow-sm">리뷰삭제</button></a>
+									
+									
 												</div>
+											</div>
+											<div class="col-3">
+											<div class="mz-review-follow-btn-div"
+													style="text-align: end;">
+													<c:url var="deleteReview" value="deleteReview.do">
+														<c:param name="reviewId" value="${review.reviewId }"></c:param>
+													</c:url>
+													<a href="${deleteReview }"><button type="button" class="form-control mz-bookmark-button shadow-sm">리뷰삭제</button></a>
+													</div>
 											</div>
 											
 										</div>
@@ -255,7 +261,8 @@
 				
 				
 						<!-- 리뷰 작성하기 모달 -->
-		<form id="uploadReview" name="uploadReview" action="uploadReview.do" method="POST">
+		<form id="uploadReview" name="uploadReview" action="updateReview.do" method="get">
+	
 		<div class="modal fade" id="write-review" data-backdrop="static"
 			data-keyboard="false" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
@@ -266,15 +273,15 @@
 					<div class="modal-body">
 						<div class="row d-block">
 							<div class="row">
-								<input type="hidden" name="resId" value="${res.resId}">
-								<span style="font-family: 'bold'; font-size: 1.3rem;">경남스시</span>
+								
+								<span style="font-family: 'bold'; font-size: 1.3rem;" id="resName" ></span>
 							</div>
 							<div class="row d-flex align-items-center">
 								<i class="fas fa-map-marker-alt" style="color: rgb(204, 51, 98); font-size: 1.3rem; margin-right: 0.3rem;"></i>
-								<span style="font-family: 'medium'; font-size: 1rem;">인천</span>
+								<span style="font-family: 'medium'; font-size: 1rem;" id="locationName"></span>
 							</div>
 							<div class="row">
-								<span style="font-size: 0.8rem;">인천시 남동구 서창동 661-3</span>
+								<span style="font-size: 0.8rem;" id="resAddress"></span>
 							</div>
 						</div>
 						<hr>
@@ -345,10 +352,11 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn" data-dismiss="modal" style="font-family:'heavy'; font-size:1.1rem;">취소하기</button>
-						<button type="button" class="btn" onclick="formSubmit();" style="font-family:'heavy'; font-size:1.1rem;">등록하기</button>
+						<button type="button" class="btn" onclick="formSubmit();" style="font-family:'heavy'; font-size:1.1rem;">수정하기</button>
 						<input type="hidden" id="realname" name="realname"/>
 						<input type="hidden" id="filename" name="filename"/>
 						<input type="hidden" id="filesize" name="filesize"/>
+						<input type="hidden" id="reviewId" name="reviewId"/>
 					</div>
 				</div>
 			</div>
@@ -470,13 +478,20 @@
 			data:{reviewId:reviewId},
 			success:function(data){
 				$("#reviewContent").text(data.reviewContent);
+				$("#resName").text(data.resName);
+				$("#locationName").text(data.locationName);
+				$("#resAddress").text(data.resAddress);
 				$("#reviewTasterating").prop("value", data.reviewTasterating);
 				$("#reviewPricerating").prop("value", data.reviewPricerating);
 				$("#reviewServicerating").prop("value", data.reviewServicerating);
-				
-				tastingchange();
-				
+				$("#reviewId").prop("value", data.reviewId);
+				changetasteRating();
+				changepriceRating();
+				changeserviceRating();
+
 				$("#showmodal").click();
+
+
 			},
 			error:function(request, status, errorData){
 				alert("error code: " + request.status + "\n"
@@ -488,67 +503,86 @@
 
 	}
 
+		
+</script>
+
+<script>
+function changetasteRating(){
+
+var tasteRating = $(".tasteRating .fa-star");
+
+var SetTasteRatingStar = function() {
+	return tasteRating.each(function() {
+        if(parseInt(tasteRating.siblings('input.reviewScore').val()) >= parseInt($(this).data('rating'))) {
+            return $(this).removeClass('far').addClass('fas');
+        }else {
+            return $(this).removeClass('fas').addClass('far');
+        }
+    })
+}
+
+tasteRating.on('click',function() {
+	tasteRating.siblings('input.reviewScore').val($(this).data('rating'));
+	return SetTasteRatingStar();
+})
+
+SetTasteRatingStar();
+
+}
+
+function changepriceRating(){
 	
-	function tastingchange(){
-		var tasteRating = $(".tasteRating .fa-star");
-		
-		var SetTasteRatingStar = function() {
-			return tasteRating.each(function() {
-                if(parseInt(tasteRating.siblings('input.reviewScore').val()) >= parseInt($(this).data('rating'))) {
-                    return $(this).removeClass('far').addClass('fas');
-                }else {
-                    return $(this).removeClass('fas').addClass('far');
-                }
-            })
-        }
-        
-        tasteRating.on('click',function() {
-        	tasteRating.siblings('input.reviewScore').val($(this).data('rating'));
-        	return SetTasteRatingStar();
+	var priceRating = $(".priceRating .fa-star");
+	
+	var SetPriceRatingStar = function() {
+		return priceRating.each(function() {
+            if(parseInt(priceRating.siblings('input.reviewScore').val()) >= parseInt($(this).data('rating'))) {
+                return $(this).removeClass('far').addClass('fas');
+            }else {
+                return $(this).removeClass('fas').addClass('far');
+            }
         })
-        
-        SetTasteRatingStar();
- 
-		var priceRating = $(".priceRating .fa-star");
-		
-		var SetPriceRatingStar = function() {
-			return priceRating.each(function() {
-                if(parseInt(priceRating.siblings('input.reviewScore').val()) >= parseInt($(this).data('rating'))) {
-                    return $(this).removeClass('far').addClass('fas');
-                }else {
-                    return $(this).removeClass('fas').addClass('far');
-                }
-            })
-        }
-        
-		priceRating.on('click',function() {
-			priceRating.siblings('input.reviewScore').val($(this).data('rating'));
-        	return SetPriceRatingStar();
-        })
-        
-        SetPriceRatingStar();
-   
-		var serviceRating = $(".serviceRating .fa-star");
-		
-		var SetServiceRatingStar = function() {
-			return serviceRating.each(function() {
-                if(parseInt(serviceRating.siblings('input.reviewScore').val()) >= parseInt($(this).data('rating'))) {
-                    return $(this).removeClass('far').addClass('fas');
-                }else {
-                    return $(this).removeClass('fas').addClass('far');
-                }
-            })
-        }
-        
-		serviceRating.on('click',function() {
-			serviceRating.siblings('input.reviewScore').val($(this).data('rating'));
-        	return SetServiceRatingStar();
-        })
-        
-        SetServiceRatingStar();
-	}	
+    }
+    
+	priceRating.on('click',function() {
+		priceRating.siblings('input.reviewScore').val($(this).data('rating'));
+    	return SetPriceRatingStar();
+    })
+    
+    SetPriceRatingStar();	
 	
 	
+	
+	
+}
+
+
+
+function changeserviceRating(){
+	var serviceRating = $(".serviceRating .fa-star");
+	
+	var SetServiceRatingStar = function() {
+		return serviceRating.each(function() {
+            if(parseInt(serviceRating.siblings('input.reviewScore').val()) >= parseInt($(this).data('rating'))) {
+                return $(this).removeClass('far').addClass('fas');
+            }else {
+                return $(this).removeClass('fas').addClass('far');
+            }
+        })
+    }
+    
+	serviceRating.on('click',function() {
+		serviceRating.siblings('input.reviewScore').val($(this).data('rating'));
+    	return SetServiceRatingStar();
+    })
+    
+    SetServiceRatingStar();
+	
+	
+}
+
+
+
 </script>
 
 

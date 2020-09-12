@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -122,7 +125,7 @@
             <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem; padding-bottom: 1rem;">
               <div class="col-1"></div>
               <div class="col-10">
-                <form action="myPageCheckinModify.do" method="post" enctype="Multipart/form-data">
+                <form id="checkInModifyForm" action="myPageCheckinModify.do" method="post" enctype="Multipart/form-data">
                   <div style="margin-left: 3rem;">
                   
                   	<c:forEach var="modifyCheckinList" items="${modifyCheckinList }">
@@ -158,12 +161,12 @@
     
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">날짜</label>
-                      <input type="date" name="checkinVisitDate" value="${modifyCheckinList.checkinVisitDate}">
+                      <input type="date" id="checkinVisitDate" name="checkinVisitDate" value="${modifyCheckinList.checkinVisitDate}">
                     </div>
     
                     <div class="row" style="margin-bottom: 1.3rem;">
                       <label class="checkin_label">내용</label>
-                      <textarea cols="50" rows="10" style="resize: none;" name="checkinContent" >${modifyCheckinList.checkinContent}</textarea>
+                      <textarea cols="50" rows="10" style="resize: none;" id="checkinContent" name="checkinContent" >${modifyCheckinList.checkinContent}</textarea>
                     </div>
     				
 	    				<c:forEach var="cd" items="${modifyCheckinList.checkinImageList }">
@@ -196,7 +199,7 @@
                   </div>
                     <div class="row">
                       <div class="col" align="center">
-                        <input type="submit" class="btn btn-primary btn-sm" value="수정">&nbsp;
+                        <button type="button" class="btn btn-primary btn-sm" onclick="validate();">수정 완료</button>&nbsp;
                         <button type="button" class="btn btn-secondary btn-sm" onclick="checkinCancle();">취소</button>
                       </div>
                     </div>
@@ -342,6 +345,13 @@ $(function(){
 function checkinCancle(){
 	location.href="myPageCheckin.do?"; 
 }
+
+
+function validate(){
+	
+		$("#checkInModifyForm").submit();
+		swal("수정이 완료되었습니다.");
+	}
 
 // 이미지 파일 꼼꼼하게 제약조건
 /* function fileCheck(obj){

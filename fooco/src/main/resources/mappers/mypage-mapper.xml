@@ -227,6 +227,24 @@
 	</resultMap>
 
 
+	<resultMap type="Select_ReviewInfo" id="ReviewInfoResultSet">
+		<id property="reviewId" column="REVIEW_ID"/>
+		<result property="resId" column="RES_ID"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="reviewCreateDate" column="REVIEW_CREATE_DATE"/>
+		<result property="reviewUpdateDate" column="REVIEW_UPDATE_DATE"/>
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="reviewGoodcount" column="REVIEW_GOODCOUNT"/>
+		<result property="reviewRating" column="REVIEW_RATING"/>
+		<result property="reviewTasterating" column="REVIEW_TASTERATING"/>
+		<result property="reviewPricerating" column="REVIEW_PRICERATING"/>
+		<result property="reviewServicerating" column="REVIEW_SERVICERATING"/>
+		<result property="reviewStatus" column="REVIEW_STATUS"/>
+		<result property="resName" column="RES_NAME"/>
+		<result property="resAddress" column="RES_ADDRESS"/>
+		<result property="locationName" column="LOCATION_NAME"/>
+
+	</resultMap>
 
 <!-- ================================Mylist 영은 ResultMap=================================================-->
 
@@ -371,7 +389,6 @@ WHERE NICKNAME = #{nickName}
 <update id="updateMemberInfo" parameterType="Member">
 	UPDATE MEMBER
 	SET MEMBER_PWD=#{memberPwd}
-	, NICKNAME=#{nickName}
 	, PHONE=#{phone}
 	, ADDRESS=#{address}
 	WHERE MEMBER_ID = #{memberId}
@@ -645,12 +662,80 @@ WHERE REVIEW_ID = #{reviewId}
 
 </delete>
 
-<select id="selectReviewInfo" parameterType="_int" resultMap="ReviewMap">
-SELECT *
-FROM REVIEW
+<!-- 마이리뷰 수정버튼 클릭 시 해당 리뷰의 정보 조회 -->
+<select id="selectReviewInfo" parameterType="_int" resultMap="ReviewInfoResultSet">
+SELECT R.*, RES.RES_NAME, RES.RES_ADDRESS, L.LOCATION_NAME
+FROM REVIEW R
+LEFT JOIN RESTAURANT RES ON (R.RES_ID = RES.RES_ID)
+LEFT JOIN LOCATION L ON (RES.LOCATION_ID = L.LOCATION_ID)
 WHERE REVIEW_ID = #{reviewId}
 
 </select>
+
+<!-- 해당 리뷰 번호에 대한 이미지 리스트 조회 -->
+<select id="selectImageList" parameterType="_int" resultMap="ImageMap">
+SELECT IMG.*
+FROM REVIEW_IMAGE RI
+LEFT JOIN IMAGE IMG ON (RI.IMAGE_ID = IMG.IMAGE_ID)
+WHERE REVIEW_ID = #{imageId}
+
+</select>
+
+<!-- 해당 이미지 번호에 대한 리뷰 이미지 테이블 관계 삭제 -->
+<delete id="deleteReviewImage" parameterType="_int">
+DELETE FROM REVIEW_IMAGE
+WHERE IMAGE_ID = #{imageId}
+
+</delete>
+
+<!-- 해당 이미지 번호에 대한 이미지 삭제 작업 -->
+<delete id="deleteImage2" parameterType="_int">
+DELETE FROM IMAGE
+WHERE IMAGE_ID = #{imageId}
+
+</delete>
+
+<!-- 마이리뷰 수정버튼 클릭 시 이미지 인서트 작업  -->
+<insert id="insertImage2" parameterType="Image">
+INSERT INTO IMAGE VALUES(
+	SEQ_IMAGEID.NEXTVAL
+	,#{imageOriginName}
+	,#{imageNewName}
+	,'reviewImage'
+	,SYSDATE
+	,'1'
+	,'Y'
+	,'0'
+)
+
+</insert>
+
+<!-- 마이리뷰 수정 버튼 클릭 시 리뷰 이미지 테이블 인서트 작업 -->
+<insert id="insertReviewImage2" parameterType="_int">
+INSERT INTO REVIEW_IMAGE VALUES(
+	SEQ_IMAGEID.CURRVAL
+	,#{reviewId}
+)
+
+</insert>
+
+<!-- 마이 리뷰 수정 버튼 클릭 시 리뷰 값 수정작업 -->
+<update id="updateReview" parameterType="Review">
+UPDATE REVIEW
+	SET REVIEW_UPDATE_DATE = SYSDATE
+	, REVIEW_CONTENT = #{reviewContent}
+	, REVIEW_TASTERATING = #{reviewTasterating}
+	, REVIEW_PRICERATING = #{reviewPricerating}
+	, REVIEW_SERVICERATING = #{reviewServicerating}
+	WHERE REVIEW_ID = #{reviewId}
+
+</update>
+
+<delete id="deleteReviewImage2" parameterType="_int">
+DELETE FROM REVIEW_IMAGE
+WHERE REVIEW_ID = #{reviewId}
+
+</delete>
 
 <!-- =========================== mylist 영은 ================================================ -->
 

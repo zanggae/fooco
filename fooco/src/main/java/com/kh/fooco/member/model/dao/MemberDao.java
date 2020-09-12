@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fooco.admin.model.vo.MyListAdmin;
-import com.kh.fooco.board.model.vo.Board;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.vo.BoardInfo;
 import com.kh.fooco.member.model.vo.Checkin;
@@ -17,20 +16,16 @@ import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Board;
+import com.kh.fooco.member.model.vo.Select_Checkin;
+import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.member.model.vo.Select_ReviewInfo;
+import com.kh.fooco.member.model.vo.TM;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.restaurant.model.vo.Review;
-import com.kh.fooco.theme.model.vo.ThemeAdmin;
-
-import com.kh.fooco.member.model.vo.Mylist;
-
-import com.kh.fooco.member.model.vo.Select_Board;
-
-import com.kh.fooco.member.model.vo.Select_Checkin;
-import com.kh.fooco.member.model.vo.Select_Coupon;
-import com.kh.fooco.member.model.vo.TM;
-import com.kh.fooco.membership.model.vo.MemberShip;
 
 
 @Repository("memberDao")
@@ -305,11 +300,53 @@ public class MemberDao {
  	}
  	
     // 리뷰 수정 버튼 클릭 시 해당 리뷰정보 조회 
- 	public Review selectReviewInfo(int reviewId) {
+ 	public Select_ReviewInfo selectReviewInfo(int reviewId) {
  		
  		return sqlSessionTemplate.selectOne("mypageMapper.selectReviewInfo", reviewId);
  	}
+ 	
+    // 리뷰 번호에 대한 이미지 리스트 조회
+ 	public ArrayList<Image> selectImageList(int reviewId) {
+ 
+ 		return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectImageList",reviewId);
+ 	}
+    
+ 	// 해당 이미지 번호에 대한 리뷰 이미지 테이블 관계 삭제
+ 	public int deleteReviewImage(int imageId) {
+ 		
+ 		return sqlSessionTemplate.delete("mypageMapper.deleteReviewImage",imageId);
+ 	}
+ 	
+ 	// 해당 이미지 번호에 대한 이미지 삭제 작업
+ 	public int deleteImage2(int imageId) {
+
+ 		return sqlSessionTemplate.delete("mypageMapper.deleteImage2",imageId);
+ 	}
    
+	// 마이리뷰 수정버튼 클릭 시 이미지 테이블 인서트 작업
+	public int insertImage2(Image image) {
+
+		return sqlSessionTemplate.insert("mypageMapper.insertImage2", image);
+	}
+	// 마이리뷰 수정버튼 클릭 시 리뷰 이미지 테이블 인서트 작업
+	public int insertReviewImage2(int reviewId) {
+
+		return sqlSessionTemplate.insert("mypageMapper.insertReviewImage2", reviewId);
+	}
+ 	
+	// 마이리뷰 수정 버튼 클릭 시 리뷰 값 수정 작업
+	public int updateReview(Review review) {
+		
+		return sqlSessionTemplate.update("mypageMapper.updateReview", review);
+	}
+	
+	// 마이 리뷰 삭제 버튼 클릭 시 리뷰 이미지 관계 삭제
+	public int deleteReviewImage2(int reviewId) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.delete("mypageMapper.deleteReviewImage2", reviewId);
+	}
+	
+	
    // ================================== Mylist 영은 ===========================================
 
    public ArrayList<Mylist> searchListRes(String searchRes) {
@@ -386,7 +423,11 @@ public ArrayList<Restaurant> mylistDetailR(MyListAdmin mylist) {
 	public int recommendMylist(MyListAdmin ma) {
 	return sqlSessionTemplate.update("mypageMapper.recommendMylist",ma);
 }
-   
+
+
+
+	
+	
 
 
 

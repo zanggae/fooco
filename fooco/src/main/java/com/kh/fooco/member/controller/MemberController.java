@@ -23,11 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.savedrequest.RequestCache;
-import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +32,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -52,17 +48,16 @@ import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
-import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.model.vo.Select_Board;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.member.model.vo.Select_ReviewInfo;
 import com.kh.fooco.member.model.vo.TM;
 import com.kh.fooco.member.naver.NaverLoginBO;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.restaurant.model.vo.Review;
-import com.kh.fooco.theme.model.service.ThemeService;
 
 
 @SessionAttributes("loginUser")
@@ -407,10 +402,14 @@ public class MemberController {
             String folderName = "ProFiles";
             
             if(!file.getOriginalFilename().equals("")) {
+            	
+               deleteFile(m.getRenameName(), request, folderName);
+            	
                String renameFileName = saveFile(file,request, folderName);
                
                m.setOriginalName(file.getOriginalFilename());
                m.setRenameName(renameFileName);
+               
             }
             
             int result = memberService.updateMemberProfile(m);
@@ -488,16 +487,16 @@ public class MemberController {
             return renameFileName;
          }
          
-//         private void deleteFile(String fileName, HttpServletRequest request) {
-//            String root = request.getSession().getServletContext().getRealPath("resources");
-//            String savePath = root + "\\buploadFiles";
-//            
-//            File f = new File(savePath + "\\" + fileName);
-//            if(f.exists()) {
-//               f.delete(); // 그 경로안에 있는 파일을 지워주는 메소드
-//            }
-//            
-//         }
+         private void deleteFile(String fileName, HttpServletRequest request, String folderName) {
+            String root = request.getSession().getServletContext().getRealPath("resources");
+            String savePath = root + "\\" + folderName;
+            
+            File f = new File(savePath + "\\" + fileName);
+            if(f.exists()) {
+               f.delete(); // 그 경로안에 있는 파일을 지워주는 메소드
+            }
+            
+         }
          
          
          // 팔로우 페이지 이동
@@ -591,21 +590,6 @@ public class MemberController {
             
             return mv;
          }
-         
-         
-         // 닉네임 중복확인 ajax
-         @RequestMapping("dupNickName.do")
-         public void nickNameDuplicateCheck(HttpServletResponse response, String nickName) throws IOException {
-//            System.out.println(nickName);
-            boolean isUserble = memberService.checkNickNameDup(nickName) == 0 ? true : false;
-            
-//            System.out.println("isUserble = " + isUserble);
-            PrintWriter out = response.getWriter();
-            out.print(isUserble);
-            out.flush();
-            out.close();
-         }
-         
          
          
          // 1:1문의 수정페이지 이동
@@ -733,6 +717,9 @@ public class MemberController {
             for (MultipartFile file : files) {
                
                if(!file.getOriginalFilename().equals("")) {
+            	   
+            	   
+            	   
                   String renameFileName = saveFile(file,request,folderName);
                   img.setImageOriginName(file.getOriginalFilename());
                   img.setImageNewName(renameFileName);
@@ -796,6 +783,7 @@ public class MemberController {
             for (MultipartFile file : files) {
                
                if(!file.getOriginalFilename().equals("")) {
+            	   
                   String renameFileName = saveFile(file,request,folderName);
                   img.setImageOriginName(file.getOriginalFilename());
                   img.setImageNewName(renameFileName);
@@ -985,8 +973,11 @@ public class MemberController {
 			@RequestMapping("deleteReview.do")
 			public String deleteReview(int reviewId) {
 				
+				// 리뷰 이미지 관계 제거 메소드
+				int result = memberService.deleteReviewImage2(reviewId);
+				
 				// 리뷰 삭제 작업 메소드
-				int result = memberService.deleteReview(reviewId);
+				int result2 = memberService.deleteReview(reviewId);
 				
 				return "redirect:myPageReview.do";
 			}
@@ -998,7 +989,8 @@ public class MemberController {
 	            response.setContentType("application/json;charset=utf-8");
 	            
 	            System.out.println(reviewId);
-	            Review reviewInfo = memberService.selectReviewInfo(reviewId);
+	            Select_ReviewInfo reviewInfo = memberService.selectReviewInfo(reviewId);
+	            
 	            
 	            new Gson().toJson(reviewInfo, response.getWriter());
 	            System.out.println(reviewInfo);
@@ -1006,7 +998,73 @@ public class MemberController {
 	         }
 			
 			
+			// 마이리뷰 모달창에서 수정하기 버튼 클릭 시
+			@RequestMapping(value="updateReview.do", method=RequestMethod.GET)
+			public String updateReview(int reviewId, Review review, @RequestParam(value="realname", required=false) String realname
+					, @RequestParam(value="filename", required=false) String filename
+					, @RequestParam(value="filesize", required=false) String filesize)
+			{
+				System.out.println("수정값 넘어온것들 : " + review);
+				System.out.println("realname" + realname + "filename" + filename + "filesize" + filesize);
+				
+				// 해당 리뷰번호에 대한 이미지 리스트 조회
+				ArrayList<Image> imageList = memberService.selectImageList(reviewId);
+				
+				System.out.println("해당 리뷰의 이미지 리스트 : " + imageList);
+				
+				int result = 0;
+				int result1 = 0;
+				
+				if(imageList != null) {
+					
+					for(int i=0; i<imageList.size(); i++) {
+						// 해당 이미지 번호에 대한 리뷰이미지 테이블 관계 제거
+						result = memberService.deleteReviewImage(imageList.get(i).getImageId());
+						// 해당 이미지 번호에 대한 이미지 삭제 작업
+						result1 = memberService.deleteImage2(imageList.get(i).getImageId());
+						
+					}
+				}
+				
+				if(!realname.equals("") && !filename.equals("")) {
+				
+					String[] realnameArray = realname.split(",");
+					String[] filenameArray = filename.split(",");
+					
+					ArrayList<Image> imageList2 = new ArrayList<Image>();
+					
+					for(int i=0; i<realnameArray.length; i++) {
+						Image image = new Image();
+						image.setImageOriginName(realnameArray[i].toString());
+						image.setImageNewName(filenameArray[i].toString());	
+						imageList2.add(image);
+					}
+					
+		
+				int result2 = 0;
+				int result3 = 0;
+				// 첨부파일이 없으면 인서트작업 안하기
 			
+					for(int i=0; i<imageList2.size(); i++) {
+						// 이미지 테이블 인서트 작업
+						result2 = memberService.insertImage2(imageList2.get(i));
+						
+						// 리뷰 이미지 테이블 인서트 작업
+						result3 = memberService.insertReviewImage2(reviewId);
+					}
+					
+					System.out.println("첨부된 이미지 객체 정보 :" + imageList2);
+				}	
+				// 마이리뷰 수정 버튼 클릭 시 리뷰값 수정
+				int result4 = memberService.updateReview(review);
+				
+				
+				
+				System.out.println("모달 수정버튼에서 넘어오는 리뷰 번호 : " + reviewId);
+				
+				return "redirect:myPageReview.do";
+				
+			}
 			
 			
 			

@@ -16,19 +16,16 @@ import com.kh.fooco.member.model.vo.Follower;
 import com.kh.fooco.member.model.vo.Following;
 import com.kh.fooco.member.model.vo.MZ;
 import com.kh.fooco.member.model.vo.Member;
+import com.kh.fooco.member.model.vo.Mylist;
+import com.kh.fooco.member.model.vo.Select_Board;
+import com.kh.fooco.member.model.vo.Select_Checkin;
+import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.member.model.vo.Select_ReviewInfo;
+import com.kh.fooco.member.model.vo.TM;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.restaurant.model.vo.Review;
-import com.kh.fooco.theme.model.vo.ThemeAdmin;
-import com.kh.fooco.member.model.vo.Mylist;
-
-import com.kh.fooco.member.model.vo.Select_Board;
-
-import com.kh.fooco.member.model.vo.Select_Checkin;
-import com.kh.fooco.member.model.vo.Select_Coupon;
-import com.kh.fooco.member.model.vo.TM;
-import com.kh.fooco.membership.model.vo.MemberShip;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -361,11 +358,60 @@ public class MemberServiceImpl implements MemberService{
    
    // 리뷰 수정 버튼 클릭 시 해당 리뷰정보 조회 
    @Override
-   public Review selectReviewInfo(int reviewId) {
+   public Select_ReviewInfo selectReviewInfo(int reviewId) {
    
    	return memberDao.selectReviewInfo(reviewId);
    }
    
+   // 리뷰 번호에 대한 이미지 리스트 조회
+	@Override
+	public ArrayList<Image> selectImageList(int reviewId) {
+		
+		return memberDao.selectImageList(reviewId);
+	}
+   
+	// 해당 이미지 번호에 대한 리뷰 이미지 테이블 관계 삭제
+	@Override
+	public int deleteReviewImage(int imageId) {
+		
+		return memberDao.deleteReviewImage(imageId);
+	}
+	
+	// 해당 이미지 번호에 대한 이미지 삭제 작업
+	@Override
+	public int deleteImage2(int imageId) {
+		
+		return memberDao.deleteImage2(imageId);
+	}
+	
+	// 마이리뷰 수정버튼 클릭 시 이미지 테이블 인서트 작업
+	@Override
+	public int insertImage2(Image image) {
+		
+		return memberDao.insertImage2(image);
+	}
+
+	// 마이리뷰 수정버튼 클릭 시 리뷰 이미지 테이블 인서트 작업
+	@Override
+	public int insertReviewImage2(int reviewId) {
+	
+		return memberDao.insertReviewImage2(reviewId);
+	}
+	
+	// 마이리뷰 수정 버튼 클릭 시 리뷰 값 수정 작업
+	@Override
+	public int updateReview(Review review) {
+		
+		return memberDao.updateReview(review);
+	}
+	
+	// 마이 리뷰 삭제 버튼 클릭 시 리뷰 이미지 관계 삭제
+	@Override
+	public int deleteReviewImage2(int reviewId) {
+
+		return memberDao.deleteReviewImage2(reviewId);
+	}
+	
    // ================================== Mylist 영은==========================================
 
    //마이리스트 등록 검색 
@@ -449,6 +495,18 @@ public class MemberServiceImpl implements MemberService{
    public int recommendMylist(MyListAdmin ma) {
 	return memberDao.recommendMylist(ma);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
