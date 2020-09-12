@@ -7,11 +7,9 @@
 <title>Insert title here</title>
 <style>
 	.sr-partner-title-row {margin:0;}
+	.adPhoto {width:100%; height:100%; border-radius:0.2rem;}
 </style>
 <body>
-	<div class="row sr-partner-title-row">
-		<p style="font-family: 'bold';"></p>
-	</div>
-	<div class="row row-cols-3"></div>
+	<img class="adPhoto" src="${contextPath}/resources/ad/kh.jpg"/>
 </body>
 </html>

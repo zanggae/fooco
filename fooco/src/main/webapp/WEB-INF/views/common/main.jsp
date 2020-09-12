@@ -59,17 +59,17 @@
         .mainSearch {height:23rem; background-color:rgb(204,51,98); display:flex; justify-content:center; align-items:center;}
         .ms-container {display:flex; justify-content:center; align-items:center;}
         .ms-title-col {text-align:center; vertical-align:middle; margin-bottom:1.5rem;}
-        .ms-title {color:white; font-size:3rem;}
+		.ms-title {color:white; font-size:3rem;}
         .ms-input-col {text-align:center; vertical-align:middle;}
         .inputAppend {border-top-left-radius:0; border-bottom-left-radius:0; cursor:pointer;}
-
+		
         /* 지역 맛집 */
         .mainLocal {margin-top:8rem; margin-bottom:8rem;}
         .ml-container {display:flex; justify-content:center; align-items:center;}
         .ml-title-col {vertical-align:middle; padding-left:1rem; margin-bottom:1rem;}
         .ml-title {color:rgb(204,51,98); font-size:1.5rem;}
         .ml-row {width:70rem;}
-        .ml-list {min-width:6rem; min-height:8rem; border:none; border-radius:1rem; padding:0.5rem; padding-top:1rem; margin-right:1rem; margin-bottom:0.5rem; color:black; text-align:center; text-decoration:none;}
+        .ml-list {min-width:6rem; min-height:8rem; border:none; border-radiusㄹ:1rem; padding:0.5rem; padding-top:1rem; margin-right:1rem; margin-bottom:0.5rem; color:black; text-align:center; text-decoration:none;}
         .ml-list:hover {background:#ECECEC; color:black; cursor:pointer;}
         .ml-logo-div {width:4rem; height:4rem; margin:auto; margin-bottom:0.5rem;}
         .ml-logo {max-width:100%;}
@@ -212,7 +212,7 @@
                     <div class="row row-cols-1 ms-row">
                         <div class="col ms-title-col">
                         	 <p style="font-size:25px;">&#x1F340;</p>
-                            <span class="ms-title" style="font-family:'heavy'">진짜 맛집을 알려줄게!</span>
+                            <span class="ms-title" id="realText" style="font-family:'heavy'">진짜 맛집을 알려줄게!</span>
                         </div>
 						<div class="input-group input-group-lg">													
 							<div class="selectLocation d-flex">
@@ -448,7 +448,6 @@
                 </p>
             </div>
         </footer>
-
     </body>   
 </html>
 

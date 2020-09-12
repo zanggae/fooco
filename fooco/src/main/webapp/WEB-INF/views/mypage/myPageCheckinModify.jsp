@@ -349,8 +349,8 @@ function checkinCancle(){
 
 function validate(){
 	
-		$("#checkInModifyForm").submit();
 		swal("수정이 완료되었습니다.");
+		$("#checkInModifyForm").submit();
 	}
 
 // 이미지 파일 꼼꼼하게 제약조건

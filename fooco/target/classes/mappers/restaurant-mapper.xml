@@ -70,6 +70,7 @@
 		<id property="resId" column="RES_ID"/>
 		<result property="infoCategoryName" column="RES_CATEGORY_NAME"/>
 		<result property="infoOperatingTime" column="RES_TIME"/>
+		<result property="infoPhone" column="RES_PHONE"/>
 		<collection property="infoFilter" ofType="Filter">
 			<id property="filterId" column="FILTER_ID"/>
 			<result property="filterName" column="FILTER_NAME"/>
@@ -234,10 +235,10 @@
 		LEFT JOIN BESTMENU BM ON (SR.RES_ID = BM.RES_ID)
 		WHERE     SR.RES_STATUS = 'Y'
 		<choose>
-			<when test="locationId!=0">
+			<when test="locationId!=0 and locationId lt 9">
 				AND SR.LOCATION_ID = #{locationId}
 			</when>
-			<when test="locationId>=9">
+			<when test="locationId gte 9">
 			<![CDATA[
 				AND SR.LOCATION_ID >= #{locationId}
 			]]>
@@ -278,7 +279,7 @@
 	</select>
 
 	<select id="getRestaurantInfo" parameterType="_int" resultMap="InfoMap">
-		SELECT    R.RES_ID, R.RES_CATEGORY_NAME, R.RES_TIME
+		SELECT    R.RES_ID, R.RES_CATEGORY_NAME, R.RES_TIME, R.RES_PHONE
 				  ,BM.BESTMENU_ID, BM.BESTMENU_NAME
 				  ,F.FILTER_ID, F.FILTER_NAME
 		FROM      SELECT_RES R

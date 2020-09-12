@@ -146,6 +146,12 @@ public class MemberController {
          String referer = request.getHeader("Referer");
  		 request.getSession().setAttribute("redirectURI", referer);
  		 String result = referer.substring(referer.lastIndexOf("/")+1);
+ 		 System.out.println("result 주소값 "+result);
+ 		 
+ 		 //회원가입 후 로그인바로 시 메인으로 들어가도록 조건
+ 		 if(result.equals("insertMember.do")) {
+ 			 result="main.do";
+ 		 }
  		 
  		 return "redirect:"+result;
         

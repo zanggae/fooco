@@ -55,6 +55,15 @@
 			</div>
 		</div>
 	</div>
+	<c:choose>
+		<c:when test="${empty reviewList}">
+			<div class="row row-cols-1 mz-review-list">
+				<div class="emptyReviewList" style="color:rgb(204,51,98); font-family:'bold'; font-size:1.2rem;">
+					&#x1F645; 등록된 리뷰가 없습니다.
+				</div>
+			</div>
+		</c:when>
+		<c:otherwise>
 	<div class="row row-cols-1 mz-review-list">
 		<div class="col" style="padding: 0; margin: 0;">
 			<c:forEach var="review" items="${reviewList}">
@@ -151,7 +160,7 @@
 							<span style="font-size: 0.7rem; color: gray;">좋아요 <fmt:formatNumber type="number" value="${review.reviewGoodcount}"/>개</span>
 						</div>
 						<div class="row mz-review-rating-good-btn">
-							<a class="review-content-good-btn" id="review-content-good-btn" onclick="upGood()" style="font-size: 0.8rem; color: mediumseagreen; font-family: 'medium'; cursor: pointer;">&#x1F44D; 좋아요</a>
+							<a class="review-content-good-btn" id="review-content-good-btn" onclick="upGood(${review.reviewId})" style="font-size: 0.8rem; color: mediumseagreen; font-family: 'medium'; cursor: pointer;">&#x1F44D; 좋아요</a>
 						</div>
 						<div class="row row-cols-4 mz-reviewPhoto-row">
 							<c:if test="${0 ne review.reviewImages[0].imageId}">
@@ -169,31 +178,11 @@
 			</c:forEach>
 		</div>
 	</div>
+	</c:otherwise>
+	</c:choose>
 	
 	<script>
-		
-		function nextLoading() {
-			$.ajax({
-				type:"POST",
-				url:"nextReview.do",
-				data:{resId:resId, page:page}
-			})
-		}
-		
-		$(window).scroll(function(){			
-		    if($(window).scrollTop()+200 >= $(document).height() - $(window).height()) {
-		    	loading = true;
-		    	nextLoading();
-		    }else {
-		    	swal("다음 페이지를 로딩 중입니다.");
-		    }
-		}); 
-	</script>
-	
-	<script>
-		function upGood() {
-			var selectedReview = document.getElementById("hiddenReviewId");
-			var reviewId = document.getElementById("hiddenReviewId").value;
+		function upGood(reviewId) {
 			
 			$.ajax({
 				url:"upGood.do",
@@ -203,7 +192,12 @@
 					if("notvalid" == data) {
 						swal("로그인이 필요한 서비스입니다.");
 					}else if("success" == data){
-						swal("해당 리뷰를 '좋아요' 하였습니다.");
+						swal({
+							text:"해당 리뷰를 '좋아요' 하였습니다.",
+							button:"확인"
+						}).then(function(isConfirm){
+							window.location.reload();
+						})
 					}else {
 						swal("좋아요에 실패하였습니다.");
 					}					

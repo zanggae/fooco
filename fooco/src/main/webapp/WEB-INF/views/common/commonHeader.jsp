@@ -79,6 +79,9 @@
 		#for_first_modal input {
 			width: 90%;
 			margin-left: 50px;
+			border:none;
+			border-bottom : 1px solid black;
+			outline:none;
 		}
 		/* '매일매일 즐거운 푸코와 함께'' 문구 */
 		#login_first_line{
@@ -305,8 +308,8 @@
               <div class="w-100"></div>
               <div class="col">
               	<p id="login_first_line">매일매일 즐거운 Fooco와 함께!</p><br>
-                <input type="text" name="email" placeholder="이메일" id="email_input"><span style="line-height: 30px;"></span>
-                <input type="password" name="memberPwd" placeholder="비밀번호" id="pwd_input"><span style="line-height: 50px;"></span><br>
+                <input type="text" name="email" placeholder="&#x1F4E7;이메일" id="email_input"><span style="line-height: 30px;"></span>
+                <input type="password" name="memberPwd" placeholder="&#x1F512;비밀번호" id="pwd_input"><span style="line-height: 50px;"></span><br>
                 <button id="login_btn" onclick="loginbtn();">LOGIN</button>
               </div>
               <div id="forLine"></div>
@@ -336,7 +339,7 @@
           </div>
           <div id="forh5">
             <br>
-            <h5>패스워드를 잊으셨나요?</h5>
+            <h5>패스워드를 잊으셨나요?&#x1F61F;</h5>
             <p>아래에 이메일 주소를 입력하시면 임시비밀번호를 보내드립니다.</p><br>
             <form id="searchPwdForm" action="searchMemberPwd.do" method="post">
 			  <h5>이메일주소</h5>
