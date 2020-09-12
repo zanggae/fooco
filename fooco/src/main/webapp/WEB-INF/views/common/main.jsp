@@ -416,9 +416,8 @@
         <footer>
             <div class="mainFooter">
                <span>
-               	<img src="resources/logo/logo.png">
-               	<hr style="margin-top:-8px; margin-bottom:-1px; width:110%;">
-               	<p style="font-size:12px">FOOCO와 함께 Enjoy!</p>
+               	<img src="resources/logo/logo.png">   
+               	<p style="font-size:12px; margin-left:3px;">매일매일 FOOCO와 함께 Enjoy!</p>
                </span>
                <span>
                		<p style="font-size:14px; font-family:bold;" >COMPANY</p>
@@ -438,8 +437,8 @@
                </span> 
                <span id="footerPimog">
                <p style="font-size:15px; text-align:center; font-family:bold;">Social Link</p>
-               	<i class="fab fa-facebook-square"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fab fa-twitter-square"></i>
-               	&nbsp;&nbsp;&nbsp;&nbsp;<i class="fab fa-instagram"></i>
+               	<a href=https://www.facebook.com/><i class="fab fa-facebook-square" style="color:rgb(59,89,152);"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=https://twitter.com/?lang=ko><i class="fab fa-twitter-square" style="color:rgb(42,169,224);"></i></a>
+               	&nbsp;&nbsp;&nbsp;<a href=https://www.instagram.com/?hl=ko><i class="fab fa-instagram" style="color:rgb(204,36,96);"></i></a>
                	<!-- <p style="font-size:15px; text-align:center;">Social Link</p> -->
                </span><br><br><br><br><br><hr>
               	<p id="footerP" style="font-family:'light'; color:gray;">
