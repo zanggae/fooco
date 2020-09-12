@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
@@ -151,11 +154,12 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping("goRestaurantReview.do")
-	public ModelAndView goRestaurantReview(ModelAndView mv, @RequestParam(value="resId", required=false) Integer resId
-														  , @RequestParam(value="sortType", required=false) String sortType
-														  , @RequestParam(value="page", required=false, defaultValue="1") Integer page)
+	public void goRestaurantReview(HttpServletResponse response, @RequestParam(value="resId", required=false) Integer resId
+														  	   , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType
+														  	   , @RequestParam(value="page", required=false, defaultValue="1") Integer page) throws JsonIOException, IOException
 	{
-		int currentPage = page;		
+		int currentPage = page;
+		
 		int howManyReview = restaurantService.getReviewListCount(resId);
 		
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
@@ -167,10 +171,10 @@ public class RestaurantController {
 		ArrayList<Review> reviewList = new ArrayList<Review>();
 		reviewList = restaurantService.getReviewList(searchParameter, pi);
 		
-		mv.addObject("pi", pi);
-		mv.addObject("reviewList", reviewList);
-		mv.setViewName("restaurant/restaurantReview");
-		return mv;
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(reviewList, response.getWriter());		
+		
 	}
 	
 	@RequestMapping("goRestaurantPhoto.do")
@@ -251,15 +255,15 @@ public class RestaurantController {
 		String[] realnameArray = realname.split(",");
 		String[] filenameArray = filename.split(",");
 		
-		Image image = new Image();
 		ArrayList<Image> imageList = new ArrayList<Image>();
 		
 		for(int i=0; i<realnameArray.length; i++) {
+			Image image = new Image();
 			image.setImageOriginName(realnameArray[i].toString());
-			image.setImageNewName(filenameArray[i].toString());			
+			image.setImageNewName(filenameArray[i].toString());	
 			imageList.add(image);
 		}
-		
+				
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("review", review);
 		parameters.put("imageList", imageList);
@@ -412,7 +416,48 @@ public class RestaurantController {
 		
 		out.close();
 	}
-
+	
+	@RequestMapping(value="nextReview.do", method=RequestMethod.POST)
+	public void nextReview(HttpServletResponse response
+			, @RequestParam(value="resId", required=false) Integer resId
+			, @RequestParam(value="sortType", required=false) String sortType
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer page) throws IOException
+	{		
+		PrintWriter out = response.getWriter();
+		int currentPage = page;
+		
+		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
+		searchParameter.put("resId", resId);
+		searchParameter.put("sortType", sortType);
+		
+		int howManyReview = restaurantService.getReviewListCount(resId);
+		PageInfo pi = getPageInfo(currentPage, howManyReview);
+		
+		ArrayList<Review> reviewList = new ArrayList<Review>();		
+		reviewList = restaurantService.getReviewList(searchParameter, pi);
+		
+		
+		
+	}
+	
+	@RequestMapping(value="deleteReview.do", method=RequestMethod.POST)
+	public void deleteReview(HttpServletResponse response, Integer reviewId) throws IOException {
+		
+		PrintWriter out = response.getWriter();
+		int result = 0;
+		
+		result = restaurantService.deleteReview(reviewId);
+		
+		if(result > 0) {
+			out.append("success");
+			out.flush();
+		}else {
+			out.append("fail");
+			out.flush();
+		}
+		
+		out.close();
+	}
 
 	public ArrayList<Integer> convertCategory(String category)
 	{
@@ -458,12 +503,4 @@ public class RestaurantController {
 		return al; 
 	}
 		
-		
-		
-		
-		
-		
-
-	
-	
 }

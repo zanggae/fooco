@@ -103,5 +103,9 @@ public class RestaurantDao {
 	public int followReviewer(HashMap<String, Object> searchParameters) {
 		return sqlSessionTemplate.insert("restaurantMapper.followReviewer", searchParameters);
 	}
+
+	public int deleteReview(Integer reviewId) {
+		return sqlSessionTemplate.update("restaurantMapper.deleteReview", reviewId);
+	}
 	
 }

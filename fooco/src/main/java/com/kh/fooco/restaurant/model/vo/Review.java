@@ -18,7 +18,7 @@ public class Review implements Serializable {
 	private Date reviewUpdateDate;
 	private String reviewContent;
 	private int reviewGoodcount;
-	private int reviewRating;
+	private double reviewRating;
 	private int reviewTasterating;
 	private int reviewPricerating;
 	private int reviewServicerating;
@@ -34,9 +34,10 @@ public class Review implements Serializable {
 	private ArrayList<Image> reviewImages;
 	
 	public Review() {}
+
 	public Review(int reviewId, int resId, int memberId, Date reviewCreateDate, Date reviewUpdateDate,
-			String reviewContent, int reviewGoodcount, int reviewRating, int reviewTasterating, int reviewPricerating,
-			int reviewServicerating, String reviewStatus, String nickname, int reviewerProfileId,
+			String reviewContent, int reviewGoodcount, double reviewRating, int reviewTasterating,
+			int reviewPricerating, int reviewServicerating, String reviewStatus, String nickname, int reviewerProfileId,
 			String reviewerProfileImg, String reviewerProfilePath, int reviewerReviewCount, int reviewerFollowerCount,
 			ArrayList<Image> reviewImages) {
 		super();
@@ -102,10 +103,10 @@ public class Review implements Serializable {
 	public void setReviewGoodcount(int reviewGoodcount) {
 		this.reviewGoodcount = reviewGoodcount;
 	}
-	public int getReviewRating() {
+	public double getReviewRating() {
 		return reviewRating;
 	}
-	public void setReviewRating(int reviewRating) {
+	public void setReviewRating(double reviewRating) {
 		this.reviewRating = reviewRating;
 	}
 	public int getReviewTasterating() {

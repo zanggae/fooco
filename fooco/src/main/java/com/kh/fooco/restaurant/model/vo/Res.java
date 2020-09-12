@@ -24,7 +24,7 @@ public class Res implements Serializable {
 	private String resStatus;		 		  // 맛집 상태
 	private Date resCreateDate;		 		  // 맛집 등록일
 	private Date resUpdateDate;		 		  // 맛집 수정일
-	private int reviewRating;        		  // 맛집 평점
+	private double reviewRating;        	  // 맛집 평점
 	private int resBookmarkCount;    		  // 맛집 즐겨찾기 수
 	private int resReviewCount;               // 맛집 리뷰 수
 	
@@ -37,7 +37,7 @@ public class Res implements Serializable {
 	public Res() {}
 	public Res(int resId, int resCategoryId, String resCategoryName, int locationId, String locationName,
 			String resName, String resAddress, String resContent, int resViewCount, String resTime, String resStatus,
-			Date resCreateDate, Date resUpdateDate, int reviewRating, int resBookmarkCount, int resReviewCount,
+			Date resCreateDate, Date resUpdateDate, double reviewRating, int resBookmarkCount, int resReviewCount,
 			ResImage resThumbnailImage, Review bestReview, ArrayList<Bestmenu> bestmenus, ArrayList<Filter> resFilters,
 			ArrayList<Image> resLatestImages) {
 		super();
@@ -141,10 +141,10 @@ public class Res implements Serializable {
 	public void setResUpdateDate(Date resUpdateDate) {
 		this.resUpdateDate = resUpdateDate;
 	}
-	public int getReviewRating() {
+	public double getReviewRating() {
 		return reviewRating;
 	}
-	public void setReviewRating(int reviewRating) {
+	public void setReviewRating(double reviewRating) {
 		this.reviewRating = reviewRating;
 	}
 	public int getResBookmarkCount() {
