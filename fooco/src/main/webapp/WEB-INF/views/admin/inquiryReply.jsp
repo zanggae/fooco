@@ -88,7 +88,7 @@
                   <div class="row">
                     <div class="col">
                       <span style="background:none; font-weight:bold; color:rgb(204, 51, 98)">첨부 파일 :
-                      <a href="${contextPath }//resources/nuploadFiles/${notice.filePath}" download>
+                      <a href="${contextPath }//resources/buploadFiles/${inquiry.imageNewName}" download>
                         ${inquiry.imageNewName }
                         </a>
                       </span>

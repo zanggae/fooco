@@ -159,10 +159,10 @@
 		        </div>
 		    </div>
 		    <!-- container 끝 -->						
-			<div align="center">			
+			<div align="center" class="mt-3">			
 				<button type="button" class="btn btn-primary mBtn" onclick="goback()">목록으로</button>
 				<button type="button" class="btn btn-primary mBtn check" onclick="goSubmit1()">테마로 등록</button>
-				<button type="button" class="btn btn-primary mBtn check" onclick="goReject(this)" value="${mlA.mlId }">거절하기</button>
+				<button type="button" class="btn btn-primary mBtn check checkN" onclick="goReject(this)" value="${mlA.mlId }">거절하기</button>
 			</div>
 		</div>
       </div>
@@ -170,16 +170,16 @@
 	<script>
 		$(function(){
 			var ch = $("#check").val();
-			if(ch=='W'){
-				
-			}else{
-				$(".check").prop("disabled",true);
+			if(ch=='Y'){
+				$(".check").prop("disabled",true);				
 			}
+			if(ch=='N'){
+				$(".checkN").prop("disabled",true);	
+			}
+			
 		})
-	</script>
-	
-  </div>
-
+	</script>	
+	<br><br><br><br>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"

@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -122,7 +125,7 @@
             <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem; padding-bottom: 1rem;">
               <div class="col-1"></div>
               <div class="col-10">
-                <form action="myPageCheckinRegister.do" method="post" enctype="Multipart/form-data">
+                <form id="checkInRegisterForm" action="myPageCheckinRegister.do" method="post" enctype="Multipart/form-data">
                   <div style="margin-left: 3rem;">
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">방문 식당 검색</label>
@@ -156,12 +159,12 @@
     
                     <div class="row" style="margin-bottom: 1rem;">
                       <label class="checkin_label">날짜</label>
-                      <input type="date" name="checkinVisitDate">
+                      <input type="date" id="checkinVisitDate" name="checkinVisitDate">
                     </div>
     
                     <div class="row" style="margin-bottom: 1.3rem;">
                       <label class="checkin_label">내용</label>
-                      <textarea cols="50" rows="10" style="resize: none;" name="checkinContent"></textarea>
+                      <textarea cols="50" rows="10" style="resize: none;" id="checkinContent" name="checkinContent"></textarea>
                     </div>
     				
     				<div class="row">
@@ -187,7 +190,7 @@
                   </div>
                     <div class="row">
                       <div class="col" align="center">
-                        <input type="submit" class="btn btn-primary btn-sm" value="완료">&nbsp;
+                        <button type="button" class="btn btn-primary btn-sm" onclick="validate();">등록 완료</button>&nbsp;
                         <button type="button" class="btn btn-secondary btn-sm" onclick="checkinCancle();">취소</button>
                       </div>
                     </div>
@@ -333,6 +336,34 @@ $(function(){
 function checkinCancle(){
 	location.href="myPageCheckin.do?"; 
 }
+
+// 유효성 검사
+function validate(){
+
+	if($("#resName").val()==""){
+	    swal("방문식당을 검색해 주세요.");
+	    return;
+	  }
+	if($("#resImageName").val()==""){
+	    swal("방문식당을 검색해 주세요.");
+	    return;
+	  }
+	if($("#checkinVisitDate").val()==""){
+	    swal("날짜를 입력해 주세요.");
+	    return;
+	  }
+	if($("#checkinContent").val()==""){
+	    swal("내용을 입력해 주세요.");
+	    return;
+	  }
+	
+	
+		swal("등록이 완료되었습니다.");
+		$("#checkInRegisterForm").submit();
+
+	}
+
+
 
 // 이미지 파일 꼼꼼하게 제약조건
 /* function fileCheck(obj){

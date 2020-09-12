@@ -1,8 +1,9 @@
 package com.kh.fooco.member.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.kh.fooco.admin.model.vo.MyListAdmin;
-import com.kh.fooco.admin.model.vo.VisitorCount;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.member.model.vo.BoardInfo;
 import com.kh.fooco.member.model.vo.Checkin;
@@ -15,16 +16,12 @@ import com.kh.fooco.member.model.vo.Mylist;
 import com.kh.fooco.member.model.vo.Select_Board;
 import com.kh.fooco.member.model.vo.Select_Checkin;
 import com.kh.fooco.member.model.vo.Select_Coupon;
+import com.kh.fooco.member.model.vo.Select_ReviewInfo;
 import com.kh.fooco.member.model.vo.TM;
 import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
-import com.kh.fooco.theme.model.vo.ThemeAdmin;
-import com.kh.fooco.member.model.vo.Mylist;
-import com.kh.fooco.member.model.vo.Select_Board;
-import com.kh.fooco.member.model.vo.Select_Checkin;
-import com.kh.fooco.member.model.vo.Select_Coupon;
-import com.kh.fooco.membership.model.vo.MemberShip;
+import com.kh.fooco.restaurant.model.vo.Review;
 
 public interface MemberService {
 
@@ -117,6 +114,25 @@ int chekchemailDup(String email);
    
    int deleteTM(int themeBookMarkId);
    
+   ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter);
+   
+   int deleteReview(int reviewId);
+   
+   Select_ReviewInfo selectReviewInfo(int reviewId);
+
+   ArrayList<Image> selectImageList(int reviewId);
+   
+   int deleteReviewImage(int imageId);
+
+   int deleteImage2(int imageId);
+   
+   int insertImage2(Image image);
+
+   int insertReviewImage2(int reviewId);
+   
+   int updateReview(Review review);
+   
+   int deleteReviewImage2(int reviewId);
 // ================================== Mylist 영은 ===========================================
 
 
@@ -150,6 +166,22 @@ int chekchemailDup(String email);
    ArrayList<Restaurant> mylistDetailR(MyListAdmin mylist);
 
    int recommendMylist(MyListAdmin ma);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

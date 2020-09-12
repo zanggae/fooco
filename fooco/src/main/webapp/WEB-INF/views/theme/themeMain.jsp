@@ -99,6 +99,7 @@
                 
               <input type="hidden" value="${searchTheme }" name="searchTheme1" id="searchTheme1">
               
+              <!-- 검색된 테마가 존재하지 않을 때 -->
               <c:if test="${empty theme }">
               
               	<div class="row">
@@ -114,15 +115,18 @@
               
               </c:if>
                 
+                <
                 <c:if test="${!empty theme }">
 	               <c:url var="themeMain" value="themeMain.do">
 	                	<c:param name="searchTheme" value="${searchTheme }"/>
 	               </c:url>
                 <div class="container">
                 <div class="bottom">
+                <!-- 검색하지 않았을 시 나오는 화면 -->
                 <c:if test="${empty searchTheme }">
                   <h1 class="text3">추천테마</h1>
                  </c:if>
+                 <!-- 검색시 나오는 결과화면 -->
                  <c:if test="${!empty searchTheme }">
                   <h1 class="text3">'${searchTheme }'&nbsp;검색 결과</h1>
                   </c:if>

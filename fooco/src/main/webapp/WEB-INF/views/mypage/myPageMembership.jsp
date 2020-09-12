@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html>
 <head>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -114,145 +118,41 @@
 
             <div class="coupon_div_div">
               <div class="row row-cols-2">
-
+				
+				<c:forEach var="coupon" items="${couponList }">
                 <div class="coupon_div">
                   <div class="col coupon shadow-sm">
                     <div class="row">
                       <div class="col-8" style="padding: 0rem;">
-                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
+                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">${coupon.couponContent } 쿠폰</p>
                       </div>
                       <div class="col-4" align="right" style="padding:0rem">
-                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
+                      <c:if test="${coupon.cStatus eq 'Y' && coupon.couponContent eq '1만원할인'}">
+                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;" disabled>쿠폰받기</button>
+                      </c:if>
+                      <c:if test="${coupon.cStatus eq 'N' || coupon.couponContent eq '음료제공' }">
+                      	<c:url var="cStatusChange" value="cStatusChange.do">
+                      		<c:param name="couponListId" value="${coupon.couponListId }"></c:param>
+                      		<c:param name="couponStartDate" value="${coupon.couponStartDate }"></c:param>
+                      		<c:param name="couponExpireDate" value="${coupon.couponExpireDate }"></c:param>
+                      	</c:url>
+                        <a href="${cStatusChange }"><button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button></a>
+                      </c:if>
                       </div>
                     </div>
                     <div class="row">
                       <span class="deadline">유효기간 : &nbsp;</span>
-                      <span class="deadline">2020.08.15</span>
+                      <span class="deadline">${coupon.couponStartDate }</span>
                       <span class="deadline">&nbsp;~&nbsp;</span>
-                      <span class="deadline">2020.09.15</span>
+                      <span class="deadline">${coupon.couponExpireDate }</span>
                     </div>
                   </div>
                 </div>
+				</c:forEach>
 
+                
 
-                <div class="coupon_div">
-                  <div class="col coupon shadow-sm">
-                    <div class="row">
-                      <div class="col-8" style="padding: 0rem;">
-                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
-                      </div>
-                      <div class="col-4" align="right" style="padding:0rem">
-                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <span class="deadline">유효기간 : &nbsp;</span>
-                      <span class="deadline">2020.08.15</span>
-                      <span class="deadline">&nbsp;~&nbsp;</span>
-                      <span class="deadline">2020.09.15</span>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="coupon_div">
-                  <div class="col coupon shadow-sm">
-                    <div class="row">
-                      <div class="col-8" style="padding: 0rem;">
-                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
-                      </div>
-                      <div class="col-4" align="right" style="padding:0rem">
-                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <span class="deadline">유효기간 : &nbsp;</span>
-                      <span class="deadline">2020.08.15</span>
-                      <span class="deadline">&nbsp;~&nbsp;</span>
-                      <span class="deadline">2020.09.15</span>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="coupon_div">
-                  <div class="col coupon shadow-sm">
-                    <div class="row">
-                      <div class="col-8" style="padding: 0rem;">
-                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
-                      </div>
-                      <div class="col-4" align="right" style="padding:0rem">
-                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <span class="deadline">유효기간 : &nbsp;</span>
-                      <span class="deadline">2020.08.15</span>
-                      <span class="deadline">&nbsp;~&nbsp;</span>
-                      <span class="deadline">2020.09.15</span>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="coupon_div">
-                  <div class="col coupon shadow-sm">
-                    <div class="row">
-                      <div class="col-8" style="padding: 0rem;">
-                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
-                      </div>
-                      <div class="col-4" align="right" style="padding:0rem">
-                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <span class="deadline">유효기간 : &nbsp;</span>
-                      <span class="deadline">2020.08.15</span>
-                      <span class="deadline">&nbsp;~&nbsp;</span>
-                      <span class="deadline">2020.09.15</span>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="coupon_div">
-                  <div class="col coupon shadow-sm">
-                    <div class="row">
-                      <div class="col-8" style="padding: 0rem;">
-                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
-                      </div>
-                      <div class="col-4" align="right" style="padding:0rem">
-                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <span class="deadline">유효기간 : &nbsp;</span>
-                      <span class="deadline">2020.08.15</span>
-                      <span class="deadline">&nbsp;~&nbsp;</span>
-                      <span class="deadline">2020.09.15</span>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="coupon_div">
-                  <div class="col coupon shadow-sm">
-                    <div class="row">
-                      <div class="col-8" style="padding: 0rem;">
-                        <p style="margin: 0rem; font-size: 1.1rem; font-family: 'medium';">10,000원 할인 쿠폰</p>
-                      </div>
-                      <div class="col-4" align="right" style="padding:0rem">
-                        <button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">쿠폰받기</button>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <span class="deadline">유효기간 : &nbsp;</span>
-                      <span class="deadline">2020.08.15</span>
-                      <span class="deadline">&nbsp;~&nbsp;</span>
-                      <span class="deadline">2020.09.15</span>
-                    </div>
-                  </div>
-                </div>
+          
 
 
 
@@ -263,20 +163,11 @@
               <i class="fas fa-id-card" style="font-size: 1.7rem;"></i>&nbsp;
               <span style="font-family: 'heavy'; font-size: 1.2rem; margin-right: 0.7rem;">내가 가입한 멤버십</span>
               <!-- 구독내역 없으면 가입된 멤버십이 없습니다.라는 alert창 발생 -->
-              <button type="button" class="btn btn-primary btn-sm" onclick="subscript_btn();" style="font-size: 0.7rem; line-height: 0.9rem;">구독내역</button>
+              <c:url var="goMembershipList" value="goMembershipList.do">
+					<c:param name="memberId" value="${loginUser.memberId }"/>
+				</c:url>
+              <a href="${goMembershipList }"><button type="button" class="btn btn-primary btn-sm" style="font-size: 0.7rem; line-height: 0.9rem;">구독내역</button></a>
             </div>
-            <!-- 가입 유무로 display속성주기 -->
-            <div class="row" style="margin-left: 2rem; margin-top: 0.5rem;">
-              <span>6개월 구독 멤버십 </span>
-              <span style="color: tomato; margin-left: 0.3rem;">가입중</span>
-            </div>
-            <div class="row" style="margin-left: 2rem;">
-              <span class="deadline">구독기간 : &nbsp;</span>
-              <span class="deadline">2020.08.15</span>
-              <span class="deadline">&nbsp;~&nbsp;</span>
-              <span class="deadline">2021.02.16</span>
-            </div>
-
 					
 
 						
@@ -294,11 +185,7 @@
 </body>
 
 
-<script>
-  function subscript_btn(){
-      alert("가입된 멤버십이 없습니다.");
-  }
-</script>
+
 
 
 </html>
