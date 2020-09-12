@@ -449,11 +449,64 @@ public class AdminController {
 		return renameFileName;
 	}
 	
+	// 레스토랑 저장 함수
+	private String saveFile1(MultipartFile file, HttpServletRequest request) {
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String savePath = root + "\\restaurantImage";
+		
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) {	// webapp아래에 있는 resources 폴더 아래에
+								// buploadFiles가 없어서 File객체를 찾을 수 없다면
+			folder.mkdirs();
+			
+		}
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originFileName = file.getOriginalFilename();
+		String renameFileName
+			= sdf.format(new java.sql.Date(System.currentTimeMillis()))
+			+ "." + originFileName.substring(originFileName.lastIndexOf(".")+1);
+		
+		
+		String filePath = folder + "\\" + renameFileName;
+		// 실제 저장 될 파일의 경로 + rename파일명
+		
+		try {
+			file.transferTo(new File(filePath));
+			// 이 상태로는 파일 업로드가 되지 않는다.
+			// 왜냐면 파일 제한크기에 대한 설정을 주지 않았기 때문이다.
+			// root-context.xml에 업로드 제한 파일 크기를 지정해 주자.
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return renameFileName;
+	}
+	
 	// 파일 삭제 함수
 	private void deleteFile(String fileName, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
 		String savePath = root + "\\buploadFiles";
+		
+		File f = new File(savePath + "\\" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}
+		
+	}
+	
+	// 음식점 파일 삭제 함수
+	private void deleteFile1(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String savePath = root + "\\restaurantImage";
 		
 		File f = new File(savePath + "\\" + fileName);
 		
@@ -564,14 +617,15 @@ public class AdminController {
 		 }else {
 			 throw new BoardException("음식점 등록 실패!");
 		 }
-		 if(!file.getOriginalFilename().equals("")) { String root =
-		 request.getSession().getServletContext().getRealPath("resources"); String
-		 savePath = root + "\\buploadFiles";
+		 if(!file.getOriginalFilename().equals("")) { 
+			 
+		String savePath ="restaurantImage";
 		 
-		 String renameFileName = saveFile(file,request);
+		 String renameFileName = saveFile1(file,request);
 		 
 		 i.setImageOriginName(file.getOriginalFilename());
-		 i.setImageNewName(renameFileName); i.setImageFilepath(savePath);
+		 i.setImageNewName(renameFileName); 
+		 i.setImageFilepath(savePath);
 		 
 		 imageResult = adminService.insertRestaurantImage(i); 
 		 }
@@ -660,11 +714,11 @@ public class AdminController {
 		if(!file.getOriginalFilename().equals("")) {
 			if(i.getImageNewName() != null) {
 				// 2-1 기존 파일 삭제
-				deleteFile(i.getImageNewName(), request);				
+				deleteFile1(i.getImageNewName(), request);				
 			}
 			
 			// 2-2 새로운 파일 사진 옮기기
-			String renameFileName = saveFile(file,request);
+			String renameFileName = saveFile1(file,request);
 			
 			// 2-3 image 객체에 새로 담아온 파일의 원본이름과 바뀐이름 담기
 			i.setImageOriginName(file.getOriginalFilename());
