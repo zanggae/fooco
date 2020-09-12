@@ -162,7 +162,7 @@
 			<div align="center" class="mt-3">			
 				<button type="button" class="btn btn-primary mBtn" onclick="goback()">목록으로</button>
 				<button type="button" class="btn btn-primary mBtn check" onclick="goSubmit1()">테마로 등록</button>
-				<button type="button" class="btn btn-primary mBtn check" onclick="goReject(this)" value="${mlA.mlId }">거절하기</button>
+				<button type="button" class="btn btn-primary mBtn check checkN" onclick="goReject(this)" value="${mlA.mlId }">거절하기</button>
 			</div>
 		</div>
       </div>
@@ -173,6 +173,10 @@
 			if(ch=='Y'){
 				$(".check").prop("disabled",true);				
 			}
+			if(ch=='N'){
+				$(".checkN").prop("disabled",true);	
+			}
+			
 		})
 	</script>	
 	<br><br><br><br>
