@@ -34,7 +34,8 @@ public class ThemeController {
 	}
 
 	@RequestMapping("themeMain.do")
-	public ModelAndView themeMain(ModelAndView mv, HttpSession session, 
+
+	public ModelAndView themeMain(ModelAndView mv, HttpSession session,
 			@RequestParam(value = "searchTheme", required = false) String searchTheme) {
 		int themeWriter = 81;
       Member loginUser = (Member)session.getAttribute("loginUser");
@@ -58,7 +59,7 @@ public class ThemeController {
 		}
 
 		ArrayList<Integer> mytheme = themeService.mythemeList(themeWriter);
-
+//		System.out.println(mytheme);
 		mv.addObject("theme", theme);
 		mv.addObject("searchTheme", searchTheme);
 		mv.addObject("mytheme", mytheme);
@@ -70,6 +71,7 @@ public class ThemeController {
 
 	// 즐겨찾기 추가
 	@RequestMapping("insertBookmark.do")
+
 	public ModelAndView insertBookmark(ModelAndView mv, String bookmarkId,HttpSession session, String search) {
 
 		    Member loginUser = (Member)session.getAttribute("loginUser");

@@ -16,6 +16,10 @@
   <title>Hello, world!</title>
   <style>
   .DCard{height: 210px;}
+  .aStyle{text-decoration:none; color: black;} 
+  .aStyle:hover {
+	text-decoration:none;
+	}
   </style>
   <script src="https://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -94,9 +98,12 @@
                 <div class="card">
                   <div class="card-header">미답변 문의</div>
                   <div class="card-body">
-                  <div class="DCard">                  
+                  <div class="DCard">  
                   	<c:forEach var="iq" items="${inquiry }">
-                    <p>${iq.boardTitle }</p>
+	                <c:url var="selectInquiryOne" value="selectInquiryOne.do">
+	             		<c:param name="boardId" value="${iq.boardId }"/>
+	             	</c:url>   
+		            <a class="aStyle" href="${selectInquiryOne }">${iq.boardTitle }</a> 
                     <hr>
                     </c:forEach>
                     </div>
@@ -111,7 +118,10 @@
                   <div class="card-body" >
                   <div class="DCard" >
                     <c:forEach var="no" items="${notice }">
-                    <p>${no.boardTitle }</p>
+                    <c:url var="selectBoardOneAdmin" value="selectBoardOneAdmin.do">
+	             		<c:param name="boardId" value="${no.boardId }"/>
+	             	</c:url>   
+		            <a class="aStyle" href="${selectBoardOneAdmin }">${no.boardTitle }</a>                    
                     <hr>
                     </c:forEach>
                   </div>
@@ -133,7 +143,10 @@
                   <div class="card-body">
                   <div class="DCard">
                     <c:forEach var="fa" items="${faq }">
-                    <p>${fa.boardTitle }</p>
+                    <c:url var="selectBoardOneAdmin" value="selectBoardOneAdmin.do">
+	             		<c:param name="boardId" value="${fa.boardId }"/>
+	             	</c:url>   
+		            <a class="aStyle" href="${selectBoardOneAdmin }">${fa.boardTitle }</a>
                     <hr>
                     </c:forEach>
                     </div>
@@ -153,7 +166,10 @@
                   <div class="card-body">
                   <div class="DCard">
                     <c:forEach var="ml" items="${mylist }">
-                    <p>${ml.mlTitle }</p>
+                    <c:url var="selectOneMylistAdmin" value="selectOneMylistAdmin.do">
+	             		<c:param name="mlId" value="${ml.mlId }"/>
+	             	</c:url>   
+		            <a class="aStyle" href="${selectOneMylistAdmin }">${ml.mlTitle }</a>
                     <hr>
                     </c:forEach>
                     </div>

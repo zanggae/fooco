@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,13 +29,11 @@
 	@font-face {font-family: 'heavy'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff'); font-weight: bold; font-style: normal;}
 	@font-face {font-family: 'light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff'); font-weight: normal; font-style: normal;}
 	* {font-family:'light';}
-
-
+	
 	/* breadcrumb */
 	.breadcrumb {background-color:white; margin-bottom:0; padding-bottom:0;}
 	.breadcrumb * {font-family:'medium'}
 	.breadcrumb a {color:rgb(204,51,98);}
-	
 	
 	/* 디테일 */
 	.detail {padding-right:0;}
@@ -64,7 +63,7 @@
 	
 	
 	/* 광고 */
-	.sr-ad-col {height:9rem; margin-bottom:1rem; background-color:#ECECEC; border-radius:0.5rem;}
+	.sr-ad-col {height:9rem; margin-bottom:1rem; background-color:#ECECEC; border-radius:0.5rem; padding:0.5rem;}
 
 
 	/* 비슷한 음식점 */
@@ -93,7 +92,7 @@
 	.carousel-control-next-icon {color:rgb(204,51,98);}
 	.photoDetail-img {height:30rem; border-radius:0.5rem;}
 	.mz-review-rating-row .col-10 {color:#F4E04E;}
-	.
+	.noLatestImage {background:#ECECEC;}
 </style>
 </head>
 <body>
@@ -121,11 +120,23 @@
 						<div class="col mz-img-small-col">
 							<div class="row row-cols-2">
 								<c:forEach var="images" items="${res.resLatestImages}">
-								<div class="col mz-img-small-col-inner">
-									<div class="mz-img-small-div">
-										<img src="${contextPath}/resources/${images.imageFilepath}/${images.imageNewName}" class="mz-img-small"/>
-									</div>
-								</div>
+									<c:choose>
+										<c:when test="${not empty images.imageId}">
+											<div class="col mz-img-small-col-inner">
+												<div class="mz-img-small-div">
+													<img src="${contextPath}/resources/${images.imageFilepath}/${images.imageNewName}" class="mz-img-small" />
+												</div>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="col mz-img-small-col-inner">
+												<div class="mz-img-small-div">
+													<img src="#" class="mz-img-small noLatestImage"/>
+												</div>
+											</div>
+										</c:otherwise>
+									</c:choose>
+								
 								</c:forEach>
 							</div>
 						</div>
@@ -143,7 +154,8 @@
 										<span style="font-family: 'bold'; font-size: 1.5rem;">${res.locationName}</span>
 									</div>
 									<div class="col-10 mz-address d-flex align-items-center">
-										<p style="font-family: 'medium'; font-size: 1rem; margin: 0;">${res.resAddress}</p>
+										<c:set var="address" value="${fn:split(res.resAddress,',')}"/>
+										<p style="font-family: 'medium'; font-size: 1rem; margin: 0;">${address[1]}</p>
 									</div>
 								</div>
 								<div class="row mz-explanation">
@@ -248,6 +260,31 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		
+		<script>
+ 			$('#myTab a').click(function(e) {
+				e.preventDefault();
+				$(this).tab('show');
+			}); 
+			
+			$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+				var id = $(e.target).attr("href").substr(1);
+				window.location.hash = id;
+			});
+			
+			
+			var hash = window.location.hash;
+				$('#myTab a[href="' + hash + '"]').tab('show');
+		</script>
+		
+		<script>
+			var scrollmem = $("html,body").scrollTop();
+			window.location.hash = hash;
+			$("html,body").scrollTop();
+		</script>
+	
 
 
 		<!-- 리뷰 작성하기 모달 -->
@@ -263,14 +300,15 @@
 						<div class="row d-block">
 							<div class="row">
 								<input type="hidden" name="resId" value="${res.resId}">
-								<span style="font-family: 'bold'; font-size: 1.3rem;">경남스시</span>
+								<span style="font-family: 'bold'; font-size: 1.3rem;">${res.resName}</span>
 							</div>
 							<div class="row d-flex align-items-center">
 								<i class="fas fa-map-marker-alt" style="color: rgb(204, 51, 98); font-size: 1.3rem; margin-right: 0.3rem;"></i>
-								<span style="font-family: 'medium'; font-size: 1rem;">인천</span>
+								<span style="font-family: 'medium'; font-size: 1rem;">${res.locationName}</span>
 							</div>
 							<div class="row">
-								<span style="font-size: 0.8rem;">인천시 남동구 서창동 661-3</span>
+								<c:set var="address" value="${fn:split(res.resAddress,',')}"/>
+								<span style="font-size: 0.8rem;">${address[1]}</span>
 							</div>
 						</div>
 						<hr>
@@ -342,9 +380,9 @@
 					<div class="modal-footer">
 						<button type="button" class="btn" data-dismiss="modal" style="font-family:'heavy'; font-size:1.1rem;">취소하기</button>
 						<button type="button" class="btn" onclick="formSubmit();" style="font-family:'heavy'; font-size:1.1rem;">등록하기</button>
-						<input type="hidden" id="realname" name="realname"/>
-						<input type="hidden" id="filename" name="filename"/>
-						<input type="hidden" id="filesize" name="filesize"/>
+						<input type="hidden" id="realname" name="realname" value=""/>
+						<input type="hidden" id="filename" name="filename" value=""/>
+						<input type="hidden" id="filesize" name="filesize" value=""/>
 					</div>
 				</div>
 			</div>
@@ -431,7 +469,7 @@
             function formSubmit() {
                 var brd_title = document.getElementById("reviewContent");
                 if (brd_title.value === "") {
-                    alert("내용을 입력해주세요.");
+                    ("내용을 입력해주세요.");
                     return;
                 }
 
@@ -450,7 +488,7 @@
                 document.uploadReview.submit();
             }
         </script>
->
+
 
 
 		<!-- 사진 자세히보기 모달 -->
@@ -460,41 +498,31 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-7" style="padding: 0;">
-								<div id="carouselExampleControls" class="carousel slide"
-									data-ride="carousel">
+								<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 									<div class="carousel-inner">
 										<div class="carousel-item active">
-											<img src="resPhoto/sushi (1).jpg"
-												class="d-block w-100 photoDetail-img" alt="...">
+											<img src="resPhoto/sushi (1).jpg" class="d-block w-100 photoDetail-img" alt="...">
 										</div>
 										<div class="carousel-item">
-											<img src="resPhoto/sushi (2).jpg"
-												class="d-block w-100 photoDetail-img" alt="...">
+											<img src="resPhoto/sushi (2).jpg" class="d-block w-100 photoDetail-img" alt="...">
 										</div>
 										<div class="carousel-item">
-											<img src="resPhoto/sushi (3).jpg"
-												class="d-block w-100 photoDetail-img" alt="...">
+											<img src="resPhoto/sushi (3).jpg" class="d-block w-100 photoDetail-img" alt="...">
 										</div>
 									</div>
-									<a class="carousel-control-prev"
-										href="#carouselExampleControls" role="button"
-										data-slide="prev"> <span
-										class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 										<span class="sr-only">Previous</span>
-									</a> <a class="carousel-control-next"
-										href="#carouselExampleControls" role="button"
-										data-slide="next"> <span
-										class="carousel-control-next-icon" aria-hidden="true"></span>
+									</a> <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
 										<span class="sr-only">Next</span>
 									</a>
 								</div>
 							</div>
 							<div class="col-5" style="padding-right: 0;">
 								<div class="row d-flex justify-content-end">
-									<button type="button" class="close d-flex justify-content-end"
-										data-dismiss="modal">
-										<i class="fas fa-times"
-											style="color: white; font-size: 1.1rem;"></i>
+									<button type="button" class="close d-flex justify-content-end" 	data-dismiss="modal">
+										<i class="fas fa-times" style="color: white; font-size: 1.1rem;"></i>
 									</button>
 								</div>
 								<div class="row mz-review-div" style="padding-right: 0;">
@@ -507,19 +535,15 @@
 										<div class="row" style="padding-right: 0.5rem;">
 											<div class="col-8">
 												<div class="row">
-													<span
-														style="font-size: 1.2rem; font-family: 'bold'; color: white;">와니</span>
+													<span style="font-size: 1.2rem; font-family: 'bold'; color: white;">와니</span>
 												</div>
 												<div class="row">
-													<span style="font-size: 0.7rem; color: lightgray;">리뷰
-														32개 · 팔로워 51명</span>
+													<span style="font-size: 0.7rem; color: lightgray;">리뷰 32개 · 팔로워 51명</span>
 												</div>
 											</div>
 											<div class="col-4">
-												<div class="mz-review-follow-btn-div"
-													style="text-align: end;">
-													<input type="button" value="팔로우"
-														class="mz-review-follow-btn" style="margin-top: 0.5rem;">
+												<div class="mz-review-follow-btn-div" style="text-align: end;">
+													<input type="button" value="팔로우" class="mz-review-follow-btn" style="margin-top: 0.5rem;">
 												</div>
 											</div>
 										</div>
@@ -529,9 +553,11 @@
 													<span style="font-family: 'medium'; color: white;">맛</span>
 												</div>
 												<div class="col-10">
-													<i class="fas fa-star"></i><i class="fas fa-star"></i><i
-														class="fas fa-star"></i><i class="fas fa-star"></i><i
-														class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
 												</div>
 											</div>
 											<div class="row">
@@ -539,9 +565,11 @@
 													<span style="font-family: 'medium'; color: white;">가격</span>
 												</div>
 												<div class="col-10">
-													<i class="fas fa-star"></i><i class="fas fa-star"></i><i
-														class="fas fa-star"></i><i class="fas fa-star"></i><i
-														class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
 												</div>
 											</div>
 											<div class="row">
@@ -549,9 +577,11 @@
 													<span style="font-family: 'medium'; color: white;">서비스</span>
 												</div>
 												<div class="col-10">
-													<i class="fas fa-star"></i><i class="fas fa-star"></i><i
-														class="fas fa-star"></i><i class="fas fa-star"></i><i
-														class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
 												</div>
 											</div>
 										</div>
@@ -569,20 +599,13 @@
 													진짜 진짜 맛있어요~! 진짜 진짜 맛있어요~! 진짜 진짜 맛있어요~! 진짜 진짜 맛있어요~! 진짜 진짜
 													맛있어요~! 진짜 진짜 맛있어요~! </span>
 											</p>
-											<a class="review-content-more-btn"
-												id="review-content-more-btn"
-												style="font-size: 0.8rem; font-family: 'medium'; cursor: pointer;"
-												onclick="readmore()">더 보기</a>
+											<a class="review-content-more-btn" id="review-content-more-btn" style="font-size: 0.8rem; font-family: 'medium'; cursor: pointer;" onclick="readmore()">더 보기</a>
 										</div>
 										<div class="row mz-review-rating-good">
-											<span style="font-size: 0.7rem; color: lightgray;">좋아요
-												32개</span>
+											<span style="font-size: 0.7rem; color: lightgray;">좋아요 32개</span>
 										</div>
 										<div class="row mz-review-rating-good-btn">
-											<a class="review-content-good-btn"
-												id="review-content-good-btn" onclick="pushGood()"
-												style="font-size: 0.8rem; color: mediumseagreen; font-family: 'medium'; cursor: pointer;">&#x1F44D;
-												좋아요</a>
+											<a class="review-content-good-btn" id="review-content-good-btn" onclick="pushGood()" style="font-size: 0.8rem; color: mediumseagreen; font-family: 'medium'; cursor: pointer;">&#x1F44D; 좋아요</a>
 										</div>
 									</div>
 								</div>

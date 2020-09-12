@@ -40,6 +40,8 @@
 		<typeAlias type="com.kh.fooco.member.model.vo.Select_Coupon" alias="Select_Coupon"/>
 		<typeAlias type="com.kh.fooco.restaurant.model.vo.Bookmark" alias="Bookmark"/>
 		<typeAlias type="com.kh.fooco.member.model.vo.TM" alias="TM"/>
+		<typeAlias type="com.kh.fooco.member.model.vo.Select_ReviewInfo" alias="Select_ReviewInfo"/>
+		
 	</typeAliases>
 	
 	<mappers>
