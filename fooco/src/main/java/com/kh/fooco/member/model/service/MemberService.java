@@ -144,7 +144,7 @@ int chekchemailDup(String email);
 
    int insertMylistRes(String th);
 
-   ArrayList<MyListAdmin> selectmyPageMylist();
+   ArrayList<MyListAdmin> selectmyPageMylist(int memberId);
 
    int deleteMylistR(MyListAdmin ma);
 

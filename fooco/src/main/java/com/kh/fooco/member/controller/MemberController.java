@@ -1133,7 +1133,7 @@ public class MemberController {
    public ModelAndView selectmyPageMylist(ModelAndView mv, HttpSession session) {
       int memberId = ((Member) session.getAttribute("loginUser")).getMemberId();
 
-      ArrayList<MyListAdmin> mylist = memberService.selectmyPageMylist();
+      ArrayList<MyListAdmin> mylist = memberService.selectmyPageMylist(memberId);
 
       System.out.println("mylist db조회 후 화면에 뿌리기 전 : " + mylist);
  

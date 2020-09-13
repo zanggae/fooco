@@ -751,7 +751,7 @@ INSERT INTO MYLIST VALUES
 
 <select id="selectmyPageMylist" resultMap="MylistResultSet">
    SELECT *
-   FROM SELECT_MYLIST_ADMIN
+   FROM SELECT_MYLIST_ADMIN WHERE MEMBER_ID=#{memberId}
    
 </select>
 
