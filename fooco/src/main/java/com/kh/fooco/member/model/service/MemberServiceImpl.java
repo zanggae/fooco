@@ -440,8 +440,8 @@ public class MemberServiceImpl implements MemberService{
 
 
    @Override
-   public ArrayList<MyListAdmin> selectmyPageMylist() {
-      return memberDao.selectmyPageMylist();
+   public ArrayList<MyListAdmin> selectmyPageMylist(int memberId) {
+      return memberDao.selectmyPageMylist(memberId);
    }
 
    

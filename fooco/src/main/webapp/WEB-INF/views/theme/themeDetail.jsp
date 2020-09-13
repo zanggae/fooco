@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
 <html lang="ko">
 
@@ -207,8 +208,9 @@
                     </div>
                     <!--제목, 평점 구역 끝-->
                     <div class="row">
+                    <c:set var="address" value="${fn:split(r.resAddress,',')}"/>
                       <div class="col-10 address">
-                        ${r.resAddress }
+                        ${address[1]}
                       </div>
 
                     </div>

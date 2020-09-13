@@ -374,9 +374,9 @@ public class MemberDao {
    }
    
    
-   public ArrayList<MyListAdmin> selectmyPageMylist() {
+   public ArrayList<MyListAdmin> selectmyPageMylist(int memberId) {
 
-      return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectmyPageMylist");
+      return (ArrayList)sqlSessionTemplate.selectList("mypageMapper.selectmyPageMylist",memberId);
    }
 
    public int deleteMylistR(MyListAdmin ma) {
