@@ -51,14 +51,13 @@
         .btn-warning{box-shadow : none ! important; margin-left: 0.2rem; width: 4.5rem !important;font-size: 1.3rem;height: 3.1rem ;margin-top:-0.5px;}
         
         /*테마 검색결과*/
-      .bottom{margin-left: 12rem; margin-top: 3rem;} 
+      .bottom{margin-top: 3rem;} 
       .text3{font-size: 2rem; font-weight: bolder;color: rgb(204, 51, 98);}
-      .img1{text-align: center; width: 22rem; height: 16rem;opacity: 0.7; z-index: 0; border: solid black 0.4rem;border-radius: 5%;}
+      .img1{text-align: center; width: 22rem; height: 16rem;opacity: 0.7; z-index: 0; border: solid black 0.3rem;border-radius: 5%;}
       .text4{text-align: center; position: absolute; top: 50%; left: 50%; transform: translate( -50%, -50% );}
       .titlefont{font-size: 1.5rem; font-family:'heavy'; color:black; }
       #heart{position: absolute; color: red; z-index: 100; top:12rem; left: 19rem; font-size: 3rem;} 
-      #heart2{position: absolute; color: black; z-index: 100; top:12rem; left: 19rem; font-size: 3rem;} 
-      #position{margin-left: 11rem; width: 50.5rem; text-align: center;}	
+      #heart2{position: absolute; color: black; z-index: 100; top:12rem; left: 19rem; font-size: 3rem;} 	
       #noneResult{font-family:'heavy'; font-size:2rem; margin-left:4.5rem; margin-top:7rem;}
       
       #heart{cursor: pointer;} 
@@ -115,12 +114,12 @@
               
               </c:if>
                 
-                <
+                
                 <c:if test="${!empty theme }">
 	               <c:url var="themeMain" value="themeMain.do">
 	                	<c:param name="searchTheme" value="${searchTheme }"/>
 	               </c:url>
-                <div class="container">
+                 <div class="container"> 
                 <div class="bottom">
                 <!-- 검색하지 않았을 시 나오는 화면 -->
                 <c:if test="${empty searchTheme }">
@@ -140,7 +139,7 @@
                 
                 
                 <br>
-                <div class="row row-cols-2" id="position">
+                <div class="row row-cols-3" id="position">
               	<c:forEach var="t" items="${theme }">
               	
                   	<c:url var="themedetail" value="themedetail.do">
@@ -165,6 +164,7 @@
                 </c:forEach> 
                   </div>
                 </div>
+                <br>
                 </c:if>
                 <script>
                 	function heartClick(id){
