@@ -101,13 +101,13 @@
         <div class="col-2" style="margin-top: 3rem;">
 
           <ul class="leftMenubar">
-            <li class="li_1" style="margin-top: 3.5rem; margin-bottom: 1.3rem;">고객센터</li>
+           <li class="li_1" style="margin-top: 3.5rem; margin-bottom: 1.3rem;">고객센터</li>
 
             <li><a href="notice.do" class="li_3">공지사항</a></li>
 
             <li><a href="FAQ.do" class="li_2">FAQ</a></li>
 
-            <li><a href="#" class="li_3">1:1 문의</a></li>
+            <li><a href="inquiry.do" class="li_3">1:1 문의</a></li>
           </ul>
 
         </div>
