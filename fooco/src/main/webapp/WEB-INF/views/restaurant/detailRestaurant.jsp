@@ -97,7 +97,8 @@
 			<div class="row breadcrumb-row">
 				<nav class="breadcrumb-nav">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">HOME</a></li>
+						<li class="breadcrumb-item"><a href="goMain.do">HOME</a></li>
+						<li class="breadcrumb-item"><a href="javascript:history.back()">검색 결과</a></li>
 						<li class="breadcrumb-item active" aria-current="page">${res.resName}</li>
 					</ol>
 				</nav>

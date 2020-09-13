@@ -116,7 +116,7 @@
 			<div class="row sr-breadcrumb">
 				<nav class="sr-breadcrumb-nav">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">HOME</a></li>
+						<li class="breadcrumb-item"><a href="goMain.do">HOME</a></li>
 						<li class="breadcrumb-item active" aria-current="page">검색 결과</li>
 					</ol>
 				</nav>
@@ -369,7 +369,7 @@
 									</div>
 									<div class="row" class="sr-mz-bestReview" style="margin-top:0.5rem; min-height:5rem;">
 										<c:if test="${empty res.bestReview}">
-											<p style="margin:auto; text-align:center;">
+											<p style="margin:auto; text-align:center; font-size:0.9rem;">
 												'${res.resName}'을 방문하시고<br>
 												제일 먼저 댓글을 남겨 보세요!
 											<p>
