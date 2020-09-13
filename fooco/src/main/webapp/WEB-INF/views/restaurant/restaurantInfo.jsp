@@ -14,6 +14,8 @@
 	.fa-check-square {color:rgb(204,51,98); font-size:1.5rem; margin-right:0.5rem;}
 	.mz-moreInfo-option-row {width:40%;}
 	.mz-moreInfo-option-row > div {padding:0;}
+	.carousel-control-next {z-index:9999;}
+	.carousel-control-prev {z-index:9999;}
 </style>
 </head>
 <body>
