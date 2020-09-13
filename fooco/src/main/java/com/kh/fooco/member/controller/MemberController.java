@@ -136,30 +136,30 @@ public class MemberController {
          System.out.println("일치하는 회원이 없음");
          response.setContentType("text/html; charset=UTF-8");
          PrintWriter out = response.getWriter();
-         out.println("<script>alert('아이디와 비밀번호를 다시 확인해주세요'); history.go(-1);</script>");
+         out.println("<script>alert('아이디와 비밀번호를 다시 확인해주세요'); location.href='main.do';</script>");
          out.flush();
       } else if (bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
          model.addAttribute("loginUser", loginUser);
          System.out.println("로그인 성공");
          
-         //이전 페이지 정보 가져오기
-         String referer = request.getHeader("Referer");
- 		 request.getSession().setAttribute("redirectURI", referer);
- 		 String result = referer.substring(referer.lastIndexOf("/")+1);
- 		 System.out.println("result 주소값 "+result);
- 		 
- 		 //회원가입 후 로그인바로 시 메인으로 들어가도록 조건
- 		 if(result.equals("insertMember.do")) {
- 			 result="main.do";
- 		 }
- 		 
- 		 return "redirect:"+result;
-        
+			
+			  //이전 페이지 정보 가져오기 
+         	  String referer = request.getHeader("Referer");
+			  request.getSession().setAttribute("redirectURI", referer); 
+			  String result = referer.substring(referer.lastIndexOf("/")+1);
+			  System.out.println("result 주소값 "+result);
+			  
+			  //회원가입 후 로그인바로 시 메인으로 들어가도록 조건 
+			  if(result.equals("insertMember.do")) {
+			  result="main.do"; 
+			  } 
+			  return "redirect:"+result;
+
       } else {
          System.out.println("로그인 실패");
          response.setContentType("text/html; charset=UTF-8");
          PrintWriter out = response.getWriter();
-         out.println("<script>alert('비밀번호를 다시 확인해주세요'); history.go(-1);</script>");
+         out.println("<script>alert('비밀번호를 다시 확인해주세요'); location.href='main.do';</script>");
          out.flush();
       }
 		return "common/main";  
@@ -1099,6 +1099,10 @@ public class MemberController {
    public String mylistRegist() {
       return "mypage/mypageMylistRegist";
    }
+   @RequestMapping("mylistRegistrationFin.do")
+   public String mylistRegistrationFin() {
+	   return "mypage/mylistRegistrationFin";
+   }
 
    // 마이리스트 - 등록
    @RequestMapping(value = "insertMylist.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -1119,7 +1123,7 @@ public class MemberController {
          themeRListResult = memberService.insertMylistRes(th);
       }
 
-      mv.setViewName("redirect:main.do");
+      mv.setViewName("redirect:mylistRegistrationFin.do");
       
       return mv;
    }

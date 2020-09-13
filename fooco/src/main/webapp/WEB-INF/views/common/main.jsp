@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +70,7 @@
         .ml-title-col {vertical-align:middle; padding-left:1rem; margin-bottom:1rem;}
         .ml-title {color:rgb(204,51,98); font-size:1.5rem;}
         .ml-row {width:70rem;}
-        .ml-list {min-width:6rem; min-height:8rem; border:none; border-radiusㄹ:1rem; padding:0.5rem; padding-top:1rem; margin-right:1rem; margin-bottom:0.5rem; color:black; text-align:center; text-decoration:none;}
+        .ml-list {min-width:6rem; min-height:8rem; border:none; border-radius:1rem; padding:0.5rem; padding-top:1rem; margin-right:1rem; margin-bottom:0.5rem; color:black; text-align:center; text-decoration:none;}
         .ml-list:hover {background:#ECECEC; color:black; cursor:pointer;}
         .ml-logo-div {width:4rem; height:4rem; margin:auto; margin-bottom:0.5rem;}
         .ml-logo {max-width:100%;}
@@ -82,13 +83,15 @@
 
         /* 테마 맛집 */
         .mainTheme {margin-top:8rem; margin-bottom:8rem;}
-        .mt-container {display:flex; justify-content:center; align-items:center;}
+        .mt-container {justify-content:center; align-items:center;}
         .mt-row {width:70rem;}
         .mt-title-col {vertical-align:middle; padding-left:1rem; margin-bottom:1rem;}
         .mt-title {color:rgb(204,51,98); font-size:1.5rem;}
-        .mt-list-col {padding:1rem; padding-top:0; padding-bottom:2rem; width:20rem; height:15rem;}
-        .mt-list {border-radius:1rem; width:100%; height:100%; border:0.2rem solid black; background-size:cover;}
+        .mt-list-col {padding-top:0; padding-bottom:2rem; height:15rem;}
+        .mt-list {width:100%; height:100%;}
         .mt-list-content {color:white;}
+        .themeBackground {position:relative; width:100%; height:100%; border-radius:1rem;}
+        .themeInnerText {position:absolute;}
 
         
         /* 메인 푸터 */
@@ -377,36 +380,16 @@
                         </div>
                         <div class="col">
                             <div class="row row-cols-3 mt-list-row">
-                                <div class="col mt-list-col">
-                                    <div class="col mt-list shadow-sm d-flex justify-content-center align-items-center" style="background-image:url('resThumb/restaurant1.jpg');">
-                                        <p class="mt-list-content" style="font-family:'medium'">혼밥하기 정말 좋은 곳 BEST10</p>
-                                    </div>
-                                </div>
-                                <div class="col mt-list-col">
-                                    <div class="col mt-list shadow-sm d-flex justify-content-center align-items-center" style="background-image:url('resThumb/restaurant2.jpg');">
-                                        <p class="mt-list-content" style="font-family:'medium'">혼밥하기 정말 좋은 곳 BEST10</p>
-                                    </div>
-                                </div>
-                                <div class="col mt-list-col">
-                                    <div class="col mt-list shadow-sm d-flex justify-content-center align-items-center" style="background-image:url('resThumb/restaurant3.jpg');">
-                                        <p class="mt-list-content" style="font-family:'medium'">혼밥하기 정말 좋은 곳 BEST10</p>
-                                    </div>
-                                </div>
-                                <div class="col mt-list-col">
-                                    <div class="col mt-list shadow-sm d-flex justify-content-center align-items-center" style="background-image:url('resThumb/restaurant4.jpg');">
-                                        <p class="mt-list-content" style="font-family:'medium'">혼밥하기 정말 좋은 곳 BEST10</p>
-                                    </div>
-                                </div>
-                                <div class="col mt-list-col">
-                                    <div class="col mt-list shadow-sm d-flex justify-content-center align-items-center" style="background-image:url('resThumb/restaurant5.jpg');">
-                                        <p class="mt-list-content" style="font-family:'medium'">혼밥하기 정말 좋은 곳 BEST10</p>
-                                    </div>
-                                </div>
-                                <div class="col mt-list-col">
-                                    <div class="col mt-list shadow-sm d-flex justify-content-center align-items-center" style="background-image:url('resThumb/restaurant6.jpg');">
-                                        <p class="mt-list-content" style="font-family:'medium'">혼밥하기 정말 좋은 곳 BEST10</p>
-                                    </div>
-                                </div>
+                            	<c:forEach var="theme" items="${theme}">
+                            		<div class="col mt-list-col">
+	                                    <div class="col mt-list d-flex justify-content-center align-items-center" style="padding:0;">
+	                                    	<a style="height:100%;">
+	                                    		<img class="themeBackground shadow-sm" src="${contextPath}/resources/restaurantImage/${theme.themeImageName}"/>
+	                                    	</a>
+	                                    	<p class="mt-list-content themeInnerText" style="font-family:'medium'">${theme.themeTitle}</p>
+	                                    </div>
+	                                </div>
+                            	</c:forEach>
                             </div>
                         </div>
                     </div>
