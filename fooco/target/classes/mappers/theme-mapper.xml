@@ -113,6 +113,14 @@ WHERE THEME_ID=#{themeId}
 	WHERE THEME_ID = #{themeId}
 </update>
 
+<select id="getMainTheme" resultMap="ThemeResultSet">
+	SELECT TM.*
+	FROM   (SELECT TA.*, ROW_NUMBER() OVER(ORDER BY TA.THEME_COUNT DESC) AS "THEME_RANK" 
+            FROM SELECT_THEME_ADMIN TA) TM
+    <![CDATA[
+    WHERE TM.THEME_RANK <= 6
+	]]>
+</select>
 
 </mapper>
 

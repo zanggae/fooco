@@ -147,11 +147,17 @@
                   <button type="button" class="btn btn-warning btn-sm" style="padding: 0.2rem;" onclick="checkinRegister();">추가하기</button>
               </div>
             </div>
-
+            <!-- 작성된 체크인이 없을 때 -->
+			 	<c:if test="${empty checkinList }">
+				 	<div style="background-color:white; height:10rem; border-radius: 0.5rem; padding-top:3.8rem;">
+						<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;작성된 체크인이 없습니다.</p>
+					</div>
+				</c:if>
+			
             <div class="checkin_div_div">
-
+			
               <c:forEach var="checkinList" items="${checkinList }">
-              <div class="checkin_div shadow-sm">
+              	<div class="checkin_div shadow-sm">
                 <div class="row">
                   <div class="col-3">
                     <img src="${contextPath }/resources/restaurantImage/${checkinList.resImage}" style="width: 8rem; height: 6rem; margin:0rem;">
@@ -190,32 +196,25 @@
 	                    <img src="${contextPath }/resources/checkinImage/${checkinImageList.imageNewName}" style="width: 11rem; height: 7rem; margin:0rem;">
 	                  </div>
 	                  </c:if>
-	                  <c:if test="${empty checkinImageList.imageNewName }">
-	                  	<p>첨부된 사진이 없습니다 ㅠㅡㅠ</p>
-	                  </c:if>
                 	</c:forEach>
 	                </div>
-	               </div> 
+	                <!-- 첨부된 파일이 하나도 없을 때 -->
+	                <c:forEach var="checkinImageList1" items="${checkinList.checkinImageList }">
+	                	<c:if test="${empty checkinImageList1.imageNewName }">
+	                	<div style="height:5rem; padding-top:2.8rem;">
+							<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;첨부된 사진이 없습니다.</p>
+	                  	</div>
+	                  </c:if>
+	                </c:forEach>
                 </c:forEach>
+                </div>
+                
               </div>
-
-               
-
-              
-              
-              
-              
-              
-
-					</div>
 				</div>
-
 				<jsp:include page="../common/myPageAdMenubar.jsp"></jsp:include>
-
 			</div>
 		</div>
 	</section>
-
 </body>
 
 
