@@ -46,7 +46,11 @@ public class ThemeController {
       }
 
 		ArrayList<ThemeAdmin> theme = new ArrayList<ThemeAdmin>();
-		
+		if(searchTheme!=null) {
+			if(searchTheme.equals("")) {
+				searchTheme=null;
+			}			
+		}
 		
 		if (searchTheme == null) {
 
