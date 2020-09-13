@@ -145,7 +145,7 @@
 
             <li><a href="FAQ.do" class="li_2">FAQ</a></li>
 
-            <li><a href="#" class="li_3">1:1 문의</a></li>
+            <li><a href="inquiry.do" class="li_3">1:1 문의</a></li>
           </ul>
 
         </div>

@@ -115,7 +115,7 @@
 		                <div class="boundary mt-5">
 		                    <div class="row">
 		                        <div class="col-5" align="center" style="vertical-align:middle;">
-		                            <img style="height: 55%; width: 90%;" class="bo mt-4" src="resources/restaurantImage/${mlR.resImageName }">
+		                            <img style="height: 12rem; width: 90%;" class="bo mt-4" src="resources/restaurantImage/${mlR.resImageName }">
 		                        </div>
 		                        <div class="col-7" style="margin: 0%; padding: 0%; height: 90%">
 		                            <div style="height: 80%;" class="mt-4">
