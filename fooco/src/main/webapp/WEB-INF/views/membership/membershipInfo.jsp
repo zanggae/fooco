@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<!-- 아이콘 -->
 	<script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
+	<!-- sweet alert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <title>membershipInfo</title> 
     
@@ -488,11 +490,11 @@
     	var membershipcheck = $("#membershipcheck").val();
     	
     	if(loginUser.val()==""){
-    		alert("로그인 후 이용 가능한 서비스입니다.");
+    		swal("로그인 후 이용 가능한 서비스입니다.");
     		return;
     	}
     	if(membershipcheck!=""){
-    		alert("이미 사용 중인 멤버십이 존재합니다");
+    		swal("이미 사용 중인 멤버십이 존재합니다");
     		return;
     	}else{
     		 requestPay1();
@@ -506,11 +508,11 @@
     	var membershipcheck = $("#membershipcheck").val();
     	
     	if(loginUser.val()==""){
-    		alert("로그인 후 이용 가능한 서비스입니다.");
+    		swal("로그인 후 이용 가능한 서비스입니다.");
     		return;
     	}
     	if(membershipcheck!=""){
-    		alert("이미 사용 중인 멤버십이 존재합니다");
+    		swal("이미 사용 중인 멤버십이 존재합니다");
     		return;
     	}else{
     		requestPay2(); 
@@ -542,11 +544,11 @@
                console.log("결제 성공");
                //결제 완료 후 결과 화면으로
                $("#mbuyFormGold").submit();
-               alert("결제성공");
+               swal("결제성공");
             } else {
                 console.log("결제 실패");
                 var msg = rsp.error_msg;
-                alert(msg);
+                swal(msg);
             }
         });
       }
@@ -577,11 +579,11 @@
                  console.log("결제 성공");
                  //결제 완료 후 결과 화면으로
                  $("#mbuyFormSilver").submit();
-                 alert("결제성공");
+                 swal("결제성공");
               } else {
                   console.log("결제 실패");
                   var msg = rsp.error_msg;
-                  alert(msg);
+                  swal(msg);
               }
           });
         } 

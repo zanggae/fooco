@@ -1,7 +1,6 @@
 package com.kh.fooco.restaurant.controller;
 
 import static com.kh.fooco.common.Pagination.getPageInfo;
-import static com.kh.fooco.common.Pagination.getPhotoPageInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,15 +15,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 import com.kh.fooco.common.model.vo.Image;
 import com.kh.fooco.common.model.vo.PageInfo;
 import com.kh.fooco.member.model.vo.Member;
@@ -118,12 +115,6 @@ public class RestaurantController {
 	{
 		Res restaurant = restaurantService.getRestaurantDetail(resId);
 		Info info = restaurantService.getRestaurantInfo(resId);
-		
-		int currentPage = 1;
-		
-		int howManyReview = restaurantService.getReviewListCount(resId);
-		PageInfo pi = getPageInfo(currentPage, howManyReview);
-		
 		int upViewCount = restaurantService.upViewCount(resId);
 		
 		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
@@ -131,71 +122,20 @@ public class RestaurantController {
 		searchParameter.put("locationId", locationId);
 		searchParameter.put("sortType", sortType);
 		
-		ArrayList<Review> reviewList = new ArrayList<Review>();		
-		
-		reviewList = restaurantService.getReviewList(searchParameter, pi);
-		
-		int howManyReviewPhoto = restaurantService.getPhotoCount(resId);
-		PageInfo ppi = getPhotoPageInfo(currentPage, howManyReviewPhoto);
+		ArrayList<Review> reviewList = new ArrayList<Review>();			
+		reviewList = restaurantService.getReviewList(searchParameter);
 		
 		ArrayList<Restaurant> sameLocationBestRestaurant = getSameLocationRestaurant(searchParameter);		
 		ArrayList<Restaurant> membershipRestaurant = getMembershipRestaurant(searchParameter);
 		
 		ArrayList<Image> photoList = new ArrayList<Image>();
-		photoList = restaurantService.getPhotoList(searchParameter, ppi);
+		photoList = restaurantService.getPhotoList(searchParameter);
 		
 		mv.addObject("res", restaurant);
 		mv.addObject("info", info);
 		mv.addObject("reviewList", reviewList);
 		mv.addObject("sameLocationBestRestaurant", sameLocationBestRestaurant);
 		mv.addObject("membershipRestaurant", membershipRestaurant);
-		mv.addObject("photoList", photoList);
-		mv.setViewName("restaurant/detailRestaurant");
-		return mv;
-	}
-	
-	@RequestMapping("goRestaurantReview.do")
-	public void goRestaurantReview(HttpServletResponse response, @RequestParam(value="resId", required=false) Integer resId
-														  	   , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType
-														  	   , @RequestParam(value="page", required=false, defaultValue="1") Integer page) throws JsonIOException, IOException
-	{
-		int currentPage = page;
-		
-		int howManyReview = restaurantService.getReviewListCount(resId);
-		
-		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
-		searchParameter.put("resId", resId);
-		searchParameter.put("sortType", sortType);		
-		
-		PageInfo pi = getPageInfo(currentPage, howManyReview);
-		
-		ArrayList<Review> reviewList = new ArrayList<Review>();
-		reviewList = restaurantService.getReviewList(searchParameter, pi);
-		
-		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(reviewList, response.getWriter());		
-		
-	}
-	
-	@RequestMapping("goRestaurantPhoto.do")
-	public ModelAndView goRestaurantPhoto(ModelAndView mv, @RequestParam(value="resId", required=false) Integer resId
-														  , @RequestParam(value="sortType", required=false) String sortType
-														  , @RequestParam(value="page", required=false, defaultValue="1") Integer page)
-	{
-		int currentPage = page;		
-		int howManyPhoto = restaurantService.getPhotoCount(resId);
-		
-		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
-		searchParameter.put("resId", resId);
-		searchParameter.put("sortType", sortType);	
-		
-		PageInfo ppi = getPhotoPageInfo(currentPage, howManyPhoto);
-		
-		ArrayList<Image> photoList = new ArrayList<Image>();
-		photoList = restaurantService.getPhotoList(searchParameter, ppi);
-		
-		mv.addObject("ppi", ppi);
 		mv.addObject("photoList", photoList);
 		mv.setViewName("restaurant/detailRestaurant");
 		return mv;
@@ -244,7 +184,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value="uploadReview.do", method={RequestMethod.GET, RequestMethod.POST})
-	public void uploadReview(HttpServletRequest request, Review review
+	public String uploadReview(HttpServletRequest request, Review review
 			, @RequestParam(value="realname", required=false) String realname
 			, @RequestParam(value="filename", required=false) String filename
 			, @RequestParam(value="filesize", required=false) String filesize)
@@ -270,7 +210,9 @@ public class RestaurantController {
 		parameters.put("imageList", imageList);
 		
 		int result = restaurantService.uploadReview(parameters);
-		System.out.println(result);
+		int resId = review.getResId();
+		
+		return "redirect:goDetailRestaurant.do?resId=" + resId;
 	}
 	
 	@RequestMapping(value="enrollBookmark.do", method=RequestMethod.POST)
@@ -418,46 +360,45 @@ public class RestaurantController {
 		out.close();
 	}
 	
-	@RequestMapping(value="nextReview.do", method=RequestMethod.POST)
-	public void nextReview(HttpServletResponse response
-			, @RequestParam(value="resId", required=false) Integer resId
-			, @RequestParam(value="sortType", required=false) String sortType
-			, @RequestParam(value="page", required=false, defaultValue="1") Integer page) throws IOException
-	{		
-		PrintWriter out = response.getWriter();
-		int currentPage = page;
-		
-		HashMap<String, Object> searchParameter = new HashMap<String, Object>();
-		searchParameter.put("resId", resId);
-		searchParameter.put("sortType", sortType);
-		
-		int howManyReview = restaurantService.getReviewListCount(resId);
-		PageInfo pi = getPageInfo(currentPage, howManyReview);
-		
-		ArrayList<Review> reviewList = new ArrayList<Review>();		
-		reviewList = restaurantService.getReviewList(searchParameter, pi);
-		
-		
-		
-	}
-	
 	@RequestMapping(value="deleteReview.do", method=RequestMethod.POST)
 	public void deleteReview(HttpServletResponse response, Integer reviewId) throws IOException {
 		
 		PrintWriter out = response.getWriter();
-		int result = 0;
+		int deleteFile = 0;
+		int deleteReview = 0;
 		
-		result = restaurantService.deleteReview(reviewId);
+		deleteFile = restaurantService.deleteFile(reviewId);
 		
-		if(result > 0) {
-			out.append("success");
-			out.flush();
+		deleteReview = restaurantService.deleteReview(reviewId);
+		
+		if(deleteFile > 0) {
+			if(deleteReview > 0) {
+				out.append("success");
+				out.flush();
+			}else {
+				out.append("almostfail");
+				out.flush();
+			}
 		}else {
 			out.append("fail");
 			out.flush();
 		}
 		
 		out.close();
+	}
+	
+	@RequestMapping(value="expandPhoto.do", method=RequestMethod.GET)
+	public ModelAndView expandPhoto(ModelAndView mv, @RequestParam(value="reviewId", required=false) String reviewId)
+	{
+		Review selectOne = restaurantService.selectOneReview(reviewId);
+		
+		System.out.println(selectOne);
+		mv.addObject("selected", selectOne);
+		mv.setViewName("restaurant/detailRestaurant");
+		
+		System.out.println(selectOne);
+		
+		return mv;
 	}
 
 	public ArrayList<Integer> convertCategory(String category)

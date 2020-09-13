@@ -21,13 +21,9 @@ public interface RestaurantService {
 
 	Info getRestaurantInfo(Integer resId);
 
-	int getReviewListCount(Integer resId);
+	ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter);
 
-	ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter, PageInfo pi);
-
-	int getPhotoCount(Integer resId);
-
-	ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter, PageInfo ppi);
+	ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter);
 
 	int uploadReview(HashMap<String, Object> parameters);
 
@@ -47,7 +43,12 @@ public interface RestaurantService {
 
 	int followReviewer(HashMap<String, Object> searchParameters);
 
+	int deleteFile(Integer reviewId);
+	
 	int deleteReview(Integer reviewId);
+
+	Review selectOneReview(String reviewId);
+
 
 }
 

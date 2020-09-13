@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<!-- 아이콘 -->
 	<script src="https://kit.fontawesome.com/4b6b63d8f6.js" crossorigin="anonymous"></script>
+	<!-- sweet alert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <title>JOIN US</title>
 
@@ -688,6 +690,7 @@
       <!-- 중복체크 영역-->
       <script>
       checkEamilDup=""; 	//이메일 중복체크 했는 지 안했는지
+
       
       	/* 1. 닉네임 중복체크 */
         $("#nickName").on("change",function(){
@@ -695,7 +698,7 @@
           var regEx = /^[가-힣]{3,6}$/;
           
           if(!regEx.test($("#nickName").val())){
-			alert("닉네임은 한글로만 3자이상 6자 이하여야 합니다");
+			swal("닉네임은 한글로만 3자이상 6자 이하여야 합니다");
 			$("#nickName").focus();
           }else{
           $.ajax({
@@ -705,13 +708,13 @@
 				,success:function(data){
 					console.log("data값:"+data);
 					if(data==0){	//true=0					
-						alert("사용하실 수 있는 닉네임입니다.");
+						swal("사용하실 수 있는 닉네임입니다.");
 					}else{ //flase=1
-						alert("중복된 닉네임입니다.");
+						swal("중복된 닉네임입니다.");
 						$("#nickName").val("");
 					}
 				},error:function(request,status,errorData){
-					alert("error code:" + request.status + "\n"
+					swal("error code:" + request.status + "\n"
 							+"message: " +request.responseText
 							+"error: " + errorData);
 				}
@@ -730,18 +733,18 @@
             }
             
             if($("#email").val()==""){
-	            alert("이메일을 입력해주세요");
+	            swal("이메일을 입력해주세요");
 	            $("#email").focus();
 	            emailCheck=1;
 	            return;
 	          }
 	          if($("#selfSiteName").val()=="" &&($("#selectEmail").val()==""||$("#selectEmail").val()=="e_option")){
-	            alert("이메일주소를 선택해주세요");
+	            swal("이메일주소를 선택해주세요");
 	            emailCheck=1;
 	            return;
 	          }
 	          if($("#selectEmail").val()=="selfEmail" && ($("#selfSiteName").val()=="")){
-	            alert("이메일 주소를 입력해주세요");
+	            swal("이메일 주소를 입력해주세요");
 	            $("#selfSiteName").focus();
 	            emailCheck=1;
 	            return;
@@ -756,13 +759,13 @@
       				console.log("data값:"+data);
       				checkEamilDup = "done";
       				if(data==0){	//true=0					
-						alert("사용하실 수 있는 이메일입니다.");
+						swal("사용하실 수 있는 이메일입니다.");
 					}else{ //flase=1
-						alert("이미 존재하는 이메일입니다.");
+						swal("이미 존재하는 이메일입니다.");
 						$("#email").val("");
 					}
       			},error:function(request,status,errorData){
-					alert("error code:" + request.status + "\n"
+					swal("error code:" + request.status + "\n"
 							+"message: " +request.responseText
 							+"error: " + errorData);
 				}
@@ -774,7 +777,7 @@
         $(function(){
           window.onkeydown = function(){
             if(event.keyCode==116){
-              alert("회원가입 중 새로고침이 불가능합니다.");
+              swal("회원가입 중 새로고침이 불가능합니다.");
               event.keyCode = 2;
               return false;
             }else if(event.ctrlKey && (event.keyCode ==78 || event.keyCode ==82)){
@@ -786,73 +789,73 @@
       <!--각 항목 입력했는 지 체크-->
         function validate(){ 
           if($("#userName").val()==""){
-               alert("이름을 입력하세요");
+               swal("이름을 입력하세요");
                $("#userName").focus();
                return;
           }
           if($("#email").val()==""){
-            alert("이메일을 입력하세요");
+            swal("이메일을 입력하세요");
             $("#email").focus();
             return;
           }
           if($("#checkEmailnum").val()==""){
-              alert("이메일 인증을 완료해주세요");
+              swal("이메일 인증을 완료해주세요");
               $("#checkEmailnum").focus();
               return;
             }
           if(checkEamilDup!="done"){
-        	  alert("이메일 중복 확인 버튼을 클릭해주세요");
+        	  swal("이메일 중복 확인 버튼을 클릭해주세요");
         	return;
           }
           if($("#nickName").val()==""){
-            alert("닉네임을 입력하세요");
+            swal("닉네임을 입력하세요");
             $("#nickName").focus();
             return;
           }
           if($("#userPwd1").val()==""){
-            alert("비밀번호를 입력하세요");
+            swal("비밀번호를 입력하세요");
             $("#userPwd1").focus();
             return;
           }
           if ( ! jQuery('input[name="gender"]:checked').val() ) {
-            alert('성별을 선택해주세요.');
+            swal('성별을 선택해주세요.');
             jQuery('input[name="gender"]').focus();
             return false; 
           }
           if($("#terms_box").prop("checked")==false){
-            alert("필수 약관에 동의 하셔야 합니다");
+            swal("필수 약관에 동의 하셔야 합니다");
             return;
           }
           $("#joinForm").submit();
         }
-      </script>
+
 
       <!--이메일 본인인증-->
-      <script>
+
       	checkSuccess=""; 	//이메일 인증 상태
 		completeCheck=-1;	//인증한 이메일인지 아닌지
 		emailCheck=0;		//이메일 함수 사용 
 		
 		function emailTrimCheck(){
 			if($("#email").val()==""){
-	            alert("이메일을 입력해주세요");
+	            swal("이메일을 입력해주세요");
 	            $("#email").focus();
 	            emailCheck=1;
 	            return;
 	          }
 	          if($("#selfSiteName").val()=="" &&($("#selectEmail").val()==""||$("#selectEmail").val()=="e_option")){
-	            alert("이메일주소를 선택해주세요");
+	            swal("이메일주소를 선택해주세요");
 	            emailCheck=1;
 	            return;
 	          }
 	          if($("#selectEmail").val()=="selfEmail" && ($("#selfSiteName").val()=="")){
-	            alert("이메일 주소를 입력해주세요");
+	            swal("이메일 주소를 입력해주세요");
 	            $("#selfSiteName").focus();
 	            emailCheck=1;
 	            return;
 	          }
 	          if(completeCheck==1){
-					alert("이미 인증받은 메일입니다");
+					swal("이미 인증받은 메일입니다");
 					emailCheck=1;
 					return;
 				}
@@ -874,6 +877,11 @@
           }else{
             email2 = $("#selfSiteName");    //직접입력 이메일
           }
+          
+          if(checkEamilDup!="done"){
+        	  swal("이메일 중복 확인 버튼을 클릭해주세요");
+          	  return;
+          }
 
           $.ajax({
 				url:"sendEmailforMemerJoin.do"
@@ -881,16 +889,16 @@
 				, data:{email:email1.val()+'@'+email2.val()}
 				, success:function(data){
 					console.log("성공");
-					/* alert(data); */
+					/* swal(data); */
 					checkSuccess = data;
 					console.log("checkSuccess"+checkSuccess);
 									
 					$("#identity_confirm_btn").prop("disabled", true);
 					$("#comfirm_btn").prop("disabled", false);
-					alert("입력한 이메일로 인증번호가 전송되었습니다.");
+					swal("입력한 이메일로 인증번호가 전송되었습니다.");
 				}
 				, error:function(request, status, error){
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					swal("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			})
         }
@@ -899,23 +907,23 @@
           function checkEmailbtn(){
         	//이메일 인증을 받았는지
   			if(checkSuccess=="success"){
-  				alert(checkSuccess);
-  				alert("이미 완료되었습니다");
+  				swal(checkSuccess);
+  				swal("이미 완료되었습니다");
   				return;
   			}
   			//이메일이 입력되었는가 
 			if($("#email").val()==""){
-				alert("먼저 이메일을 입력해주세요");
+				swal("먼저 이메일을 입력해주세요");
 				return;
 			}
 			//인증 안받고 누른 경우
 			if(checkSuccess==""){
-				alert("인증메일을 받고 진행해주세요")
+				swal("인증메일을 받고 진행해주세요")
 				return;
 			}
 			//인증번호 입력했는지
 			if($("#checkEmailnum").val().length==0){
-				alert("인증번호를 입력해주세요");
+				swal("인증번호를 입력해주세요");
 				return;
 			}
             //인증번호 일치하는 지 확인
@@ -924,7 +932,7 @@
             console.log("checkSuccess:" + checkSuccess);
           
             if(checkSuccess==compareNum){
-				alert("인증성공");
+				swal("인증성공");
 				checkSuccess="success";
 				completeCheck=1;
 				
@@ -933,9 +941,9 @@
 				
 				$("#resultEmailCheck").text("인증 성공");
 			}else if(checkSuccess==""){
-				alert("본인 인증 버튼을 눌러주세요");
+				swal("본인 인증 버튼을 눌러주세요");
 			}else{
-				alert("맞지 않는 번호입니다.")
+				swal("맞지 않는 번호입니다.")
 				$('#checkEmailnum').val("");
 			}
           }
