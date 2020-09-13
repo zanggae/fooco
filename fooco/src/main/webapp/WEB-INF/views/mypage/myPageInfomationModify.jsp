@@ -128,7 +128,7 @@
 		
 					<div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; padding-top: 1rem; padding-left:2rem;">
                   <div class="col-12">
-                    <form action="updateMember.do" method="get" id="infoModifyForm">
+                    <form action="updateMember.do" method="post" id="infoModifyForm">
                     	<input type="hidden" name="memberId" value="${loginUser.memberId}">
                       <div class="row" style="margin-bottom: 1rem;">
                         <div class="col-4">
