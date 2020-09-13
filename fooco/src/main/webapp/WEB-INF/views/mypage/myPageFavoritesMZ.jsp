@@ -180,11 +180,16 @@
 					                  </div>
 					                </div>
 					                </c:if>
-					                <c:if test="${MZ.resBookMarkId == 0 }">
-					                	즐겨찾기가 없습니다.
-					                </c:if>
 							</c:forEach>
 						</div>
+						<!-- 즐겨찾기에 추가한 맛집이 없을 때 -->
+						<c:forEach var="MZ1" items="${MZList }">
+							<c:if test="${MZ1.resBookMarkId == 0 }">
+			                	<div style="background-color:white; height:10rem; border-radius: 0.5rem; padding-top:3.8rem;">
+									<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;즐겨찾기한 맛집이 없습니다.</p>
+								</div>
+					        </c:if>
+						</c:forEach>
 					</div>
 				</div>
 				<jsp:include page="../common/myPageAdMenubar.jsp"></jsp:include>

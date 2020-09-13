@@ -169,7 +169,7 @@
 
                 <div class="col-5" style="position: relative; padding-right: 0; padding-left: 4rem;">
                   <div>
-                    <img class="profile_poto" id="img" src="${contextPath }/resources/ProFiles/${rename_name}">
+                    <img class="profile_poto" id="img" src="${contextPath }/resources/profileImage/${rename_name}">
                   </div>
                   <div>
                     <i class="fas fa-plus-circle profile_poto_add" onclick="ProfileChange();"></i>
@@ -225,7 +225,7 @@
 										<div class="col-3" style="margin-right: 0.5rem;">
 											<span>${reviewCount }</span>
 										</div>
-										<a href="">
+										<a href="myPageReview.do">
 											<div class="col-2">
 												<i class="fas fa-angle-right"></i>
 											</div>
@@ -247,7 +247,10 @@
 										<div class="col-3" style="margin-right: 0.5rem;">
 											<span>${checkinCount }</span>
 										</div>
-										<a href="">
+										<c:url var="checkin" value="myPageCheckin.do">
+											<c:param name="memberId" value="${loginUser.memberId }"/>
+										</c:url>										
+										<a href="${checkin }">
 											<div class="col-2">
 												<i class="fas fa-angle-right"></i>
 											</div>
@@ -267,7 +270,7 @@
 										<div class="col-3" style="margin-right: 0.5rem;">
 											<span>${mylistCount }</span>
 										</div>
-										<a href="">
+										<a href="myPageMylist.do">
 											<div class="col-2">
 												<i class="fas fa-angle-right"></i>
 											</div>

@@ -405,7 +405,7 @@ public class MemberController {
          public ModelAndView proFileUpDate(HttpServletRequest request, Member m, ModelAndView mv,
                @RequestParam(value="profile", required=false) MultipartFile file) {
             
-            String folderName = "ProFiles";
+            String folderName = "profileImage";
             
             if(!file.getOriginalFilename().equals("")) {
             	
@@ -719,7 +719,7 @@ public class MemberController {
             System.out.println("클릭페이지 : " + ck);
             // 체크인 테이블 인서트
             int result = memberService.insertCheckin(ck);
-            
+           
             for (MultipartFile file : files) {
                
                if(!file.getOriginalFilename().equals("")) {

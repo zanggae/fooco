@@ -4,6 +4,8 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -83,7 +85,7 @@
 
         }
 
-
+		
 
 
     </script>
@@ -150,7 +152,7 @@
 
        /*문의 등록*/
      .title{margin-top: 4rem; margin-left: 29rem;}
-      #none{ box-shadow: none !important;}
+      #boardTitle{ box-shadow: none !important;}
       .bord{border:solid; border-top : none; border-left: none; border-right: none;}
       .box{border: rgb(253, 215, 129); width: 15rem; height: 15rem; background-color: rgb(253, 215, 129); position: absolute;}
       .leftMenubar li{list-style: none;}
@@ -193,7 +195,7 @@
                 </div>
                 <!-- 제목 -->
                 <label>&nbsp;&nbsp;제목</label>
-                <input type="text" name="boardTitle" class="form-control" id="none" placeholder="제목을 입력하세요"
+                <input type="text" name="boardTitle" class="form-control" id="boardTitle" placeholder="제목을 입력하세요"
                     style="margin-left: 3.4rem; width: 25rem; margin-top: -0.3rem;">
             </div>
 
@@ -226,7 +228,15 @@
         </div>
     </footer>
     <br><br><br><br>
+    
+	<!-- <script>
+	if($("#boardTitle").val()==""){
+        swal("이름을 입력하세요");
+        $("#boardTitle").focus();
+        return;
+   }
 
+	</script> -->
 
 
 
