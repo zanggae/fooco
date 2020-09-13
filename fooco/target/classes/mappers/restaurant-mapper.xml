@@ -349,10 +349,10 @@
 	
 	<select id="sameLocationBestRestaurant" parameterType="hashmap" resultMap="RestaurantListMap">
 		SELECT SR2.*
-		FROM   (SELECT SR.RES_ID, SR.RES_NAME, SR.LOCATION_NAME, SR.REVIEW_RATING
+		FROM   (SELECT SR.RES_ID, SR.RES_NAME, SR.RES_CATEGORY_ID, SR.LOCATION_NAME, SR.REVIEW_RATING
 		        FROM   SELECT_RESTAURANT SR
 		        WHERE  SR.RES_STATUS = 'Y'
-		        <if test="locationId!=0">
+		        <if test="locationId!=null and locationId!=0">
 		        	AND SR.LOCATION_ID = #{locationId}
 		        </if>
 		        ORDER BY SR.REVIEW_RATING DESC NULLS LAST) SR2
@@ -363,12 +363,18 @@
 	
 	<select id="membershipRestaurant" parameterType="hashmap" resultMap="RestaurantListMap">
 		SELECT SR2.*
-		FROM   (SELECT    SR.RES_ID, SR.RES_NAME, SR.LOCATION_NAME, SR.REVIEW_RATING
+		FROM   (SELECT    SR.RES_ID, SR.RES_NAME, SR.RES_CATEGORY_ID, SR.LOCATION_NAME, SR.REVIEW_RATING
 		        FROM      SELECT_RESTAURANT SR
 		        LEFT JOIN FILTER_CATEGORY FC ON (SR.RES_ID = FC.RES_ID)
 		        WHERE     SR.RES_STATUS = 'Y'
-		        <if test="locationId!=0">
-		        	AND SR.LOCATION_ID = #{locationId}
+		        <if test="resCategory!=null and resCategoryId!=0">
+		        	AND SR.RES_CATEGORY_ID = #{resCategoryId}
+		        </if>
+		        <if test="categories!=null and categories.size() > 0">
+		        	AND SR.RES_CATEGORY_ID IN
+		        	<foreach collection="categories" item="category" index="index" separator="," open="(" close=")">
+		        		#{category}
+		        	</foreach>
 		        </if>
 		        AND FC.FILTER_ID = 7
 		        ORDER BY SR.REVIEW_RATING DESC NULLS LAST) SR2

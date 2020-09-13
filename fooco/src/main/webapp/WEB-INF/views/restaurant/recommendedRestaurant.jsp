@@ -27,7 +27,7 @@
 	</div>
 	<div class="row row-cols-2 sr-recommend-content-row">
 		<c:forEach var="list" items="${sameLocationBestRestaurant}">
-		<div class="col sr-recommend-boundary" id="sr-recommend-boundary" onclick="goDetail(${list.resId})">
+		<div class="col sr-recommend-boundary" id="sr-recommend-boundary" onclick="goDetail(${list.resId}, ${list.resCategoryId})">
 			<div class="row row-cols-1 sr-recommend-card shadow-sm">
 				<div class="col sr-recommend-card-img">
 					<img class="recommend-img" src="${contextPath}/resources/${list.resThumbnailImage.imageFilepath}/${list.resThumbnailImage.imageNewName}" style="border-radius: 0.2rem;"></img>
@@ -40,7 +40,7 @@
 						<span style="color: #F4E04E; font-family:'bold'"><i class="fas fa-star"></i><fmt:formatNumber value="${list.reviewRating}" pattern="0.0"/></span>
 					</div>
 					<div class="row sr-recommend-card-location d-flex align-items-center">
-						<i class="fas fa-map-marker-alt" style="font-size: 0.8rem; margin-right: 0.2rem;"></i>
+						<i class="fas fa-map-marker-alt" style="font-size: 0.8rem; margin-right: 0.2rem; color:rgb(204,51,98)"></i>
 						<span style="font-family:'medium'; font-size: 0.8rem;">${list.locationName}</span>
 					</div>
 				</div>

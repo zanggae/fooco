@@ -345,7 +345,7 @@
 						</div>
 						<div class="col sr-content-list">
 							<c:forEach var="res" items="${list}">
-							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${res.resId})">
+							<div class="row sr-mz shadow-sm" id="sr-mz" onclick="goDetail(${res.resId}, ${res.resCategoryId})">
 								<div class="col-4 sr-mz-img-col">
 									<div class="sr-mz-img shadow-sm d-flex justify-content-end align-items-end">
 										<img class="resThumbnail" src="${contextPath}/resources/${res.resThumbnailImage.imageFilepath}/${res.resThumbnailImage.imageNewName}">
@@ -367,10 +367,11 @@
 										<c:set var="address" value="${fn:split(res.resAddress,',')}"/>
 										<span style="font-size: 0.8rem;">${address[1]}</span>
 									</div>
-									<div class="row" class="sr-mz-bestReview" style="margin-top:0.5rem;">
+									<div class="row" class="sr-mz-bestReview" style="margin-top:0.5rem; min-height:5rem;">
 										<c:if test="${empty res.bestReview}">
-											<p>
-												'${res.resName}'을 방문하시고 제일 먼저 댓글을 남겨 보세요!
+											<p style="margin:auto; text-align:center;">
+												'${res.resName}'을 방문하시고<br>
+												제일 먼저 댓글을 남겨 보세요!
 											<p>
 										</c:if>
 										<c:if test="${not empty res.bestReview}">
@@ -493,9 +494,9 @@
      	};
     </script>
 	<script>
-		function goDetail(resId) {
+		function goDetail(resId, resCategoryId) {
 			var locationId = document.getElementById("listLocation").value;
-			window.location.href="goDetailRestaurant.do?resId=" + resId;
+			window.location.href="goDetailRestaurant.do?resId=" + resId + "&locationId=" + locationId + "&resCategoryId=" + resCategoryId;
 		};
 	</script>
 

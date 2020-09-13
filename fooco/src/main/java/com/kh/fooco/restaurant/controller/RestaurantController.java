@@ -123,7 +123,8 @@ public class RestaurantController {
 	@RequestMapping("goDetailRestaurant.do")
 	public ModelAndView goDetailRestaurant(ModelAndView mv, @RequestParam(value="resId") Integer resId
 														  , @RequestParam(value="locationId", required=false, defaultValue="0") Integer locationId
-														  , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType)
+														  , @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType
+														  , @RequestParam(value="resCategoryId", required=false, defaultValue="0") Integer resCategoryId)
 	{
 		Res restaurant = restaurantService.getRestaurantDetail(resId);
 		Info info = restaurantService.getRestaurantInfo(resId);
@@ -133,6 +134,7 @@ public class RestaurantController {
 		searchParameter.put("resId", resId);
 		searchParameter.put("locationId", locationId);
 		searchParameter.put("sortType", sortType);
+		searchParameter.put("resCategoryId", resCategoryId);
 		
 		ArrayList<Review> reviewList = new ArrayList<Review>();			
 		reviewList = restaurantService.getReviewList(searchParameter);
@@ -228,7 +230,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value="enrollBookmark.do", method=RequestMethod.POST)
-	public void EnrollBookmark(HttpServletResponse response, Integer resId) throws IOException
+	public void enrollBookmark(HttpServletResponse response, Integer resId) throws IOException
 	{
 		
 		PrintWriter out = response.getWriter();
@@ -269,7 +271,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value="upGood.do", method=RequestMethod.POST)
-	public void UpGood(HttpServletResponse response, Integer reviewId) throws IOException
+	public void upGood(HttpServletResponse response, Integer reviewId) throws IOException
 	{
 		
 		PrintWriter out = response.getWriter();
@@ -376,26 +378,20 @@ public class RestaurantController {
 	public void deleteReview(HttpServletResponse response, Integer reviewId) throws IOException {
 		
 		PrintWriter out = response.getWriter();
+		
 		int deleteFile = 0;
 		int deleteReview = 0;
 		
-		deleteFile = restaurantService.deleteFile(reviewId);
-		
+		deleteFile = restaurantService.deleteFile(reviewId);		
 		deleteReview = restaurantService.deleteReview(reviewId);
 		
-		if(deleteFile > 0) {
-			if(deleteReview > 0) {
-				out.append("success");
-				out.flush();
-			}else {
-				out.append("almostfail");
-				out.flush();
-			}
+		if(deleteFile > 0 && deleteReview > 0) {
+			out.append("success");
+			out.flush();
 		}else {
-			out.append("fail");
+			out.append("almostfail");
 			out.flush();
 		}
-		
 		out.close();
 	}
 	

@@ -375,6 +375,7 @@
 						data:{reviewId:reviewId},
 						type:"POST",
 						success:function(data) {
+							console.log(data);
 							if("success" == data) {
 								swal({
 									text:"리뷰를 삭제하였습니다.",
