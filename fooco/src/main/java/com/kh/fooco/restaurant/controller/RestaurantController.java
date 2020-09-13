@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +31,8 @@ import com.kh.fooco.restaurant.model.vo.Info;
 import com.kh.fooco.restaurant.model.vo.Res;
 import com.kh.fooco.restaurant.model.vo.Restaurant;
 import com.kh.fooco.restaurant.model.vo.Review;
+import com.kh.fooco.theme.model.service.ThemeService;
+import com.kh.fooco.theme.model.vo.ThemeAdmin;
 
 @Controller
 public class RestaurantController {
@@ -39,11 +41,21 @@ public class RestaurantController {
 	private RestaurantService restaurantService;
 	
 	@Autowired
+	private ThemeService themeService;
+	
+	@Autowired
 	HttpSession session;
 	
 	@RequestMapping("goMain.do")    
-	public String goMain() {
-		return "common/main";
+	public ModelAndView goMain(ModelAndView mv) {
+		List<ThemeAdmin> theme = new ArrayList<>();
+		theme = themeService.getMainTheme();
+		
+		System.out.println(theme);
+		
+		mv.addObject("theme", theme);
+		mv.setViewName("common/main");
+		return mv;
 	}
 	
 	@RequestMapping("goSearchedRestaurant.do")

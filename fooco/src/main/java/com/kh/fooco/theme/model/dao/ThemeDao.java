@@ -2,6 +2,7 @@ package com.kh.fooco.theme.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +86,8 @@ public class ThemeDao {
 		
 	}
 
+	public List<ThemeAdmin> getMainTheme() {
+		return (ArrayList)sqlSessionTemplate.selectList("themeMapper.getMainTheme");
+	}
 
 }

@@ -136,30 +136,30 @@ public class MemberController {
          System.out.println("일치하는 회원이 없음");
          response.setContentType("text/html; charset=UTF-8");
          PrintWriter out = response.getWriter();
-         out.println("<script>alert('아이디와 비밀번호를 다시 확인해주세요'); history.go(-1);</script>");
+         out.println("<script>alert('아이디와 비밀번호를 다시 확인해주세요'); location.href='main.do';</script>");
          out.flush();
       } else if (bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
          model.addAttribute("loginUser", loginUser);
          System.out.println("로그인 성공");
          
-         //이전 페이지 정보 가져오기
-         String referer = request.getHeader("Referer");
- 		 request.getSession().setAttribute("redirectURI", referer);
- 		 String result = referer.substring(referer.lastIndexOf("/")+1);
- 		 System.out.println("result 주소값 "+result);
- 		 
- 		 //회원가입 후 로그인바로 시 메인으로 들어가도록 조건
- 		 if(result.equals("insertMember.do")) {
- 			 result="main.do";
- 		 }
- 		 
- 		 return "redirect:"+result;
-        
+			
+			  //이전 페이지 정보 가져오기 
+         	  String referer = request.getHeader("Referer");
+			  request.getSession().setAttribute("redirectURI", referer); 
+			  String result = referer.substring(referer.lastIndexOf("/")+1);
+			  System.out.println("result 주소값 "+result);
+			  
+			  //회원가입 후 로그인바로 시 메인으로 들어가도록 조건 
+			  if(result.equals("insertMember.do")) {
+			  result="main.do"; 
+			  } 
+			  return "redirect:"+result;
+
       } else {
          System.out.println("로그인 실패");
          response.setContentType("text/html; charset=UTF-8");
          PrintWriter out = response.getWriter();
-         out.println("<script>alert('비밀번호를 다시 확인해주세요'); history.go(-1);</script>");
+         out.println("<script>alert('비밀번호를 다시 확인해주세요'); location.href='main.do';</script>");
          out.flush();
       }
 		return "common/main";  
@@ -405,7 +405,7 @@ public class MemberController {
          public ModelAndView proFileUpDate(HttpServletRequest request, Member m, ModelAndView mv,
                @RequestParam(value="profile", required=false) MultipartFile file) {
             
-            String folderName = "ProFiles";
+            String folderName = "profileImage";
             
             if(!file.getOriginalFilename().equals("")) {
             	
@@ -719,7 +719,7 @@ public class MemberController {
             System.out.println("클릭페이지 : " + ck);
             // 체크인 테이블 인서트
             int result = memberService.insertCheckin(ck);
-            
+           
             for (MultipartFile file : files) {
                
                if(!file.getOriginalFilename().equals("")) {
