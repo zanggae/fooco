@@ -51,6 +51,7 @@
   .edge {border: 0.1rem solid black; background-color: white; height: 10rem;}
   .img1 {margin-left:0; width: 11rem; height: 8rem; border-radius: 5%;}
   .title {font-size: 1.3rem; font-family: 'bold'; margin-top: 1.5rem; text-align: center;}
+  .title2 {font-size: 1.3rem; font-family: 'bold'; margin-top: 1.5rem; text-align: center;}
   .content {font-size: 1rem;}
   .btn-light {background-color: rgb(204, 51, 98); border: rgb(204, 51, 98); box-shadow: none !important; width: 4.3rem; 
   			  height: 1.8rem; font-size: 0.7rem; font-family: 'bold'; color: white; margin-top: 0.1rem; margin-bottom: 0.3rem;}
@@ -91,7 +92,7 @@ text-align: center;
                     
                     	<!-- 등록된 마이리스트가 없을 시 나오는 화면 -->
                       <c:if test="${empty mylist }">
-	                  	<p class="title">나만의 맛집을 만들어보세요!</p>
+	                  	<p class="title2">나만의 맛집을 만들어보세요!</p>
 	                  </c:if>
 	                  
                     <c:if test="${!empty mylist }">
@@ -110,15 +111,15 @@ text-align: center;
                             </div>
                             <div class="col-2" style="margin-top: 1.5rem ;">
                             	
-                            	
                					<c:if test="${my.approveTheme eq 'W'}">
-                            	<div class="ttex">승인대기</div> 
+                          <button type="button" class="btn btn-light" disabled>승인대기</button>  	
 						 		</c:if>
 						 		<c:if test="${my.approveTheme eq 'Y'}">
-                            	 승인
+                          <button type="button" class="btn btn-light" disabled style="color:rgb(204, 51, 98); font-size: 0.7rem; font-family:bold;" disabled >승인</button> 
 						 		</c:if>
 						 		<c:if test="${my.approveTheme eq 'N'}">
-                            	 거절
+						 	  <button type="button" class="btn btn-light" disabled style="color:red; font-size: 0.7rem; font-family:bold;">승인거절</button>  
+						 	 
 						 		</c:if>						 		
 						 		<c:if test="${my.recommendationTheme eq 'N'}">
                                 <button type="button" class="btn btn-light" id="recommendBtn" onclick="recommend(this)"  value="${my.mlId }">추천하기</button>
