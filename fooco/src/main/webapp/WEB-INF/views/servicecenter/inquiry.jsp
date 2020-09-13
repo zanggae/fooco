@@ -228,14 +228,15 @@
         </div>
     </footer>
     <br><br><br><br>
-	<script>
+    
+	<!-- <script>
 	if($("#boardTitle").val()==""){
         swal("이름을 입력하세요");
         $("#boardTitle").focus();
         return;
    }
 
-	</script>
+	</script> -->
 
 
 
