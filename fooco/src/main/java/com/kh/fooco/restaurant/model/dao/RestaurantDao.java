@@ -41,31 +41,14 @@ public class RestaurantDao {
 
 	public Info getRestaurantInfo(Integer resId) {
 		return sqlSessionTemplate.selectOne("restaurantMapper.getRestaurantInfo", resId);
-
 	}
 
-	public int getReviewListCount(Integer resId) {
-		return sqlSessionTemplate.selectOne("restaurantMapper.getReviewListCount", resId);
+	public ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter) {
+		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getReviewList", searchParameter);
 	}
 
-	public ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter, PageInfo pi) {
-		
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
-		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getReviewList", searchParameter, rowBounds);
-	}
-
-	public int getPhotoCount(Integer resId) {
-		return sqlSessionTemplate.selectOne("restaurantMapper.getPhotoCount", resId);
-	}
-
-	public ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter, PageInfo ppi) {
-		
-		int offset = (ppi.getCurrentPage() - 1) * ppi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, ppi.getBoardLimit());
-		
-		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getPhotoList", searchParameter, rowBounds);
+	public ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter) {
+		return (ArrayList)sqlSessionTemplate.selectList("restaurantMapper.getPhotoList", searchParameter);
 	}
 
 	public int uploadReview(HashMap<String, Object> parameters) {
@@ -104,8 +87,18 @@ public class RestaurantDao {
 		return sqlSessionTemplate.insert("restaurantMapper.followReviewer", searchParameters);
 	}
 
-	public int deleteReview(Integer reviewId) {
-		return sqlSessionTemplate.update("restaurantMapper.deleteReview", reviewId);
+	public int deleteFile(Integer reviewId) {
+		return sqlSessionTemplate.delete("restaurantMapper.deleteFile", reviewId);
 	}
+	
+	public int deleteReview(Integer reviewId) {
+		return sqlSessionTemplate.delete("restaurantMapper.deleteReview", reviewId);
+	}
+
+	public Review selectOneReview(String reviewId) {
+		return sqlSessionTemplate.selectOne("restaurantMapper.selectOneReview", reviewId);
+	}
+
+
 	
 }

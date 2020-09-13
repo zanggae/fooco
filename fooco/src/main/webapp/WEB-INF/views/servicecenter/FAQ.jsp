@@ -115,7 +115,7 @@
                         <h1 class="mark">A</h1>
                       </div>
                       <div class="col-9">
-                        <li class="answer">${F.answerContent }</li><br>
+                        <li class="answer">${F.boardContent }</li><br>
                       </div>
                       <div class="col-2"></div>
                     </div>

@@ -557,7 +557,7 @@ public class MemberController {
             
          
          // 개인정보 수정
-         @RequestMapping(value="updateMember.do", method=RequestMethod.GET)
+         @RequestMapping(value="updateMember.do", method=RequestMethod.POST)
          public ModelAndView updateMember(ModelAndView mv, Member m, 
                @RequestParam("post") String post,
                @RequestParam("address1") String address1,
@@ -1005,7 +1005,7 @@ public class MemberController {
 			
 			
 			// 마이리뷰 모달창에서 수정하기 버튼 클릭 시
-			@RequestMapping(value="updateReview.do", method=RequestMethod.GET)
+			@RequestMapping(value="updateReview.do", method=RequestMethod.POST)
 			public String updateReview(int reviewId, Review review, @RequestParam(value="realname", required=false) String realname
 					, @RequestParam(value="filename", required=false) String filename
 					, @RequestParam(value="filesize", required=false) String filesize)

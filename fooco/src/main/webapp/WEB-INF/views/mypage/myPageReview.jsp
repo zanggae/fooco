@@ -260,8 +260,8 @@
 				<jsp:include page="../common/myPageAdMenubar.jsp"></jsp:include>
 				
 				
-						<!-- 리뷰 작성하기 모달 -->
-		<form id="uploadReview" name="uploadReview" action="updateReview.do" method="get">
+		<!-- 리뷰 작성하기 모달 -->
+		<form id="uploadReview" name="uploadReview" action="updateReview.do" method="post">
 	
 		<div class="modal fade" id="write-review" data-backdrop="static"
 			data-keyboard="false" tabindex="-1">

@@ -42,23 +42,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public int getReviewListCount(Integer resId) {
-		return restaurantDao.getReviewListCount(resId);
+	public ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter) {
+		return restaurantDao.getReviewList(searchParameter);
 	}
 
 	@Override
-	public ArrayList<Review> getReviewList(HashMap<String, Object> searchParameter, PageInfo pi) {
-		return restaurantDao.getReviewList(searchParameter, pi);
-	}
-
-	@Override
-	public int getPhotoCount(Integer resId) {
-		return restaurantDao.getPhotoCount(resId);
-	}
-
-	@Override
-	public ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter, PageInfo ppi) {
-		return restaurantDao.getPhotoList(searchParameter, ppi);
+	public ArrayList<Image> getPhotoList(HashMap<String, Object> searchParameter) {
+		return restaurantDao.getPhotoList(searchParameter);
 	}
 
 	@Override
@@ -107,9 +97,21 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
+	public int deleteFile(Integer reviewId) {
+		return restaurantDao.deleteFile(reviewId);
+	}
+	
+	@Override
 	public int deleteReview(Integer reviewId) {
 		return restaurantDao.deleteReview(reviewId);
 	}
+
+	@Override
+	public Review selectOneReview(String reviewId) {
+		return restaurantDao.selectOneReview(reviewId);
+	}
+
+	
 
 
 

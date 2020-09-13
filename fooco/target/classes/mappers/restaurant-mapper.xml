@@ -104,14 +104,6 @@
 		<result property="imageDownloadCount" column="IMAGE_DOWNLOAD_COUNT"/>	
 	</resultMap>
 	
-	<select id="getPhotoCount" parameterType="_int" resultType="_int">
-		SELECT    COUNT(I.IMAGE_ID)
-		FROM      REVIEW_IMAGE RI
-  		LEFT JOIN IMAGE I ON (RI.IMAGE_ID = I.IMAGE_ID)
- 		LEFT JOIN REVIEW R ON (RI.REVIEW_ID = R.REVIEW_ID)
- 	 	WHERE     I.IMAGE_STATUS = 'Y' AND R.REVIEW_STATUS = 'Y' AND R.RES_ID = #{resId}
-	</select>
-	
 	<select id="getPhotoList" parameterType="hashmap" resultMap="ImageMap">
 		SELECT    I.*
 		FROM      REVIEW_IMAGE RI
@@ -162,12 +154,6 @@
 		WHERE     R.REVIEW_ID = #{reviewId}
 	</select>
 	
-	<select id="getReviewListCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(DISTINCT R.REVIEW_ID)
-		FROM   REVIEW R
-		WHERE  R.REVIEW_STATUS = 'Y' AND R.RES_ID = #{resId}
-	</select>
-	
 	<select id="getReviewList" parameterType="hashmap" resultMap="ReviewMap">
 		SELECT SR.*
 		FROM   SELECT_REVIEW SR
@@ -199,12 +185,12 @@
 		FROM      SELECT_RES SR
 		LEFT JOIN SELECT_FILTER SF ON (SR.RES_ID = SF.RES_ID)
 		LEFT JOIN BESTMENU BM ON (SR.RES_ID = BM.RES_ID)
-		WHERE     RES_STATUS = 'Y'
+		WHERE     SR.RES_STATUS = 'Y'
 		<choose>
 			<when test="locationId!=0">
 				AND SR.LOCATION_ID = #{locationId}
 			</when>
-			<when test="locationId>=9">
+			<when test="locationId>9">
 			<![CDATA[
 				AND SR.LOCATION_ID >= #{locationId}
 			]]>
@@ -223,7 +209,7 @@
 		 	</foreach>
 		</if>
 		<if test="!'all'.equals(keyword)">
-		 	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%'    
+		 	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%' OR SR.RES_CATEGORY_NAME LIKE '%'||#{keyword}||'%'
 		</if>
 	
 	</select>
@@ -257,7 +243,7 @@
 		 	</foreach>
 		</if>
 		<if test="!'all'.equals(keyword)">
-		 	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%'    
+		 	AND SR.RES_NAME LIKE '%'||#{keyword}||'%' OR BM.BESTMENU_NAME LIKE '%'||#{keyword}||'%' OR SR.RES_CATEGORY_NAME LIKE '%'||#{keyword}||'%'    
 		</if>
 		<choose>
 			<when test="'highrating'.equals(sortType)">
@@ -409,9 +395,21 @@
 		VALUES (SEQ_FOLLOW.NEXTVAL, #{followerId}, #{followingId}, SYSDATE)
 	</insert>
 	
-	<update id="deleteReview" parameterType="_int">
-		UPDATE REVIEW
-		SET    REVIEW_STATUS = 'N'
+	<delete id="deleteFile" parameterType="_int">
+		DELETE
+		FROM   REVIEW_IMAGE
 		WHERE  REVIEW_ID = #{reviewId}
-	</update>
+	</delete>
+	
+	<delete id="deleteReview" parameterType="_int">
+		DELETE 
+		FROM   REVIEW
+		WHERE  REVIEW_ID = #{reviewId}
+	</delete>
+	
+	<select id="selectOneReview" resultMap="ReviewMap">
+		SELECT SR.*
+		FROM   SELECT_REVIEW SR
+		WHERE  SR.REVIEW_ID = #{reviewId}
+	</select>
 </mapper>
