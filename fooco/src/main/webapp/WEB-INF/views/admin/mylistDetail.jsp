@@ -83,7 +83,7 @@
   <form action="restaurantThemeAdmin1.do" method="get" id="mylistThemeinsert">
   <script>
   	function goSubmit1(){
-  		alert("나 나와?");
+  		/* alert("나 나와?"); */
   		if(confirm("마이리스트를 테마로 등록하시겠습니까?")){
 	  		$("#mylistThemeinsert").submit();  			
   		}  	

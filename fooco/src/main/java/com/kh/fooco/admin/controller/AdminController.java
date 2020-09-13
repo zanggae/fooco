@@ -345,25 +345,17 @@ public class AdminController {
 	
 	// 게시판 관리페이지
 	@RequestMapping("boardEdit.do")
-	public ModelAndView boardEdit(ModelAndView mv, Board board,
-			@RequestParam(value="page", required=false) Integer page) {
-		
-		int currentPage = 1;
-		if(page != null) {
-			currentPage = page;
-		}
+	public ModelAndView boardEdit(ModelAndView mv, Board board) {
 		
 		if(board.getCategoryNo()==0) {
 			board.setCategoryNo(1);			
 		}
 		int boardCategory = board.getCategoryNo();
-		int bCount = adminService.selectBoardCount(board);
-		PageInfo pi = getPageInfo(currentPage, bCount);
 		
-		ArrayList<Board> boardList = adminService.selectBoardList(board,pi);
 		
-		mv.addObject("boardList",boardList);
-		mv.addObject("pi",pi);
+		ArrayList<Board> boardList = adminService.selectBoardList(board);
+		
+		mv.addObject("boardList",boardList); 
 		mv.addObject("boardCategory",boardCategory);
 		mv.setViewName("admin/boardEdit");
 		
