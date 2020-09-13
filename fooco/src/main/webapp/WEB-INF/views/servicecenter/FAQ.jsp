@@ -116,6 +116,7 @@
                       </div>
                       <div class="col-9">
                         <li class="answer">${F.boardContent }</li><br>
+
                       </div>
                       <div class="col-2"></div>
                     </div>

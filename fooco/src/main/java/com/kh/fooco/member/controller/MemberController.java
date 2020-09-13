@@ -1099,6 +1099,10 @@ public class MemberController {
    public String mylistRegist() {
       return "mypage/mypageMylistRegist";
    }
+   @RequestMapping("mylistRegistrationFin.do")
+   public String mylistRegistrationFin() {
+	   return "mypage/mylistRegistrationFin";
+   }
 
    // 마이리스트 - 등록
    @RequestMapping(value = "insertMylist.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -1119,7 +1123,7 @@ public class MemberController {
          themeRListResult = memberService.insertMylistRes(th);
       }
 
-      mv.setViewName("redirect:main.do");
+      mv.setViewName("redirect:mylistRegistrationFin.do");
       
       return mv;
    }

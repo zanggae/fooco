@@ -355,7 +355,7 @@ public class AdminController {
 		
 		ArrayList<Board> boardList = adminService.selectBoardList(board);
 		
-		mv.addObject("boardList",boardList);
+		mv.addObject("boardList",boardList); 
 		mv.addObject("boardCategory",boardCategory);
 		mv.setViewName("admin/boardEdit");
 		
