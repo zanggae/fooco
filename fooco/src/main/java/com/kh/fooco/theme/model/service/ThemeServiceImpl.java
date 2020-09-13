@@ -1,6 +1,7 @@
 package com.kh.fooco.theme.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,9 +68,10 @@ public class ThemeServiceImpl implements ThemeService{
 		return themeDao.themedetailR(theme);
 	}
 
-	
-
-
+	@Override
+	public List<ThemeAdmin> getMainTheme() {
+		return themeDao.getMainTheme();
+	}
 
 }
 
