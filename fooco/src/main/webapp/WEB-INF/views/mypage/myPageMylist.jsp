@@ -115,10 +115,10 @@ text-align: center;
                           <button type="button" class="btn btn-light" disabled>승인대기</button>  	
 						 		</c:if>
 						 		<c:if test="${my.approveTheme eq 'Y'}">
-                          <button type="button" class="btn btn-light" disabled style="color:rgb(204, 51, 98); font-size: 0.7rem; font-family:bold;" disabled >승인</button> 
+						 		<button type="button" class="btn btn-light" disabled>승인완료</button>  	
 						 		</c:if>
 						 		<c:if test="${my.approveTheme eq 'N'}">
-						 	  <button type="button" class="btn btn-light" disabled style="color:red; font-size: 0.7rem; font-family:bold;">승인거절</button>  
+						 	  <button type="button" class="btn btn btn-light" disabled >승인거절</button>  
 						 	 
 						 		</c:if>						 		
 						 		<c:if test="${my.recommendationTheme eq 'N'}">

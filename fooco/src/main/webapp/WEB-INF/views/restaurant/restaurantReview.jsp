@@ -84,7 +84,7 @@
 	
 					<div class="col-1 mz-review-userProfile-div">
 						<div class="mz-userProfile-img">
-							<img src="${contextPath}/resources/${review.reviewerProfilePath}/${review.reviewerProfileImg}" class="mz-userProfile">
+							<img src="${contextPath}/resources/profileImage/${review.reviewerProfileImg}" class="mz-userProfile">
 						</div>
 					</div>
 					<div class="col-11 mz-review-content-div">
@@ -236,7 +236,7 @@
 							<div class="row mz-modal-div" style="padding-right: 0;">
 								<div class="col-2 mz-review-userProfile-div">
 									<div class="mz-userProfile-img">
-										<img src="${contextPath}/resources/${review.reviewerProfilePath}/${review.reviewerProfileImg}" class="mz-userProfile">
+										<img src="${contextPath}/resources/profileImage/${review.reviewerProfileImg}" class="mz-userProfile">
 									</div>
 								</div>
 								<div class="col-10 mz-review-content-div">

@@ -51,6 +51,7 @@
     .date{ font-size : 1.5rem; color: #646464; margin-left: 3rem; margin-top: 0.5rem;}
     .content{font-size : 1.2rem; color: black; margin-top : 5rem;}
     .list{font-size : 2rem; color:#646464; margin-left: 3rem; margin-bottom: 4rem; font-family: 'light'!important;}
+    .imgdownload{font-size:2rem; color: black; }
     
     </style>
     </head>

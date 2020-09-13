@@ -376,7 +376,7 @@
 										<c:if test="${not empty res.bestReview}">
 											<div class="col-2 sr-mz-bestReview-profile d-flex justify-content-center">
 												<div class="sr-mz-bestReview-profile-div">
-													<img class="userProfile" src="${contextPath}/resources/${res.bestReview.reviewerProfilePath}/${res.bestReview.reviewerProfileImg}"/>
+													<img class="userProfile" src="${contextPath}/resources/profileImage/${res.bestReview.reviewerProfileImg}"/>
 												</div>
 											</div>
 											<div class="col-10 sr-mz-bestReview-content-div">
