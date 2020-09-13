@@ -301,33 +301,17 @@
 
 <!-- 프로필 사진 변경 시 이미지 미리보기 -->
 <script>
-	var sel_file;
-	$(document).ready(function(){
-		$("#ProfileChange").on("change", handleImgFileSelect);
-	});
-
-	function handleImgFileSelect(e){
-		var files = e.target.files;
-		var filesArr = Array.prototype.slice.call(files);
-		
-		filesArr.forEach(function(f){
-			if(!f.type.match("image.*")){
-				alert("확장자는 이미지 확장자만 가능합니다.");
-				return;
-			}
-			
-			sel_file = f;
-			
-			var reader = new FileReader();
-			reader.onload = function(e){
-				$("#img").attr("src", e.target.result);
-				$("#changebtn").attr('disabled', false);
-			}
-			reader.readAsDataURL(f);
-		});
-	}
+$(function(){
+	$("#ProfileChange").change(function(e){
+		  var fileReader = new FileReader();
+		  fileReader.readAsDataURL(e.target.files[0]);
+		  fileReader.onload = function(e) {
+			$("#img").attr("src", e.target.result);
+			$("#changebtn").attr('disabled', false);
+		  }
+	})
+})
 
 </script>
-
 
 </html>
