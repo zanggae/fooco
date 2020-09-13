@@ -36,12 +36,12 @@
 
     * {font-family: 'light';}
 
-     /*a태그 설정*/
-    /*  A:link {text-decoration: none; color:#646464;} */
+  
+	/*a태그 설정*/
+    A:link {text-decoration: none; color:#646464;}
     /* A:visited {text-decoration: none; color:#646464;} */
-    /*  A:active {text-decoration: none; color:#646464;} */ 
+     A:active {text-decoration: none; color:#646464;} 
     A:hover {text-decoration: none; color:rgb(204,51,98);}
-
 	/*버튼 설정*/
 	#button{box-shadow: none !important; background-color: rgb(204,51,98); border-style:none; margin-top:2rem; width:10rem; height:3rem;}
     /*내용 설정*/
@@ -51,7 +51,7 @@
     .date{ font-size : 1.5rem; color: #646464; margin-left: 3rem; margin-top: 0.5rem;}
     .content{font-size : 1.2rem; color: black; margin-top : 5rem;}
     .list{font-size : 2rem; color:#646464; margin-left: 3rem; margin-bottom: 4rem; font-family: 'light'!important;}
-    .imgdownload{font-size:2rem; color: black; }
+    .imgdownload{font-size:1.2rem; color: black; margin-left:3rem;}
     
     </style>
     </head>
@@ -66,6 +66,9 @@
      
       
         <a href="notice.do" class="menuname">NOITCE</a>
+        <div><h1 class="imgdownload">첨부파일 : 
+         <a href="${contextPath }//resources/buploadFiles/${board.imageOriginName}" download>${board.imageOriginName}</a></h1>
+        </div>
         
         <div class="title">${board.boardTitle }
         </div>
@@ -101,7 +104,7 @@
             </c:url>
         	 <button type="button" class="btn btn-secondary" id="button" onclick="location.href='${noticedetail}'">수정하기</button>
          	 </c:if> 
-         	 <a href="${contextPath }//resources/buploadFiles/${board.imageOriginName}" download>${board.imageOriginName}</a>
+         	
           </div>
 
         </div>
