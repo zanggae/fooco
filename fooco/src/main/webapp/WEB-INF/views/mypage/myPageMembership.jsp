@@ -115,11 +115,26 @@
               <i class="fas fa-ticket-alt" style="font-size: 1.7rem;"></i>&nbsp;
               <span style="font-family: 'heavy'; font-size: 1.2rem;">내가 보유한 쿠폰</span>
             </div>
-
+			
+			
             <div class="coupon_div_div">
+            <!-- 보유한 쿠폰이 없을 때 -->
+            <c:forEach var="coupon1" items="${couponList }">
+	            <c:if test="${coupon1.couponListId eq '0'}">							
+					<div style="background-color:white; height:9rem; border-radius: 0.5rem; padding-top:3.5rem;">
+						<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;보유한 쿠폰이 없습니다.</p>
+					</div>
+				</c:if>
+	        </c:forEach>
+	        <c:if test="${empty couponList }">
+				<div style="background-color:white; height:9rem; border-radius: 0.5rem; padding-top:3.5rem;">
+					<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;보유한 쿠폰이 없습니다.</p>
+				</div>	        
+	        </c:if>    
               <div class="row row-cols-2">
 				
 				<c:forEach var="coupon" items="${couponList }">
+				<c:if test="${coupon.couponListId ne '0' }">
                 <div class="coupon_div">
                   <div class="col coupon shadow-sm">
                     <div class="row">
@@ -148,6 +163,7 @@
                     </div>
                   </div>
                 </div>
+                </c:if>
 				</c:forEach>
 
                 

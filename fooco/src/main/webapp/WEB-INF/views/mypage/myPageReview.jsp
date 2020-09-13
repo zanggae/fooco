@@ -117,8 +117,12 @@
 								style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F618;
 								나의 활동 - 마이리뷰</p>
 						</div>
-
-
+						
+						<c:if test="${empty reviewList}">							
+							<div style="background-color:white; height:10rem; border-radius: 0.5rem; padding-top:3.8rem;">
+								<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;작성한 리뷰가 없습니다.</p>
+							</div>
+						</c:if>
 
 						<div class="col" style="padding: 0; margin: 0;">
 							<c:forEach var="review" items="${reviewList}">						
@@ -126,7 +130,7 @@
 									<div class="col-2 mz-review-userProfile-div" align="center">
 										<div class="mz-userProfile-img">
 											<img
-												src="${contextPath}/resources/ProFiles/${review.reviewerProfileImg}"
+												src="${contextPath}/resources/profileImage/${review.reviewerProfileImg}"
 												class="mz-userProfile">
 										</div>
 									</div>

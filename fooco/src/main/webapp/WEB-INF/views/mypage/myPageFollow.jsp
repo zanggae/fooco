@@ -130,8 +130,8 @@
               <div class="follow_div">
               <!-- 팔로워가 없을 때  -->
 				<c:if test="${empty followerlist}">
-				<div>
-					팔로워가 없습니다 ㅠㅡㅠ
+				<div style="background-color:white; height:10rem; border-radius: 0.5rem; padding-top:3.8rem;">
+					<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;팔로워가 없습니다.</p>
 				</div>
 				</c:if>			
 				<c:forEach var="follower" items="${followerlist }">
@@ -167,8 +167,8 @@
               <div class="follow_div">
               <!-- 팔로잉이 없을 때  -->
 				<c:if test="${empty followinglist}">
-				<div>
-					팔로잉이 없습니다 ㅠㅡㅠ
+				<div style="background-color:white; height:10rem; border-radius: 0.5rem; padding-top:3.8rem;">
+					<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;팔로잉이 없습니다.</p>
 				</div>
 				</c:if>	
 				<c:forEach var="following" items="${followinglist }">

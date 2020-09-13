@@ -85,7 +85,15 @@
                 <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F64B; 1:1문의</p>
               </div>
 
+                 <!-- 문의 내역이 없을 시 -->
+              <c:if test="${empty InquiryList }">
+              	 <div style="background-color:white; height:10rem; border-radius: 0.5rem; padding-top:3.8rem;">
+					<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;등록한 문의가 없습니다.</p>
+				 </div>
+              </c:if>
               <div class="row" style="margin-bottom: 18rem;">
+              
+              <c:if test="${!empty InquiryList }">
                 <table class="table-light table-bordered">
                   <thead style="background-color: #ececec;" align="center">
                       <tr style="height: 3rem;">
@@ -97,10 +105,8 @@
                       </tr>
                   </thead>
                   <tbody>
-                    <!-- 문의 내역이 없을 시 -->
-                    <!-- <tr>
-                      <td>1:1 문의 내역이 없습니다.</td>
-                    </tr> -->
+                 
+                    
                     <c:forEach var="inquiry" items="${InquiryList }">
                       <c:url var="inquirymodify" value="InquiryModify.do">
                       	<c:param name="boardId" value="${ inquiry.boardId }"></c:param>
@@ -122,6 +128,7 @@
                   </tbody>
                   
                 </table>
+                    </c:if>
               </div>
 					</div>
 				</div>

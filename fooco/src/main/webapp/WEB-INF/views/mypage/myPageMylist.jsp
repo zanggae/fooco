@@ -91,7 +91,9 @@ text-align: center;
                     
                     	<!-- 등록된 마이리스트가 없을 시 나오는 화면 -->
                       <c:if test="${empty mylist }">
-	                  	<p class="title">나만의 맛집을 만들어보세요!</p>
+                  		<div style="height:10rem; border-radius: 0.5rem; padding-top:3.8rem;">
+							<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F64B;나만의 맛집을 만들어보세요.</p>
+						</div>
 	                  </c:if>
 	                  
                     <c:if test="${!empty mylist }">

@@ -153,8 +153,11 @@
 				</c:forEach>
 
               </div>
+              <!-- 즐겨찾기에 추가한 테마가 없을때 -->
 				<c:if test="${empty TMList}">
-                 	즐겨찾기가 없습니다.
+                 	<div style="background-color:white; height:10rem; border-radius: 0.5rem; padding-top:3.8rem;">
+						<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;즐겨찾기한 테마가 없습니다.</p>
+					</div>
                  </c:if>
 					
 
