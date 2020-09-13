@@ -1,10 +1,13 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
+
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta charset="UTF-8">
 
 <!-- Required meta tags -->
@@ -123,6 +126,18 @@ a {
 </style>
 
 <body>
+<c:if test="${empty loginUser}">
+   <input type="hidden" value="1" id="adminCheck">            
+</c:if>
+<script>
+   $(function(){
+      if($("#adminCheck").val()==1){
+         alert("로그인이 만료되었습니다.");
+         location.href="main.do";
+      }
+   })
+</script>
+
 
 	<div class="col-3 left_menubar">
 
@@ -250,7 +265,7 @@ a {
   				if(data == "true"){
   					$("#infoPwdCheckForm").submit();
   				}else{
-  					alert("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.....")
+  					swal("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.....")
   				}
   			},
   			error:function(request, status, errorData){

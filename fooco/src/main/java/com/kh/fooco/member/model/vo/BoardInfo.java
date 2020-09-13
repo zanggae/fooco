@@ -13,17 +13,23 @@ public class BoardInfo implements Serializable{
 	private int inquiryCode;
 	private String boardTitle;
 	private String summerNoteContent;
+	private String inquiryContent;
+	private String inquiryYN;
+	
 	public BoardInfo() {
 		super();
 	}
 	
-	public BoardInfo(int boardId, String inquiryName, int inquiryCode, String boardTitle, String summerNoteContent) {
+	public BoardInfo(int boardId, String inquiryName, int inquiryCode, String boardTitle, String summerNoteContent,
+			String inquiryContent, String inquiryYN) {
 		super();
 		this.boardId = boardId;
 		this.inquiryName = inquiryName;
 		this.inquiryCode = inquiryCode;
 		this.boardTitle = boardTitle;
 		this.summerNoteContent = summerNoteContent;
+		this.inquiryContent = inquiryContent;
+		this.inquiryYN = inquiryYN;
 	}
 	
 	public int getBoardId() {
@@ -56,14 +62,30 @@ public class BoardInfo implements Serializable{
 	public void setSummerNoteContent(String summerNoteContent) {
 		this.summerNoteContent = summerNoteContent;
 	}
+	public String getInquiryContent() {
+		return inquiryContent;
+	}
+	public void setInquiryContent(String inquiryContent) {
+		this.inquiryContent = inquiryContent;
+	}
+	public String getInquiryYN() {
+		return inquiryYN;
+	}
+	public void setInquiryYN(String inquiryYN) {
+		this.inquiryYN = inquiryYN;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
 	@Override
 	public String toString() {
 		return "BoardInfo [boardId=" + boardId + ", inquiryName=" + inquiryName + ", inquiryCode=" + inquiryCode
-				+ ", boardTitle=" + boardTitle + ", summerNoteContent=" + summerNoteContent + "]";
+				+ ", boardTitle=" + boardTitle + ", summerNoteContent=" + summerNoteContent + ", inquiryContent="
+				+ inquiryContent + ", inquiryYN=" + inquiryYN + "]";
 	}
+	
+	
 	
 	
 	
