@@ -75,9 +75,9 @@
     }
 
     .search {
-      height: 2rem;
-      border: 1px solid black;
-      color: rgb(25, 25, 112);
+      height: 2rem !important;
+      border: 1px solid black !important;
+      color: rgb(25, 25, 112) !important;
       -webkit-border-radius: 7px;
       -moz-border-radius: 5px;
       border-radius: 5px !important;
