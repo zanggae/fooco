@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,7 +130,8 @@
                               <div class="col-6">
                                 <h6 class="text2">${r.resName }</h6>
                                 <br>
-                                <h6 class="text3">${r.resAddress }</h6>
+                                <c:set var="address" value="${fn:split(r.resAddress,',')}"/>	
+                                <h6 class="text3">${address[1]}</h6>
                               </div>
                             <div class="col-2" id="more">
 								<c:url var="detailRes" value="goDetailRestaurant.do">

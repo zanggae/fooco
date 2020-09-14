@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
 <html lang="ko">
 
@@ -191,11 +192,11 @@
                     if(data.restaurant.length > 0){   // 조회된 음식점이 존재하면
                       for(var i in data.restaurant){
                          var src = "resources/restaurantImage/"+data.restaurant[i].resImageName;
-                         var address = data.restaurant[i].resAddress.split(',').join(' ');
+                         var address = data.restaurant[i].resAddress.split(',');
                          $div = $("<div class='pickDiv'>");
                          $img = $("<img class='img_set' id='divImg'>").attr("src",src);
                          $divT = $("<div style='font-weight: bold;' id='divTitle'>").html(data.restaurant[i].resName);
-                         $divA = $("<div id='divAddress'>").html(address);
+                         $divA = $("<div id='divAddress'>").html(address[1]);
                          $inputRId = $("<input type='hidden' id='resId'>").attr('value',data.restaurant[i].resId);                         
                          
                          $div.append($img);
@@ -312,7 +313,8 @@
                    </div>
                    <div class='col-5 position1' id='pickRCon'>
                       <h5 style='font-weight: bold; text-align: center;'>${tRL.resName }</h5>
-                      <div style='text-align: center;'>${tRL.resAddress}</div>
+                      <c:set var="address" value="${fn:split(tRL.resAddress,',')}"/>
+                      <div style='text-align: center;'>${address[1]}</div>
                       <input type='hidden' id='resId' name='mylistRList' class='mylistRList' value="${tRL.resId }">
                    </div>
                 </div>

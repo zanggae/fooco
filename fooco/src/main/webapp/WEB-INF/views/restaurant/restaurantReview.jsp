@@ -35,6 +35,7 @@
 	.mz-reviewPhoto-div {border-radius:0.3rem; overflow:hidden;}
 	.mz-reviewPhoto {width:100%; height:6rem; border-radius:0.3rem; transition-duration:0.3s; transition-timing-function:ease;}
 	.mz-reviewPhoto-div:hover .mz-reviewPhoto {transform:scale(1.1);}
+	.emptyReviewListContainer {height:11rem;}
 	
 	/* 사진 자세히보기 모달 */
 	.view-photoDetail-modal {background-color:rgba(0,0,0,0.7);}
@@ -69,8 +70,8 @@
 	</div>
 	<c:choose>
 		<c:when test="${empty reviewList}">
-			<div class="row row-cols-1 mz-review-list">
-				<div class="emptyReviewList" style="color:rgb(204,51,98); font-family:'bold'; font-size:1.2rem;">
+			<div class="row mz-review-list d-flex justify-content-center align-items-center emptyReviewListContainer" style="padding:0;">
+				<div class="emptyReviewList" style="color:rgb(204,51,98); font-family:'bold'; font-size:1.2rem; display:inline;">
 					&#x1F645; 등록된 리뷰가 없습니다.
 				</div>
 			</div>
@@ -80,8 +81,6 @@
 		<div class="col" style="padding: 0; margin: 0;">
 			<c:forEach var="review" items="${reviewList}" varStatus="vs">
 				<div class="row mz-review-div shadow-sm" id="mz-review-div">
-				<!-- 사진 자세히보기 모달 -->
-	
 					<div class="col-1 mz-review-userProfile-div">
 						<div class="mz-userProfile-img">
 							<img src="${contextPath}/resources/profileImage/${review.reviewerProfileImg}" class="mz-userProfile">
@@ -267,7 +266,7 @@
 															<i class="fas fa-star"></i>
 														</c:when>
 														<c:otherwise>
-															<i class="far fa-star"></i>
+															<i class="far fa-star" style="color:#F4E04E;"></i>
 														</c:otherwise>
 													</c:choose>
 												</c:forEach>
@@ -284,7 +283,7 @@
 															<i class="fas fa-star"></i>
 														</c:when>
 														<c:otherwise>
-															<i class="far fa-star"></i>
+															<i class="far fa-star" style="color:#F4E04E;"></i>
 														</c:otherwise>
 													</c:choose>
 												</c:forEach>
@@ -301,7 +300,7 @@
 															<i class="fas fa-star"></i>
 														</c:when>
 														<c:otherwise>
-															<i class="far fa-star"></i>
+															<i class="far fa-star" style="color:#F4E04E;"></i>
 														</c:otherwise>
 													</c:choose>
 												</c:forEach>
@@ -348,8 +347,6 @@
 						swal({
 							text:"해당 리뷰를 '좋아요' 하였습니다.",
 							button:"확인"
-						}).then(function(isConfirm){
-							window.location.reload();
 						})
 					}else {
 						swal("좋아요에 실패하였습니다.");
@@ -375,6 +372,7 @@
 						data:{reviewId:reviewId},
 						type:"POST",
 						success:function(data) {
+							console.log(data);
 							if("success" == data) {
 								swal({
 									text:"리뷰를 삭제하였습니다.",
@@ -421,7 +419,9 @@
 	</script>
 	
 	<script>
-		$("#carouselExampleControls").carousel();
+		$('.modal').carousel({
+			interval: false;
+		});
 	</script>
 </body>
 </html>

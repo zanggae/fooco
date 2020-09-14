@@ -84,7 +84,7 @@
         /*테마 검색결과*/
       .bottom{margin-top: 3rem;} 
       .text3{font-size: 2rem; font-weight: bolder;color: rgb(204, 51, 98);}
-      .img1{text-align: center; width: 22rem; height: 16rem;opacity: 0.8; z-index: 0; border: solid black 0.3rem;border-radius: 5%;}
+      .img1{text-align: center; width: 22rem; height: 16rem;opacity: 0.8; z-index: 0; border: solid black 0.25rem;border-radius: 5%;}
       .text4{text-align: center; position: absolute; top: 50%; left: 50%; transform: translate( -50%, -50% );
       text-shadow: -0.3px 0 black, 0 0.3px black, 0.3px 0 black, 0 -0.3px black; font-color : white;}
       .titlefont{font-size: 1.5rem; font-family:'heavy'; color:black; }

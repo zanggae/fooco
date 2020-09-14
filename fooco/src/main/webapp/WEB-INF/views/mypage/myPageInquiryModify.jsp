@@ -5,6 +5,9 @@
 <html lang="ko">
 
 <head>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <meta charset="UTF-8">
 <!-- Required meta tags -->
 <meta name="viewport"
@@ -199,19 +202,35 @@ $('#summernote').summernote('redo');
 										</div>
 										<div class="col-9">
 										<textarea id="summernote" name="summerNoteContent"
-										class="form-control">${boardInfo.summerNoteContent }</textarea>
+										class="form-control" >${boardInfo.summerNoteContent }</textarea>
 										</div>
 									</div>
+									
+									<c:if test="${boardInfo.inquiryYN eq 'Y'}">
+									<div class="row" style="margin-bottom: 0.7rem;">
+										<div class="col-3" align="center">
+											<p class="inquiry_font">답변 내용</p>
+										</div>
+										<div class="col-9">
+										<textarea class="form-control" style="resize:none;width: 25rem;" readonly>${boardInfo.inquiryContent }</textarea>
+										</div>
+									</div>									
+									</c:if>
 
 									<div class="row" style="margin-top: 2rem;">
 										<div class="col" align="center" id="modifybtn">
+											<c:if test="${boardInfo.inquiryYN eq 'N' }">
 											<button type="button" class="btn btn-primary btn-sm"
 												onclick="change();">수정하기</button>
 											&nbsp;
+											</c:if>
 											<c:url var="udateboardStatus" value="updateBoardStatus.do">
 												<c:param name="boardId" value="${boardInfo.boardId }"></c:param>
 											</c:url>
-											<a href="${udateboardStatus }"><button type="button" class="btn btn-secondary btn-sm">삭제하기</button></a>
+											<a href="${udateboardStatus }"><button type="button" class="btn btn-secondary btn-sm">삭제하기</button></a>&nbsp;
+											<c:if test="${boardInfo.inquiryYN eq 'Y' }">
+												<button type="button" class="btn btn-secondary btn-sm" onclick="canclebtn();">취소</button>
+											</c:if>
 										</div>
 										<div class="col" id="modifycompletebtn" align="center" style="display: none;">
 											<button type="button" class="btn btn-primary btn-sm" onclick="validate();">수정완료</button>&nbsp;
@@ -271,17 +290,17 @@ function validate(){
 	
 	if($("#inquiryCode").val() == "")
 		{
-			alert("문의 유형을 선택하세요.")
+			swal("문의 유형을 선택하세요.")
 			return;
 		}
 	if($("#boardTitle").val() == "")
 		{
-			alert("제목을 입력하세요.");
+			swal("제목을 입력하세요.");
 			return;
 		}
 	if($("#summernote").val() == "")
 		{
-			alert("내용을 입력하세요.");
+			swal("내용을 입력하세요.");
 			return;
 		}
 	else{

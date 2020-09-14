@@ -90,7 +90,11 @@
         .mt-list-col {padding-top:0; padding-bottom:2rem; height:15rem;}
         .mt-list {width:100%; height:100%;}
         .mt-list-content {color:white;}
-        .themeBackground {position:relative; width:100%; height:100%; border-radius:1rem;}
+        .themeBackground {position:relative; width:100%; height:100%; filter:brightness(80%); transition-duration:0.3s; transition-timing-function:ease;}
+        .mt-list:hover .themeBackground {transform:scale(1.1); filter:brightness(60%);}
+        .mt-list:hover .mt-list-content  {color:white;}
+        .themeBackground-div { overflow:hidden; border-radius:1rem;}
+        .themeBackground-div > p {text-shadow:1rem lightgray;}
         .themeInnerText {position:absolute;}
 
         
@@ -382,11 +386,11 @@
                             <div class="row row-cols-3 mt-list-row">
                             	<c:forEach var="theme" items="${theme}">
                             		<div class="col mt-list-col">
-	                                    <div class="col mt-list d-flex justify-content-center align-items-center" style="padding:0;">
-	                                    	<a style="height:100%;">
+	                                    <div class="col mt-list d-flex justify-content-center align-items-center" style="padding:0; cursor:pointer;">
+	                                    	<a style="height:100%; min-width:100%;" class="themeBackground-div">
 	                                    		<img class="themeBackground shadow-sm" src="${contextPath}/resources/restaurantImage/${theme.themeImageName}"/>
 	                                    	</a>
-	                                    	<p class="mt-list-content themeInnerText" style="font-family:'medium'">${theme.themeTitle}</p>
+	                                    	<p class="mt-list-content themeInnerText" style="font-family:'medium'; font-size:1.1rem; width:80%; text-align:center; word-break:keep-all;">${theme.themeTitle}</p>
 	                                    </div>
 	                                </div>
                             	</c:forEach>

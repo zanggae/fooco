@@ -84,7 +84,8 @@
 	.starRating {cursor:pointer; margin:0;}
 	.reviewContent {font-size:0.8rem;}
 	#browseBtn {background-color:rgb(204,51,98); width:100%; height:2.5rem; color:white; font-family:'medium'; font-size:1rem; border:none; border-bottom-left-radius:0.25rem; border-bottom-right-radius:0.25rem;}
-	.fas {color:#F4E04E;}
+	.fas.fa-star {color:#F4E04E;}
+	.far.fa-star {color:#F4E04E;}
 </style>
 </head>
 <body>
@@ -96,7 +97,8 @@
 			<div class="row breadcrumb-row">
 				<nav class="breadcrumb-nav">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">HOME</a></li>
+						<li class="breadcrumb-item"><a href="goMain.do">HOME</a></li>
+						<li class="breadcrumb-item"><a href="javascript:history.back()">검색 결과</a></li>
 						<li class="breadcrumb-item active" aria-current="page">${res.resName}</li>
 					</ol>
 				</nav>
@@ -482,7 +484,8 @@
             }
             
     		function goDetail(resId) {
-    			window.location.href="goDetailRestaurant.do?resId=" + resId;
+    			var locationId = document.getElementById("listLocation").value;
+    			window.location.href="goDetailRestaurant.do?resId=" + resId + "&locationId=" + locationId;
     		};
         </script>
 	</section>

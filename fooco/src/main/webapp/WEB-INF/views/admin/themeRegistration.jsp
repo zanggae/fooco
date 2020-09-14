@@ -155,11 +155,11 @@
     					 if(data.restaurant.length > 0){	// 조회된 음식점이 존재하면
     						for(var i in data.restaurant){
     							var src = "resources/restaurantImage/"+data.restaurant[i].resImageName;
-    							var address = data.restaurant[i].resAddress.split(',').join(' ');
+    							var address = data.restaurant[i].resAddress.split(',');
     							$div = $("<div class='pickDiv'>");
     							$img = $("<img class='img_set' id='divImg'>").attr("src",src);
     							$divT = $("<div style='font-weight: bold;' id='divTitle'>").html(data.restaurant[i].resName);
-    							$divA = $("<div id='divAddress'>").html(address);
+    							$divA = $("<div id='divAddress'>").html(address[1]);
     							$inputRId = $("<input type='hidden' id='resId'>").attr('value',data.restaurant[i].resId);    							
     							
     							$div.append($img);

@@ -445,7 +445,7 @@
             function formSubmit() {
                 var brd_title = document.getElementById("reviewContent");
                 if (brd_title.value === "") {
-                    alert("내용을 입력해주세요.");
+                	swal("내용을 입력해주세요.");
                     return;
                 }
 
@@ -498,7 +498,7 @@
 
 			},
 			error:function(request, status, errorData){
-				alert("error code: " + request.status + "\n"
+				swal("error code: " + request.status + "\n"
 						+"message: " + request.responseText
 						+"error: " + errorData);
 			}

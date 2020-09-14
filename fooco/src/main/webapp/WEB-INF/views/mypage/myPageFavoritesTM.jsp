@@ -106,7 +106,8 @@
   .card_img_div {height:5rem;}
   .card_heart{color: rgb(204,51,98); position: absolute; z-index: 1; top: 7.7rem; left: 9.3rem; font-size: 2.5rem;}
   .card {padding:0.5rem; height: 11rem;}
-  .thema_title{z-index: 2; position: absolute; top: 3rem; word-break: break-all; width: 11.5rem; font-size: 0.8rem; font-family: 'bold'; padding-left: 0.4rem; padding-right:0.4rem;}
+  .thema_title{z-index: 2; position: absolute; top: 3rem; word-break: break-all; width: 11.5rem; font-size: 0.9rem; font-family: 'bold'; padding-left: 0.4rem; padding-right:0.4rem;
+  text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;}
 #heart:hover{
 	color:yellow;
 }
@@ -141,7 +142,7 @@
                       <img src="${contextPath }/resources/restaurantImage/${TM.resImageName}" class="card-img-top" style="z-index: 0; height: 10rem;">
                     </div>
                     </a>
-                    <p class="thema_title" align="center">${TM.themeTitle }</p>
+                    <p class="thema_title" style="color:black; opacity:0.8" align="center">${TM.themeTitle }</p>
 					 <!-- 즐겨찾기 해제 시 목록에서 없애려고 넘기는값 -->
                     <c:url var="deleteTM" value="deleteTM.do">
                     	<c:param name="themeBookMarkId" value="${TM.themeBookMarkId}"></c:param>
