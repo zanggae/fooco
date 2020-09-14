@@ -50,23 +50,15 @@
   /*myList*/
   .edge {border: 0.1rem solid black; background-color: white; height: 10rem;}
   .img1 {margin-left:0; width: 11rem; height: 8rem; border-radius: 5%;}
-  .title {font-size: 1.3rem; font-family: 'bold'; margin-top: 1.5rem; text-align: center;}
+ 
   .title2 {font-size: 1.3rem; font-family: 'bold'; margin-top: 1.5rem; text-align: center;}
   .content {font-size: 1rem;}
   .btn-light {background-color: rgb(204, 51, 98); border: rgb(204, 51, 98); box-shadow: none !important; width: 4.3rem; 
   			  height: 1.8rem; font-size: 0.7rem; font-family: 'bold'; color: white; margin-top: 0.1rem; margin-bottom: 0.3rem;}
-  .title{text-align : center; font-size:1.3rem; margin-top:4rem; font-family:'medium';}
+  .title{text-align : center; position: absolute; top:28%; left:50%;right:-20%; transform : translate(-50%,-50%); font-size:1.3rem;  font-family:'medium';}
+  
  #makemylist:hover{text-decoration: underline;}
  .title:hover{text-decoration:underline;}
-
-/*네온 글씨효과*/
-.ttex{
-font-size: 1rem;
-font-family: 'Futura';
-color: blue;
-text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
-text-align: center;
-}
 
 </style>
 
@@ -110,18 +102,20 @@ text-align: center;
                             <c:url var="MylistDetail" value="MylistDetail.do">
                             <c:param name="mlId" value="${my.mlId }"/>
                             </c:url>
-                              <a href="${MylistDetail}"><h6 class="title">${my.mlTitle}</h6></a>
+                              <a href="${MylistDetail}"><div class="title">${my.mlTitle}</div></a>
+                              <br><br>
+                              <h6 class="createDate"></h6>
                             </div>
                             <div class="col-2" style="margin-top: 1.5rem ;">
                             	
                					<c:if test="${my.approveTheme eq 'W'}">
-                          <button type="button" class="btn btn-light" disabled>승인대기</button>  	
+                          <button type="button" class="btn btn-light" disabled style="font-color: rgb(220, 20, 60)">승인대기</button>  	
 						 		</c:if>
 						 		<c:if test="${my.approveTheme eq 'Y'}">
-						 		<button type="button" class="btn btn-light" disabled>승인완료</button>  	
+						 		<button type="button" class="btn btn-light" disabled style="color:rgb(0, 0, 205)">승인완료</button>  	
 						 		</c:if>
 						 		<c:if test="${my.approveTheme eq 'N'}">
-						 	  <button type="button" class="btn btn btn-light" disabled >승인거절</button>  
+						 	  <button type="button" class="btn btn btn-light" disabled style="color: rgb(220, 20, 60)">승인거절</button>  
 						 	 
 						 		</c:if>						 		
 						 		<c:if test="${my.recommendationTheme eq 'N'}">

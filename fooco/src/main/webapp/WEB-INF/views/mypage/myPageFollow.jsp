@@ -137,7 +137,7 @@
 				<c:forEach var="follower" items="${followerlist }">
                 <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; margin-bottom: 0.5rem;">
                   <div class="col-1">
-                    <img class="follow_img" src="resources/ProFiles/${follower.renameName}">
+                    <img class="follow_img" src="resources/profileImage/${follower.renameName}">
                   </div>
                   <div class="col-6">
                     <div class="row" style="padding-left: 1rem;">
@@ -174,7 +174,7 @@
 				<c:forEach var="following" items="${followinglist }">
                 <div class="row shadow-sm" style="background-color: white; border-radius: 0.5rem; margin-bottom: 0.5rem;">
                   <div class="col-1">
-                    <img class="follow_img" src="resources/ProFiles/${following.renameName}">
+                    <img class="follow_img" src="resources/profileImage/${following.renameName}">
                   </div>
                   <div class="col-6">
                     <div class="row" style="padding-left: 1rem;">

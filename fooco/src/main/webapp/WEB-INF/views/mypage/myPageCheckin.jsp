@@ -135,85 +135,100 @@
 				<div class="col-7 main_content">
 					<div class="main_content_div shadow-sm">
 						<div class="row">
-              <p style="font-size:1.5rem; font-family:'heavy'; color:rgb(204,51,98);">&#x1F618; 나의 활동 - 체크인</p>
-            </div>
+							<p
+								style="font-size: 1.5rem; font-family: 'heavy'; color: rgb(204, 51, 98);">&#x1F618;
+								나의 활동 - 체크인</p>
+						</div>
 
-            <div class="row" style="margin-bottom: 1.5rem;">
-              <div class="col-8">
-                <i class="fas fa-edit" style="font-size: 1.5rem;"></i>
-                <span style="font-family: 'heavy'; font-size: 1.2rem;">방문한 맛집에 대해 자유롭게 기록하세요!</span>
-              </div>
-              <div class="col-4" align="right">
-                  <button type="button" class="btn btn-warning btn-sm" style="padding: 0.2rem;" onclick="checkinRegister();">추가하기</button>
-              </div>
-            </div>
-            <!-- 작성된 체크인이 없을 때 -->
-			 	<c:if test="${empty checkinList }">
-				 	<div style="background-color:white; height:10rem; border-radius: 0.5rem; padding-top:3.8rem;">
-						<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;작성된 체크인이 없습니다.</p>
+						<div class="row" style="margin-bottom: 1.5rem;">
+							<div class="col-8">
+								<i class="fas fa-edit" style="font-size: 1.5rem;"></i> <span
+									style="font-family: 'heavy'; font-size: 1.2rem;">방문한 맛집에
+									대해 자유롭게 기록하세요!</span>
+							</div>
+							<div class="col-4" align="right">
+								<button type="button" class="btn btn-warning btn-sm"
+									style="padding: 0.2rem;" onclick="checkinRegister();">추가하기</button>
+							</div>
+						</div>
+
+						<div class="checkin_div_div">
+						<!-- 작성된 체크인이 없을 때 -->
+						<c:if test="${empty checkinList }">
+							<div style="background-color: white; height: 10rem; border-radius: 0.5rem; padding-top: 3.8rem;">
+								<p style="font-size: 1.1rem; font-family: 'heavy'; color: rgb(204, 51, 98); text-align: center">&#x1F645;작성된 체크인이 없습니다.</p>
+							</div>
+						</c:if>
+							<c:forEach var="checkinList" items="${checkinList }">
+								<div class="checkin_div shadow-sm">
+									<div class="row">
+										<div class="col-3">
+											<img
+												src="${contextPath }/resources/restaurantImage/${checkinList.resImage}"
+												style="width: 8rem; height: 6rem; margin: 0rem;">
+										</div>
+										<div class="col-9"
+											style="padding-left: 0.3rem; margin-bottom: 0.5rem;">
+											<div class="row">
+												<div class="col-8" style="padding-left: 0rem;">
+													<p
+														style="font-family: 'medium'; font-size: 1.1rem; margin-bottom: 0.3rem;">${ checkinList.resName}</p>
+												</div>
+												<div class="col-4" align="right">
+													<c:url var="CheckinModify" value="CheckinModify.do">
+														<c:param name="checkinId" value="${checkinList.checkinId}" />
+													</c:url>
+													<c:url var="myPageCheckinDelete"
+														value="myPageCheckinDelete.do">
+														<c:param name="checkinId" value="${checkinList.checkinId}" />
+													</c:url>
+													<a href="${CheckinModify }"><button type="button"
+															class="btn btn-primary btn-sm">수정</button></a> <a
+														href="${myPageCheckinDelete }"><button type="button"
+															class="btn btn-secondary btn-sm">삭제</button></a>
+												</div>
+
+											</div>
+											<div class="row" style="margin-bottom: 0.3rem;">
+												<p style="margin: 0rem; padding-left: 0rem;">${ checkinList.checkinVisitDate}</p>
+											</div>
+											<div class="row" style="overflow-x: auto; height: 5rem;">
+												<p style="word-break: break-all;">${checkinList.checkinContent }
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<c:forEach var="checkinImageList"
+											items="${checkinList.checkinImageList }">
+											<c:if test="${!empty checkinImageList.imageNewName }">
+												<div class="col-4">
+													<img
+														src="${contextPath }/resources/checkinImage/${checkinImageList.imageNewName}"
+														style="width: 11rem; height: 7rem; margin: 0rem;">
+												</div>
+											</c:if>
+										</c:forEach>
+									</div>
+									<!-- 첨부된 파일이 하나도 없을 때 -->
+									<c:forEach var="checkinImageList1"
+										items="${checkinList.checkinImageList }">
+										<c:if test="${empty checkinImageList1.imageNewName }">
+											<div style="height: 5rem; padding-top: 2.8rem;">
+												<p
+													style="font-size: 1.1rem; font-family: 'heavy'; color: rgb(204, 51, 98); text-align: center">&#x1F645;첨부된
+													사진이 없습니다.</p>
+											</div>
+										</c:if>
+									</c:forEach>
+								</div>
+							</c:forEach>
+						</div>
 					</div>
-				</c:if>
-			
-            <div class="checkin_div_div">
-			
-              <c:forEach var="checkinList" items="${checkinList }">
-              	<div class="checkin_div shadow-sm">
-                <div class="row">
-                  <div class="col-3">
-                    <img src="${contextPath }/resources/restaurantImage/${checkinList.resImage}" style="width: 8rem; height: 6rem; margin:0rem;">
-                  </div>
-                  <div class="col-9" style="padding-left: 0.3rem; margin-bottom: 0.5rem;">
-                    <div class="row">
-                      <div class="col-8" style="padding-left: 0rem;">
-                        <p style="font-family: 'medium'; font-size: 1.1rem; margin-bottom: 0.3rem;">${ checkinList.resName}</p>
-                      </div>
-                      <div class="col-4" align="right">
-                      	<c:url var="CheckinModify" value="CheckinModify.do">
-							<c:param name="checkinId" value="${checkinList.checkinId}"/>
-						</c:url>
-						<c:url var="myPageCheckinDelete" value="myPageCheckinDelete.do">
-							<c:param name="checkinId" value="${checkinList.checkinId}"/>
-						</c:url>
-                        <a href="${CheckinModify }"><button type="button" class="btn btn-primary btn-sm">수정</button></a>
-                        
-                        <a href="${myPageCheckinDelete }"><button type="button" class="btn btn-secondary btn-sm">삭제</button></a>
-                      </div>
-
-                    </div>
-                    <div class="row" style="margin-bottom: 0.3rem;">
-                      <p style="margin:0rem; padding-left:0rem;">${ checkinList.checkinVisitDate}</p>
-                    </div>
-                    <div class="row" style="overflow-x: auto; height: 5rem;">
-                      <p style="word-break: break-all;">${checkinList.checkinContent }
-                      </p>
-                    </div>
-                  </div>
-                </div>
-	                <div class="row">
-					<c:forEach var="checkinImageList" items="${checkinList.checkinImageList }">
-	                  <c:if test="${!empty checkinImageList.imageNewName }">
-	                  <div class="col-4">
-	                    <img src="${contextPath }/resources/checkinImage/${checkinImageList.imageNewName}" style="width: 11rem; height: 7rem; margin:0rem;">
-	                  </div>
-	                  </c:if>
-                	</c:forEach>
-	                </div>
-	                <!-- 첨부된 파일이 하나도 없을 때 -->
-	                <c:forEach var="checkinImageList1" items="${checkinList.checkinImageList }">
-	                	<c:if test="${empty checkinImageList1.imageNewName }">
-	                	<div style="height:5rem; padding-top:2.8rem;">
-							<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;첨부된 사진이 없습니다.</p>
-	                  	</div>
-	                  </c:if>
-	                </c:forEach>
-                </c:forEach>
-                </div>
-                
-              </div>
 				</div>
-				<jsp:include page="../common/myPageAdMenubar.jsp"></jsp:include>
-			</div>
+			<jsp:include page="../common/myPageAdMenubar.jsp"></jsp:include>
 		</div>
+	</div>
 	</section>
 </body>
 
