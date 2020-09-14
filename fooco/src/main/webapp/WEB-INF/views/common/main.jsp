@@ -387,7 +387,7 @@
                             	<c:forEach var="theme" items="${theme}">
                             		<div class="col mt-list-col">
 	                                    <div class="col mt-list d-flex justify-content-center align-items-center" style="padding:0; cursor:pointer;">
-	                                    	<a style="height:100%; min-width:100%;" class="themeBackground-div">
+	                                    	<a style="height:100%; min-width:100%;" class="themeBackground-div" onclick="goTheme(${theme.themeId})">
 	                                    		<img class="themeBackground shadow-sm" src="${contextPath}/resources/restaurantImage/${theme.themeImageName}"/>
 	                                    	</a>
 	                                    	<p class="mt-list-content themeInnerText" style="font-family:'medium'; font-size:1.1rem; width:80%; text-align:center; word-break:keep-all;">${theme.themeTitle}</p>
@@ -399,6 +399,11 @@
                     </div>
                 </div>
             </div>
+            <script>
+            	function goTheme(themeId) {
+            		window.location.href = "themedetail.do?themeId=" + themeId;
+            	}
+            </script>
         </section>
         <footer>
             <div class="mainFooter">

@@ -119,13 +119,7 @@
 			
             <div class="coupon_div_div">
             <!-- 보유한 쿠폰이 없을 때 -->
-            <c:forEach var="coupon1" items="${couponList }">
-	            <c:if test="${coupon1.couponListId eq '0'}">							
-					<div style="background-color:white; height:9rem; border-radius: 0.5rem; padding-top:3.5rem;">
-						<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;보유한 쿠폰이 없습니다.</p>
-					</div>
-				</c:if>
-	        </c:forEach>
+
 	        <c:if test="${empty couponList }">
 				<div style="background-color:white; height:9rem; border-radius: 0.5rem; padding-top:3.5rem;">
 					<p style="font-size:1.1rem; font-family:'heavy'; color:rgb(204,51,98); text-align:center">&#x1F645;보유한 쿠폰이 없습니다.</p>
