@@ -61,7 +61,7 @@
 		#accordian li >h1{ cursor:pointer;}
 		li > ul{ display:none;}
 		li > ul >li{ color:#00F;}
-    .qborder{border-style:none; border-top: 0.1px groove black; border-bottom:0.1px groove black; width: 50rem; height: 5rem; margin-top : 0.5rem;}
+    .qborder{border-style:none; border-top: 0.1px groove black; border-bottom:0.1px groove black; width: 50rem; height: 5.5rem; }
     .aborder{border-style:none; border-top: 0.1px groove black;  width: 50rem; height: auto; margin-left: -2.5rem; background-color: rgb(245, 245, 245);}
     .mark{font-family: 'heavy'; margin-top: 0.8rem; font-size: 2rem; color: darkblue; background:none ;}
     .question{font-family: 'light'; margin-top: 1.5rem; font-size: 1.5rem;cursor:pointer;}
@@ -69,6 +69,50 @@
 
     /*아이콘 설정*/
     #plus{position : absolute; margin-top: 1.3rem; font-size: 2rem; cursor:pointer;}
+    
+    
+    /* 메인 푸터 */
+        .mainFooter{
+        	height:21rem; background-color:rgb(248,248,248);        	     	
+        }
+        .mainFooter span{
+        	display:inline-block;
+        	margin-right:100px;       	
+        }
+        .mainFooter span:nth-of-type(1){
+        	margin-left:230px;
+        	margin-right:150px;
+        	margin-top:12px;
+        	font-size:10px;
+        }
+        .mainFooter span:nth-of-type(2){
+        	margin-top:30px;
+        	position:absolute;	
+        }
+        .mainFooter span:nth-of-type(3){
+        	position:absolute;
+        	margin-top:30px;
+        	margin-left:200px;
+        }
+       #footerPimog{
+        	margin-top:-1000px;
+        	margin-left:600px;
+        	font-size:35px;
+        }
+        .mainFooter img{
+         width:100px;
+         height:80px;
+        }
+        .mainFooter hr{
+         width:80%;
+         color:gray;
+         margin-top:45px;
+        }
+        #footerP{
+        	margin-left:230px;
+        	margin-top:15px;
+        	font-size:13px;
+        }
     </style>
     
     </head>
@@ -81,7 +125,7 @@
 
 
   <section>
-  <br>
+ 
     <div class="container">
       <div class="row">
         <div class="col-10">
@@ -157,6 +201,38 @@
   </section>
 
   <footer>
+   <div class="mainFooter">
+               <span>
+               	<img src="resources/logo/logo.png">   
+               	<p style="font-size:12px; margin-left:3px;">매일매일 FOOCO와 함께 Enjoy!</p>
+               </span>
+               <span>
+               		<p style="font-size:14px; font-family:bold;" >COMPANY</p>
+               		<p style="font-size:14px">회사소개</p>
+               		<p style="font-size:14px">FOOCO 채용</p>
+               		<p style="font-size:14px">투자정보</p>
+               		<p style="font-size:14px">FOOCO 비즈니스</p>
+               		<p style="font-size:14px">광고문의</p>
+               </span>          
+               <span>
+               		<p style="font-size:14px; font-family:bold;" >FOR YOU</p>
+               		<p style="font-size:14px">공지사항</p>
+               		<p style="font-size:14px">이용약관</p>
+               		<p style="font-size:14px">비회원 이용자 이용정책</p>
+               		<p style="font-size:14px">개인정보처리방침</p>
+               		<p style="font-size:14px">커뮤니티 가이드라인</p>
+               </span> 
+               <span id="footerPimog">
+               <p style="font-size:15px; text-align:center; font-family:bold;">Social Link</p>
+               	<a href=https://www.facebook.com/><i class="fab fa-facebook-square" style="color:rgb(59,89,152);"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=https://twitter.com/?lang=ko><i class="fab fa-twitter-square" style="color:rgb(42,169,224);"></i></a>
+               	&nbsp;&nbsp;&nbsp;<a href=https://www.instagram.com/?hl=ko><i class="fab fa-instagram" style="color:rgb(204,36,96);"></i></a>
+               	<!-- <p style="font-size:15px; text-align:center;">Social Link</p> -->
+               </span><br><br><br><br><br><hr>
+              	<p id="footerP" style="font-family:'light'; color:gray;">
+                    (주)FOOCO&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;서울특별시 서초구 강남대로42길 12, 3층 (역삼동, 경남짱빌딩)<br>
+                     	대표이사 : 김경남(KKN PRINCESS)&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;사업자 등록번호: 202-09-17200 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;고객센터: 02-565-1234 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; © 2020 FOOCO Co., Ltd. All rights reserved.
+                </p>
+            </div>
 
   </footer>
 

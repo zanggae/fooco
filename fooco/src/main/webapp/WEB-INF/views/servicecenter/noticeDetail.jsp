@@ -66,9 +66,15 @@
      
       
         <a href="notice.do" class="menuname">NOITCE</a>
+        <c:if test="${!empty board.imageOriginName }">
         <div><h1 class="imgdownload">첨부파일 : 
          <a href="${contextPath }//resources/buploadFiles/${board.imageOriginName}" download>${board.imageOriginName}</a></h1>
         </div>
+        </c:if>
+         <c:if test="${empty board.imageOriginName }">
+         <div><h1 class="imgdownload">첨부파일 : 없음 
+          	</h1></div>
+         </c:if>
         
         <div class="title">${board.boardTitle }
         </div>
@@ -79,8 +85,8 @@
           <div class="col-1">
           </div>
           <div class="col-10">
-            <div class="content">
-          		${board.boardContent }
+            <div class="content"><textarea rows="25" cols="100" style="border: none;background-color: #FFFAFA; overflow-y : auto; overflow-x : hidden;">${board.boardContent }</textarea>
+          		
           		
             </div>
           </div>
@@ -122,6 +128,7 @@
   </section>
 
   <footer>
+  
 
 
   </footer>
