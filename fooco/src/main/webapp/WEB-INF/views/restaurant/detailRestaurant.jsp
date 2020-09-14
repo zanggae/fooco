@@ -85,7 +85,7 @@
 	.reviewContent {font-size:0.8rem;}
 	#browseBtn {background-color:rgb(204,51,98); width:100%; height:2.5rem; color:white; font-family:'medium'; font-size:1rem; border:none; border-bottom-left-radius:0.25rem; border-bottom-right-radius:0.25rem;}
 	.fas.fa-star {color:#F4E04E;}
-	.far.fa-star {color:black;}
+	.far.fa-star {color:#F4E04E;}
 </style>
 </head>
 <body>
