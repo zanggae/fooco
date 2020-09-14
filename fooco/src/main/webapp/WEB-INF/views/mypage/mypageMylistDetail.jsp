@@ -88,7 +88,7 @@
 /*마이리스트 본문*/
 .text1{font-size: 1.5rem; font-family:'bold'; text-align: center; position: relative; top: 50%; left: 50%; transform: translate( -50%, -50% );}
 .text2{font-size: 1.2rem; font-family:'medium'; text-align: left; position: relative; top: 25%; left: 50%; transform: translate( -50%, -50% );}
-.text3{font-size: 1rem; font-family:'light'; text-align: left; position: relative; top: 25%; left: 50%; transform: translate( -50%, -50% );
+.text3{font-size: 1rem; font-family:'light'; text-align: left; position: relative; top: 10%; left: 50%; transform: translate( -50%, -50% );
         margin-top : 1.5rem}
  /*myList*/
  .edge {border: 0.1rem solid black; background-color: white; height: 10rem; }
@@ -97,6 +97,8 @@
 .content {font-size: 1rem;}
 .btn-light {background-color: rgb(204, 51, 98); border: rgb(204, 51, 98); box-shadow: none !important; width: 4.3rem; height: 1.8rem; font-size: 0.7rem; font-weight: bold; color: white; margin-top: 0.1rem; margin-bottom: 0.3rem;}
 #more{margin-top:4rem;}
+.createDate{font-size:1rem; font-family:'medium';}
+ 
 
 </style>
 
@@ -117,7 +119,8 @@
 								나의 활동 - 마이리스트 </p>
 						</div>
                         <br>
-                        <div class="text1">${mylist.mlTitle }</div>
+                        <div class="text1">${mylist.mlTitle }</div> 
+                        <h6 class="createDate">생성날짜 :${mylist.mlUploadDate} </h6>
 						 <c:forEach var="r" items="${restaurant }">
                         <br>
                         <div class="row shadow-sm edge">
@@ -126,6 +129,7 @@
                           </div>
                               <div class="col-6">
                                 <h6 class="text2">${r.resName }</h6>
+                                <br>
                                 <c:set var="address" value="${fn:split(r.resAddress,',')}"/>	
                                 <h6 class="text3">${address[1]}</h6>
                               </div>

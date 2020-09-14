@@ -156,9 +156,53 @@
       .bord{border:solid; border-top : none; border-left: none; border-right: none;}
       .box{border: rgb(253, 215, 129); width: 15rem; height: 15rem; background-color: rgb(253, 215, 129); position: absolute;}
       .leftMenubar li{list-style: none;}
+	   #inquiryCode{box-shadow:none!important;}
+	   #submitBtn{box-shadow: none!important;}
 
-
-
+	#submitBtn{cursor: pointer;} 
+ 	
+ 	/* 메인 푸터 */
+        .mainFooter{
+        	height:21rem; background-color:rgb(248,248,248);        	     	
+        }
+        .mainFooter span{
+        	display:inline-block;
+        	margin-right:100px;       	
+        }
+        .mainFooter span:nth-of-type(1){
+        	margin-left:230px;
+        	margin-right:150px;
+        	margin-top:12px;
+        	font-size:10px;
+        }
+        .mainFooter span:nth-of-type(2){
+        	margin-top:30px;
+        	position:absolute;	
+        }
+        .mainFooter span:nth-of-type(3){
+        	position:absolute;
+        	margin-top:30px;
+        	margin-left:200px;
+        }
+       #footerPimog{
+        	margin-top:-1000px;
+        	margin-left:600px;
+        	font-size:35px;
+        }
+        .mainFooter img{
+         width:100px;
+         height:80px;
+        }
+        .mainFooter hr{
+         width:80%;
+         color:gray;
+         margin-top:45px;
+        }
+        #footerP{
+        	margin-left:230px;
+        	margin-top:15px;
+        	font-size:13px;
+        }
   
   </style>
 </head>
@@ -177,10 +221,13 @@
                 <div class="col-3">
                 </div>
                 <!--form-->
-                <form action="inquiryInsert.do" method="post" enctype="Multipart/form-data" class="form-inline">
+                
+                
+                <form action="inquiryInsert.do" method="post" enctype="Multipart/form-data" class="form-inline" id="submitBtn">
                     <!--select-->
                     <label>문의선택</label>
-                    <select class="custom-select my-1 mr-sm-2" id="none" style="margin-left: 2rem; width: 25rem;"
+                    <div id="check" onclick="">
+                    <select class="custom-select my-1 mr-sm-2" id="inquiryCode" style="margin-left: 2rem; width: 25rem;" onchange="gocheck()"
                         name="inquiryCode">
                         <option selected value="">선택</option>
                         <option value="1">음식점 문의</option>
@@ -188,6 +235,7 @@
                         <option value="3">테마 문의</option>
                         <option value="4">기타 문의</option>
                     </select>
+                    </div>
             </div>
             <!--input-->
             <div class="row" style="margin-top: 2rem;">
@@ -211,8 +259,8 @@
 
 
             <br><br>
-			
-            <input type="submit" value="등록하기" class="btn btn-warning" id="none" style="margin-left:51rem; width: 7rem;">
+            <button type="button"  onclick="validate();" class="btn btn-warning" id="submitBtn" style="margin-left:51rem; width: 7rem;">등록하기
+            </button>
             </form>
         </div>
 		
@@ -222,25 +270,89 @@
     <br><br><br><br>
     <!--footer-->
     <footer>
-        <div class="mainFooter shadow-sm d-flex justify-content-center align-items-center">
-            <span style="font-family:'medium'">Copyright </span>
-        </div>
-        </div>
+        <div class="mainFooter">
+               <span>
+               	<img src="resources/logo/logo.png">   
+               	<p style="font-size:12px; margin-left:3px;">매일매일 FOOCO와 함께 Enjoy!</p>
+               </span>
+               <span>
+               		<p style="font-size:14px; font-family:bold;" >COMPANY</p>
+               		<p style="font-size:14px">회사소개</p>
+               		<p style="font-size:14px">FOOCO 채용</p>
+               		<p style="font-size:14px">투자정보</p>
+               		<p style="font-size:14px">FOOCO 비즈니스</p>
+               		<p style="font-size:14px">광고문의</p>
+               </span>          
+               <span>
+               		<p style="font-size:14px; font-family:bold;" >FOR YOU</p>
+               		<p style="font-size:14px">공지사항</p>
+               		<p style="font-size:14px">이용약관</p>
+               		<p style="font-size:14px">비회원 이용자 이용정책</p>
+               		<p style="font-size:14px">개인정보처리방침</p>
+               		<p style="font-size:14px">커뮤니티 가이드라인</p>
+               </span> 
+               <span id="footerPimog">
+               <p style="font-size:15px; text-align:center; font-family:bold;">Social Link</p>
+               	<a href=https://www.facebook.com/><i class="fab fa-facebook-square" style="color:rgb(59,89,152);"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=https://twitter.com/?lang=ko><i class="fab fa-twitter-square" style="color:rgb(42,169,224);"></i></a>
+               	&nbsp;&nbsp;&nbsp;<a href=https://www.instagram.com/?hl=ko><i class="fab fa-instagram" style="color:rgb(204,36,96);"></i></a>
+               	<!-- <p style="font-size:15px; text-align:center;">Social Link</p> -->
+               </span><br><br><br><br><br><hr>
+              	<p id="footerP" style="font-family:'light'; color:gray;">
+                    (주)FOOCO&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;서울특별시 서초구 강남대로42길 12, 3층 (역삼동, 경남짱빌딩)<br>
+                     	대표이사 : 김경남(KKN PRINCESS)&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;사업자 등록번호: 202-09-17200 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;고객센터: 02-565-1234 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; © 2020 FOOCO Co., Ltd. All rights reserved.
+                </p>
+            </div>
     </footer>
-    <br><br><br><br>
+ 
+    <script>
     
-	<!-- <script>
-	if($("#boardTitle").val()==""){
-        swal("이름을 입력하세요");
-        $("#boardTitle").focus();
-        return;
-   }
+    function gocheck(){
+    	if($("#inquiryCode").val() == "1"){
+    		swal("음식점 문의시에는 음식점상호명을 구체적으로 기입해주세요.  예)평택에 있는 영은스시음식점을 추천합니다.")
+    	}
+    	 if($("#inquiryCode").val() == "2"){
+    		swal("리뷰 문의시에는 리뷰에 관한 정확한 정보를 기입해주세요.  예)지민이네분식 음식점 리뷰에 닉네임 와니비라는 사람이 욕설을 적었는데 신고합니다.")
+    	
+    }
+    	
+    	 if ($("#inquiryCode").val() == "3"){
+    		swal("테마 문의시에는 테마 이름을 기입해주세요.  예)경남짱이 추천하는 참치회맛집 TOP5 테마에 있는 동원참치라는 음식점은 떡볶이 집입니다. 테마 주제와 맞지 않으니 수정 부탁드립니다.")
+    	
+    	}
+    
+    	}
+    
+    
+   
+	
+	
+	function validate(){
 
-	</script> -->
+	if($("#inquiryCode").val() == "")
+		{
+			swal("문의 유형을 선택하세요.")
+			return false;
+		}
+			
+		
+	if($("#boardTitle").val() == "")
+		{
+			swal("제목을 입력하세요.");
+			return false;
+		}
+	if($("#summernote").val() == "")
+		{
+			swal("내용을 입력하세요.");
+			return false;
+		}
+	else{
+		$("#submitBtn").submit();
+	}
+	
+	}
 
 
-
-
+	</script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

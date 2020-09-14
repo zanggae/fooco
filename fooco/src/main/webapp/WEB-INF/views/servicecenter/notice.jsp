@@ -51,6 +51,8 @@
     .li_3{color : #646464; font-family: 'medium'; font-size:1.2rem; margin-left: 1.1rem;} 
     .text1{font-size : 1.1rem; font-family: 'medium'; color:black;}
     .text1 a:hover {color:rgb(253,215,129);font-family: 'medium';} 
+    
+    
 
     </style>
     </head>
@@ -114,13 +116,16 @@
       </div>
     </div>
     <!--container 끝-->
-
+	<br><br>
   </section>
 
   <footer>
+   
+            
 
   </footer>
-
+	
+	<br>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

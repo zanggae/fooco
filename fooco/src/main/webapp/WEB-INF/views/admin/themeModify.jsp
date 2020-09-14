@@ -47,7 +47,7 @@
     .search {
       height: 2rem !important;
       border: 1px solid black !important;
-      color: gold !important;
+      color: color: rgb(25, 25, 112) !important;
       -webkit-border-radius: 7px;
       -moz-border-radius: 5px;
       border-radius: 5px !important;
@@ -126,7 +126,7 @@
       <div class="col-4" align="center">      
         <h3>맛집 추가</h3>
         <hr>
-        <div class="input-group" style="width:16em; margin-left: 3rem; box-shadow: none !important;">
+        <div class="input-group" style="width:16em; margin-left: 0.5rem; box-shadow: none !important;">
           <input type="text" class="form-control search" placeholder="음식점 검색" id="searchInput" class="search">
           
           <button type="button" class="btn btn-warning btn1" id="searchBtn" onclick="searchRestaurant()"><i class="fas fa-search searchIcon" id="searchIcon"></i></button>
